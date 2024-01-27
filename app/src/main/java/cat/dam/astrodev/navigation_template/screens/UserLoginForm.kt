@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -78,7 +79,7 @@ fun UserLoginForm() {
                 value = password,
                 onValueChange = { password = it },
                 label = stringResource(id = R.string.label_password),
-                icon = IconVector.ImageVectorIcon(Icons.Default.Person),
+                icon = IconVector.ImageVectorIcon(Icons.Default.Password),
                 iconContentDescription = stringResource(id = R.string.user_password_description),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
