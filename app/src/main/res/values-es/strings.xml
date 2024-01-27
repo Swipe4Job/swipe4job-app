@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_username">Correo electrónico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="user_icon_description">Icono de usuario</string>
+    <string name="user_password_description">Icono de contraseña</string>
+    <string name="logo_image_description">Imagen del logo</string>
+    <string name="button_login_text">Acceder</string>
+    <string name="button_signup_text">Registrarse</string>
+    <string name="logo_description">Logo de la aplicación</string>
+</resources>

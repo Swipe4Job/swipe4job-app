@@ -9,13 +9,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import cat.dam.astrodev.navigation_template.navigation.AppNavigation
-import cat.dam.astrodev.navigation_template.ui.theme.Navigation_templateTheme
+import cat.dam.astrodev.navigation_template.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Navigation_templateTheme {
+            AppTheme {
                 val navbarController = rememberNavController()
                 // A surface container using the 'background' color from the theme
                 Surface(

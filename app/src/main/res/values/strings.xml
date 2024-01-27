@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">navigation_template</string>
+    <string name="app_name" translatable="false">Mockups</string>
+    <string name="btn_layout1" translatable="false">E1</string>
+    <string name="btn_layout2" translatable="false">E2</string>
+    <string name="btn_layout3" translatable="false">E3</string>
+    <string name="btn_layout4" translatable="false">E4</string>
+    <string name="btn_layout5" translatable="false">E5</string>
+    <string name="label_username">Email</string>
+    <string name="label_password">Password</string>
+    <string name="user_icon_description">User icon</string>
+    <string name="user_password_description">Password icon</string>
+    <string name="logo_image_description">Logo image</string>
+    <string name="button_login_text">Login</string>
+    <string name="button_signup_text">Signup</string>
+    <string name="logo_description">App logo</string>
 </resources>
