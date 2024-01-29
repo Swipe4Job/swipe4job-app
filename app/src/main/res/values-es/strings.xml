@@ -12,4 +12,9 @@
     <string name="text_moreDetails">Más detalles</string>
     <string name="location_icon_description">Icono de ubicación</string>
     <string name="profile_image_description">Imagen del perfil</string>
+    <string name="candidate_description_title">Descripción</string>
+    <string name="candidate_jobExperience_title">Experiencia</string>
+    <string name="candidate_studies_title">Estudios</string>
+    <string name="candidate_skills_title">Habilidades</string>
+    <string name="candidate_languages_title">Idiomas</string>
 </resources>

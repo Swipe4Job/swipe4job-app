@@ -33,12 +33,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import java.time.LocalDate
+import cat.dam.grup2.swipe4job_app.R
 
 
 data class UserInformation(
@@ -211,12 +213,12 @@ fun UserInformationDisplay(information: UserInformation) {
             .padding(5.dp)
     ) {
         item {
-            Section(title = "Description", icon = Icons.Default.Description) {
+            Section(title = stringResource(id = R.string.candidate_description_title), icon = Icons.Default.Description) {
                 Text(text = information.description,
                     style = MaterialTheme.typography.bodyMedium)
             }
 
-            Section(title = "Job Experience", icon = Icons.Default.Work) {
+            Section(title = stringResource(id = R.string.candidate_jobExperience_title), icon = Icons.Default.Work) {
                 information.jobExperience.forEach {
                     Text(
                         it.position,
@@ -235,7 +237,7 @@ fun UserInformationDisplay(information: UserInformation) {
                 }
             }
 
-            Section(title = "Studies", icon = Icons.Default.School) {
+            Section(title = stringResource(id = R.string.candidate_studies_title), icon = Icons.Default.School) {
                 information.studies.forEach {
                     Text(
                         it.name,
@@ -254,13 +256,13 @@ fun UserInformationDisplay(information: UserInformation) {
                 }
             }
 
-            Section(title = "Skills", icon = Icons.Default.HistoryEdu) {
+            Section(title = stringResource(id = R.string.candidate_skills_title), icon = Icons.Default.HistoryEdu) {
                 information.skills.forEach {
                     SuggestionChip(onClick = { /*TODO*/ }, label = { Text(it) })
                 }
             }
 
-            Section(title = "Languages", icon = Icons.Default.Translate) {
+            Section(title = stringResource(id = R.string.candidate_languages_title), icon = Icons.Default.Translate) {
                 information.languages.forEach {
                     Text(
                         it.language,
