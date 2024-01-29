@@ -19,9 +19,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
@@ -35,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.composables.MatchButtons
@@ -54,17 +61,60 @@ fun CandidateSimpleDetails() {
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .wrapContentWidth(Alignment.End) // Alineación a la derecha
+                            .wrapContentWidth(Alignment.End)
                             .padding(end = 16.dp)
                     ) {
                         Text(
-                            text = "More details"
+                            text = stringResource(id = R.string.text_moreDetails)
                         )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        // Lógica al hacer clic en el icono de la campana
+                    }) {
+                        Icon(Icons.Default.Notifications,
+                            contentDescription = stringResource(id = R.string.notifications_icon_description))
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
             )
-        }
+        },
+//        bottomBar = {
+//            BottomAppBar(
+//                modifier = Modifier.fillMaxWidth(),
+//                containerColor = MaterialTheme.colorScheme.primaryContainer
+//            ) {
+//                BottomNavigation(
+//                    icon = {
+//                        Icon(Icons.Default.Home, contentDescription = "Home")
+//                    },
+//                    selected = false,
+//                    onClick = {
+//                        // Lógica al hacer clic en la opción de inicio
+//                    }
+//                )
+//                BottomNavigationItem(
+//                    icon = {
+//                        Icon(Icons.Default.History, contentDescription = "History")
+//                    },
+//                    selected = false,
+//                    onClick = {
+//                        // Lógica al hacer clic en la opción de historial
+//                    }
+//                )
+//                BottomNavigationItem(
+//                    icon = {
+//                        Icon(Icons.Default.Settings, contentDescription = "Settings")
+//                    },
+//                    selected = false,
+//                    onClick = {
+//                        // Lógica al hacer clic en la opción de ajustes
+//                    }
+//                )
+//            }
+//        }
+//        https://medium.com/@chiragthummar16/jetpack-compose-bottom-navigation-with-scaffold-material3-717e28ccc811
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -100,7 +150,7 @@ fun ColumnScope.SimpleDetails() {
         item {
             Image(
                 painter = painterResource(id = R.drawable.profile),
-                contentDescription = "Profile Image",
+                contentDescription = stringResource(id = R.string.profile_image_description),
                 modifier = Modifier
                     .size(250.dp)
                     .clip(CircleShape)
@@ -120,7 +170,7 @@ fun ColumnScope.SimpleDetails() {
             ) {
                 Icon(
                     imageVector = Icons.Default.LocationOn,
-                    contentDescription = "Location Icon",
+                    contentDescription = stringResource(id = R.string.location_icon_description),
                     tint = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
