@@ -117,7 +117,7 @@ fun Section(title: String, icon: ImageVector? = null, content: @Composable () ->
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun Layout3() {
+fun CandidateComplexDetails() {
     Scaffold(
         topBar = {
             TopAppBar(
