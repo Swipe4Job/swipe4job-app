@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template
+package cat.dam.grup2.swipe4job_app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,8 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import cat.dam.astrodev.navigation_template.navigation.AppNavigation
-import cat.dam.astrodev.navigation_template.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.navigation.AppNavigation
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template.ui.theme
+package cat.dam.grup2.swipe4job_app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

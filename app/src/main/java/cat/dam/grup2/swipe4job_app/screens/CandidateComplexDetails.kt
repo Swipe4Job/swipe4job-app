@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template.screens
+package cat.dam.grup2.swipe4job_app.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import cat.dam.astrodev.navigation_template.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.composables.MatchButtons
 import java.time.LocalDate
 
 

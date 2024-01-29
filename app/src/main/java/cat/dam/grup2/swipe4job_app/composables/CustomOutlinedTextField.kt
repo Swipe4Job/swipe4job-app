@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template.composables
+package cat.dam.grup2.swipe4job_app.composables
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

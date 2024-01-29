@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template
+package cat.dam.grup2.swipe4job_app
 
 import org.junit.Test
 

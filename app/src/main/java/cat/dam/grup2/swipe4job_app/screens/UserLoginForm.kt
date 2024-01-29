@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template.screens
+package cat.dam.grup2.swipe4job_app.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,9 +32,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cat.dam.astrodev.navigation_template.R
-import cat.dam.astrodev.navigation_template.composables.CustomOutlinedTextField
-import cat.dam.astrodev.navigation_template.composables.IconVector
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.composables.IconVector
 
 @Preview(showBackground = true)
 @Composable

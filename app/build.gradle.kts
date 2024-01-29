@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "cat.dam.astrodev.navigation_template"
+    namespace = "cat.dam.grup2.swipe4job_app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "cat.dam.astrodev.navigation_template"
+        applicationId = "cat.dam.grup2.swipe4job_app"
         minSdk = 34
         targetSdk = 34
         versionCode = 1

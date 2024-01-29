@@ -1,4 +1,4 @@
-package cat.dam.astrodev.navigation_template.screens
+package cat.dam.grup2.swipe4job_app.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -37,9 +37,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cat.dam.astrodev.navigation_template.R
-import cat.dam.astrodev.navigation_template.composables.MatchButtons
-import cat.dam.astrodev.navigation_template.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

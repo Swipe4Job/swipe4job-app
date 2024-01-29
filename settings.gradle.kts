@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "navigation_template"
+rootProject.name = "swipe4job_app"
 include(":app")
  
