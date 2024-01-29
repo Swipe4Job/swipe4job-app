@@ -30,7 +30,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -178,5 +180,13 @@ fun CompanyPostOfferPage3() {
                 Text("Finish")
             }
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun CustomCompanyPostOfferPage3Preview() {
+    AppTheme {
+        CompanyPostOfferPage3()
     }
 }

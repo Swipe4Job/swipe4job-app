@@ -35,8 +35,8 @@ import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
-@Preview(showBackground = true)
 @Composable
 fun UserLoginForm() {
     var username by remember { mutableStateOf("") }
@@ -115,5 +115,13 @@ fun UserLoginForm() {
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun CustomUserLoginFormPreview() {
+    AppTheme {
+        UserLoginForm()
     }
 }

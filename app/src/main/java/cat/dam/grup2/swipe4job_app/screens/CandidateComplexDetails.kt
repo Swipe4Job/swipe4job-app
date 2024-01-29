@@ -34,8 +34,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import java.time.LocalDate
 
 
@@ -276,5 +278,13 @@ fun UserInformationDisplay(information: UserInformation) {
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun CustomCandidateComplexDetailsPreview() {
+    AppTheme {
+        CandidateComplexDetails()
     }
 }

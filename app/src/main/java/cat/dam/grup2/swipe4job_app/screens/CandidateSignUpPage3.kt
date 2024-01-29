@@ -39,10 +39,11 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import cat.dam.astrodev.navigation_template.R
-//import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
 fun CandidateSignUpPage3() {
@@ -161,3 +162,11 @@ fun Modifier.dashedBorder(strokeWidth: Dp, color: Color, cornerRadiusDp: Dp) = c
         )
     }
 )
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun CustomCandidateSignUpPage3Preview() {
+    AppTheme {
+        CandidateSignUpPage3()
+    }
+}
