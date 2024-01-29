@@ -3,9 +3,13 @@
     <string name="label_username">Correo electrónico</string>
     <string name="label_password">Contraseña</string>
     <string name="user_icon_description">Icono de usuario</string>
-    <string name="user_password_description">Icono de contraseña</string>
+    <string name="password_icon_description">Icono de contraseña</string>
     <string name="logo_image_description">Imagen del logo</string>
     <string name="button_login_text">Acceder</string>
     <string name="button_signup_text">Registrarse</string>
     <string name="logo_description">Logo de la aplicación</string>
+    <string name="notifications_icon_description">Icono de notificaciones</string>
+    <string name="text_moreDetails">Más detalles</string>
+    <string name="location_icon_description">Icono de ubicación</string>
+    <string name="profile_image_description">Imagen del perfil</string>
 </resources>

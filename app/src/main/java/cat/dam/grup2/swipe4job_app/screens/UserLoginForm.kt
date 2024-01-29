@@ -80,7 +80,7 @@ fun UserLoginForm() {
                 onValueChange = { password = it },
                 label = stringResource(id = R.string.label_password),
                 icon = IconVector.ImageVectorIcon(Icons.Default.Password),
-                iconContentDescription = stringResource(id = R.string.user_password_description),
+                iconContentDescription = stringResource(id = R.string.password_icon_description),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.Password
