@@ -11,6 +11,9 @@ import cat.dam.grup2.swipe4job_app.screens.CandidateComplexDetails
 import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage1
 import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage2
 import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage3
+import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage1
+import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage2
+import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage3
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -37,6 +40,18 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("candidateSignUpPage3") {
             CandidateSignUpPage3()
+        }
+
+        composable("companyPostOfferPage1") {
+            CompanyPostOfferPage1()
+        }
+
+        composable("companyPostOfferPage2") {
+            CompanyPostOfferPage2()
+        }
+
+        composable("companyPostOfferPage3") {
+            CompanyPostOfferPage3()
         }
     }
 }
