@@ -37,9 +37,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import cat.dam.astrodev.navigation_template.R
+//import cat.dam.grup2.swipe4job_app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
