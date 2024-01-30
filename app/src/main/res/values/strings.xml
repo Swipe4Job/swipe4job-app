@@ -17,4 +17,9 @@
     <string name="candidate_studies_title">Studies</string>
     <string name="candidate_skills_title">Skills</string>
     <string name="candidate_languages_title">Languages</string>
+    <string name="label_name">First name</string>
+    <string name="label_lastname">Last name</string>
+    <string name="email_icon_description">Email icon</string>
+    <string name="button_createAccount_text">Create an account</string>
+    <string name="button_alreadyHaveAccount_text">I already have an account</string>
 </resources>

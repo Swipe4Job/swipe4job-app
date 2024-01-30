@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
@@ -75,6 +76,7 @@ fun UserLoginForm() {
                 )
             )
 
+            // Password TextField
             CustomOutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -89,31 +91,23 @@ fun UserLoginForm() {
             )
 
             // Login Button
-            Button(
-                onClick = { /* Handle the login action here */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.button_login_text)
-                )
-            }
+            CustomButton(
+                onClick = {
+                    // Lógica a realizar al hacer clic en el botón
+                },
+                text = stringResource(id = R.string.button_login_text)
+            )
 
             // Spacer
             Spacer(modifier = Modifier.height(16.dp))
 
             // Signup Button
-            Button(
-                onClick = { /* Handle the signup action here */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.button_signup_text)
-                )
-            }
+            CustomButton(
+                onClick = {
+                    // Lógica a realizar al hacer clic en el botón
+                },
+                text = stringResource(id = R.string.button_signup_text)
+            )
         }
     }
 }
