@@ -22,4 +22,14 @@
     <string name="email_icon_description">Email icon</string>
     <string name="button_createAccount_text">Create an account</string>
     <string name="button_alreadyHaveAccount_text">I already have an account</string>
+    <string name="label_birthdate">Birth date</string>
+    <string name="calendar_icon_description">Calendar icon</string>
+    <string name="label_phoneNumber">Phone number</string>
+    <string name="phone_icon_description">Telephone icon</string>
+    <string name="label_postalCode">Postal code</string>
+    <string name="button_previous_text">Previous</string>
+    <string name="button_next_text">Next</string>
+    <string name="label_province">Province</string>
+    <string name="dropdown_icon_description">Dropdown icon</string>
+    <string name="label_town">Town</string>
 </resources>

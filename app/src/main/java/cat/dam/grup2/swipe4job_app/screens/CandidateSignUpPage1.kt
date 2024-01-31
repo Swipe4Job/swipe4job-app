@@ -50,7 +50,6 @@ fun CandidateSignUpPage1() {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(5.dp)
     ) {
         item {
             Box(
@@ -76,7 +75,7 @@ fun CandidateSignUpPage1() {
                         value = name,
                         onValueChange = { name = it },
                         label = stringResource(id = R.string.label_name),
-                        icon = IconVector.ImageVectorIcon(Icons.Default.Person),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Person),
                         iconContentDescription = stringResource(id = R.string.user_icon_description),
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
@@ -89,7 +88,7 @@ fun CandidateSignUpPage1() {
                         value = lastname,
                         onValueChange = { lastname = it },
                         label = stringResource(id = R.string.label_lastname),
-                        icon = null,
+                        leadingIcon = null,
                         iconContentDescription = null,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
@@ -102,7 +101,7 @@ fun CandidateSignUpPage1() {
                         value = email,
                         onValueChange = { email = it },
                         label = stringResource(id = R.string.label_username),
-                        icon = IconVector.ImageVectorIcon(Icons.Default.Email),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Email),
                         iconContentDescription = stringResource(id = R.string.user_icon_description),
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
@@ -115,7 +114,7 @@ fun CandidateSignUpPage1() {
                         value = password,
                         onValueChange = { password = it },
                         label = stringResource(id = R.string.label_password),
-                        icon = IconVector.ImageVectorIcon(Icons.Default.Password),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Password),
                         iconContentDescription = stringResource(id = R.string.password_icon_description),
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,

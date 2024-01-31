@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,9 +14,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,7 +65,7 @@ fun UserLoginForm() {
                 value = username,
                 onValueChange = { username = it },
                 label = stringResource(id = R.string.label_username),
-                icon = IconVector.ImageVectorIcon(Icons.Default.Person),
+                leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Person),
                 iconContentDescription = stringResource(id = R.string.user_icon_description),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
@@ -81,7 +78,7 @@ fun UserLoginForm() {
                 value = password,
                 onValueChange = { password = it },
                 label = stringResource(id = R.string.label_password),
-                icon = IconVector.ImageVectorIcon(Icons.Default.Password),
+                leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Password),
                 iconContentDescription = stringResource(id = R.string.password_icon_description),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,

@@ -27,7 +27,8 @@ fun CustomOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    icon: IconVector?,
+    leadingIcon: IconVector? = null,
+    trailingIcon: IconVector? = null,
     iconContentDescription: String?,
     keyboardOptions: KeyboardOptions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -38,7 +39,28 @@ fun CustomOutlinedTextField(
         label = { Text(text = label) },
         visualTransformation = visualTransformation,
         leadingIcon = {
-            icon?.let { icon ->
+            leadingIcon?.let { icon ->
+                when (icon) {
+                    is IconVector.ImageVectorIcon -> {
+                        Icon(
+                            imageVector = icon.imageVector,
+                            contentDescription = iconContentDescription ?: "",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+
+                    is IconVector.PainterIcon -> {
+                        Icon(
+                            painter = icon.painter,
+                            contentDescription = iconContentDescription ?: "",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+                }
+            }
+        },
+        trailingIcon = {
+            trailingIcon?.let { icon ->
                 when (icon) {
                     is IconVector.ImageVectorIcon -> {
                         Icon(

@@ -5,25 +5,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,205 +29,149 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CandidateSignUpPage2() {
     var birthdate by remember { mutableStateOf("") }
-    var gender by remember { mutableStateOf("") }
-    var telephone by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
     var postalcode by remember { mutableStateOf("") }
     var province by remember { mutableStateOf("") }
-    var population by remember { mutableStateOf("") }
-    var switchState by remember { mutableStateOf(false) }
+    var town by remember { mutableStateOf("") }
 
-    Box(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(enabled = true, state = rememberScrollState())
-        ) {
-            Text(
-                "2/3",
-                color = MaterialTheme.colorScheme.primary,
+        item {
+            Box(
                 modifier = Modifier
-                    .background(Color.Transparent)
-                    .align(Alignment.End)
-            )
-            // Cuatro recuadros de texto uno debajo del otro
-            OutlinedTextField(
-                value = birthdate,
-                onValueChange = { birthdate = it },
-                label = { Text("Birth date") },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.CalendarToday,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Text(
+                        "2/3",
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .background(Color.Transparent)
+                            .align(Alignment.End)
                     )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-            OutlinedTextField(
-                value = gender,
-                onValueChange = { gender = it },
-                label = { Text("Gender") },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { /* Handle the login action here */ }
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-            OutlinedTextField(
-                value = telephone,
-                onValueChange = { telephone = it },
-                label = { Text("Phone number") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Call,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground
+
+                    // Birth date TextField
+                    CustomOutlinedTextField(
+                        value = birthdate,
+                        onValueChange = { birthdate = it },
+                        label = stringResource(id = R.string.label_birthdate),
+                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.CalendarToday),
+                        iconContentDescription = stringResource(id = R.string.calendar_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text
+                        )
                     )
-                },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { /* Handle the login action here */ }
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-//                    Row(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .padding(8.dp),
-//                        verticalAlignment = Alignment.CenterVertically
-//                    ) {
-//                        Text("I reside in Spain")
-//                        Switch(
-//                            checked = switchState,
-//                            onCheckedChange = { newState -> switchState = newState },
-//                            modifier = Modifier.padding(start = 80.dp)
-//                        )
-//                    }
 
-            OutlinedTextField(
-                value = postalcode,
-                onValueChange = { postalcode = it },
-                label = { Text("Postal Code") },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { /* Handle the login action here */ }
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-
-            OutlinedTextField(
-                value = province,
-                onValueChange = { province = it },
-                label = { Text("Province") },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground
+                    // Phone number TextField
+                    CustomOutlinedTextField(
+                        value = phoneNumber,
+                        onValueChange = { phoneNumber = it },
+                        label = stringResource(id = R.string.label_phoneNumber),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Call),
+                        iconContentDescription = stringResource(id = R.string.phone_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Phone
+                        )
                     )
-                },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { /* Handle the login action here */ }
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
 
-            OutlinedTextField(
-                value = population,
-                onValueChange = { population = it },
-                label = { Text("City") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Place,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground
+                    // Postal code TextField
+                    CustomOutlinedTextField(
+                        value = postalcode,
+                        onValueChange = { postalcode = it },
+                        label = stringResource(id = R.string.label_postalCode),
+                        leadingIcon = null,
+                        iconContentDescription = null,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Number
+                        )
                     )
-                },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { /* Handle the login action here */ }
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-        }
-        // Buttons - Previous + Next
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Button(onClick = { /* Acción del primer botón */ }) {
-                Text("Previous")
-            }
 
-            Button(onClick = { /* Acción del segundo botón */ }) {
-                Text("Next")
+                    // Province TextField
+                    CustomOutlinedTextField(
+                        value = province,
+                        onValueChange = { province = it },
+                        label = stringResource(id = R.string.label_province),
+                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
+                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Town TextField
+                    CustomOutlinedTextField(
+                        value = town,
+                        onValueChange = { town = it },
+                        label = stringResource(id = R.string.label_town),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Place),
+                        iconContentDescription = stringResource(id = R.string.location_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Number
+                        )
+                    )
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Buttons - Previous + Next
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_previous_text),
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_next_text),
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
