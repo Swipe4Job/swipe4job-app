@@ -27,8 +27,9 @@ fun CustomOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    icon: IconVector,
-    iconContentDescription: String,
+    leadingIcon: IconVector? = null,
+    trailingIcon: IconVector? = null,
+    iconContentDescription: String?,
     keyboardOptions: KeyboardOptions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
@@ -38,21 +39,44 @@ fun CustomOutlinedTextField(
         label = { Text(text = label) },
         visualTransformation = visualTransformation,
         leadingIcon = {
-            when (icon) {
-                is IconVector.ImageVectorIcon -> {
-                    Icon(
-                        imageVector = icon.imageVector,
-                        contentDescription = iconContentDescription,
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
+            leadingIcon?.let { icon ->
+                when (icon) {
+                    is IconVector.ImageVectorIcon -> {
+                        Icon(
+                            imageVector = icon.imageVector,
+                            contentDescription = iconContentDescription ?: "",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
 
-                is IconVector.PainterIcon -> {
-                    Icon(
-                        painter = icon.painter,
-                        contentDescription = iconContentDescription,
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
+                    is IconVector.PainterIcon -> {
+                        Icon(
+                            painter = icon.painter,
+                            contentDescription = iconContentDescription ?: "",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+                }
+            }
+        },
+        trailingIcon = {
+            trailingIcon?.let { icon ->
+                when (icon) {
+                    is IconVector.ImageVectorIcon -> {
+                        Icon(
+                            imageVector = icon.imageVector,
+                            contentDescription = iconContentDescription ?: "",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+
+                    is IconVector.PainterIcon -> {
+                        Icon(
+                            painter = icon.painter,
+                            contentDescription = iconContentDescription ?: "",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
                 }
             }
         },

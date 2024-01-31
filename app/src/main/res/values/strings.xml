@@ -17,4 +17,24 @@
     <string name="candidate_studies_title">Studies</string>
     <string name="candidate_skills_title">Skills</string>
     <string name="candidate_languages_title">Languages</string>
+    <string name="label_name">First name</string>
+    <string name="label_lastname">Last name</string>
+    <string name="email_icon_description">Email icon</string>
+    <string name="button_createAccount_text">Create an account</string>
+    <string name="button_alreadyHaveAccount_text">I already have an account</string>
+    <string name="label_birthdate">Birth date</string>
+    <string name="calendar_icon_description">Calendar icon</string>
+    <string name="label_phoneNumber">Phone number</string>
+    <string name="phone_icon_description">Telephone icon</string>
+    <string name="label_postalCode">Postal code</string>
+    <string name="button_previous_text">Previous</string>
+    <string name="button_next_text">Next</string>
+    <string name="label_province">Province</string>
+    <string name="dropdown_icon_description">Dropdown icon</string>
+    <string name="label_town">Town</string>
+    <string name="cv_image_description">Curriculum image</string>
+    <string name="uploadingCV_text">Upload your CV and save time</string>
+    <string name="button_notNow_text">Not now</string>
+    <string name="uploadCurriculum_text">Upload Curriculum</string>
+    <string name="uploadingCV_explanation_text">If you have a CV in PDF or Word format, upload it and we will autocomplete the data from your profile in an authomatic way.</string>
 </resources>

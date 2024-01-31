@@ -17,7 +17,7 @@ import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage3
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "candidateSignUpPage1") {
         composable("userLoginForm") {
             UserLoginForm()
         }

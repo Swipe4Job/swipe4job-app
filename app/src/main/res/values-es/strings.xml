@@ -17,4 +17,24 @@
     <string name="candidate_studies_title">Estudios</string>
     <string name="candidate_skills_title">Habilidades</string>
     <string name="candidate_languages_title">Idiomas</string>
+    <string name="label_name">Nombre</string>
+    <string name="label_lastname">Apellido</string>
+    <string name="email_icon_description">Icono de correo electrónico</string>
+    <string name="button_createAccount_text">Crear una cuenta</string>
+    <string name="button_alreadyHaveAccount_text">Ya tengo una cuenta</string>
+    <string name="label_birthdate">Fecha de nacimiento</string>
+    <string name="calendar_icon_description">Icono de calendario</string>
+    <string name="label_phoneNumber">Número de teléfono</string>
+    <string name="phone_icon_description">Icono de teléfono</string>
+    <string name="label_postalCode">Código postal</string>
+    <string name="button_previous_text">Anterior</string>
+    <string name="button_next_text">Siguiente</string>
+    <string name="label_province">Provincia</string>
+    <string name="dropdown_icon_description">Icono de desplegable</string>
+    <string name="label_town">Población</string>
+    <string name="cv_image_description">Imagen de currículum</string>
+    <string name="uploadingCV_text">Sube tu CV y ahorra tiempo</string>
+    <string name="button_notNow_text">Ahora no</string>
+    <string name="uploadCurriculum_text">Subir el currículum</string>
+    <string name="uploadingCV_explanation_text">Si tienes un CV en formato PDF o Word, súbelo y autocompletaremos los datos de tu perfil de forma automática.</string>
 </resources>
