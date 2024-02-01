@@ -62,4 +62,5 @@
     <string name="workingHours_text">Working hours (optional)</string>
     <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
     <string name="button_finish_text">Finish</string>
+    <string name="rolSelection_text">Select your rol</string>
 </resources>

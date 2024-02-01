@@ -14,6 +14,7 @@ import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage2
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage3
+import cat.dam.grup2.swipe4job_app.screens.RolSelection
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -52,6 +53,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("companyPostOfferPage3") {
             CompanyPostOfferPage3()
+        }
+
+        composable("rolSelection") {
+            RolSelection()
         }
     }
 }
