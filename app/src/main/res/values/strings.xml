@@ -65,4 +65,5 @@
     <string name="rolSelection_text">Select your rol</string>
     <string name="candidate_Text">I\'m a candidate</string>
     <string name="recruiter_text">I\'m a recruiter</string>
+    <string name="companyData_text">Company data</string>
 </resources>

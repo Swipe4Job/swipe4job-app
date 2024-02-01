@@ -190,6 +190,6 @@ fun RecruiterSignUpPage1() {
 @Composable
 fun CustomRecruiterSignUpPage1Preview() {
     AppTheme {
-        CandidateSignUpPage1()
+        RecruiterSignUpPage1()
     }
 }
