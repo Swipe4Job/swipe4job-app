@@ -64,6 +64,9 @@ fun CandidateSignUpPage3() {
                             .align(Alignment.End)
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // CV image
                     Image(
                         painter = painterResource(id = R.drawable.curriculum),
@@ -73,13 +76,19 @@ fun CandidateSignUpPage3() {
                             .align(Alignment.CenterHorizontally)
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     Text(
                         text = stringResource(id = R.string.uploadingCV_text),
                         style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
                     )
 
-                    Spacer(modifier = Modifier.height(5.dp))
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
                         text = stringResource(id = R.string.uploadingCV_explanation_text),
@@ -87,7 +96,8 @@ fun CandidateSignUpPage3() {
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedButton(
                         onClick = { /* Handle the login action here */ },
@@ -123,6 +133,7 @@ fun CandidateSignUpPage3() {
                         }
                     )
 
+                    // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
                     CustomButton(

@@ -1,7 +1,7 @@
 package cat.dam.grup2.swipe4job_app.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -29,211 +29,188 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun CompanyPostOfferPage2() {
 
-    Box(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
-            .verticalScroll(enabled = true, state = rememberScrollState())
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            // Steps number
-            Text(
-                "2/3",
-                color = MaterialTheme.colorScheme.primary,
+        item {
+            Box(
                 modifier = Modifier
-                    .background(Color.Transparent)
-                    .align(Alignment.End)
-            )
-
-            // Title - Description
-            Text(
-                "Description",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier
-                    .padding(bottom = 12.dp)
-            )
-
-            // Text field for the description
-            var description by remember { mutableStateOf("") }
-            BasicTextField(
-                value = description,
-                onValueChange = { description = it },
-                textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
-                    .border(
-                        1.dp,
-                        MaterialTheme.colorScheme.primary,
-                        shape = MaterialTheme.shapes.medium
-                    )
-                    .padding(6.dp)
-                    .height(120.dp)
-            )
-
-            // Character counter
-            val characterCount =
-                "${description.length}/2.000"
-            Text(
-                characterCount,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            Text(
-                "Tips: Summarize the position, explain what it takes to succeed in it and your place in the company.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-
-
-            // Title - Responsabilities
-            Text(
-                "Responsabilities",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-
-            // Text field for the responsabilities
-            var responsibilities by remember { mutableStateOf("") }
-            BasicTextField(
-                value = responsibilities,
-                onValueChange = { responsibilities = it },
-                textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
-                    .border(
-                        1.dp,
-                        MaterialTheme.colorScheme.primary,
-                        shape = MaterialTheme.shapes.medium
-                    )
-                    .padding(6.dp)
-                    .height(120.dp)
-            )
-
-            // Character counter
-            val characterCount2 =
-                "${responsibilities.length}/2.000"
-            Text(
-                characterCount2,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp),
-                textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            // Title - Requirements
-            Text(
-                "Candidate requirements",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-
-            // Text field for the requirements
-            var requirements by remember { mutableStateOf("") }
-            BasicTextField(
-                value = requirements,
-                onValueChange = { requirements = it },
-                textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
-                    .border(
-                        1.dp,
-                        MaterialTheme.colorScheme.primary,
-                        shape = MaterialTheme.shapes.medium
-                    )
-                    .padding(6.dp)
-                    .height(120.dp)
-            )
-
-            // Character counter
-            val characterCount3 =
-                "${requirements.length}/2.000"
-            Text(
-                characterCount3,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp),
-                textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            // Sections spacer
-            Spacer(modifier = Modifier.height(10.dp))
-
-            // Title - Skills
-            Text(
-                "Skills",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-
-            // Button - Add skills
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(16.dp)
+                    //.verticalScroll(enabled = true, state = rememberScrollState())
             ) {
-                OutlinedButton(
-                    onClick = { /* Acción del botón "Add skill" */ },
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
                 ) {
+                    // Steps number
+                    Text(
+                        "2/3",
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .background(Color.Transparent)
+                            .align(Alignment.End)
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Description
+                    Text(
+                        stringResource(id = R.string.description_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier
+                            .padding(bottom = 12.dp)
+                    )
+
+                    // Text field for the description
+                    var description by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(description),
+                        maxCharacters = 1000,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    Text(
+                        stringResource(id = R.string.tipsDescriptionPostOffer_text),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Responsabilities
+                    Text(
+                        stringResource(id = R.string.responsabilities_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    // Text field for the responsabilities
+                    var responsibilities by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(responsibilities),
+                        maxCharacters = 1500,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Requirements
+                    Text(
+                        stringResource(id = R.string.requirements_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    // Text field for the requirements
+                    var requirements by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(requirements),
+                        maxCharacters = 1500,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Skills
+                    Text(
+                        stringResource(id = R.string.skills_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+
+                    // Button - Add skills
                     Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        modifier = Modifier,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(
-                            "Add skill",
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
-                        )
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Add Skill"
-                        )
+                        OutlinedButton(
+                            onClick = { /* Acción del botón "Add skill" */ },
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(
+                                    stringResource(id = R.string.addSkills_text),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.Add,
+                                    contentDescription = stringResource(id = R.string.add_icon_description)
+                                )
+                            }
+                        }
+                    }
+
+                    // Sections spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Buttons - Previous + Next
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_previous_text),
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_next_text),
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
                     }
                 }
-            }
-
-            // Sections spacer
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-        // Buttons - Previous + Next
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Button(onClick = { /* Acción del primer botón */ }) {
-                Text("Previous")
-            }
-
-            Button(onClick = { /* Acción del segundo botón */ }) {
-                Text("Next")
             }
         }
     }

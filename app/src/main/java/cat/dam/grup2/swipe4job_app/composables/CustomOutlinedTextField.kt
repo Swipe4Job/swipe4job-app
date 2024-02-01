@@ -81,8 +81,7 @@ fun CustomOutlinedTextField(
             }
         },
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         colors = TextFieldDefaults.textFieldColors(
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
             focusedIndicatorColor = MaterialTheme.colorScheme.secondary,

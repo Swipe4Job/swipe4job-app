@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -29,155 +32,148 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
+import cat.dam.grup2.swipe4job_app.composables.IconVector
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CompanyPostOfferPage3() {
+    var salaryRange by remember { mutableStateOf("") }
 
-    Box(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-
-            // Steps number
-            Text(
-                "3/3",
-                color = MaterialTheme.colorScheme.primary,
+        item {
+            Box(
                 modifier = Modifier
-                    .background(Color.Transparent)
-                    .align(Alignment.End)
-            )
-
-            // Title - Salary range
-            Text(
-                "Salary range (optional)",
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-            OutlinedTextField(
-                value = "< 12.000 €",
-                onValueChange = { /* Acción del recuadro de texto de Workplace type */ },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                },
-                modifier = Modifier
-                    .padding(bottom = 12.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
-                colors = TextFieldDefaults.textFieldColors(
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-
-            // Title - Working hours
-            Text(
-                "Working hours (optional)",
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-            // Text field for the working hours
-            var workingHours by remember { mutableStateOf("") }
-            BasicTextField(
-                value = workingHours,
-                onValueChange = { workingHours = it },
-                textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
-                    .border(
-                        1.dp,
-                        MaterialTheme.colorScheme.primary,
-                        shape = MaterialTheme.shapes.medium
+                    .padding(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+
+                    // Steps number
+                    Text(
+                        "3/3",
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .background(Color.Transparent)
+                            .align(Alignment.End)
                     )
-                    .padding(6.dp)
-                    .height(60.dp)
-            )
 
-            // Character counter
-            val characterCounter =
-                "${workingHours.length}/500"
-            Text(
-                characterCounter,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp),
-                textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.primary
-            )
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
-            // Title - Department organization and relationships
-            Text(
-                "Department organisation and relationships (optional)",
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            // Text field for the department organization and relationships
-            var departmentOrganisation by remember { mutableStateOf("") }
-            BasicTextField(
-                value = departmentOrganisation,
-                onValueChange = { departmentOrganisation = it },
-                textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
-                    .border(
-                        1.dp,
-                        MaterialTheme.colorScheme.primary,
-                        shape = MaterialTheme.shapes.medium
+                    // Title - Salary range
+                    Text(
+                        stringResource(id = R.string.salaryRange_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
                     )
-                    .padding(6.dp)
-                    .height(120.dp)
-            )
 
-            // Character counter
-            val characterCounter2 =
-                "${departmentOrganisation.length}/2.000"
-            Text(
-                characterCounter2,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp),
-                textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.primary
-            )
+                    // Salary range TextField
+                    CustomOutlinedTextField(
+                        value = salaryRange,
+                        onValueChange = { salaryRange = it },
+                        label = stringResource(id = R.string.salaryRangeQuantity_text),
+                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
+                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
 
-            // Sections spacer
-            Spacer(modifier = Modifier.height(12.dp))
-        }
-        // Buttons - Previous + Next
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Button(onClick = { /* Acción del primer botón */ }) {
-                Text("Previous")
-            }
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = { /* Acción del segundo botón */ }) {
-                Text("Finish")
+                    // Title - Working hours
+                    Text(
+                        stringResource(id = R.string.workingHours_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Text field for the working hours
+                    var workingHours by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(workingHours),
+                        maxCharacters = 500,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Department organization and relationships
+                    Text(
+                        stringResource(id = R.string.departmentOrganisation_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Text field for the department organization and relationships
+                    var departmentOrganisation by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(departmentOrganisation),
+                        maxCharacters = 1000,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Sections spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Buttons - Previous + Next
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_previous_text),
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_finish_text),
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
