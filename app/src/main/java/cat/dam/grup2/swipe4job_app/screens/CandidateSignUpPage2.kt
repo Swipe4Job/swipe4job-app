@@ -44,7 +44,6 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 @Composable
 fun CandidateSignUpPage2() {
     var birthdate by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
     var postalcode by remember { mutableStateOf("") }
     var province by remember { mutableStateOf("") }
     var town by remember { mutableStateOf("") }
@@ -85,22 +84,6 @@ fun CandidateSignUpPage2() {
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
                             keyboardType = KeyboardType.Text
-                        )
-                    )
-
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Phone number TextField
-                    CustomOutlinedTextField(
-                        value = phoneNumber,
-                        onValueChange = { phoneNumber = it },
-                        label = stringResource(id = R.string.label_phoneNumber),
-                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Call),
-                        iconContentDescription = stringResource(id = R.string.phone_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Phone
                         )
                     )
 
