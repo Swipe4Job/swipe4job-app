@@ -37,4 +37,29 @@
     <string name="button_notNow_text">Not now</string>
     <string name="uploadCurriculum_text">Upload Curriculum</string>
     <string name="uploadingCV_explanation_text">If you have a CV in PDF or Word format, upload it and we will autocomplete the data from your profile in an authomatic way.</string>
+    <string name="label_jobTitle">Enter the position</string>
+    <string name="label_companyName">Enter the company name</string>
+    <string name="label_jobType">On-site work</string>
+    <string name="label_location">Enter the location</string>
+    <string name="label_contractType">Indefinite</string>
+    <string name="label_workingDayType">Full time</string>
+    <string name="postJobOffer_text">Post a job offer</string>
+    <string name="jobTitle_text">Job title</string>
+    <string name="companyName_text">Company</string>
+    <string name="jobType_text">Job type</string>
+    <string name="location_text">Location</string>
+    <string name="contractType_text">Contract type</string>
+    <string name="workingDayType_text">Working day type</string>
+    <string name="description_text">Description</string>
+    <string name="tipsDescriptionPostOffer_text">Tips: Summarize the position, explain what it takes to be successful in it and their place in the company.</string>
+    <string name="responsabilities_text">Responsabilities</string>
+    <string name="requirements_text">Requirements</string>
+    <string name="skills_text">Skills</string>
+    <string name="addSkills_text">Add skills</string>
+    <string name="add_icon_description">Add icon</string>
+    <string name="salaryRange_text">Salary range (optional)</string>
+    <string name="salaryRangeQuantity_text" translatable="false"> 12.000 €</string>
+    <string name="workingHours_text">Working hours (optional)</string>
+    <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
+    <string name="button_finish_text">Finish</string>
 </resources>

@@ -72,6 +72,9 @@ fun CandidateSignUpPage2() {
                             .align(Alignment.End)
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // Birth date TextField
                     CustomOutlinedTextField(
                         value = birthdate,
@@ -84,6 +87,9 @@ fun CandidateSignUpPage2() {
                             keyboardType = KeyboardType.Text
                         )
                     )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Phone number TextField
                     CustomOutlinedTextField(
@@ -98,6 +104,9 @@ fun CandidateSignUpPage2() {
                         )
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // Postal code TextField
                     CustomOutlinedTextField(
                         value = postalcode,
@@ -110,6 +119,9 @@ fun CandidateSignUpPage2() {
                             keyboardType = KeyboardType.Number
                         )
                     )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Province TextField
                     CustomOutlinedTextField(
@@ -124,6 +136,9 @@ fun CandidateSignUpPage2() {
                         )
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // Town TextField
                     CustomOutlinedTextField(
                         value = town,
@@ -136,6 +151,7 @@ fun CandidateSignUpPage2() {
                             keyboardType = KeyboardType.Number
                         )
                     )
+
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 

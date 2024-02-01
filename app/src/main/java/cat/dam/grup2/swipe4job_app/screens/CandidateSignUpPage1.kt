@@ -1,6 +1,7 @@
 package cat.dam.grup2.swipe4job_app.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,7 +39,6 @@ import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CandidateSignUpPage1() {
     var name by remember { mutableStateOf("") }
@@ -70,6 +69,9 @@ fun CandidateSignUpPage1() {
                             .align(Alignment.End)
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // Name TextField
                     CustomOutlinedTextField(
                         value = name,
@@ -82,6 +84,9 @@ fun CandidateSignUpPage1() {
                             keyboardType = KeyboardType.Text
                         )
                     )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Last name TextField
                     CustomOutlinedTextField(
@@ -96,6 +101,9 @@ fun CandidateSignUpPage1() {
                         )
                     )
 
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // Email TextField
                     CustomOutlinedTextField(
                         value = email,
@@ -108,6 +116,9 @@ fun CandidateSignUpPage1() {
                             keyboardType = KeyboardType.Text
                         )
                     )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Password TextField
                     CustomOutlinedTextField(
@@ -126,29 +137,36 @@ fun CandidateSignUpPage1() {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Create account Button
-                    CustomButton(
-                        onClick = {
-                            // Lógica a realizar al hacer clic en el botón
-                        },
-                        text = stringResource(id = R.string.button_createAccount_text)
-                    )
+                    // Buttons - Previous + Next
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
 
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
+                        // Create account Button
+                        CustomButton(
+                            onClick = {
+                                // Lógica a realizar al hacer clic en el botón
+                            },
+                            text = stringResource(id = R.string.button_createAccount_text)
+                        )
 
-                    // Already have an account Button
-                    CustomButton(
-                        onClick = {
-                            // Lógica a realizar al hacer clic en el botón
-                        },
-                        text = stringResource(id = R.string.button_alreadyHaveAccount_text)
-                    )
+                        // Already have an account Button
+                        CustomButton(
+                            onClick = {
+                                // Lógica a realizar al hacer clic en el botón
+                            },
+                            text = stringResource(id = R.string.button_alreadyHaveAccount_text)
+                        )
+                    }
                 }
             }
         }
     }
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
