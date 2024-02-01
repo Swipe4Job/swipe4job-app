@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
@@ -45,6 +46,7 @@ fun CandidateSignUpPage1() {
     var lastname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
 
     LazyColumn(
         modifier = Modifier
@@ -98,6 +100,22 @@ fun CandidateSignUpPage1() {
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
                             keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Phone number TextField
+                    CustomOutlinedTextField(
+                        value = phoneNumber,
+                        onValueChange = { phoneNumber = it },
+                        label = stringResource(id = R.string.label_phoneNumber),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Call),
+                        iconContentDescription = stringResource(id = R.string.phone_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Phone
                         )
                     )
 
