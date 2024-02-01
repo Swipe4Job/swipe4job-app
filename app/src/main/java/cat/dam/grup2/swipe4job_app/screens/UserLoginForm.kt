@@ -55,7 +55,7 @@ fun UserLoginForm() {
             // App logo
             Image(
                 painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
+                contentDescription = stringResource(id = R.string.logo_image_description),
                 modifier = Modifier
                     .size(250.dp)
                     .align(Alignment.CenterHorizontally) // Centrado horizontalmente

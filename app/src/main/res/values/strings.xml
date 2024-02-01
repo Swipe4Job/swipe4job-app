@@ -63,4 +63,6 @@
     <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
     <string name="button_finish_text">Finish</string>
     <string name="rolSelection_text">Select your rol</string>
+    <string name="candidate_Text">I\'m a candidate</string>
+    <string name="recruiter_text">I\'m a recruiter</string>
 </resources>

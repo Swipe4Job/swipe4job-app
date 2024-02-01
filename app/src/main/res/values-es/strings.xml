@@ -62,4 +62,6 @@
     <string name="departmentOrganisation_text">Organización y relaciones del departamento (opcional)</string>
     <string name="button_finish_text">Finalizar</string>
     <string name="rolSelection_text">Selecciona tu rol</string>
+    <string name="candidate_Text">Soy un/a candidato/a</string>
+    <string name="recruiter_text">Soy un/a reclutador/a</string>
 </resources>
