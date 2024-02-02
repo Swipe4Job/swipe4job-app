@@ -1,9 +1,7 @@
 package cat.dam.grup2.swipe4job_app.screens
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,33 +11,36 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.UploadFile
-import androidx.compose.material3.Icon
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun RecruiterSignUpPage3() {
+
+    var acceptedTerms by remember { mutableStateOf(false) }
+    var acceptedEmailPolicy by remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -51,13 +52,15 @@ fun RecruiterSignUpPage3() {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(16.dp)
+                //.verticalScroll(enabled = true, state = rememberScrollState())
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+                    // Steps number
                     Text(
-                        "3/3",
+                        "2/3",
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .background(Color.Transparent)
@@ -67,81 +70,96 @@ fun RecruiterSignUpPage3() {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // CV image
-                    Image(
-                        painter = painterResource(id = R.drawable.curriculum),
-                        contentDescription = stringResource(id = R.string.cv_image_description),
-                        modifier = Modifier
-                            .size(250.dp)
-                            .align(Alignment.CenterHorizontally)
-                    )
-
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    // Title - Description
                     Text(
-                        text = stringResource(id = R.string.uploadingCV_text),
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.primary,
+                        stringResource(id = R.string.companyDescription_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
+                            .padding(bottom = 12.dp)
                     )
 
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
+                    // Text field for the description
+                    var companyDescription by remember { mutableStateOf("") }
 
-                    Text(
-                        text = stringResource(id = R.string.uploadingCV_explanation_text),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(companyDescription),
+                        maxCharacters = 1000,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
                     )
 
-                    // Spacer
+                    // Sections spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    OutlinedButton(
-                        onClick = { /* Handle the login action here */ },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clipToBounds()
-                            .padding(8.dp)
-                            .border(
-                                BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
-                                shape = CircleShape
+                    // Checkboxes
+                    Column {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Checkbox(
+                                checked = acceptedTerms,
+                                onCheckedChange = { acceptedTerms = it },
                             )
-                            .clip(CircleShape),
-
-                        content = {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.UploadFile,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(50.dp),
-                                    tint = MaterialTheme.colorScheme.secondary
-                                )
-                                Spacer(modifier = Modifier.width(16.dp))
-                                Text(
-                                    stringResource(id = R.string.uploadCurriculum_text),
-                                    color = MaterialTheme.colorScheme.secondary
-                                )
-                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(id = R.string.acceptedTerms_text),
+                                color = MaterialTheme.colorScheme.onBackground,
+                                style = MaterialTheme.typography.bodySmall
+                            )
                         }
-                    )
 
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
-                    CustomButton(
-                        onClick = {
-                            /*TODO*/
-                        },
-                        text = stringResource(id = R.string.button_notNow_text)
-                    )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Checkbox(
+                                checked = acceptedEmailPolicy,
+                                onCheckedChange = { acceptedEmailPolicy = it },
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                stringResource(id = R.string.acceptedEmailPolicy_text),
+                                color = MaterialTheme.colorScheme.onBackground,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                    }
+
+                    // Buttons - Previous + Next
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_previous_text),
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            CustomButton(
+                                onClick = {
+                                    /*TODO*/
+                                },
+                                text = stringResource(id = R.string.button_finish_text),
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -152,6 +170,6 @@ fun RecruiterSignUpPage3() {
 @Composable
 fun CustomRecruiterSignUpPage3Preview() {
     AppTheme {
-        CandidateSignUpPage3()
+        RecruiterSignUpPage3()
     }
 }

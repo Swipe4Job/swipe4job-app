@@ -64,4 +64,16 @@
     <string name="rolSelection_text">Selecciona tu rol</string>
     <string name="candidate_Text">Soy un/a candidato/a</string>
     <string name="recruiter_text">Soy un/a reclutador/a</string>
+    <string name="companyData_text">Datos de la empresa</string>
+    <string name="label_companyPhoneNumber">Número de teléfono de la empresa</string>
+    <string name="label_companyNif">Introduce el N.I.F. de la empresa</string>
+    <string name="label_companySector">Introduce el sector de la empresa</string>
+    <string name="contactPhoneNumber_text">Teléfono de contacto</string>
+    <string name="nif_text">Número de Identificación Fiscal</string>
+    <string name="companySector_text">Sector</string>
+    <string name="companySize_text">Tamaño de la empresa</string>
+    <string name="label_companySize">Introduce el número de trabajadores</string>
+    <string name="companyDescription_text">Descripción de la empresa</string>
+    <string name="acceptedTerms_text">Acepto el Uso del servicio y las Condiciones legales</string>
+    <string name="acceptedEmailPolicy_text">Acepto la Política de envío de correos electrónicos</string>
 </resources>

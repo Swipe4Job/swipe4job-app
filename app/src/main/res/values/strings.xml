@@ -65,4 +65,16 @@
     <string name="rolSelection_text">Select your rol</string>
     <string name="candidate_Text">I\'m a candidate</string>
     <string name="recruiter_text">I\'m a recruiter</string>
+    <string name="companyData_text">Company data</string>
+    <string name="label_companyPhoneNumber">Company phone number</string>
+    <string name="label_companyNif">Enter the company N.I.F.</string>
+    <string name="label_companySector">Enter the company sector</string>
+    <string name="contactPhoneNumber_text">Contact phone number</string>
+    <string name="nif_text">Fiscal Identification Number</string>
+    <string name="companySector_text">Sector</string>
+    <string name="companySize_text">Company size</string>
+    <string name="label_companySize">Enter the number of workers</string>
+    <string name="companyDescription_text">Company description</string>
+    <string name="acceptedTerms_text">I accept the Use of the service and the Legal conditions</string>
+    <string name="acceptedEmailPolicy_text">I accept the Email sending policy</string>
 </resources>
