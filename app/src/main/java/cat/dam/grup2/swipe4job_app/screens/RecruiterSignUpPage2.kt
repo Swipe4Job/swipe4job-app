@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -43,10 +44,11 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun RecruiterSignUpPage2() {
-    var birthdate by remember { mutableStateOf("") }
-    var postalcode by remember { mutableStateOf("") }
-    var province by remember { mutableStateOf("") }
-    var town by remember { mutableStateOf("") }
+    var companyName by remember { mutableStateOf("") }
+    var companyPhoneNumber by remember { mutableStateOf("") }
+    var nif by remember { mutableStateOf("") }
+    var sector by remember { mutableStateOf("") }
+    var companySize by remember { mutableStateOf("") }
 
     LazyColumn(
         modifier = Modifier
@@ -83,30 +85,18 @@ fun RecruiterSignUpPage2() {
                             .align(Alignment.CenterHorizontally)
                     )
 
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Birth date TextField
-                    CustomOutlinedTextField(
-                        value = birthdate,
-                        onValueChange = { birthdate = it },
-                        label = stringResource(id = R.string.label_birthdate),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.CalendarToday),
-                        iconContentDescription = stringResource(id = R.string.calendar_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
+                    // Title - Company name
+                    Text(
+                        stringResource(id = R.string.companyName_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Postal code TextField
+                    // Company name TextField
                     CustomOutlinedTextField(
-                        value = postalcode,
-                        onValueChange = { postalcode = it },
-                        label = stringResource(id = R.string.label_postalCode),
+                        value = companyName,
+                        onValueChange = { companyName = it },
+                        label = stringResource(id = R.string.label_companyName),
                         leadingIcon = null,
                         iconContentDescription = null,
                         keyboardOptions = KeyboardOptions(
@@ -118,11 +108,64 @@ fun RecruiterSignUpPage2() {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Province TextField
+                    // Title - Company phone number
+                    Text(
+                        stringResource(id = R.string.contactPhoneNumber_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Company phone number TextField
                     CustomOutlinedTextField(
-                        value = province,
-                        onValueChange = { province = it },
-                        label = stringResource(id = R.string.label_province),
+                        value = companyPhoneNumber,
+                        onValueChange = { companyPhoneNumber = it },
+                        label = stringResource(id = R.string.label_companyPhoneNumber),
+                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Call),
+                        iconContentDescription = stringResource(id = R.string.phone_icon_description),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Number
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Company N.I.F.
+                    Text(
+                        stringResource(id = R.string.nif_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // NIF TextField
+                    CustomOutlinedTextField(
+                        value = nif,
+                        onValueChange = { nif = it },
+                        label = stringResource(id = R.string.label_companyNif),
+                        leadingIcon = null,
+                        iconContentDescription = null,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Company Sector
+                    Text(
+                        stringResource(id = R.string.companySector_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Sector TextField
+                    CustomOutlinedTextField(
+                        value = sector,
+                        onValueChange = { sector = it },
+                        label = stringResource(id = R.string.label_companySector),
                         trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
                         iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
                         keyboardOptions = KeyboardOptions(
@@ -134,16 +177,23 @@ fun RecruiterSignUpPage2() {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Town TextField
+                    // Title - Company size
+                    Text(
+                        stringResource(id = R.string.companySize_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Salary range TextField
                     CustomOutlinedTextField(
-                        value = town,
-                        onValueChange = { town = it },
-                        label = stringResource(id = R.string.label_town),
-                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Place),
-                        iconContentDescription = stringResource(id = R.string.location_icon_description),
+                        value = companySize,
+                        onValueChange = { companySize = it },
+                        label = stringResource(id = R.string.label_companySize),
+                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
+                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Number
+                            keyboardType = KeyboardType.Text
                         )
                     )
 
