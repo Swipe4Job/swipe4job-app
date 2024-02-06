@@ -35,6 +35,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
@@ -43,7 +45,7 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun RecruiterSignUpPage2() {
+fun RecruiterSignUpPage2(navController: NavController) {
     var companyName by remember { mutableStateOf("") }
     var companyPhoneNumber by remember { mutableStateOf("") }
     var nif by remember { mutableStateOf("") }
@@ -212,7 +214,7 @@ fun RecruiterSignUpPage2() {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("recruiterSignUpPage1")
                                 },
                                 text = stringResource(id = R.string.button_previous_text),
                                 modifier = Modifier.weight(1f)
@@ -220,7 +222,7 @@ fun RecruiterSignUpPage2() {
 
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("recruiterSignUpPage3")
                                 },
                                 text = stringResource(id = R.string.button_next_text),
                                 modifier = Modifier.weight(1f)
@@ -238,6 +240,6 @@ fun RecruiterSignUpPage2() {
 @Composable
 fun CustomRecruiterSignUpPage2Preview() {
     AppTheme {
-        RecruiterSignUpPage2()
+        RecruiterSignUpPage2(rememberNavController())
     }
 }

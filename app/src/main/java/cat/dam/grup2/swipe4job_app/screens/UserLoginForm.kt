@@ -29,6 +29,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
@@ -36,7 +38,7 @@ import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
-fun UserLoginForm() {
+fun UserLoginForm(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -101,7 +103,7 @@ fun UserLoginForm() {
             // Signup Button
             CustomButton(
                 onClick = {
-                    // Lógica a realizar al hacer clic en el botón
+                    navController.navigate("rolSelection")
                 },
                 text = stringResource(id = R.string.button_signup_text)
             )
@@ -113,6 +115,6 @@ fun UserLoginForm() {
 @Composable
 fun CustomUserLoginFormPreview() {
     AppTheme {
-        UserLoginForm()
+        UserLoginForm(rememberNavController())
     }
 }

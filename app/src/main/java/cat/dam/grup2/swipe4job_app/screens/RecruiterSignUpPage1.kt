@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -34,6 +32,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
@@ -41,7 +41,7 @@ import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
-fun RecruiterSignUpPage1() {
+fun RecruiterSignUpPage1(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var lastname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -166,7 +166,7 @@ fun RecruiterSignUpPage1() {
                         // Create account Button
                         CustomButton(
                             onClick = {
-                                // Lógica a realizar al hacer clic en el botón
+                                navController.navigate("recruiterSignUpPage2")
                             },
                             text = stringResource(id = R.string.button_createAccount_text)
                         )
@@ -174,7 +174,7 @@ fun RecruiterSignUpPage1() {
                         // Already have an account Button
                         CustomButton(
                             onClick = {
-                                // Lógica a realizar al hacer clic en el botón
+                                navController.navigate("userLoginForm")
                             },
                             text = stringResource(id = R.string.button_alreadyHaveAccount_text)
                         )
@@ -190,6 +190,6 @@ fun RecruiterSignUpPage1() {
 @Composable
 fun CustomRecruiterSignUpPage1Preview() {
     AppTheme {
-        RecruiterSignUpPage1()
+        RecruiterSignUpPage1(rememberNavController())
     }
 }

@@ -30,6 +30,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
@@ -37,7 +39,7 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun RecruiterSignUpPage3() {
+fun RecruiterSignUpPage3(navController: NavController) {
 
     var acceptedTerms by remember { mutableStateOf(false) }
     var acceptedEmailPolicy by remember { mutableStateOf(false) }
@@ -145,7 +147,7 @@ fun RecruiterSignUpPage3() {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("recruiterSignUpPage2")
                                 },
                                 text = stringResource(id = R.string.button_previous_text),
                                 modifier = Modifier.weight(1f)
@@ -170,6 +172,6 @@ fun RecruiterSignUpPage3() {
 @Composable
 fun CustomRecruiterSignUpPage3Preview() {
     AppTheme {
-        RecruiterSignUpPage3()
+        RecruiterSignUpPage3(rememberNavController())
     }
 }

@@ -30,11 +30,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
-fun RolSelection() {
+fun RolSelection(navController: NavController) {
     var rol by remember { mutableStateOf("") }
 
     Box(
@@ -81,7 +83,9 @@ fun RolSelection() {
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     OutlinedButton(
-                        onClick = { /* Handle the login action here */ },
+                        onClick = {
+                            navController.navigate("candidateSignUpPage1")
+                        },
                         modifier = Modifier
                             .wrapContentSize()
                             .padding(8.dp)
@@ -92,7 +96,7 @@ fun RolSelection() {
 
                         content = {
                             Column(
-                                horizontalAlignment = Alignment.CenterHorizontally, // Alinea el contenido al centro
+                                horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 Image(
@@ -110,7 +114,9 @@ fun RolSelection() {
 
 
                     OutlinedButton(
-                        onClick = { /* Handle the login action here */ },
+                        onClick = {
+                            navController.navigate("recruiterSignUpPage1")
+                        },
                         modifier = Modifier
                             .wrapContentSize() // Ajusta el tamaño del botón al contenido
                             .padding(8.dp)
@@ -121,7 +127,7 @@ fun RolSelection() {
 
                         content = {
                             Column(
-                                horizontalAlignment = Alignment.CenterHorizontally, // Alinea el contenido al centro
+                                horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 Image(
@@ -146,6 +152,6 @@ fun RolSelection() {
 @Composable
 fun CustomRolSelectionPreview() {
     AppTheme {
-        RolSelection()
+        RolSelection(rememberNavController())
     }
 }
