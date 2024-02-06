@@ -14,13 +14,16 @@ import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage2
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage3
+import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage1
+import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage2
+import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage3
 import cat.dam.grup2.swipe4job_app.screens.RolSelection
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "rolSelection") {
+    NavHost(navController = navController, startDestination = "userLoginForm") {
         composable("userLoginForm") {
-            UserLoginForm()
+            UserLoginForm(navController)
         }
 
         composable("candidateSimpleDetails") {
@@ -32,15 +35,27 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("candidateSignUpPage1") {
-            CandidateSignUpPage1()
+            CandidateSignUpPage1(navController)
         }
 
         composable("candidateSignUpPage2") {
-            CandidateSignUpPage2()
+            CandidateSignUpPage2(navController)
         }
 
         composable("candidateSignUpPage3") {
-            CandidateSignUpPage3()
+            CandidateSignUpPage3(navController)
+        }
+
+        composable("recruiterSignUpPage1") {
+            RecruiterSignUpPage1(navController)
+        }
+
+        composable("recruiterSignUpPage2") {
+            RecruiterSignUpPage2(navController)
+        }
+
+        composable("recruiterSignUpPage3") {
+            RecruiterSignUpPage3(navController)
         }
 
         composable("companyPostOfferPage1") {
@@ -56,7 +71,7 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("rolSelection") {
-            RolSelection()
+            RolSelection(navController)
         }
     }
 }

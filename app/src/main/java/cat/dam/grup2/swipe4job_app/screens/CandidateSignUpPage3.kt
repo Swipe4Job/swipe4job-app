@@ -34,12 +34,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
-fun CandidateSignUpPage3() {
+fun CandidateSignUpPage3(navController: NavController) {
 
     LazyColumn(
         modifier = Modifier
@@ -149,35 +151,10 @@ fun CandidateSignUpPage3() {
 }
 
 
-//fun Modifier.dashedBorder(strokeWidth: Dp, color: Color, cornerRadiusDp: Dp) = composed(
-//    factory = {
-//        val density = LocalDensity.current
-//        val strokeWidthPx = density.run { strokeWidth.toPx() }
-//        val cornerRadiusPx = density.run { cornerRadiusDp.toPx() }
-//
-//        this.then(
-//            Modifier.drawWithCache {
-//                onDrawBehind {
-//                    val stroke = Stroke(
-//                        width = strokeWidthPx,
-//                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-//                    )
-//
-//                    drawRoundRect(
-//                        color = color,
-//                        style = stroke,
-//                        cornerRadius = CornerRadius(cornerRadiusPx)
-//                    )
-//                }
-//            }
-//        )
-//    }
-//)
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CustomCandidateSignUpPage3Preview() {
     AppTheme {
-        CandidateSignUpPage3()
+        CandidateSignUpPage3(rememberNavController())
     }
 }

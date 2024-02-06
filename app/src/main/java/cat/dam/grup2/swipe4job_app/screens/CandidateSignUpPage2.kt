@@ -15,7 +15,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -34,15 +33,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun CandidateSignUpPage2() {
+fun CandidateSignUpPage2(navController: NavController) {
     var birthdate by remember { mutableStateOf("") }
     var postalcode by remember { mutableStateOf("") }
     var province by remember { mutableStateOf("") }
@@ -150,7 +150,7 @@ fun CandidateSignUpPage2() {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("candidateSignUpPage1")
                                 },
                                 text = stringResource(id = R.string.button_previous_text),
                                 modifier = Modifier.weight(1f)
@@ -158,7 +158,7 @@ fun CandidateSignUpPage2() {
 
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("candidateSignUpPage3")
                                 },
                                 text = stringResource(id = R.string.button_next_text),
                                 modifier = Modifier.weight(1f)
@@ -176,6 +176,6 @@ fun CandidateSignUpPage2() {
 @Composable
 fun CustomCandidateSignUpPage2Preview() {
     AppTheme {
-        CandidateSignUpPage2()
+        CandidateSignUpPage2(rememberNavController())
     }
 }
