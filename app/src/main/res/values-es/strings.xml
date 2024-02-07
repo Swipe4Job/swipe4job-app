@@ -76,4 +76,13 @@
     <string name="companyDescription_text">Descripción de la empresa</string>
     <string name="acceptedTerms_text">Acepto el Uso del servicio y las Condiciones legales</string>
     <string name="acceptedEmailPolicy_text">Acepto la Política de envío de correos electrónicos</string>
+    <string name="jobOffer_description_title">Descripción</string>
+    <string name="jobOffer_responsabilities_title">Responsabilidades</string>
+    <string name="jobOffer_requirements_title">Requisitos</string>
+    <string name="jobOffer_jobType_title">Tipo de empleo</string>
+    <string name="jobOffer_contractType_title">Tipo de contrato</string>
+    <string name="jobOffer_workingDayType_title">Tipo de jornada laboral</string>
+    <string name="jobOffer_salaryRange_title">Rango salarial</string>
+    <string name="jobOffer_workingHours_title">Horario laboral</string>
+    <string name="jobOffer_departmentOrganisation_title">Organización del departamento y relaciones</string>
 </resources>

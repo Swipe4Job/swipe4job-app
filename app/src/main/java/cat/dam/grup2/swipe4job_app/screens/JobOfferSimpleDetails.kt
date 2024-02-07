@@ -33,13 +33,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun JobOfferSimpleDetails() {
+fun JobOfferSimpleDetails(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -60,7 +62,7 @@ fun JobOfferSimpleDetails() {
                 },
                 actions = {
                     IconButton(onClick = {
-                        // Lógica al hacer clic en el icono de la campana
+                        navController.navigate("jobOfferComplexDetails")
                     }) {
                         Icon(
                             Icons.Default.Notifications,
@@ -191,6 +193,6 @@ fun ColumnScope.JobOfferSimpleDetails() {
 @Composable
 fun JobOfferSimpleDetailsPreview() {
     AppTheme {
-        JobOfferSimpleDetails()
+        JobOfferSimpleDetails(rememberNavController())
     }
 }
