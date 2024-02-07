@@ -14,6 +14,7 @@ import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage2
 import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage3
+import cat.dam.grup2.swipe4job_app.screens.JobOfferComplexDetails
 import cat.dam.grup2.swipe4job_app.screens.JobOfferSimpleDetails
 import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage1
 import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage2
@@ -40,7 +41,11 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("jobOfferSimpleDetails") {
-            JobOfferSimpleDetails()
+            JobOfferSimpleDetails(navController)
+        }
+
+        composable("jobOfferComplexDetails") {
+            JobOfferComplexDetails()
         }
 
         composable("candidateSignUpPage1") {

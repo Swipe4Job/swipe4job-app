@@ -77,4 +77,13 @@
     <string name="companyDescription_text">Company description</string>
     <string name="acceptedTerms_text">I accept the Use of the service and the Legal conditions</string>
     <string name="acceptedEmailPolicy_text">I accept the Email sending policy</string>
+    <string name="jobOffer_description_title">Description</string>
+    <string name="jobOffer_responsabilities_title">Responsabilities</string>
+    <string name="jobOffer_requirements_title">Requirements</string>
+    <string name="jobOffer_jobType_title">Job type</string>
+    <string name="jobOffer_contractType_title">Contract type</string>
+    <string name="jobOffer_workingDayType_title">Working day type</string>
+    <string name="jobOffer_salaryRange_title">Salary range</string>
+    <string name="jobOffer_workingHours_title">Working hours</string>
+    <string name="jobOffer_departmentOrganisation_title">Department organisation and relationships</string>
 </resources>
