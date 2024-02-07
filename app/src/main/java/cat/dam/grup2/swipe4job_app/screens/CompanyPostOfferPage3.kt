@@ -31,6 +31,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
@@ -40,7 +42,7 @@ import cat.dam.grup2.swipe4job_app.composables.IconVector
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun CompanyPostOfferPage3() {
+fun CompanyPostOfferPage3(navController: NavController) {
     var salaryRange by remember { mutableStateOf("") }
 
     LazyColumn(
@@ -150,7 +152,7 @@ fun CompanyPostOfferPage3() {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("companyPostOfferPage2")
                                 },
                                 text = stringResource(id = R.string.button_previous_text),
                                 modifier = Modifier.weight(1f)
@@ -175,6 +177,6 @@ fun CompanyPostOfferPage3() {
 @Composable
 fun CustomCompanyPostOfferPage3Preview() {
     AppTheme {
-        CompanyPostOfferPage3()
+        CompanyPostOfferPage3(rememberNavController())
     }
 }

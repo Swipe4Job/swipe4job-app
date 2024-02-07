@@ -33,6 +33,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
@@ -41,7 +43,7 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CompanyPostOfferPage1() {
+fun CompanyPostOfferPage1(navController: NavController) {
     var jobTitle by remember { mutableStateOf("") }
     var companyName by remember { mutableStateOf("") }
     var jobType by remember { mutableStateOf("") }
@@ -237,7 +239,7 @@ fun CompanyPostOfferPage1() {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("companyPostOfferPage2")
                                 },
                                 text = stringResource(id = R.string.button_next_text),
                                 modifier = Modifier
@@ -256,6 +258,6 @@ fun CompanyPostOfferPage1() {
 @Composable
 fun CustomCompanyPostOfferPage1Preview() {
     AppTheme {
-        CompanyPostOfferPage1()
+        CompanyPostOfferPage1(rememberNavController())
     }
 }
