@@ -40,15 +40,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CandidateSimpleDetails(navController: NavController) {
+fun JobOfferSimpleDetails() {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -69,10 +67,12 @@ fun CandidateSimpleDetails(navController: NavController) {
                 },
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate("candidateComplexDetails")
+                        // Lógica al hacer clic en el icono de la campana
                     }) {
-                        Icon(Icons.Default.Notifications,
-                            contentDescription = stringResource(id = R.string.notifications_icon_description))
+                        Icon(
+                            Icons.Default.Notifications,
+                            contentDescription = stringResource(id = R.string.notifications_icon_description)
+                        )
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -119,7 +119,7 @@ fun CandidateSimpleDetails(navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxWidth(),
         ) {
-            SimpleDetails()
+            JobOfferSimpleDetails()
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -133,7 +133,7 @@ fun CandidateSimpleDetails(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun ColumnScope.SimpleDetails() {
+fun ColumnScope.JobOfferSimpleDetails() {
     val skills = listOf("Kotlin", "Android Development", "Web Development")
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
 
@@ -146,18 +146,8 @@ fun ColumnScope.SimpleDetails() {
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            Image(
-                painter = painterResource(id = R.drawable.profile),
-                contentDescription = stringResource(id = R.string.profile_image_description),
-                modifier = Modifier
-                    .size(250.dp)
-                    .clip(CircleShape)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
             Text(
-                text = "Paco Garcia",
+                text = "Backend developer",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -195,19 +185,19 @@ fun ColumnScope.SimpleDetails() {
                     )
                 }
             }
+            Text(
+                text = "Wikiloc (optional field)",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun CustomCandidateSimpleDetailsPreview() {
+fun JobOfferSimpleDetailsPreview() {
     AppTheme {
-        CandidateSimpleDetails(rememberNavController())
+        JobOfferSimpleDetails()
     }
 }
-
-data class ChipItem(
-    val label: String,
-    val icon: ImageVector
-)
