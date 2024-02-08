@@ -41,6 +41,7 @@ import cat.dam.grup2.swipe4job_app.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import java.time.LocalDate
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.composables.IconVector
 
 
 data class UserInformation(
@@ -81,15 +82,28 @@ data class Study(
 )
 
 @Composable
-fun SectionLabel(text: String, icon: ImageVector? = null) {
+fun SectionLabel(text: String, icon: IconVector? = null) {
     Row {
         if (icon != null) {
-            Icon(
-                imageVector = icon,
-                contentDescription = "Heading icon",
-                modifier = Modifier.size(15.dp),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            when (icon) {
+                is IconVector.ImageVectorIcon -> {
+                    Icon(
+                        imageVector = icon.imageVector,
+                        contentDescription = "Heading icon",
+                        modifier = Modifier.size(15.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                is IconVector.PainterIcon -> {
+                    Icon(
+                        painter = icon.painter,
+                        contentDescription = "Heading icon",
+                        modifier = Modifier.size(15.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.width(5.dp))
         }
         Text(text = text,
@@ -105,7 +119,7 @@ fun SectionDivider() {
 }
 
 @Composable
-fun Section(title: String, icon: ImageVector? = null, content: @Composable () -> Unit) {
+fun Section(title: String, icon: IconVector? = null, content: @Composable () -> Unit) {
     Card(
         modifier = Modifier.padding(5.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
@@ -213,12 +227,12 @@ fun UserInformationDisplay(information: UserInformation) {
             .padding(5.dp)
     ) {
         item {
-            Section(title = stringResource(id = R.string.candidate_description_title), icon = Icons.Default.Description) {
+            Section(title = stringResource(id = R.string.candidate_description_title), icon = IconVector.ImageVectorIcon(Icons.Default.Description)) {
                 Text(text = information.description,
                     style = MaterialTheme.typography.bodyMedium)
             }
 
-            Section(title = stringResource(id = R.string.candidate_jobExperience_title), icon = Icons.Default.Work) {
+            Section(title = stringResource(id = R.string.candidate_jobExperience_title), icon = IconVector.ImageVectorIcon(Icons.Default.Work)) {
                 information.jobExperience.forEach {
                     Text(
                         it.position,
@@ -237,7 +251,7 @@ fun UserInformationDisplay(information: UserInformation) {
                 }
             }
 
-            Section(title = stringResource(id = R.string.candidate_studies_title), icon = Icons.Default.School) {
+            Section(title = stringResource(id = R.string.candidate_studies_title), icon = IconVector.ImageVectorIcon(Icons.Default.School)) {
                 information.studies.forEach {
                     Text(
                         it.name,
@@ -256,13 +270,13 @@ fun UserInformationDisplay(information: UserInformation) {
                 }
             }
 
-            Section(title = stringResource(id = R.string.candidate_skills_title), icon = Icons.Default.HistoryEdu) {
+            Section(title = stringResource(id = R.string.candidate_skills_title), icon = IconVector.ImageVectorIcon(Icons.Default.HistoryEdu)) {
                 information.skills.forEach {
                     SuggestionChip(onClick = { /*TODO*/ }, label = { Text(it) })
                 }
             }
 
-            Section(title = stringResource(id = R.string.candidate_languages_title), icon = Icons.Default.Translate) {
+            Section(title = stringResource(id = R.string.candidate_languages_title), icon = IconVector.ImageVectorIcon(Icons.Default.Translate)) {
                 information.languages.forEach {
                     Text(
                         it.language,

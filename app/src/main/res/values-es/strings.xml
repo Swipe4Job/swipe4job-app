@@ -85,6 +85,14 @@
     <string name="jobOffer_salaryRange_title">Rango salarial</string>
     <string name="jobOffer_workingHours_title">Horario laboral</string>
     <string name="jobOffer_departmentOrganisation_title">Organización del departamento y relaciones</string>
-    <string name="job_time_option_full_time">Jornada completa</string>
-    <string name="job_time_option_part_time">Media jornada</string>
+    <string name="workingDayType_fullTime_text">Jornada completa</string>
+    <string name="workingDayType_partTime_text">Jornada parcial</string>
+    <string name="workingDayType_flexible_text">Jornada flexible</string>
+    <string name="jobTypeOption_remotely_text">Remoto</string>
+    <string name="jobTypeOption_onSite_text">Presencial</string>
+    <string name="jobTypeOption_hybrid_text">Híbrido</string>
+    <string name="contractTypeOptions_freelance_text">Freelance</string>
+    <string name="contractTypeOptions_internship_text">Prácticas</string>
+    <string name="contractTypeOptions_temporary_text">Temporal</string>
+    <string name="contractTypeOptions_indefinite_text">Indefinido</string>
 </resources>
