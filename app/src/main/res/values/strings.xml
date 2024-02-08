@@ -86,6 +86,15 @@
     <string name="jobOffer_salaryRange_title">Salary range</string>
     <string name="jobOffer_workingHours_title">Working hours</string>
     <string name="jobOffer_departmentOrganisation_title">Department organisation and relationships</string>
-    <string name="job_time_option_full_time">Full time</string>
-    <string name="job_time_option_part_time">Part time</string>
+    <string name="workingDayType_fullTime_text">Full time</string>
+    <string name="workingDayType_partTime_text">Part time</string>
+    <string name="workingDayType_flexible_text">Flexible</string>
+    <string name="jobTypeOption_remotely_text">Remotely</string>
+    <string name="jobTypeOption_onSite_text">On site</string>
+    <string name="jobTypeOption_hybrid_text">Hybrid</string>
+    <string name="contractTypeOptions_freelance_text">Freelance</string>
+    <string name="contractTypeOptions_internship_text">Internship</string>
+    <string name="contractTypeOptions_temporary_text">Temporary</string>
+    <string name="contractTypeOptions_indefinite_text">Indefinite</string>
+    <string name="contractTypeOptions_other_text">Other</string>
 </resources>
