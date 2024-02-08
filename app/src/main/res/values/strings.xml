@@ -86,4 +86,6 @@
     <string name="jobOffer_salaryRange_title">Salary range</string>
     <string name="jobOffer_workingHours_title">Working hours</string>
     <string name="jobOffer_departmentOrganisation_title">Department organisation and relationships</string>
+    <string name="job_time_option_full_time">Full time</string>
+    <string name="job_time_option_part_time">Part time</string>
 </resources>

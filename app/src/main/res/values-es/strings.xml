@@ -85,4 +85,6 @@
     <string name="jobOffer_salaryRange_title">Rango salarial</string>
     <string name="jobOffer_workingHours_title">Horario laboral</string>
     <string name="jobOffer_departmentOrganisation_title">Organización del departamento y relaciones</string>
+    <string name="job_time_option_full_time">Jornada completa</string>
+    <string name="job_time_option_part_time">Media jornada</string>
 </resources>

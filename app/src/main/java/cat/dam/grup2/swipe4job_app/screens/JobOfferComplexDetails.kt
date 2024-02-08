@@ -135,12 +135,12 @@ fun JobOfferInformationDisplay(information: JobOfferInformation) {
             }
 
             Section(title = stringResource(id = R.string.jobOffer_responsabilities_title), icon = Icons.Default.ListAlt) {
-                Text(text = information.description,
+                Text(text = information.responsabilities,
                     style = MaterialTheme.typography.bodyMedium)
             }
 
             Section(title = stringResource(id = R.string.jobOffer_requirements_title), icon = Icons.Default.List) {
-                Text(text = information.description,
+                Text(text = information.requirements,
                     style = MaterialTheme.typography.bodyMedium)
             }
 
@@ -155,7 +155,14 @@ fun JobOfferInformationDisplay(information: JobOfferInformation) {
             }
 
             Section(title = stringResource(id = R.string.jobOffer_workingDayType_title), icon = Icons.Default.HistoryEdu) {
-                Text(text = information.description,
+                val workingDayType = when(information.workingDayType) {
+                    WorkingDayTypeOptions.FullTime -> stringResource(id = R.string.job_time_option_full_time)
+                    WorkingDayTypeOptions.PartTime -> stringResource(id = R.string.job_time_option_part_time)
+                    WorkingDayTypeOptions.Flexible -> "TODO put flexible string"
+                }
+
+
+                Text(text = workingDayType,
                     style = MaterialTheme.typography.bodyMedium)
             }
 
