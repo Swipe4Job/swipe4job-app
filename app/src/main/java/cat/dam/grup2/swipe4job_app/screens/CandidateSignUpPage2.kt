@@ -15,12 +15,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,15 +27,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,8 +47,6 @@ fun CandidateSignUpPage2(navController: NavController) {
     var postalcode by remember { mutableStateOf("") }
     var town by remember { mutableStateOf("") }
 
-    var expanded by remember { mutableStateOf(false) }
-    var selectedItemIndex by remember { mutableStateOf(0) }
     var provinceText = stringResource(id = R.string.label_province)
     var selectedItem by remember { mutableStateOf(provinceText) }
     val provinces = listOf(
@@ -166,40 +163,12 @@ fun CandidateSignUpPage2(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Province TextField
-                    ExposedDropdownMenuBox(
-                        expanded = expanded,
-                        onExpandedChange = { expanded = !expanded }) {
-
-
-                        OutlinedTextField(
-                            value = selectedItem,
-                            onValueChange = { },
-                            readOnly = true,
-                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                            modifier = Modifier.menuAnchor()
-                        )
-
-                        ExposedDropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            provinces.forEachIndexed { index, item ->
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(
-                                            text = item,
-                                            fontWeight = if (index == selectedItemIndex) FontWeight.Bold else null
-                                        )
-                                    },
-                                    onClick = {
-                                        selectedItemIndex = index
-                                        selectedItem = item
-                                        expanded = false
-                                    }
-                                )
-                            }
-                        }
+                    // Province dropdown
+                    CustomDropdown(
+                        placeholder = selectedItem,
+                        items = provinces,
+                    ) {
+                        selectedItem = it
                     }
 
                     // Spacer
@@ -256,10 +225,10 @@ fun CandidateSignUpPage2(navController: NavController) {
 }
 
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun CustomCandidateSignUpPage2Preview() {
-//    AppTheme {
-//        CandidateSignUpPage2(rememberNavController())
-//    }
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun CustomCandidateSignUpPage2Preview() {
+    AppTheme {
+        CandidateSignUpPage2(rememberNavController())
+    }
+}

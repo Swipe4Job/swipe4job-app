@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -39,6 +40,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
@@ -49,7 +51,9 @@ fun RecruiterSignUpPage2(navController: NavController) {
     var companyName by remember { mutableStateOf("") }
     var companyPhoneNumber by remember { mutableStateOf("") }
     var nif by remember { mutableStateOf("") }
-    var sector by remember { mutableStateOf("") }
+    var sectorText = stringResource(id = R.string.label_companySector)
+    var selectedItem by remember { mutableStateOf(sectorText) }
+    val sectors = stringArrayResource(R.array.sectors_array).toList()
     var companySize by remember { mutableStateOf("") }
 
     LazyColumn(
@@ -163,18 +167,13 @@ fun RecruiterSignUpPage2(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Sector TextField
-                    CustomOutlinedTextField(
-                        value = sector,
-                        onValueChange = { sector = it },
-                        label = stringResource(id = R.string.label_companySector),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
+                    // Sector dropdown
+                    CustomDropdown(
+                        placeholder = selectedItem,
+                        items = sectors
+                    ) {
+                        selectedItem = it
+                    }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))

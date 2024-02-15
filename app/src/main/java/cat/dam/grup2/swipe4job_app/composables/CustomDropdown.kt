@@ -1,11 +1,14 @@
 package cat.dam.grup2.swipe4job_app.composables
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomDropdown(
-    placeholder: String = "",
+    placeholder: String,
     items: List<String>,
     onChange: (item: String) -> Unit
 ) {
@@ -35,7 +38,14 @@ fun CustomDropdown(
             onValueChange = { },
             readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.menuAnchor()
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.textFieldColors(
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                containerColor = MaterialTheme.colorScheme.background
+            )
         )
 
         ExposedDropdownMenu(
