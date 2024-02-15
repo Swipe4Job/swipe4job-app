@@ -36,7 +36,7 @@
     <string name="uploadingCV_text">Upload your CV and save time</string>
     <string name="button_notNow_text">Not now</string>
     <string name="uploadCurriculum_text">Upload Curriculum</string>
-    <string name="uploadingCV_explanation_text">If you have a CV in PDF or Word format, upload it and we will autocomplete the data from your profile in an authomatic way.</string>
+    <string name="fillProfessionalProfile_question_text">Do you want to fill your professional profile?</string>
     <string name="label_jobTitle">Enter the position</string>
     <string name="label_companyName">Enter the company name</string>
     <string name="label_jobType">On-site work</string>
@@ -97,4 +97,5 @@
     <string name="contractTypeOptions_temporary_text">Temporary</string>
     <string name="contractTypeOptions_indefinite_text">Indefinite</string>
     <string name="contractTypeOptions_other_text">Other</string>
+    <string name="button_Yes_text">Yes</string>
 </resources>

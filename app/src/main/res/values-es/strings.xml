@@ -36,7 +36,7 @@
     <string name="uploadingCV_text">Sube tu CV y ahorra tiempo</string>
     <string name="button_notNow_text">Ahora no</string>
     <string name="uploadCurriculum_text">Subir el currículum</string>
-    <string name="uploadingCV_explanation_text">Si tienes un CV en formato PDF o Word, súbelo y autocompletaremos los datos de tu perfil de forma automática.</string>
+    <string name="fillProfessionalProfile_question_text">¿Deseas completar tu perfil profesional?</string>
     <string name="label_jobTitle">Introduce la posición</string>
     <string name="label_companyName">Introduce el nombre de la empresa</string>
     <string name="label_jobType">Presencial</string>
@@ -95,4 +95,6 @@
     <string name="contractTypeOptions_internship_text">Prácticas</string>
     <string name="contractTypeOptions_temporary_text">Temporal</string>
     <string name="contractTypeOptions_indefinite_text">Indefinido</string>
+    <string name="contractTypeOptions_other_text">Otro</string>
+    <string name="button_Yes_text">Sí</string>
 </resources>
