@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
 import cat.dam.grup2.swipe4job_app.composables.IconVector
@@ -43,7 +45,9 @@ import cat.dam.grup2.swipe4job_app.composables.IconVector
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun CompanyPostOfferPage3(navController: NavController) {
-    var salaryRange by remember { mutableStateOf("") }
+    var salaryRangeText = stringResource(id = R.string.label_salaryRange)
+    var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
+    var salaryRangeOptions = stringArrayResource(R.array.salary_range_array).toList()
 
     LazyColumn(
         modifier = Modifier
@@ -80,17 +84,18 @@ fun CompanyPostOfferPage3(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Salary range TextField
-                    CustomOutlinedTextField(
-                        value = salaryRange,
-                        onValueChange = { salaryRange = it },
-                        label = stringResource(id = R.string.salaryRangeQuantity_text),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
+                    // Salary range dropdown
+                    CustomDropdown(
+                        placeholder = selectedSalaryRangeItem,
+                        items = salaryRangeOptions
+                    ) {
+                        selectedSalaryRangeItem = it
+                    }
+
+                    Text(
+                        stringResource(id = R.string.grossAnnualSalary_text),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     // Spacer
