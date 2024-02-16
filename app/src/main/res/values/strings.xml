@@ -119,4 +119,10 @@
         <item>Transport and storage</item>
         <item>Real estate activities</item>
     </string-array>
+    <string-array name="company_size_array">
+        <item>Less than 10 workers</item>
+        <item>Between 10 and 49 workers</item>
+        <item>Between 50 and 249 workers</item>
+        <item>250 or more workers</item>
+    </string-array>
 </resources>

@@ -98,24 +98,30 @@
     <string name="contractTypeOptions_other_text">Otro</string>
     <string name="button_Yes_text">Sí</string>
     <string-array name="sectors_array">
-        <item>Administrative and auxiliary services activities</item>
-        <item>Agriculture and livestock</item>
-        <item>Artistic, recreational, and training activities</item>
-        <item>Commerce and establishments</item>
-        <item>Construction</item>
-        <item>Consumer goods</item>
-        <item>E-commerce</item>
-        <item>Education</item>
-        <item>Energy and environment</item>
-        <item>Energy supply</item>
-        <item>Finance and insurance</item>
-        <item>Hotel and catering</item>
-        <item>Information and Communication Technologies</item>
+        <item>Actividades administrativas y servicios auxiliares</item>
+        <item>Actividades artísticas, recreativas y de entrenamiento</item>
+        <item>Actividades inmobiliarias</item>
+        <item>Actividades profesionales, científicas y técnicas</item>
+        <item>Agricultura y ganadería</item>
+        <item>Bienes de consumo</item>
+        <item>Comercio electrónico</item>
+        <item>Comercio y establecimientos</item>
+        <item>Construcción</item>
+        <item>Deporte y ocio</item>
+        <item>Educación</item>
+        <item>Energía y medioambiente</item>
+        <item>Finanzas y seguros</item>
+        <item>Hostelería</item>
+        <item>Industria manufacturera</item>
         <item>Internet</item>
-        <item>Manufacturing industry</item>
-        <item>Professional, scientific, and technical activities</item>
-        <item>Real estate activities</item>
-        <item>Sports and leisure</item>
-        <item>Transport and storage</item>
+        <item>Suministro de energía</item>
+        <item>Tecnologías de la Información y las Comunicaciones</item>
+        <item>Transporte y almacenamiento</item>
+    </string-array>
+    <string-array name="company_size_array">
+        <item>Menos de 10 trabajadores/as</item>
+        <item>Entre 10 y 49 trabajadores/as</item>
+        <item>Entre 50 y 249 trabajadores/as</item>
+        <item>250 o más trabajadores/as</item>
     </string-array>
 </resources>

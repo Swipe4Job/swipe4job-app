@@ -52,9 +52,11 @@ fun RecruiterSignUpPage2(navController: NavController) {
     var companyPhoneNumber by remember { mutableStateOf("") }
     var nif by remember { mutableStateOf("") }
     var sectorText = stringResource(id = R.string.label_companySector)
-    var selectedItem by remember { mutableStateOf(sectorText) }
+    var selectedSectorItem by remember { mutableStateOf(sectorText) }
     val sectors = stringArrayResource(R.array.sectors_array).toList()
-    var companySize by remember { mutableStateOf("") }
+    var companySizeText = stringResource(id = R.string.label_companySize)
+    var selectedCompanySizeItem by remember { mutableStateOf(companySizeText) }
+    var companySizeOptions =  stringArrayResource(R.array.company_size_array).toList()
 
     LazyColumn(
         modifier = Modifier
@@ -169,10 +171,10 @@ fun RecruiterSignUpPage2(navController: NavController) {
 
                     // Sector dropdown
                     CustomDropdown(
-                        placeholder = selectedItem,
+                        placeholder = selectedSectorItem,
                         items = sectors
                     ) {
-                        selectedItem = it
+                        selectedSectorItem = it
                     }
 
                     // Spacer
@@ -185,18 +187,13 @@ fun RecruiterSignUpPage2(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Salary range TextField
-                    CustomOutlinedTextField(
-                        value = companySize,
-                        onValueChange = { companySize = it },
-                        label = stringResource(id = R.string.label_companySize),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
+                    // Company size dropdown
+                    CustomDropdown(
+                        placeholder = selectedCompanySizeItem,
+                        items = companySizeOptions
+                    ) {
+                        selectedCompanySizeItem = it
+                    }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
