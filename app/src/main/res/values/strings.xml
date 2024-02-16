@@ -39,10 +39,10 @@
     <string name="fillProfessionalProfile_question_text">Do you want to fill your professional profile?</string>
     <string name="label_jobTitle">Enter the position</string>
     <string name="label_companyName">Enter the company name</string>
-    <string name="label_jobType">On-site work</string>
+    <string name="label_jobType">Select the type of job</string>
     <string name="label_location">Enter the location</string>
-    <string name="label_contractType">Indefinite</string>
-    <string name="label_workingDayType">Full time</string>
+    <string name="label_contractType">Select the type of contract</string>
+    <string name="label_workingDayType">Select the type of working day</string>
     <string name="postJobOffer_text">Post a job offer</string>
     <string name="jobTitle_text">Job title</string>
     <string name="companyName_text">Company</string>
@@ -51,14 +51,13 @@
     <string name="contractType_text">Contract type</string>
     <string name="workingDayType_text">Working day type</string>
     <string name="description_text">Description</string>
-    <string name="tipsDescriptionPostOffer_text">Tips: Summarize the position, explain what it takes to be successful in it and their place in the company.</string>
+    <string name="tipsDescriptionPostOffer_text">Tip: Summarize the position, explain what it takes to be successful in it and their place in the company.</string>
     <string name="responsabilities_text">Responsabilities</string>
     <string name="requirements_text">Requirements</string>
     <string name="skills_text">Skills</string>
     <string name="addSkills_text">Add skills</string>
     <string name="add_icon_description">Add icon</string>
     <string name="salaryRange_text">Salary range (optional)</string>
-    <string name="salaryRangeQuantity_text" translatable="false"> 12.000 €</string>
     <string name="workingHours_text">Working hours (optional)</string>
     <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
     <string name="button_finish_text">Finish</string>
@@ -68,12 +67,12 @@
     <string name="companyData_text">Company data</string>
     <string name="label_companyPhoneNumber">Company phone number</string>
     <string name="label_companyNif">Enter the company N.I.F.</string>
-    <string name="label_companySector">Enter the company sector</string>
+    <string name="label_companySector">Select the company sector</string>
     <string name="contactPhoneNumber_text">Contact phone number</string>
     <string name="nif_text">Fiscal Identification Number</string>
     <string name="companySector_text">Sector</string>
     <string name="companySize_text">Company size</string>
-    <string name="label_companySize">Enter the number of workers</string>
+    <string name="label_companySize">Select the number of workers</string>
     <string name="companyDescription_text">Company description</string>
     <string name="acceptedTerms_text">I accept the Use of the service and the Legal conditions</string>
     <string name="acceptedEmailPolicy_text">I accept the Email sending policy</string>
@@ -125,4 +124,33 @@
         <item>Between 50 and 249 workers</item>
         <item>250 or more workers</item>
     </string-array>
+    <string-array name="job_type_array">
+        <item>Remotely</item>
+        <item>On site</item>
+        <item>Hybrid</item>
+    </string-array>
+    <string-array name="contract_type_array">
+        <item>Indefinite</item>
+        <item>Temporary</item>
+        <item>Freelance</item>
+        <item>Internship</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="working_day_type_array">
+        <item>Full time</item>
+        <item>Part time</item>
+        <item>Flexible</item>
+    </string-array>
+    <string-array name="salary_range_array">
+        <item>Lower than 15.000 €</item>
+        <item>Between 15.000 € and 20.000 €</item>
+        <item>Between 20.000 € and 25.000 €</item>
+        <item>Between 25.000 € and 35.000 €</item>
+        <item>Between 35.000 € and 45.000 €</item>
+        <item>Between 45.000 € and 55.000 €</item>
+        <item>Between 55.000 € and 65.000 €</item>
+        <item>Greater than 65.000 €</item>
+    </string-array>
+    <string name="label_salaryRange">Select the salary range</string>
+    <string name="grossAnnualSalary_text">(gross annual salary)</string>
 </resources>

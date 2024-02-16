@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -37,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
@@ -46,10 +48,18 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 fun CompanyPostOfferPage1(navController: NavController) {
     var jobTitle by remember { mutableStateOf("") }
     var companyName by remember { mutableStateOf("") }
-    var jobType by remember { mutableStateOf("") }
+    var jobTypeText = stringResource(id = R.string.label_jobType)
+    var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
+    var jobTypeOptions = stringArrayResource(R.array.job_type_array).toList()
     var location by remember { mutableStateOf("") }
-    var contractType by remember { mutableStateOf("") }
-    var workingDayType by remember { mutableStateOf("") }
+    var contractTypeText = stringResource(id = R.string.label_contractType)
+    var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
+    var contractTypeOptions = stringArrayResource(R.array.contract_type_array).toList()
+    var workingDayTypeText = stringResource(id = R.string.label_workingDayType)
+    var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
+    var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
+
+
 
     LazyColumn(
         modifier = Modifier
@@ -141,18 +151,13 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Job type TextField
-                    CustomOutlinedTextField(
-                        value = jobType,
-                        onValueChange = { jobType = it },
-                        label = stringResource(id = R.string.label_jobType),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
+                    // Job type dropdown
+                    CustomDropdown(
+                        placeholder = selectedJobTypeItem,
+                        items = jobTypeOptions
+                    ) {
+                        selectedJobTypeItem = it
+                    }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
@@ -187,18 +192,13 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Contract type TextField
-                    CustomOutlinedTextField(
-                        value = contractType,
-                        onValueChange = { contractType = it },
-                        label = stringResource(id = R.string.label_contractType),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
+                    // Contract type dropdown
+                    CustomDropdown(
+                        placeholder = selectedContractTypeItem,
+                        items = contractTypeOptions
+                    ) {
+                        selectedContractTypeItem = it
+                    }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
@@ -210,18 +210,13 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Working day type TextField
-                    CustomOutlinedTextField(
-                        value = workingDayType,
-                        onValueChange = { workingDayType = it },
-                        label = stringResource(id = R.string.label_workingDayType),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
+                    // Working day type dropdown
+                    CustomDropdown(
+                        placeholder = selectedWorkingDayTypeItem,
+                        items = workingDayTypeOptions
+                    ) {
+                        selectedWorkingDayTypeItem = it
+                    }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
