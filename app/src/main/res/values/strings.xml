@@ -153,4 +153,6 @@
     </string-array>
     <string name="label_salaryRange">Select the salary range</string>
     <string name="grossAnnualSalary_text">(gross annual salary)</string>
+    <string name="add_text_button">Add</string>
+    <string name="emptyExperience_text">You have\'nt added any experience yet</string>
 </resources>
