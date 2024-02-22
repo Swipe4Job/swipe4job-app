@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.recruiter.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,16 +24,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cat.dam.grup2.swipe4job_app.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.shared_composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.candidate.screens.Section
+import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
 
 sealed class SalaryRange {
     class Between(val start: Double, val end: Double) : SalaryRange()

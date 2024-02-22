@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.recruiter.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,13 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,9 +22,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,24 +35,28 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomDropdown
-import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomDropdown
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecruiterSignUpPage2(navController: NavController) {
+fun CompanyPostOfferPage1(navController: NavController) {
+    var jobTitle by remember { mutableStateOf("") }
     var companyName by remember { mutableStateOf("") }
-    var companyPhoneNumber by remember { mutableStateOf("") }
-    var nif by remember { mutableStateOf("") }
-    var sectorText = stringResource(id = R.string.label_companySector)
-    var selectedSectorItem by remember { mutableStateOf(sectorText) }
-    val sectors = stringArrayResource(R.array.sectors_array).toList()
-    var companySizeText = stringResource(id = R.string.label_companySize)
-    var selectedCompanySizeItem by remember { mutableStateOf(companySizeText) }
-    var companySizeOptions =  stringArrayResource(R.array.company_size_array).toList()
+    var jobTypeText = stringResource(id = R.string.label_jobType)
+    var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
+    var jobTypeOptions = stringArrayResource(R.array.job_type_array).toList()
+    var location by remember { mutableStateOf("") }
+    var contractTypeText = stringResource(id = R.string.label_contractType)
+    var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
+    var contractTypeOptions = stringArrayResource(R.array.contract_type_array).toList()
+    var workingDayTypeText = stringResource(id = R.string.label_workingDayType)
+    var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
+    var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
+
+
 
     LazyColumn(
         modifier = Modifier
@@ -73,8 +73,10 @@ fun RecruiterSignUpPage2(navController: NavController) {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+
+                    // Steps number
                     Text(
-                        "2/3",
+                        "1/3",
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .background(Color.Transparent)
@@ -86,21 +88,44 @@ fun RecruiterSignUpPage2(navController: NavController) {
 
                     // Section title
                     Text(
-                        stringResource(id = R.string.companyData_text),
+                        stringResource(id = R.string.postJobOffer_text),
                         style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                     )
 
-                    // Title - Company name
+                    // Title - Job title
+                    Text(
+                        stringResource(id = R.string.jobTitle_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Job title TextField
+                    CustomOutlinedTextField(
+                        value = jobTitle,
+                        onValueChange = { jobTitle = it },
+                        label = stringResource(id = R.string.label_jobTitle),
+                        leadingIcon = null,
+                        iconContentDescription = null,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Number
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Company
                     Text(
                         stringResource(id = R.string.companyName_text),
                         color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Company name TextField
+                    // Company TextField
                     CustomOutlinedTextField(
                         value = companyName,
                         onValueChange = { companyName = it },
@@ -116,20 +141,38 @@ fun RecruiterSignUpPage2(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Title - Company phone number
+                    // Title - Job type
                     Text(
-                        stringResource(id = R.string.contactPhoneNumber_text),
+                        stringResource(id = R.string.jobType_text),
                         color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Company phone number TextField
+                    // Job type dropdown
+                    CustomDropdown(
+                        placeholder = selectedJobTypeItem,
+                        items = jobTypeOptions
+                    ) {
+                        selectedJobTypeItem = it
+                    }
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Location
+                    Text(
+                        stringResource(id = R.string.location_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Location TextField
                     CustomOutlinedTextField(
-                        value = companyPhoneNumber,
-                        onValueChange = { companyPhoneNumber = it },
-                        label = stringResource(id = R.string.label_companyPhoneNumber),
-                        leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Call),
-                        iconContentDescription = stringResource(id = R.string.phone_icon_description),
+                        value = location,
+                        onValueChange = { location = it },
+                        label = stringResource(id = R.string.label_location),
+                        leadingIcon = null,
+                        iconContentDescription = null,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
                             keyboardType = KeyboardType.Number
@@ -139,66 +182,44 @@ fun RecruiterSignUpPage2(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Title - Company N.I.F.
+                    // Title - Contract type
                     Text(
-                        stringResource(id = R.string.nif_text),
+                        stringResource(id = R.string.contractType_text),
                         color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // NIF TextField
-                    CustomOutlinedTextField(
-                        value = nif,
-                        onValueChange = { nif = it },
-                        label = stringResource(id = R.string.label_companyNif),
-                        leadingIcon = null,
-                        iconContentDescription = null,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
-
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Title - Company Sector
-                    Text(
-                        stringResource(id = R.string.companySector_text),
-                        color = MaterialTheme.colorScheme.secondary,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-
-                    // Sector dropdown
+                    // Contract type dropdown
                     CustomDropdown(
-                        placeholder = selectedSectorItem,
-                        items = sectors
+                        placeholder = selectedContractTypeItem,
+                        items = contractTypeOptions
                     ) {
-                        selectedSectorItem = it
+                        selectedContractTypeItem = it
                     }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Title - Company size
+                    // Title - Working day type
                     Text(
-                        stringResource(id = R.string.companySize_text),
+                        stringResource(id = R.string.workingDayType_text),
                         color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Company size dropdown
+                    // Working day type dropdown
                     CustomDropdown(
-                        placeholder = selectedCompanySizeItem,
-                        items = companySizeOptions
+                        placeholder = selectedWorkingDayTypeItem,
+                        items = workingDayTypeOptions
                     ) {
-                        selectedCompanySizeItem = it
+                        selectedWorkingDayTypeItem = it
                     }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Buttons - Previous + Next
+                    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+                    // Buttons - Next
                     Box(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -206,23 +227,17 @@ fun RecruiterSignUpPage2(navController: NavController) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceAround
+                            horizontalArrangement = Arrangement.End
                         ) {
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("recruiterSignUpPage1")
-                                },
-                                text = stringResource(id = R.string.button_previous_text),
-                                modifier = Modifier.weight(1f)
-                            )
-
-                            CustomButton(
-                                onClick = {
-                                    navController.navigate("recruiterSignUpPage3")
+                                    navController.navigate("companyPostOfferPage2")
                                 },
                                 text = stringResource(id = R.string.button_next_text),
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier
+                                    .requiredWidth(screenWidth / 2)
                             )
+
                         }
                     }
                 }
@@ -231,11 +246,10 @@ fun RecruiterSignUpPage2(navController: NavController) {
     }
 }
 
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun CustomRecruiterSignUpPage2Preview() {
+fun CustomCompanyPostOfferPage1Preview() {
     AppTheme {
-        RecruiterSignUpPage2(rememberNavController())
+        CompanyPostOfferPage1(rememberNavController())
     }
 }

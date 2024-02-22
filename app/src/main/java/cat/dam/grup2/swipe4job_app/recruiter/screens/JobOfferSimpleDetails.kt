@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.recruiter.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,9 +35,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.dam.grup2.swipe4job_app.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.shared_composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.candidate.screens.ChipItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

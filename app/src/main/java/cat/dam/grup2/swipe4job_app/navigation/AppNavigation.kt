@@ -5,21 +5,21 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import cat.dam.grup2.swipe4job_app.screens.UserLoginForm
-import cat.dam.grup2.swipe4job_app.screens.CandidateSimpleDetails
-import cat.dam.grup2.swipe4job_app.screens.CandidateComplexDetails
-import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage1
-import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage2
-import cat.dam.grup2.swipe4job_app.screens.CandidateSignUpPage3
-import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage1
-import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage2
-import cat.dam.grup2.swipe4job_app.screens.CompanyPostOfferPage3
-import cat.dam.grup2.swipe4job_app.screens.JobOfferComplexDetails
-import cat.dam.grup2.swipe4job_app.screens.JobOfferSimpleDetails
-import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage1
-import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage2
-import cat.dam.grup2.swipe4job_app.screens.RecruiterSignUpPage3
-import cat.dam.grup2.swipe4job_app.screens.RolSelection
+import cat.dam.grup2.swipe4job_app.login.UserLoginForm
+import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateSimpleDetails
+import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateComplexDetails
+import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateSignUpPage1
+import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateSignUpPage2
+import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateSignUpPage3
+import cat.dam.grup2.swipe4job_app.recruiter.screens.CompanyPostOfferPage1
+import cat.dam.grup2.swipe4job_app.recruiter.screens.CompanyPostOfferPage2
+import cat.dam.grup2.swipe4job_app.recruiter.screens.CompanyPostOfferPage3
+import cat.dam.grup2.swipe4job_app.recruiter.screens.JobOfferComplexDetails
+import cat.dam.grup2.swipe4job_app.recruiter.screens.JobOfferSimpleDetails
+import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage1
+import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage2
+import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage3
+import cat.dam.grup2.swipe4job_app.login.RolSelection
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
