@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.candidate.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,28 +32,17 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cat.dam.grup2.swipe4job_app.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.shared_composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import java.time.LocalDate
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.candidate.CandidateInformation
+import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
 
-
-data class UserInformation(
-    val description: String,
-    val studies: List<Study>,
-    val skills: List<String>,
-    val name: String,
-    val lastname: String,
-    val location: String,
-    val languages: List<LanguageSkill>,
-    val jobExperience: List<JobExperience>
-)
 
 enum class LanguageLevel {
     Low,
@@ -164,7 +153,7 @@ fun CandidateComplexDetails() {
             ) {
                 UserInformationDisplay(
                     information =
-                    UserInformation(
+                    CandidateInformation(
                         description = "Hello how are you",
                         jobExperience = listOf(
                             JobExperience(
@@ -220,7 +209,7 @@ fun CandidateComplexDetails() {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
-fun UserInformationDisplay(information: UserInformation) {
+fun UserInformationDisplay(information: CandidateInformation) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()

@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.composables
+package cat.dam.grup2.swipe4job_app.shared_composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

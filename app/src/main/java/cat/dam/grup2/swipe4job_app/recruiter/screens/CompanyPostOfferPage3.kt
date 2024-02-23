@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.recruiter.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,17 +31,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomDropdown
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomTextFieldMaxChar
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun RecruiterSignUpPage3(navController: NavController) {
-
-    var acceptedTerms by remember { mutableStateOf(false) }
-    var acceptedEmailPolicy by remember { mutableStateOf(false) }
+fun CompanyPostOfferPage3(navController: NavController) {
+    var salaryRangeText = stringResource(id = R.string.label_salaryRange)
+    var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
+    var salaryRangeOptions = stringArrayResource(R.array.salary_range_array).toList()
 
     LazyColumn(
         modifier = Modifier
@@ -54,15 +54,15 @@ fun RecruiterSignUpPage3(navController: NavController) {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(16.dp)
-                //.verticalScroll(enabled = true, state = rememberScrollState())
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+
                     // Steps number
                     Text(
-                        "2/3",
+                        "3/3",
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .background(Color.Transparent)
@@ -72,20 +72,64 @@ fun RecruiterSignUpPage3(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Title - Description
+                    // Title - Salary range
                     Text(
-                        stringResource(id = R.string.companyDescription_text),
-                        style = MaterialTheme.typography.titleMedium,
+                        stringResource(id = R.string.salaryRange_text),
                         color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier
-                            .padding(bottom = 12.dp)
+                        style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Text field for the description
-                    var companyDescription by remember { mutableStateOf("") }
+                    // Salary range dropdown
+                    CustomDropdown(
+                        placeholder = selectedSalaryRangeItem,
+                        items = salaryRangeOptions
+                    ) {
+                        selectedSalaryRangeItem = it
+                    }
+
+                    Text(
+                        stringResource(id = R.string.grossAnnualSalary_text),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Working hours
+                    Text(
+                        stringResource(id = R.string.workingHours_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Text field for the working hours
+                    var workingHours by remember { mutableStateOf("") }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(companyDescription),
+                        descriptionState = mutableStateOf(workingHours),
+                        maxCharacters = 500,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Department organization and relationships
+                    Text(
+                        stringResource(id = R.string.departmentOrganisation_text),
+                        color = MaterialTheme.colorScheme.secondary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    // Text field for the department organization and relationships
+                    var departmentOrganisation by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(departmentOrganisation),
                         maxCharacters = 1000,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
@@ -95,45 +139,6 @@ fun RecruiterSignUpPage3(navController: NavController) {
 
                     // Sections spacer
                     Spacer(modifier = Modifier.height(16.dp))
-
-                    // Checkboxes
-                    Column {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Checkbox(
-                                checked = acceptedTerms,
-                                onCheckedChange = { acceptedTerms = it },
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                stringResource(id = R.string.acceptedTerms_text),
-                                color = MaterialTheme.colorScheme.onBackground,
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Checkbox(
-                                checked = acceptedEmailPolicy,
-                                onCheckedChange = { acceptedEmailPolicy = it },
-                            )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(
-                                stringResource(id = R.string.acceptedEmailPolicy_text),
-                                color = MaterialTheme.colorScheme.onBackground,
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-                    }
 
                     // Buttons - Previous + Next
                     Box(
@@ -147,7 +152,7 @@ fun RecruiterSignUpPage3(navController: NavController) {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("recruiterSignUpPage2")
+                                    navController.navigate("companyPostOfferPage2")
                                 },
                                 text = stringResource(id = R.string.button_previous_text),
                                 modifier = Modifier.weight(1f)
@@ -170,8 +175,8 @@ fun RecruiterSignUpPage3(navController: NavController) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun CustomRecruiterSignUpPage3Preview() {
+fun CustomCompanyPostOfferPage3Preview() {
     AppTheme {
-        RecruiterSignUpPage3(rememberNavController())
+        CompanyPostOfferPage3(rememberNavController())
     }
 }

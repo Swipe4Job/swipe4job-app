@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
