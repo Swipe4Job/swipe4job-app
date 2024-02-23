@@ -1,6 +1,9 @@
 package cat.dam.grup2.swipe4job_app.screens
 
 import Criteria
+import android.net.http.HttpException
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +43,9 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.model.UserLogin
+import cat.dam.grup2.swipe4job_app.model.UserLogout
+import cat.dam.grup2.swipe4job_app.model.UserPost
 import cat.dam.grup2.swipe4job_app.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import filters.FilterGroup
@@ -50,6 +56,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import orders.Orders
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun UserLoginForm(navController: NavController) {
     var username by remember { mutableStateOf("") }
@@ -130,29 +137,93 @@ fun UserLoginForm(navController: NavController) {
     }
 }
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 fun retrofit(scope: CoroutineScope) {
-    val service = RetrofitServiceFactory.makeRetrofitService()
-
-    println("patata")
 
     scope.launch {
-        val usersCriteria = Criteria(filters = Filters.create(
-            FilterGroup.create(
-                Filter.create("name", Operators.EQUAL, "admin")
-            ),
-        ), orders = Orders.EMPTY())
-        val encodedCriteria = CriteriaEncoder.encodeCriteria(usersCriteria)
-        println(encodedCriteria)
-        val results = service.listApi(encodedCriteria)
-        println(results)
-        println("potatoide")
+//        funListUsers(scope)
+//        funAddUser(scope)
+//        funUserLogin(scope)
+        funUserLogout(scope)
+
     }
 }
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CustomUserLoginFormPreview() {
     AppTheme {
         UserLoginForm(rememberNavController())
+    }
+}
+
+suspend fun funListUsers(scope: CoroutineScope) {
+    val service = RetrofitServiceFactory.makeRetrofitService()
+    val usersCriteria = Criteria(
+        filters = Filters.create(
+            FilterGroup.create(
+                Filter.create("name", Operators.EQUAL, "Paco")
+            ),
+        ), orders = Orders.EMPTY()
+    )
+    val encodedCriteria = CriteriaEncoder.encodeCriteria(usersCriteria)
+    println(encodedCriteria)
+    val results = service.listApi(encodedCriteria)
+    println(results)
+
+}
+
+suspend fun funAddUser(scope: CoroutineScope) {
+    val service = RetrofitServiceFactory.makeRetrofitService()
+
+    val userPost = UserPost(
+        email = "test@example.com",
+        lastName = "Test",
+        name = "Test",
+        password = "password123",
+        phoneNumber = "123346589",
+        role = "CANDIDATE"
+    )
+    val response = service.addUser(userPost)
+    println("Gonsales")
+    println(response)
+
+}
+
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+suspend fun funUserLogin(scope: CoroutineScope) {
+    val service = RetrofitServiceFactory.makeRetrofitService()
+
+    val userLogIn = UserLogin(
+        email = "admin@example.com",
+        password = "admin"
+    )
+
+    try {
+        val response = service.userLogin(userLogIn)
+        println(response)
+    } catch (e: HttpException) {
+        println("Error en la solicitud HTTP: ${e.message}")
+    } catch (e: Throwable) {
+        println("Error inesperado: ${e.message}")
+    }
+}
+
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+suspend fun funUserLogout(scope: CoroutineScope) {
+    val service = RetrofitServiceFactory.makeRetrofitService()
+
+    val userLogOut = UserLogout(
+        token = "eyJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InVzZXJJRCI6ImQ3NTI2N2QzLTllMDQtNDhhOS1hMzRhLWUyZTg0ZDdmODNiYyIsInJvbGUiOiJBRE1JTiJ9LCJ0eXBlIjoiYXV0aC51c2VyIiwia2luZCI6InJlZnJlc2giLCJqdGkiOiI1ZjQ1YTVlYy0yYjE3LTRmMjQtYWU5OS0yMDU1OWNhM2ZjZGIiLCJpYXQiOjE3MDg3MTA2MTQsImV4cCI6MTcwODczMjIxNH0.kJBJ5nUaHhGMrK1ncbWFvsB8jErV_r6h9LLhzrorKZc"
+    )
+
+    try {
+        val response = service.userLogout(userLogOut)
+        println(response)
+    } catch (e: HttpException) {
+        println("Error en la solicitud HTTP: ${e.message}")
+    } catch (e: Throwable) {
+        println("Error inesperado: ${e.message}")
     }
 }
