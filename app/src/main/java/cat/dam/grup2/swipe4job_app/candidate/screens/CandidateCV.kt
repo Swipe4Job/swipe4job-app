@@ -37,8 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.candidate.CandidateInformation
-import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
-import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
+
 
 @Composable
 fun CandidateCV() {
@@ -60,6 +59,9 @@ fun CandidateCV() {
         item {
             Header(candidate = candidate)
             Experience(candidate = candidate)
+            Studies(candidate = candidate)
+            Skills(candidate = candidate)
+            Languages(candidate = candidate)
         }
     }
 }
@@ -94,6 +96,46 @@ fun Header(candidate: CandidateInformation) {
 
 @Composable
 fun Experience(candidate: CandidateInformation) {
+    EmptyField(
+        candidate = candidate,
+        title = R.string.candidate_jobExperience_title,
+        emptyField = R.string.emptyExperience_text
+    )
+}
+
+@Composable
+fun Studies(candidate: CandidateInformation) {
+    EmptyField(
+        candidate = candidate,
+        title = R.string.candidate_studies_title,
+        emptyField = R.string.emptyStudies_text
+    )
+}
+
+@Composable
+fun Skills(candidate: CandidateInformation) {
+    EmptyField(
+        candidate = candidate,
+        title = R.string.candidate_skills_title,
+        emptyField = R.string.emptySkills_text
+    )
+}
+
+@Composable
+fun Languages(candidate: CandidateInformation) {
+    EmptyField(
+        candidate = candidate,
+        title = R.string.candidate_languages_title,
+        emptyField = R.string.emptyLanguages_text
+    )
+}
+
+@Composable
+fun EmptyField(
+    candidate: CandidateInformation,
+    title: Int,
+    emptyField: Int
+) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -105,7 +147,7 @@ fun Experience(candidate: CandidateInformation) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(id = R.string.candidate_jobExperience_title),
+                text = stringResource(id = title),
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.secondary
             )
@@ -141,40 +183,11 @@ fun Experience(candidate: CandidateInformation) {
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text(stringResource(id = R.string.emptyExperience_text))
+                    Text(stringResource(id = emptyField))
                 }
             }
         }
     }
-}
-
-@Composable
-fun CustomOutlinedButtonWithText(
-    onClick: () -> Unit,
-    title: String
-) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = Modifier
-            .wrapContentSize()
-            .padding(8.dp),
-        border = BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
-        content = {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(id = R.string.add_icon_description)
-                )
-                Text(
-                    text = stringResource(id = buttonTextId),
-                    color = MaterialTheme.colorScheme.secondary
-                )
-            }
-        }
-    )
 }
 
 
@@ -191,5 +204,5 @@ fun Preview() {
         languages = listOf(),
         jobExperience = listOf()
     )
-    Experience(candidate = candidate)
+    CandidateCV()
 }

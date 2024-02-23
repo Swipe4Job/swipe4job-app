@@ -155,4 +155,7 @@
     <string name="grossAnnualSalary_text">(salario bruto anual)</string>
     <string name="add_text_button">Añadir</string>
     <string name="emptyExperience_text">Aún no has añadido ninguna experiencia</string>
+    <string name="emptyStudies_text">Aún no has añadido ningún estudio</string>
+    <string name="emptySkills_text">Aún no has añadido ninguna habilidad</string>
+    <string name="emptyLanguages_text">Aún no has añadido ningún idioma</string>
 </resources>
