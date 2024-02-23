@@ -158,4 +158,11 @@
     <string name="emptyStudies_text">You haven\'t added any studies yet</string>
     <string name="emptySkills_text">You haven\'t added any skills yet</string>
     <string name="emptyLanguages_text">You haven\'t added any language yet</string>
+    <string name="search_icon_description">Search icon</string>
+    <string name="connections_icon_description">Connections icon</string>
+    <string name="cv_icon_description">CV icon</string>
+    <string name="search_text">Search</string>
+    <string name="connections_text">Connections</string>
+    <string name="cv_text">CV</string>
+    <string name="notifications_text">Notifications</string>
 </resources>

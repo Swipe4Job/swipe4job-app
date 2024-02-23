@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateCV
 import cat.dam.grup2.swipe4job_app.login.UserLoginForm
 import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateSimpleDetails
 import cat.dam.grup2.swipe4job_app.candidate.screens.CandidateComplexDetails
@@ -23,7 +24,7 @@ import cat.dam.grup2.swipe4job_app.login.RolSelection
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "companyPostOfferPage1") {
+    NavHost(navController = navController, startDestination = "candidateCV") {
         composable("userLoginForm") {
             UserLoginForm(navController)
         }
@@ -72,6 +73,10 @@ fun AppNavigation(navController: NavHostController) {
             RecruiterSignUpPage3(navController)
         }
 
+        composable("candidateCV") {
+            CandidateCV(navController)
+        }
+
         composable("companyPostOfferPage1") {
             CompanyPostOfferPage1(navController)
         }
@@ -83,7 +88,5 @@ fun AppNavigation(navController: NavHostController) {
         composable("companyPostOfferPage3") {
             CompanyPostOfferPage3(navController)
         }
-
-
     }
 }
