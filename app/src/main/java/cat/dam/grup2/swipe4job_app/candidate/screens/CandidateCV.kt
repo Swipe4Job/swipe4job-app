@@ -20,27 +20,38 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.candidate.CandidateInformation
+import cat.dam.grup2.swipe4job_app.candidate.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.candidate.components.BottomNavigationItem
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CandidateCV() {
+fun CandidateCV(navController: NavController) {
+    var selected by remember { mutableStateOf(BottomNavigationItem.CV) }
+
     val candidate = CandidateInformation(
         description = "",
         studies = listOf(),
@@ -52,16 +63,30 @@ fun CandidateCV() {
         jobExperience = listOf()
     )
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        item {
-            Header(candidate = candidate)
-            Experience(candidate = candidate)
-            Studies(candidate = candidate)
-            Skills(candidate = candidate)
-            Languages(candidate = candidate)
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(
+                searchClick = { selected = BottomNavigationItem.SEARCH },
+                connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
+                cvClick = { selected = BottomNavigationItem.CV },
+                notificationsClick = { selected = BottomNavigationItem.NOTIFICATIONS },
+                selected = selected,
+                navController = navController
+            )
+        }
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+        ) {
+            item {
+                Header(candidate = candidate)
+                Experience(candidate = candidate)
+                Studies(candidate = candidate)
+                Skills(candidate = candidate)
+                Languages(candidate = candidate)
+            }
         }
     }
 }
@@ -204,5 +229,5 @@ fun Preview() {
         languages = listOf(),
         jobExperience = listOf()
     )
-    CandidateCV()
+    CandidateCV(rememberNavController())
 }
