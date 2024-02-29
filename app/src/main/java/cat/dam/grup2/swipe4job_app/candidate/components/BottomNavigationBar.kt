@@ -14,7 +14,6 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +25,7 @@ import cat.dam.grup2.swipe4job_app.R
 @Composable
 fun BottomNavigationBar(
     searchClick: () -> Unit,
-    offersClick: () -> Unit,
+    connectionsClick: () -> Unit,
     cvClick: () -> Unit,
     notificationsClick: () -> Unit,
     selected: BottomNavigationItem,
@@ -56,17 +55,13 @@ fun BottomNavigationBar(
                         tint = searchIconColor,
                         modifier = Modifier.size(25.dp)
                     )
-                    Text(
-                        text = stringResource(id = R.string.search_text),
-                        color = MaterialTheme.colorScheme.primary
-                    )
                 }
             }
             val connectionsIconColor =
                 if (selected == BottomNavigationItem.CONNECTIONS) MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.secondary
             IconButton(onClick = {
-                offersClick()
+                connectionsClick()
                 navController.navigate("jobOfferSimpleDetails")
             }) {
                 Column( horizontalAlignment = Alignment.CenterHorizontally,
@@ -77,10 +72,6 @@ fun BottomNavigationBar(
                         contentDescription = stringResource(id = R.string.connections_icon_description),
                         tint = connectionsIconColor,
                         modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.connections_text),
-                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -100,10 +91,6 @@ fun BottomNavigationBar(
                         tint = cvIconColor,
                         modifier = Modifier.size(25.dp)
                     )
-                    Text(
-                        text = stringResource(id = R.string.cv_text),
-                        color = MaterialTheme.colorScheme.primary
-                    )
                 }
             }
             val notificationsIconColor =
@@ -121,10 +108,6 @@ fun BottomNavigationBar(
                         contentDescription = stringResource(id = R.string.notifications_icon_description),
                         tint = notificationsIconColor,
                         modifier = Modifier.size(25.dp)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.notifications_text),
-                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             }

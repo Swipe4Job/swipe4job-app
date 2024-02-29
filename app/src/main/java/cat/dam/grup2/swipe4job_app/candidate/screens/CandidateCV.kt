@@ -50,7 +50,7 @@ import cat.dam.grup2.swipe4job_app.candidate.components.BottomNavigationItem
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CandidateCV(navController: NavController) {
-    var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
+    var selected by remember { mutableStateOf(BottomNavigationItem.CV) }
 
     val candidate = CandidateInformation(
         description = "",
@@ -67,24 +67,26 @@ fun CandidateCV(navController: NavController) {
         bottomBar = {
             BottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
-                offersClick = { selected = BottomNavigationItem.CONNECTIONS },
+                connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 cvClick = { selected = BottomNavigationItem.CV },
                 notificationsClick = { selected = BottomNavigationItem.NOTIFICATIONS },
                 selected = selected,
                 navController = navController
             )
         }
-    ) { paddingValues -> }
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        item {
-            Header(candidate = candidate)
-            Experience(candidate = candidate)
-            Studies(candidate = candidate)
-            Skills(candidate = candidate)
-            Languages(candidate = candidate)
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+        ) {
+            item {
+                Header(candidate = candidate)
+                Experience(candidate = candidate)
+                Studies(candidate = candidate)
+                Skills(candidate = candidate)
+                Languages(candidate = candidate)
+            }
         }
     }
 }

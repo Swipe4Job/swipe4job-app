@@ -24,7 +24,7 @@ import cat.dam.grup2.swipe4job_app.login.RolSelection
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "candidateCV") {
+    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
         composable("userLoginForm") {
             UserLoginForm(navController)
         }
