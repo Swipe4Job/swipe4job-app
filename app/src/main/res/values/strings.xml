@@ -165,4 +165,5 @@
     <string name="connections_text">Connections</string>
     <string name="cv_text">CV</string>
     <string name="notifications_text">Notifications</string>
+    <string name="offers_icon_description">Offers icons</string>
 </resources>
