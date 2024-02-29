@@ -87,7 +87,7 @@ fun BottomNavigationBar(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Description,
-                        contentDescription = stringResource(id = R.string.cv_image_description),
+                        contentDescription = stringResource(id = R.string.cv_icon_description),
                         tint = cvIconColor,
                         modifier = Modifier.size(25.dp)
                     )
