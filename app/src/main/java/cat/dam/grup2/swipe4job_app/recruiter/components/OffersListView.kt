@@ -30,13 +30,14 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.recruiter.modelos.JobOfferInformation
 import java.text.SimpleDateFormat
 import java.util.Locale
+import androidx.compose.foundation.lazy.itemsIndexed
 
 @Composable
 fun OffersListView(
     offerList: List<JobOfferInformation>,
-    onViewClick: (JobOfferInformation) -> Unit,
-    onEditClick: (JobOfferInformation) -> Unit,
-    onDeleteClick: (JobOfferInformation) -> Unit
+    onViewClick: (offer: JobOfferInformation) -> Unit,
+    onEditClick: (offer: JobOfferInformation) -> Unit,
+    onDeleteClick: (offer: JobOfferInformation) -> Unit
 ) {
     LazyColumn {
         items(offerList) { offer ->
@@ -44,14 +45,9 @@ fun OffersListView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .clickable {
-                        // Handle item click
-                    },
-                shape = RoundedCornerShape(8.dp),
             ) {
                 Column(
-                    modifier = Modifier
-                        .padding(16.dp)
+                    modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
                         text = "${stringResource(R.string.jobTitle_text)}: ${offer.jobTitle}",
@@ -86,6 +82,7 @@ fun OffersListView(
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -123,9 +120,7 @@ fun OffersListView(
                             )
                         }
                         IconButton(
-                            onClick = {
-                                onDeleteClick(offer)
-                            },
+                            onClick = { onDeleteClick(offer) },
                             modifier = Modifier
                                 .background(
                                     color = Color.Transparent,
@@ -146,3 +141,4 @@ fun OffersListView(
         }
     }
 }
+

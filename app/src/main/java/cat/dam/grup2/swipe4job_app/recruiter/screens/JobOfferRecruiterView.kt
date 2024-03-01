@@ -2,8 +2,6 @@ package cat.dam.grup2.swipe4job_app.recruiter.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
-import androidx.compose.foundation.layout.FlowRowScopeInstance.align
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,13 +25,14 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.candidate.screens.Section
@@ -49,56 +48,48 @@ import java.util.Locale
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun JobOfferRecruiterView(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    IconButton(
-                        onClick = {
-                            navController.navigate("offersList")
+fun JobOfferRecruiterView(navController: NavController, index: Int) {
+    val selectedItem = offerList.getOrNull(index)
+
+    if (selectedItem != null) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        IconButton(
+                            onClick = {
+                                navController.popBackStack()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = stringResource(id = R.string.back_icon_description),
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = stringResource(id = R.string.back_icon_description),
-                        )
                     }
-                }
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                JobOfferInformationDisplayRecuiterView(
-                    information = JobOfferInformation(
-                        location = "Barcelona",
-                        jobTitle = "Backend developer",
-                        description = "Hello how are you",
-                        responsabilities = "Hello how are you",
-                        requirements = "Hello how are you",
-                        jobType = JobTypeOptions.Hybrid,
-                        contractType = ContractTypeOptions.Temporary,
-                        workingDayType = WorkingDayTypeOptions.FullTime,
-                        skills = listOf("Kotlin", "Android Development", "Web Development"),
-                        salaryRange = SalaryRange.Between(45_000.0, 55_000.0),
-                        workingHours = "Monday to Thursday from 9am to 17pm. Fridays from 8am to 14pm.",
-                        departmentOrganisation = "Hello how are you",
-                        publicationDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-01-15 12:30:00")
-                    )
                 )
             }
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    JobOfferInformationDisplayRecuiterView(selectedItem)
+                }
+            }
         }
+    } else {
+        // Manejar el caso cuando no se encuentra el elemento seleccionado
     }
 }
+
+
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -293,13 +284,5 @@ fun JobOfferInformationDisplayRecuiterView(information: JobOfferInformation) {
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun JobOfferRecruiterViewPreview() {
-    AppTheme {
-        JobOfferRecruiterView(rememberNavController())
     }
 }

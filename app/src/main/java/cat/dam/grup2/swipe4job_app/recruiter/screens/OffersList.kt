@@ -136,7 +136,6 @@ lateinit var keyboardController: SoftwareKeyboardController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OffersList(navController: NavController) {
-
     var selected by remember { mutableStateOf(BottomNavigationItem.OFFERS) }
 
     Scaffold(
@@ -171,15 +170,18 @@ fun OffersList(navController: NavController) {
                 .padding(innerPadding)
         ) {
             OffersListView(
-                offerList,
-                onViewClick = { item ->
-                    navController.navigate("jobOfferRecruiterView")
+                offerList = offerList,
+                onViewClick = { offer ->
+                    itemToView = offer // Actualiza el estado itemToView con la oferta seleccionada
+                    navController.navigate("jobOfferRecruiterView/${offerList.indexOf(offer)}")
                 },
-                onEditClick = { item ->
-                    itemToEdit = item
-                }, onDeleteClick = { item ->
-                    itemToDelete = item
-                })
+                onEditClick = { offer ->
+                    itemToEdit = offer // Actualiza el estado itemToEdit con la oferta seleccionada
+                },
+                onDeleteClick = { offer ->
+                    itemToDelete = offer // Actualiza el estado itemToDelete con la oferta seleccionada
+                }
+            )
         }
     }
 }

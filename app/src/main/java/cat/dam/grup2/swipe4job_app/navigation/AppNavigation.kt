@@ -23,6 +23,7 @@ import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage3
 import cat.dam.grup2.swipe4job_app.login.RolSelection
 import cat.dam.grup2.swipe4job_app.recruiter.screens.JobOfferRecruiterView
 import cat.dam.grup2.swipe4job_app.recruiter.screens.OffersList
+import cat.dam.grup2.swipe4job_app.recruiter.screens.offerList
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -51,8 +52,19 @@ fun AppNavigation(navController: NavHostController) {
             JobOfferComplexDetails()
         }
 
-        composable("jobOfferRecruiterView") {
-            JobOfferRecruiterView(navController)
+//        composable("jobOfferRecruiterView") {
+//            JobOfferRecruiterView(navController)
+//        }
+
+        composable("jobOfferRecruiterView/{index}") { navBackStackEntry ->
+            val arguments = navBackStackEntry.arguments
+            val index = arguments?.getInt("index")
+            if (index != null && index >= 0 && index < offerList.size) {
+                JobOfferRecruiterView(navController, index)
+            } else {
+                // Manejar el caso cuando no se proporciona un índice válido
+                // Por ejemplo, redirigir a otra pantalla o mostrar un mensaje de error
+            }
         }
 
         composable("candidateSignUpPage1") {
