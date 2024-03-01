@@ -173,7 +173,7 @@ fun OffersList(navController: NavController) {
             OffersListView(
                 offerList,
                 onViewClick = { item ->
-                    itemToView = item
+                    navController.navigate("jobOfferRecruiterView")
                 },
                 onEditClick = { item ->
                     itemToEdit = item

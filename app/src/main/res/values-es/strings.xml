@@ -171,4 +171,8 @@
     <string name="add_button_description">Botón de añadir</string>
     <string name="publicationDate_text">Fecha de publicación</string>
     <string name="visibility_icon_description">Icono de visualización</string>
+    <string name="jobOffer_location_title">Ubicación</string>
+    <string name="jobOffer_jobTitle_title">Posición</string>
+    <string name="jobOffer_publicationDate_title">Fecha de publicación</string>
+    <string name="back_icon_description">Icono de flecha de volver atrás</string>
 </resources>
