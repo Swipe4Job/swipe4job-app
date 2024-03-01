@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.login
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
@@ -33,11 +33,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.features.users.UserApiService
 import kotlinx.coroutines.launch
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable

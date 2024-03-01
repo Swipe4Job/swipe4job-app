@@ -1,5 +1,6 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.candidate.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,18 +9,19 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
@@ -28,93 +30,72 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.dam.grup2.swipe4job_app.composables.MatchButtons
+import cat.dam.grup2.swipe4job_app.shared_composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.recruiter.components.BottomNavigationItem
+import cat.dam.grup2.swipe4job_app.recruiter.components.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun JobOfferSimpleDetails(navController: NavController) {
+fun CandidateSimpleDetails(navController: NavController) {
+
+    var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     TextButton(
                         onClick = {
-                            // Lógica al clickar
+                            navController.navigate("candidateComplexDetails")
                         },
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentWidth(Alignment.End)
-                            .padding(end = 16.dp)
+                            .padding(end = 4.dp)
                     ) {
                         Text(
-                            text = stringResource(id = R.string.text_moreDetails)
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {
-                        navController.navigate("jobOfferComplexDetails")
-                    }) {
-                        Icon(
-                            Icons.Default.Notifications,
-                            contentDescription = stringResource(id = R.string.notifications_icon_description)
+                            text = stringResource(id = R.string.text_moreDetails),
+                            textDecoration = TextDecoration.Underline
                         )
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
             )
         },
-//        bottomBar = {
-//            BottomAppBar(
-//                modifier = Modifier.fillMaxWidth(),
-//                containerColor = MaterialTheme.colorScheme.primaryContainer
-//            ) {
-//                BottomNavigation(
-//                    icon = {
-//                        Icon(Icons.Default.Home, contentDescription = "Home")
-//                    },
-//                    selected = false,
-//                    onClick = {
-//                        // Lógica al hacer clic en la opción de inicio
-//                    }
-//                )
-//                BottomNavigationItem(
-//                    icon = {
-//                        Icon(Icons.Default.History, contentDescription = "History")
-//                    },
-//                    selected = false,
-//                    onClick = {
-//                        // Lógica al hacer clic en la opción de historial
-//                    }
-//                )
-//                BottomNavigationItem(
-//                    icon = {
-//                        Icon(Icons.Default.Settings, contentDescription = "Settings")
-//                    },
-//                    selected = false,
-//                    onClick = {
-//                        // Lógica al hacer clic en la opción de ajustes
-//                    }
-//                )
-//            }
-//        }
-//        https://medium.com/@chiragthummar16/jetpack-compose-bottom-navigation-with-scaffold-material3-717e28ccc811
+        bottomBar = {
+            BottomNavigationBar(
+                searchClick = { selected = BottomNavigationItem.SEARCH },
+                connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
+                offersClick = { selected = BottomNavigationItem.OFFERS },
+                notificationsClick = { selected = BottomNavigationItem.NOTIFICATIONS },
+                selected = selected,
+                navController = navController
+            )
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth(),
         ) {
-            JobOfferSimpleDetails()
+            SimpleDetails()
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -128,7 +109,7 @@ fun JobOfferSimpleDetails(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun ColumnScope.JobOfferSimpleDetails() {
+fun ColumnScope.SimpleDetails() {
     val skills = listOf("Kotlin", "Android Development", "Web Development")
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
 
@@ -141,8 +122,18 @@ fun ColumnScope.JobOfferSimpleDetails() {
         verticalArrangement = Arrangement.Center
     ) {
         item {
+            Image(
+                painter = painterResource(id = R.drawable.profile),
+                contentDescription = stringResource(id = R.string.profile_image_description),
+                modifier = Modifier
+                    .size(250.dp)
+                    .clip(CircleShape)
+                    .align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
             Text(
-                text = "Backend developer",
+                text = "Paco Garcia",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -180,19 +171,19 @@ fun ColumnScope.JobOfferSimpleDetails() {
                     )
                 }
             }
-            Text(
-                text = "Wikiloc (optional field)",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
         }
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun JobOfferSimpleDetailsPreview() {
+fun CustomCandidateSimpleDetailsPreview() {
     AppTheme {
-        JobOfferSimpleDetails(rememberNavController())
+        CandidateSimpleDetails(rememberNavController())
     }
 }
+
+data class ChipItem(
+    val label: String,
+    val icon: ImageVector
+)

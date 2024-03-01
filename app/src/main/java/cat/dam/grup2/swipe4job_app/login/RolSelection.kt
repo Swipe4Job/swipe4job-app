@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.login
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

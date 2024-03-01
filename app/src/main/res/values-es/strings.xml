@@ -39,10 +39,10 @@
     <string name="fillProfessionalProfile_question_text">¿Deseas completar tu perfil profesional?</string>
     <string name="label_jobTitle">Introduce la posición</string>
     <string name="label_companyName">Introduce el nombre de la empresa</string>
-    <string name="label_jobType">Presencial</string>
+    <string name="label_jobType">Selecciona el tipo de empleo</string>
     <string name="label_location">Introduce la ubicación</string>
-    <string name="label_contractType">Indefinido</string>
-    <string name="label_workingDayType">Jornada completa</string>
+    <string name="label_contractType">Selecciona el tipo de contrato</string>
+    <string name="label_workingDayType">Selecciona el tipo de jornada laboral</string>
     <string name="postJobOffer_text">Publica una oferta de empleo</string>
     <string name="jobTitle_text">Posición</string>
     <string name="companyName_text">Empresa</string>
@@ -51,7 +51,7 @@
     <string name="contractType_text">Tipo de contrato</string>
     <string name="workingDayType_text">Tipo de jornada laboral</string>
     <string name="description_text">Descripción</string>
-    <string name="tipsDescriptionPostOffer_text">Consejos: Resuma el puesto, explique qué se necesita para tener éxito en él y su lugar en la empresa.</string>
+    <string name="tipsDescriptionPostOffer_text">Consejo: Resuma el puesto, explique qué se necesita para tener éxito en él y su lugar en la empresa.</string>
     <string name="responsabilities_text">Responsabilidades</string>
     <string name="requirements_text">Requisitos</string>
     <string name="skills_text">Habilidades</string>
@@ -67,12 +67,12 @@
     <string name="companyData_text">Datos de la empresa</string>
     <string name="label_companyPhoneNumber">Número de teléfono de la empresa</string>
     <string name="label_companyNif">Introduce el N.I.F. de la empresa</string>
-    <string name="label_companySector">Introduce el sector de la empresa</string>
+    <string name="label_companySector">Selecciona el sector de la empresa</string>
     <string name="contactPhoneNumber_text">Teléfono de contacto</string>
     <string name="nif_text">Número de Identificación Fiscal</string>
     <string name="companySector_text">Sector</string>
     <string name="companySize_text">Tamaño de la empresa</string>
-    <string name="label_companySize">Introduce el número de trabajadores</string>
+    <string name="label_companySize">Selecciona el número de trabajadores</string>
     <string name="companyDescription_text">Descripción de la empresa</string>
     <string name="acceptedTerms_text">Acepto el Uso del servicio y las Condiciones legales</string>
     <string name="acceptedEmailPolicy_text">Acepto la Política de envío de correos electrónicos</string>
@@ -97,4 +97,83 @@
     <string name="contractTypeOptions_indefinite_text">Indefinido</string>
     <string name="contractTypeOptions_other_text">Otro</string>
     <string name="button_Yes_text">Sí</string>
+    <string-array name="sectors_array">
+        <item>Actividades administrativas y servicios auxiliares</item>
+        <item>Actividades artísticas, recreativas y de entrenamiento</item>
+        <item>Actividades inmobiliarias</item>
+        <item>Actividades profesionales, científicas y técnicas</item>
+        <item>Agricultura y ganadería</item>
+        <item>Bienes de consumo</item>
+        <item>Comercio electrónico</item>
+        <item>Comercio y establecimientos</item>
+        <item>Construcción</item>
+        <item>Deporte y ocio</item>
+        <item>Educación</item>
+        <item>Energía y medioambiente</item>
+        <item>Finanzas y seguros</item>
+        <item>Hostelería</item>
+        <item>Industria manufacturera</item>
+        <item>Internet</item>
+        <item>Suministro de energía</item>
+        <item>Tecnologías de la Información y las Comunicaciones</item>
+        <item>Transporte y almacenamiento</item>
+    </string-array>
+    <string-array name="company_size_array">
+        <item>Menos de 10 trabajadores/as</item>
+        <item>Entre 10 y 49 trabajadores/as</item>
+        <item>Entre 50 y 249 trabajadores/as</item>
+        <item>250 o más trabajadores/as</item>
+    </string-array>
+    <string-array name="job_type_array">
+        <item>Remoto</item>
+        <item>Presencial</item>
+        <item>Híbrido</item>
+    </string-array>
+    <string-array name="contract_type_array">
+        <item>Indefinido</item>
+        <item>Temporal</item>
+        <item>Freelance</item>
+        <item>Prácticas</item>
+        <item>Otro</item>
+    </string-array>
+    <string-array name="working_day_type_array">
+        <item>Jornada completa</item>
+        <item>Jornada parcial</item>
+        <item>Jornada flexible</item>
+    </string-array>
+    <string-array name="salary_range_array">
+        <item>Menos de 15.000 €</item>
+        <item>Entre 15.000 € y 20.000 €</item>
+        <item>Entre 20.000 € y 25.000 €</item>
+        <item>Entre 25.000 € y 35.000 €</item>
+        <item>Entre 35.000 € y 45.000 €</item>
+        <item>Entre 45.000 € y 55.000 €</item>
+        <item>Entre 55.000 € y 65.000 €</item>
+        <item>Más de 65.000 €</item>
+    </string-array>
+    <string name="label_salaryRange">Selecciona el rango salarial</string>
+    <string name="grossAnnualSalary_text">(salario bruto anual)</string>
+    <string name="add_text_button">Añadir</string>
+    <string name="emptyExperience_text">Aún no has añadido ninguna experiencia</string>
+    <string name="emptyStudies_text">Aún no has añadido ningún estudio</string>
+    <string name="emptySkills_text">Aún no has añadido ninguna habilidad</string>
+    <string name="emptyLanguages_text">Aún no has añadido ningún idioma</string>
+    <string name="search_icon_description">Icono de búsqueda</string>
+    <string name="connections_icon_description">Icono de conexiones</string>
+    <string name="cv_icon_description">Icono de CV</string>
+    <string name="search_text">Búsqueda</string>
+    <string name="connections_text">Conexiones</string>
+    <string name="cv_text">CV</string>
+    <string name="notifications_text">Notificaciones</string>
+    <string name="offers_icon_description">Icono de ofertas</string>
+    <string name="edit_icon_description">Icono de editar</string>
+    <string name="delete_icon_description">Icono de eliminar</string>
+    <string name="add_button_description">Botón de añadir</string>
+    <string name="publicationDate_text">Fecha de publicación</string>
+    <string name="visibility_icon_description">Icono de visualización</string>
+    <string name="jobOffer_location_title">Ubicación</string>
+    <string name="jobOffer_jobTitle_title">Posición</string>
+    <string name="jobOffer_publicationDate_title">Fecha de publicación</string>
+    <string name="back_icon_description">Icono de flecha de volver atrás</string>
+    <string name="button_cancel_text">Cancelar</string>
 </resources>

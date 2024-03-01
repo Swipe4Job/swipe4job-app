@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.candidate.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -36,17 +34,76 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomDropdown
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CandidateSignUpPage2(navController: NavController) {
     var birthdate by remember { mutableStateOf("") }
     var postalcode by remember { mutableStateOf("") }
-    var province by remember { mutableStateOf("") }
     var town by remember { mutableStateOf("") }
+
+    var provinceText = stringResource(id = R.string.label_province)
+    var selectedItem by remember { mutableStateOf(provinceText) }
+    val provinces = listOf(
+        "Álava",
+        "Albacete",
+        "Alacant",
+        "Almería",
+        "Ávila",
+        "Badajoz",
+        "Illes Balears",
+        "Barcelona",
+        "Burgos",
+        "Cáceres",
+        "Cádiz",
+        "Castelló",
+        "Ciudad Real",
+        "Córdoba",
+        "A Coruña",
+        "Cuenca",
+        "Girona",
+        "Granada",
+        "Guadalajara",
+        "Gipuzkoa",
+        "Huelva",
+        "Huesca",
+        "Jaén",
+        "León",
+        "Lleida",
+        "La Rioja",
+        "Lugo",
+        "Madrid",
+        "Málaga",
+        "Murcia",
+        "Nafarroa",
+        "Ourense",
+        "Asturias",
+        "Palencia",
+        "Las Palmas",
+        "Pontevedra",
+        "Salamanca",
+        "Sta. Cruz de Tenerife",
+        "Cantabria",
+        "Segovia",
+        "Sevilla",
+        "Soria",
+        "Tarragona",
+        "Teruel",
+        "Toledo",
+        "Valéncia",
+        "Valladolid",
+        "Bizkaia",
+        "Zamora",
+        "Zaragoza",
+        "Ceuta",
+        "Melilla"
+    )
+
 
     LazyColumn(
         modifier = Modifier
@@ -106,18 +163,13 @@ fun CandidateSignUpPage2(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Province TextField
-                    CustomOutlinedTextField(
-                        value = province,
-                        onValueChange = { province = it },
-                        label = stringResource(id = R.string.label_province),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
+                    // Province dropdown
+                    CustomDropdown(
+                        placeholder = selectedItem,
+                        items = provinces,
+                    ) {
+                        selectedItem = it
+                    }
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
@@ -134,6 +186,7 @@ fun CandidateSignUpPage2(navController: NavController) {
                             keyboardType = KeyboardType.Number
                         )
                     )
+
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))

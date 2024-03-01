@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.candidate.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,13 +35,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
-fun RecruiterSignUpPage1(navController: NavController) {
+fun CandidateSignUpPage1(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var lastname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -166,7 +166,7 @@ fun RecruiterSignUpPage1(navController: NavController) {
                         // Create account Button
                         CustomButton(
                             onClick = {
-                                navController.navigate("recruiterSignUpPage2")
+                                navController.navigate("candidateSignUpPage2")
                             },
                             text = stringResource(id = R.string.button_createAccount_text)
                         )
@@ -188,8 +188,8 @@ fun RecruiterSignUpPage1(navController: NavController) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun CustomRecruiterSignUpPage1Preview() {
+fun CustomCandidateSignUpPage1Preview() {
     AppTheme {
-        RecruiterSignUpPage1(rememberNavController())
+        CandidateSignUpPage1(rememberNavController())
     }
 }

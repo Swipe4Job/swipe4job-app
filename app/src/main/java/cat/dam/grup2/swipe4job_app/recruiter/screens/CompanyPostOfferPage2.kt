@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.screens
+package cat.dam.grup2.swipe4job_app.recruiter.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -14,9 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,15 +37,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.composables.CustomTextFieldMaxChar
-import cat.dam.grup2.swipe4job_app.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared_composables.CustomTextFieldMaxChar
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun CompanyPostOfferPage3(navController: NavController) {
-    var salaryRange by remember { mutableStateOf("") }
+fun CompanyPostOfferPage2(navController: NavController) {
 
     LazyColumn(
         modifier = Modifier
@@ -55,15 +54,15 @@ fun CompanyPostOfferPage3(navController: NavController) {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(16.dp)
+                    //.verticalScroll(enabled = true, state = rememberScrollState())
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-
                     // Steps number
                     Text(
-                        "3/3",
+                        "2/3",
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .background(Color.Transparent)
@@ -73,69 +72,113 @@ fun CompanyPostOfferPage3(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Title - Salary range
+                    // Title - Description
                     Text(
-                        stringResource(id = R.string.salaryRange_text),
+                        stringResource(id = R.string.description_text),
+                        style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.secondary,
-                        style = MaterialTheme.typography.titleMedium
+                        modifier = Modifier
+                            .padding(bottom = 12.dp)
                     )
 
-                    // Salary range TextField
-                    CustomOutlinedTextField(
-                        value = salaryRange,
-                        onValueChange = { salaryRange = it },
-                        label = stringResource(id = R.string.salaryRangeQuantity_text),
-                        trailingIcon = IconVector.ImageVectorIcon(Icons.Default.ArrowDropDown),
-                        iconContentDescription = stringResource(id = R.string.dropdown_icon_description),
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
-
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Title - Working hours
-                    Text(
-                        stringResource(id = R.string.workingHours_text),
-                        color = MaterialTheme.colorScheme.secondary,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-
-                    // Text field for the working hours
-                    var workingHours by remember { mutableStateOf("") }
+                    // Text field for the description
+                    var description by remember { mutableStateOf("") }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(workingHours),
-                        maxCharacters = 500,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text
-                        )
-                    )
-
-                    // Spacer
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Title - Department organization and relationships
-                    Text(
-                        stringResource(id = R.string.departmentOrganisation_text),
-                        color = MaterialTheme.colorScheme.secondary,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-
-                    // Text field for the department organization and relationships
-                    var departmentOrganisation by remember { mutableStateOf("") }
-
-                    CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(departmentOrganisation),
+                        descriptionState = mutableStateOf(description),
                         maxCharacters = 1000,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
                             keyboardType = KeyboardType.Text
                         )
                     )
+
+                    Text(
+                        stringResource(id = R.string.tipsDescriptionPostOffer_text),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Responsabilities
+                    Text(
+                        stringResource(id = R.string.responsabilities_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    // Text field for the responsabilities
+                    var responsibilities by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(responsibilities),
+                        maxCharacters = 1500,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Requirements
+                    Text(
+                        stringResource(id = R.string.requirements_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    // Text field for the requirements
+                    var requirements by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(requirements),
+                        maxCharacters = 1500,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Title - Skills
+                    Text(
+                        stringResource(id = R.string.skills_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+
+                    // Button - Add skills
+                    Row(
+                        modifier = Modifier,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        OutlinedButton(
+                            onClick = { /* Acción del botón "Add skill" */ },
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(
+                                    stringResource(id = R.string.addSkills_text),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.Add,
+                                    contentDescription = stringResource(id = R.string.add_icon_description)
+                                )
+                            }
+                        }
+                    }
 
                     // Sections spacer
                     Spacer(modifier = Modifier.height(16.dp))
@@ -152,7 +195,7 @@ fun CompanyPostOfferPage3(navController: NavController) {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("companyPostOfferPage2")
+                                    navController.navigate("companyPostOfferPage1")
                                 },
                                 text = stringResource(id = R.string.button_previous_text),
                                 modifier = Modifier.weight(1f)
@@ -160,9 +203,9 @@ fun CompanyPostOfferPage3(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("companyPostOfferPage3")
                                 },
-                                text = stringResource(id = R.string.button_finish_text),
+                                text = stringResource(id = R.string.button_next_text),
                                 modifier = Modifier.weight(1f)
                             )
                         }
@@ -175,8 +218,8 @@ fun CompanyPostOfferPage3(navController: NavController) {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun CustomCompanyPostOfferPage3Preview() {
+fun CustomCompanyPostOfferPage2Preview() {
     AppTheme {
-        CompanyPostOfferPage3(rememberNavController())
+        CompanyPostOfferPage2(rememberNavController())
     }
 }

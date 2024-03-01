@@ -39,10 +39,10 @@
     <string name="fillProfessionalProfile_question_text">Do you want to fill your professional profile?</string>
     <string name="label_jobTitle">Enter the position</string>
     <string name="label_companyName">Enter the company name</string>
-    <string name="label_jobType">On-site work</string>
+    <string name="label_jobType">Select the type of job</string>
     <string name="label_location">Enter the location</string>
-    <string name="label_contractType">Indefinite</string>
-    <string name="label_workingDayType">Full time</string>
+    <string name="label_contractType">Select the type of contract</string>
+    <string name="label_workingDayType">Select the type of working day</string>
     <string name="postJobOffer_text">Post a job offer</string>
     <string name="jobTitle_text">Job title</string>
     <string name="companyName_text">Company</string>
@@ -51,14 +51,13 @@
     <string name="contractType_text">Contract type</string>
     <string name="workingDayType_text">Working day type</string>
     <string name="description_text">Description</string>
-    <string name="tipsDescriptionPostOffer_text">Tips: Summarize the position, explain what it takes to be successful in it and their place in the company.</string>
+    <string name="tipsDescriptionPostOffer_text">Tip: Summarize the position, explain what it takes to be successful in it and their place in the company.</string>
     <string name="responsabilities_text">Responsabilities</string>
     <string name="requirements_text">Requirements</string>
     <string name="skills_text">Skills</string>
     <string name="addSkills_text">Add skills</string>
     <string name="add_icon_description">Add icon</string>
     <string name="salaryRange_text">Salary range (optional)</string>
-    <string name="salaryRangeQuantity_text" translatable="false"> 12.000 €</string>
     <string name="workingHours_text">Working hours (optional)</string>
     <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
     <string name="button_finish_text">Finish</string>
@@ -68,12 +67,12 @@
     <string name="companyData_text">Company data</string>
     <string name="label_companyPhoneNumber">Company phone number</string>
     <string name="label_companyNif">Enter the company N.I.F.</string>
-    <string name="label_companySector">Enter the company sector</string>
+    <string name="label_companySector">Select the company sector</string>
     <string name="contactPhoneNumber_text">Contact phone number</string>
     <string name="nif_text">Fiscal Identification Number</string>
     <string name="companySector_text">Sector</string>
     <string name="companySize_text">Company size</string>
-    <string name="label_companySize">Enter the number of workers</string>
+    <string name="label_companySize">Select the number of workers</string>
     <string name="companyDescription_text">Company description</string>
     <string name="acceptedTerms_text">I accept the Use of the service and the Legal conditions</string>
     <string name="acceptedEmailPolicy_text">I accept the Email sending policy</string>
@@ -98,4 +97,83 @@
     <string name="contractTypeOptions_indefinite_text">Indefinite</string>
     <string name="contractTypeOptions_other_text">Other</string>
     <string name="button_Yes_text">Yes</string>
+    <string-array name="sectors_array">
+        <item>Administrative and auxiliary services activities</item>
+        <item>Agriculture and livestock</item>
+        <item>Artistic, recreational, and training activities</item>
+        <item>Commerce and establishments</item>
+        <item>Construction</item>
+        <item>Consumer goods</item>
+        <item>E-commerce</item>
+        <item>Education</item>
+        <item>Energy and environment</item>
+        <item>Energy supply</item>
+        <item>Finance and insurance</item>
+        <item>Hotel and catering</item>
+        <item>Information and Communication Technologies</item>
+        <item>Internet</item>
+        <item>Manufacturing industry</item>
+        <item>Professional, scientific, and technical activities</item>
+        <item>Sports and leisure</item>
+        <item>Transport and storage</item>
+        <item>Real estate activities</item>
+    </string-array>
+    <string-array name="company_size_array">
+        <item>Less than 10 workers</item>
+        <item>Between 10 and 49 workers</item>
+        <item>Between 50 and 249 workers</item>
+        <item>250 or more workers</item>
+    </string-array>
+    <string-array name="job_type_array">
+        <item>Remotely</item>
+        <item>On site</item>
+        <item>Hybrid</item>
+    </string-array>
+    <string-array name="contract_type_array">
+        <item>Indefinite</item>
+        <item>Temporary</item>
+        <item>Freelance</item>
+        <item>Internship</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="working_day_type_array">
+        <item>Full time</item>
+        <item>Part time</item>
+        <item>Flexible</item>
+    </string-array>
+    <string-array name="salary_range_array">
+        <item>Lower than 15.000 €</item>
+        <item>Between 15.000 € and 20.000 €</item>
+        <item>Between 20.000 € and 25.000 €</item>
+        <item>Between 25.000 € and 35.000 €</item>
+        <item>Between 35.000 € and 45.000 €</item>
+        <item>Between 45.000 € and 55.000 €</item>
+        <item>Between 55.000 € and 65.000 €</item>
+        <item>Greater than 65.000 €</item>
+    </string-array>
+    <string name="label_salaryRange">Select the salary range</string>
+    <string name="grossAnnualSalary_text">(gross annual salary)</string>
+    <string name="add_text_button">Add</string>
+    <string name="emptyExperience_text">You haven\'t added any experience yet</string>
+    <string name="emptyStudies_text">You haven\'t added any studies yet</string>
+    <string name="emptySkills_text">You haven\'t added any skills yet</string>
+    <string name="emptyLanguages_text">You haven\'t added any language yet</string>
+    <string name="search_icon_description">Search icon</string>
+    <string name="connections_icon_description">Connections icon</string>
+    <string name="cv_icon_description">CV icon</string>
+    <string name="search_text">Search</string>
+    <string name="connections_text">Connections</string>
+    <string name="cv_text">CV</string>
+    <string name="notifications_text">Notifications</string>
+    <string name="offers_icon_description">Offers icons</string>
+    <string name="edit_icon_description">Edit icon</string>
+    <string name="delete_icon_description">Delete icon</string>
+    <string name="add_button_description">Add button</string>
+    <string name="publicationDate_text">Publication date</string>
+    <string name="visibility_icon_description">Visibility icon</string>
+    <string name="jobOffer_location_title">Location</string>
+    <string name="jobOffer_jobTitle_title">Job title</string>
+    <string name="jobOffer_publicationDate_title">Publication date</string>
+    <string name="back_icon_description">Back arrow icon</string>
+    <string name="button_cancel_text">Cancel</string>
 </resources>
