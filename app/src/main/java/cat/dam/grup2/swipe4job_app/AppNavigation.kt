@@ -33,7 +33,7 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
 @Composable
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
         composable("userLoginForm") {
             UserLoginForm(navController, userApiService)
         }
@@ -47,7 +47,7 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("candidateComplexDetails") {
-            CandidateComplexDetails()
+            CandidateComplexDetails(navController)
         }
 
         composable("jobOfferSimpleDetails") {
@@ -55,7 +55,7 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("jobOfferComplexDetails") {
-            JobOfferComplexDetails()
+            JobOfferComplexDetails(navController)
         }
 
         composable("jobOfferRecruiterView") { navBackStackEntry ->
