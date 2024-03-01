@@ -18,6 +18,7 @@ import cat.dam.grup2.swipe4job_app.shared.retrofit.model.UserPost
 class UserApiService(val retrofit: RetrofitService) {
     suspend fun listUsers(criteria: Criteria): List<UserData> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
+        println(encodedCriteria)
         val results = retrofit.listUsers(encodedCriteria)
         return results.data
     }

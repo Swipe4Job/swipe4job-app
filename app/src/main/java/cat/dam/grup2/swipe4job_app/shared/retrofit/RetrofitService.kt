@@ -38,7 +38,7 @@ object RetrofitServiceFactory {
     fun makeRetrofitService(): RetrofitService {
         if (instance == null) {
             instance = Retrofit.Builder()
-                .baseUrl("https://swipe4job-api.fly.dev/") // Remove "/swagger" from the base URL
+                .baseUrl("https://swipe4job-api.fly.dev/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(RetrofitService::class.java)
         }

@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.screens
 
+import Criteria
 import android.os.Build
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
@@ -37,7 +38,12 @@ import cat.dam.grup2.swipe4job_app.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.composables.IconVector
 import cat.dam.grup2.swipe4job_app.features.users.UserApiService
+import filters.FilterGroup
+import filters.Filters
+import filters.filter.Filter
+import filters.filter.Operators
 import kotlinx.coroutines.launch
+import orders.Orders
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -98,7 +104,12 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
             CustomButton(
                 onClick = {
                     scope.launch {
-                        val data = userApiService.userLogin(username, password)
+                        val usersCriteria = Criteria(filters = Filters.create(
+                            FilterGroup.create(
+                                Filter.create("name", Operators.EQUAL, "admin")
+                            ),
+                        ), orders = Orders.EMPTY())
+                        val data = userApiService.listUsers(usersCriteria)
                         println(data)
                     }
                 },
