@@ -8,8 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import cat.dam.grup2.swipe4job_app.navigation.AppNavigation
-import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
