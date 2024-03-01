@@ -175,4 +175,5 @@
     <string name="jobOffer_jobTitle_title">Posición</string>
     <string name="jobOffer_publicationDate_title">Fecha de publicación</string>
     <string name="back_icon_description">Icono de flecha de volver atrás</string>
+    <string name="button_cancel_text">Cancelar</string>
 </resources>

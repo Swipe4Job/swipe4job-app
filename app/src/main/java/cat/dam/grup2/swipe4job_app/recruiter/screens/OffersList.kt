@@ -35,7 +35,7 @@ import java.util.Date
 
 
 // var offerList = mutableStateListOf<JobOfferInformation>()
-private var itemToView by mutableStateOf<JobOfferInformation?>(null)
+public var itemToView by mutableStateOf<JobOfferInformation?>(null)
 private var itemToDelete by mutableStateOf<JobOfferInformation?>(null)
 private var itemToEdit by mutableStateOf<JobOfferInformation?>(null)
 
@@ -172,14 +172,14 @@ fun OffersList(navController: NavController) {
             OffersListView(
                 offerList = offerList,
                 onViewClick = { offer ->
-                    itemToView = offer // Actualiza el estado itemToView con la oferta seleccionada
-                    navController.navigate("jobOfferRecruiterView/${offerList.indexOf(offer)}")
+                    itemToView = offer
+                    navController.navigate("jobOfferRecruiterView")
                 },
                 onEditClick = { offer ->
-                    itemToEdit = offer // Actualiza el estado itemToEdit con la oferta seleccionada
+                    itemToEdit = offer
                 },
                 onDeleteClick = { offer ->
-                    itemToDelete = offer // Actualiza el estado itemToDelete con la oferta seleccionada
+                    itemToDelete = offer
                 }
             )
         }

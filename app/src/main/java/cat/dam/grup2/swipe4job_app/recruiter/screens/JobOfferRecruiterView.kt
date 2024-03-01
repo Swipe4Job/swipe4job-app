@@ -48,47 +48,42 @@ import java.util.Locale
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun JobOfferRecruiterView(navController: NavController, index: Int) {
-    val selectedItem = offerList.getOrNull(index)
-
-    if (selectedItem != null) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        IconButton(
-                            onClick = {
-                                navController.popBackStack()
-                            }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = stringResource(id = R.string.back_icon_description),
-                            )
+fun JobOfferRecruiterView(navController: NavController, selectedItem: JobOfferInformation) {
+//    val selectedItem = offerList.getOrNull(index)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    IconButton(
+                        onClick = {
+                            navController.popBackStack()
                         }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = stringResource(id = R.string.back_icon_description),
+                        )
                     }
-                )
-            }
-        ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    JobOfferInformationDisplayRecuiterView(selectedItem)
                 }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                JobOfferInformationDisplayRecuiterView(selectedItem)
             }
         }
-    } else {
-        // Manejar el caso cuando no se encuentra el elemento seleccionado
     }
+    // Manejar el caso cuando no se encuentra el elemento seleccionado
 }
-
 
 
 @Composable
