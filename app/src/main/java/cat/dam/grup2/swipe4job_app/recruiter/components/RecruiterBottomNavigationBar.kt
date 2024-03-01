@@ -80,7 +80,7 @@ fun BottomNavigationBar(
                 else MaterialTheme.colorScheme.secondary
             IconButton(onClick = {
                 offersClick()
-                navController.navigate("companyPostOfferPage1")
+                navController.navigate("offersList")
             }) {
                 Column( horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
@@ -98,7 +98,7 @@ fun BottomNavigationBar(
                 else MaterialTheme.colorScheme.secondary
             IconButton(onClick = {
                 notificationsClick()
-                navController.navigate("companyPostOfferPage1")
+                navController.navigate("offersList")
             }) {
                 Column( horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center

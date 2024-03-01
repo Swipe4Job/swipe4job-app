@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -24,11 +25,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.recruiter.modelos.JobOfferInformation
 
 @Composable
-fun OffersList(cityList: List<City>, onEditClick: (City) -> Unit, onDeleteClick: (City) -> Unit) {
+fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferInformation) -> Unit, onDeleteClick: (JobOfferInformation) -> Unit) {
     LazyColumn {
-        items(cityList) { city ->
+        items(offerList) { offer ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -43,27 +46,27 @@ fun OffersList(cityList: List<City>, onEditClick: (City) -> Unit, onDeleteClick:
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = "${stringResource(R.string.lbl_country_name)}: ${city.countryName}",
+                        text = "${stringResource(R.string.jobTitle_text)}: ${offer.jobTitle}",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "${stringResource(R.string.lbl_country_code)}: ${city.countryCode}",
+                        text = "${stringResource(R.string.location_text)}: ${offer.location}",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "${stringResource(R.string.lbl_country_capital)}: ${city.countryCapital}",
+                        text = "${stringResource(R.string.jobType_text)}: ${offer.jobType}",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "${stringResource(R.string.lbl_country_latitude)}: ${city.latitude}",
+                        text = "${stringResource(R.string.contractType_text)}: ${offer.contractType}",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "${stringResource(R.string.lbl_country_longitude)}: ${city.longitude}",
+                        text = "${stringResource(R.string.workingDayType_text)}: ${offer.workingDayType}",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
@@ -74,7 +77,7 @@ fun OffersList(cityList: List<City>, onEditClick: (City) -> Unit, onDeleteClick:
                         horizontalArrangement = Arrangement.End
                     ) {
                         IconButton(
-                            onClick = { onEditClick(city) },
+                            onClick = { onEditClick(offer) },
                             modifier = Modifier
                                 .background(
                                     color = Color.Transparent,
@@ -85,12 +88,12 @@ fun OffersList(cityList: List<City>, onEditClick: (City) -> Unit, onDeleteClick:
                         {
                             Icon(
                                 imageVector = Icons.Default.Edit,
-                                contentDescription = stringResource(id = R.string.txt_edit_icon_description)
+                                contentDescription = stringResource(id = R.string.edit_icon_description)
                             )
                         }
                         IconButton(
                             onClick = {
-                                onDeleteClick(city)
+                                onDeleteClick(offer)
                             },
                             modifier = Modifier
                                 .background(
@@ -103,7 +106,7 @@ fun OffersList(cityList: List<City>, onEditClick: (City) -> Unit, onDeleteClick:
                         {
                             Icon(
                                 imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(id = R.string.txt_delete_icon_description)
+                                contentDescription = stringResource(id = R.string.delete_icon_description)
                             )
                         }
                     }

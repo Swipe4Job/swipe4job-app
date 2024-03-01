@@ -166,4 +166,7 @@
     <string name="cv_text">CV</string>
     <string name="notifications_text">Notificaciones</string>
     <string name="offers_icon_description">Icono de ofertas</string>
+    <string name="edit_icon_description">Icono de editar</string>
+    <string name="delete_icon_description">Icono de eliminar</string>
+    <string name="add_button_description">Botón de añadir</string>
 </resources>

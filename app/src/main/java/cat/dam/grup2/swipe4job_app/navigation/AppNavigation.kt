@@ -21,10 +21,11 @@ import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage1
 import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage2
 import cat.dam.grup2.swipe4job_app.recruiter.screens.RecruiterSignUpPage3
 import cat.dam.grup2.swipe4job_app.login.RolSelection
+import cat.dam.grup2.swipe4job_app.recruiter.screens.OffersList
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "offersList") {
         composable("userLoginForm") {
             UserLoginForm(navController)
         }
@@ -75,6 +76,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("candidateCV") {
             CandidateCV(navController)
+        }
+
+        composable("offersList") {
+            OffersList(navController)
         }
 
         composable("companyPostOfferPage1") {
