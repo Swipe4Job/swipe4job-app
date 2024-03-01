@@ -170,4 +170,10 @@
     <string name="delete_icon_description">Delete icon</string>
     <string name="add_button_description">Add button</string>
     <string name="publicationDate_text">Publication date</string>
+    <string name="visibility_icon_description">Visibility icon</string>
+    <string name="jobOffer_location_title">Location</string>
+    <string name="jobOffer_jobTitle_title">Job title</string>
+    <string name="jobOffer_publicationDate_title">Publication date</string>
+    <string name="back_icon_description">Back arrow icon</string>
+    <string name="button_cancel_text">Cancel</string>
 </resources>

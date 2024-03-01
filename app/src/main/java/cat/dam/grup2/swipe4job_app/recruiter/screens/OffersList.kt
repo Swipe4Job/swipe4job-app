@@ -35,12 +35,19 @@ import java.util.Date
 
 
 // var offerList = mutableStateListOf<JobOfferInformation>()
+public var itemToView by mutableStateOf<JobOfferInformation?>(null)
 private var itemToDelete by mutableStateOf<JobOfferInformation?>(null)
 private var itemToEdit by mutableStateOf<JobOfferInformation?>(null)
 
 // GENERATING FAKE DATA:
 fun generateFakeData(): List<JobOfferInformation> {
-    val jobTitles = listOf("Software Engineer", "Data Analyst", "UX/UI Designer", "Product Manager", "Marketing Specialist")
+    val jobTitles = listOf(
+        "Software Engineer",
+        "Data Analyst",
+        "UX/UI Designer",
+        "Product Manager",
+        "Marketing Specialist"
+    )
     val locations = listOf("New York", "Los Angeles", "London", "Paris", "Berlin")
     val descriptions = listOf(
         "We are looking for a skilled Software Engineer to join our team.",
@@ -100,7 +107,11 @@ fun generateFakeData(): List<JobOfferInformation> {
                 jobType = jobType,
                 contractType = contractType,
                 workingDayType = workingDayType,
-                skills = listOf("Skill1", "Skill2", "Skill3"), // Aquí puedes agregar habilidades ficticias
+                skills = listOf(
+                    "Skill1",
+                    "Skill2",
+                    "Skill3"
+                ), // Aquí puedes agregar habilidades ficticias
                 salaryRange = salaryRange,
                 departmentOrganisation = "Department",
                 publicationDate = publicationDate
@@ -125,7 +136,6 @@ lateinit var keyboardController: SoftwareKeyboardController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OffersList(navController: NavController) {
-
     var selected by remember { mutableStateOf(BottomNavigationItem.OFFERS) }
 
     Scaffold(
@@ -159,11 +169,19 @@ fun OffersList(navController: NavController) {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            OffersListView(offerList, onEditClick = { item ->
-                itemToEdit = item
-            }, onDeleteClick = { item ->
-                itemToDelete = item
-            })
+            OffersListView(
+                offerList = offerList,
+                onViewClick = { offer ->
+                    itemToView = offer
+                    navController.navigate("jobOfferRecruiterView")
+                },
+                onEditClick = { offer ->
+                    itemToEdit = offer
+                },
+                onDeleteClick = { offer ->
+                    itemToDelete = offer
+                }
+            )
         }
     }
 }

@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +39,7 @@ import cat.dam.grup2.swipe4job_app.shared_composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared_composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun CompanyPostOfferPage1(navController: NavController) {
     var jobTitle by remember { mutableStateOf("") }
@@ -231,11 +230,18 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         ) {
                             CustomButton(
                                 onClick = {
+                                    navController.navigate("offersList")
+                                },
+                                text = stringResource(id = R.string.button_cancel_text),
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            CustomButton(
+                                onClick = {
                                     navController.navigate("companyPostOfferPage2")
                                 },
                                 text = stringResource(id = R.string.button_next_text),
-                                modifier = Modifier
-                                    .requiredWidth(screenWidth / 2)
+                                modifier = Modifier.weight(1f)
                             )
 
                         }

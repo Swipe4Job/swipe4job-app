@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,23 +30,24 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.recruiter.modelos.JobOfferInformation
 import java.text.SimpleDateFormat
 import java.util.Locale
+import androidx.compose.foundation.lazy.itemsIndexed
 
 @Composable
-fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferInformation) -> Unit, onDeleteClick: (JobOfferInformation) -> Unit) {
+fun OffersListView(
+    offerList: List<JobOfferInformation>,
+    onViewClick: (offer: JobOfferInformation) -> Unit,
+    onEditClick: (offer: JobOfferInformation) -> Unit,
+    onDeleteClick: (offer: JobOfferInformation) -> Unit
+) {
     LazyColumn {
         items(offerList) { offer ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .clickable {
-                        // Handle item click
-                    },
-                shape = RoundedCornerShape(8.dp),
             ) {
                 Column(
-                    modifier = Modifier
-                        .padding(16.dp)
+                    modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
                         text = "${stringResource(R.string.jobTitle_text)}: ${offer.jobTitle}",
@@ -80,12 +82,28 @@ fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferI
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp),
                         horizontalArrangement = Arrangement.End
                     ) {
+                        IconButton(
+                            onClick = { onViewClick(offer) },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50)
+                                )
+                                .size(36.dp)
+                        )
+                        {
+                            Icon(
+                                imageVector = Icons.Default.Visibility,
+                                contentDescription = stringResource(id = R.string.visibility_icon_description)
+                            )
+                        }
                         IconButton(
                             onClick = { onEditClick(offer) },
                             modifier = Modifier
@@ -102,9 +120,7 @@ fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferI
                             )
                         }
                         IconButton(
-                            onClick = {
-                                onDeleteClick(offer)
-                            },
+                            onClick = { onDeleteClick(offer) },
                             modifier = Modifier
                                 .background(
                                     color = Color.Transparent,
@@ -125,3 +141,4 @@ fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferI
         }
     }
 }
+
