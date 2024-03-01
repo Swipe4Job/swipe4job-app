@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +32,12 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferInformation) -> Unit, onDeleteClick: (JobOfferInformation) -> Unit) {
+fun OffersListView(
+    offerList: List<JobOfferInformation>,
+    onViewClick: (JobOfferInformation) -> Unit,
+    onEditClick: (JobOfferInformation) -> Unit,
+    onDeleteClick: (JobOfferInformation) -> Unit
+) {
     LazyColumn {
         items(offerList) { offer ->
             Card(
@@ -86,6 +92,21 @@ fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferI
                             .padding(top = 8.dp),
                         horizontalArrangement = Arrangement.End
                     ) {
+                        IconButton(
+                            onClick = { onViewClick(offer) },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50)
+                                )
+                                .size(36.dp)
+                        )
+                        {
+                            Icon(
+                                imageVector = Icons.Default.Visibility,
+                                contentDescription = stringResource(id = R.string.visibility_icon_description)
+                            )
+                        }
                         IconButton(
                             onClick = { onEditClick(offer) },
                             modifier = Modifier
