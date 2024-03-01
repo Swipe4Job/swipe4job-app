@@ -229,7 +229,7 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         ) {
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("offersList")
+                                    navController.popBackStack()
                                 },
                                 text = stringResource(id = R.string.button_cancel_text),
                                 modifier = Modifier.weight(1f)

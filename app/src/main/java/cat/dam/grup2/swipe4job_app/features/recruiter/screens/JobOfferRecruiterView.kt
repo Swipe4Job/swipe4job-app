@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Hub
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.ListAlt
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -44,7 +45,6 @@ import java.util.Locale
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun JobOfferRecruiterView(navController: NavController, selectedItem: JobOfferInformation) {
-//    val selectedItem = offerList.getOrNull(index)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -93,7 +93,7 @@ fun JobOfferInformationDisplayRecuiterView(information: JobOfferInformation) {
             Section(
                 title = stringResource(id = R.string.jobOffer_jobTitle_title),
                 icon = IconVector.ImageVectorIcon(
-                    Icons.Default.LocationOn
+                    Icons.Default.Person
                 )
             ) {
                 Text(
