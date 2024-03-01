@@ -1,5 +1,7 @@
 package cat.dam.grup2.swipe4job_app.recruiter.modelos
 
+import java.util.Date
+
 
 sealed class SalaryRange {
     class Between(val start: Double, val end: Double) : SalaryRange()
@@ -31,7 +33,8 @@ data class JobOfferInformation(
     val skills: List<String>,
     val salaryRange: SalaryRange,
     val workingHours: String? = null,
-    val departmentOrganisation: String
+    val departmentOrganisation: String,
+    val publicationDate: Date
 )
 
 

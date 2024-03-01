@@ -39,6 +39,8 @@ import cat.dam.grup2.swipe4job_app.recruiter.modelos.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.recruiter.modelos.SalaryRange
 import cat.dam.grup2.swipe4job_app.recruiter.modelos.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared_composables.IconVector
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 @Composable
@@ -84,7 +86,8 @@ fun JobOfferComplexDetails() {
                         skills = listOf("Kotlin", "Android Development", "Web Development"),
                         salaryRange = SalaryRange.Between(45_000.0, 55_000.0),
                         workingHours = "Monday to Thursday from 9am to 17pm. Fridays from 8am to 14pm.",
-                        departmentOrganisation = "Hello how are you"
+                        departmentOrganisation = "Hello how are you",
+                        publicationDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-01-15 12:30:00")
                     )
                 )
             }

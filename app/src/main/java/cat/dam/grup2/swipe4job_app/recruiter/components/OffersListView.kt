@@ -27,6 +27,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.recruiter.modelos.JobOfferInformation
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferInformation) -> Unit, onDeleteClick: (JobOfferInformation) -> Unit) {
@@ -67,6 +69,14 @@ fun OffersListView(offerList: List<JobOfferInformation>, onEditClick: (JobOfferI
                     )
                     Text(
                         text = "${stringResource(R.string.workingDayType_text)}: ${offer.workingDayType}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+
+                    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    val formattedPublicationDate = dateFormatter.format(offer.publicationDate)
+                    Text(
+                        text = "${stringResource(R.string.publicationDate_text)}: $formattedPublicationDate",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )

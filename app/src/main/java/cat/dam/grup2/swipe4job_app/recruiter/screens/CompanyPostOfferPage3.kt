@@ -160,7 +160,7 @@ fun CompanyPostOfferPage3(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("offersList")
                                 },
                                 text = stringResource(id = R.string.button_finish_text),
                                 modifier = Modifier.weight(1f)

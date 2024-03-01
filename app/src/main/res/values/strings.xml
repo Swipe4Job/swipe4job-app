@@ -169,4 +169,5 @@
     <string name="edit_icon_description">Edit icon</string>
     <string name="delete_icon_description">Delete icon</string>
     <string name="add_button_description">Add button</string>
+    <string name="publicationDate_text">Publication date</string>
 </resources>
