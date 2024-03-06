@@ -35,15 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.users.UserApiService
+import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
+import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import filters.FilterGroup
 import filters.Filters
 import filters.filter.Filter
 import filters.filter.Operators
 import kotlinx.coroutines.launch
 import orders.Orders
-import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
-import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -104,12 +104,12 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
             CustomButton(
                 onClick = {
                     scope.launch {
-                        val usersCriteria = Criteria(filters = Filters.create(
+                        val companiesCriteria = Criteria(filters = Filters.create(
                             FilterGroup.create(
-                                Filter.create("name", Operators.EQUAL, "admin")
+                                Filter.create("CIF", Operators.EQUAL, "834242R")
                             ),
                         ), orders = Orders.EMPTY())
-                        val data = userApiService.listUsers(usersCriteria)
+                        val data = userApiService.listCompanies(companiesCriteria)
                         println(data)
                     }
                 },
