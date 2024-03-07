@@ -25,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -45,11 +44,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
-import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -164,9 +163,9 @@ fun ColumnScope.SimpleDetails() {
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         },
-                        border = SuggestionChipDefaults.suggestionChipBorder(
-                            borderWidth = 2.dp,
-                        ),
+//                        border = SuggestionChipDefaults.suggestionChipBorder(
+//                            borderWidth = 2.dp,
+//                        ),
                         modifier = Modifier.padding(5.dp)
                     )
                 }
