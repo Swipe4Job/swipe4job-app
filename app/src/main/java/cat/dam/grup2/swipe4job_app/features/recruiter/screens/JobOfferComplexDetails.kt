@@ -28,6 +28,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -46,12 +50,16 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.SalaryRange
 import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun JobOfferComplexDetails(navController: NavController) {
+    var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -117,14 +125,26 @@ fun JobOfferComplexDetails(navController: NavController) {
                 modifier = Modifier
                     .height(IntrinsicSize.Min)
             ) {
-                MatchButtons()
+                MatchButtons(
+                    onDislikeClick = {},
+                    onLikeClick = {
+                        connectionAnimation = true
+                    }
+                )
             }
+        }
+    }
+
+    if (connectionAnimation) {
+        NewConnectionDialog(onDismiss = {connectionAnimation = false}) {
+            delay(3000)
+            connectionAnimation = false
+            navController.navigate("jobOfferSimpleDetails")
         }
     }
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun JobOfferInformationDisplay(information: JobOfferInformation) {
     LazyColumn(
         modifier = Modifier
