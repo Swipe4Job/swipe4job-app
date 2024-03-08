@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.shared.retrofit
 
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -19,6 +20,10 @@ interface RetrofitService {
     suspend fun listUsers(
         @Query("criteria") param1: String
     ) : RemoteResult<List<UserData>>
+    @GET("/company")
+    suspend fun listCompanies(
+        @Query("criteria") param1: String
+    ) : RemoteResult<List<CompanyData>>
     @POST("/users/register")
     suspend fun addUser(
         @Body post: UserPost
@@ -38,7 +43,8 @@ object RetrofitServiceFactory {
     fun makeRetrofitService(): RetrofitService {
         if (instance == null) {
             instance = Retrofit.Builder()
-                .baseUrl("https://swipe4job-api.fly.dev/") // Remove "/swagger" from the base URL
+//                .baseUrl("https://swipe4job-api.fly.dev/")
+                .baseUrl("http://localhost:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(RetrofitService::class.java)
         }

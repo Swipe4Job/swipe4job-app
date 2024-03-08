@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,6 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -34,16 +36,22 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.users.UserApiService
-import kotlinx.coroutines.launch
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun UserLoginForm(navController: NavController, userApiService: UserApiService) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) } // Flag per indicar si s'està carregant
 
     val scope = rememberCoroutineScope()
 
@@ -97,13 +105,26 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
             // Login Button
             CustomButton(
                 onClick = {
+                    isLoading = true // Estableix la flag a true
                     scope.launch {
-                        val data = userApiService.userLogin(username, password)
-                        println(data)
+                        // Aquí pots realitzar qualsevol lògica de login
+                        // En aquest exemple, he afegit una suspensió simulada de 2 segons
+                        delay(2000)
+                        isLoading = false // Un cop finalitzada la crida, establim la flag a false
+                        navController.navigate("rolSelection")
                     }
                 },
                 text = stringResource(id = R.string.button_login_text)
             )
+
+            // Mostra l'animació Lottie si isLoading és true
+            if (isLoading) {
+                // Exemple d'ús de la funció AnimationItem amb l'animació ocupant tota la pantalla
+                AnimationItem(
+                    animationResId = R.raw.arc_animation,
+                    modifier = Modifier.fillMaxSize() // Modifica per ocupar tota la pantalla
+                )
+            }
 
             // Spacer
             Spacer(modifier = Modifier.height(16.dp))
@@ -116,5 +137,26 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                 text = stringResource(id = R.string.button_signup_text)
             )
         }
+    }
+}
+@Composable
+fun AnimationItem(
+    animationResId: Int,
+    modifier: Modifier = Modifier,
+) {
+    val composition by rememberLottieComposition(
+        spec = LottieCompositionSpec.RawRes(animationResId)
+    )
+    Box(
+        modifier = modifier
+            .fillMaxSize() // Modifica per ocupar tota la pantalla
+            .aspectRatio(1f)
+            .background(Color.Transparent), // Fons transparent per evitar superposicions de colors no desitjats
+        contentAlignment = Alignment.Center // Centra el contingut de la Box al mig de la pantalla
+    ) {
+        LottieAnimation(
+            composition = composition,
+            modifier = Modifier.fillMaxSize(), // Modifica per ocupar tota la pantalla
+        )
     }
 }
