@@ -39,6 +39,7 @@ import cat.dam.grup2.swipe4job_app.features.users.UserApiService
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
+import kotlinx.coroutines.launch
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -107,6 +108,16 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                 onClick = {
                     isLoading = true // Estableix la flag a true
                     scope.launch {
+                        val data = userApiService.userLogin(username, password)
+                        println(data)
+//                        val companiesCriteria = Criteria(filters = Filters.create(
+//                            FilterGroup.create(
+//                                Filter.create("CIF", Operators.EQUAL, "834242R")
+//                            ),
+//                        ), orders = Orders.EMPTY())
+//                        val data = userApiService.listCompanies(companiesCriteria)
+//                        println(data)
+
                         // Aquí pots realitzar qualsevol lògica de login
                         // En aquest exemple, he afegit una suspensió simulada de 2 segons
                         delay(2000)

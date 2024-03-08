@@ -1,6 +1,7 @@
 package cat.dam.grup2.swipe4job_app.shared.retrofit
 
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -12,6 +13,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -20,6 +23,11 @@ interface RetrofitService {
     suspend fun listUsers(
         @Query("criteria") param1: String
     ) : RemoteResult<List<UserData>>
+    @Headers("Authorization: application/json")
+    @GET("/users/me")
+    suspend fun getMyData(
+        @Header("Authorization") token: String,
+    ) : RemoteResult<UserData>
     @GET("/company")
     suspend fun listCompanies(
         @Query("criteria") param1: String
@@ -27,6 +35,10 @@ interface RetrofitService {
     @POST("/users/register")
     suspend fun addUser(
         @Body post: UserPost
+    ) : RemoteResult<Unit>
+    @POST("/company")
+    suspend fun addCompany(
+        @Body post: CompanyPost
     ) : RemoteResult<Unit>
     @POST("/auth/users/login")
     suspend fun userLogin(
@@ -43,8 +55,7 @@ object RetrofitServiceFactory {
     fun makeRetrofitService(): RetrofitService {
         if (instance == null) {
             instance = Retrofit.Builder()
-//                .baseUrl("https://swipe4job-api.fly.dev/")
-                .baseUrl("http://localhost:3000/")
+                .baseUrl("https://swipe4job-api.fly.dev/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(RetrofitService::class.java)
         }

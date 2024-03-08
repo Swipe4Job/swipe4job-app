@@ -8,6 +8,7 @@ import cat.dam.aria.retrofit.shared.criteria.CriteriaEncoder
 import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -31,15 +32,32 @@ class UserApiService(val retrofit: RetrofitService) {
     }
     suspend fun addUser(): Unit {
         val userPost = UserPost(
-            email = "test@example.com",
-            lastName = "Test",
-            name = "Test",
+            email = "patata@example.com",
+            lastName = "Patata",
+            name = "Patata",
             password = "password123",
-            phoneNumber = "123346589",
+            phoneNumber = "123346597",
             role = "CANDIDATE"
         )
         val results = retrofit.addUser(userPost)
         return(results.data)
+    }
+    suspend fun addCompany(): Unit {
+        val companyPost = CompanyPost(
+            CIF = "834242R",
+            companySize = "LESS_10",
+            description = "si",
+            name = "test",
+            phone = "43243423",
+            sector = "CONSTRUCTION"
+        )
+        val results = retrofit.addCompany(companyPost)
+        return(results.data)
+    }
+
+    suspend fun getMyData() {
+        val token = "" // get token from AuthViewModel
+        retrofit.getMyData("Bearer $token")
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
