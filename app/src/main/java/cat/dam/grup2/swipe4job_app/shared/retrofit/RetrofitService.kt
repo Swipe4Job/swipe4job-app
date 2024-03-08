@@ -13,6 +13,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -21,6 +23,11 @@ interface RetrofitService {
     suspend fun listUsers(
         @Query("criteria") param1: String
     ) : RemoteResult<List<UserData>>
+    @Headers("Authorization: application/json")
+    @GET("/users/me")
+    suspend fun getMyData(
+        @Header("Authorization") token: String,
+    ) : RemoteResult<UserData>
     @GET("/company")
     suspend fun listCompanies(
         @Query("criteria") param1: String

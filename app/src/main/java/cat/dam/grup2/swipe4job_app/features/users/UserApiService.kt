@@ -54,6 +54,12 @@ class UserApiService(val retrofit: RetrofitService) {
         val results = retrofit.addCompany(companyPost)
         return(results.data)
     }
+
+    suspend fun getMyData() {
+        val token = "" // get token from AuthViewModel
+        retrofit.getMyData("Bearer $token")
+    }
+
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     suspend fun userLogin(email: String, password: String): RemoteResult<LoginResponseData> {
         val userLogIn = UserLogin(
