@@ -1,6 +1,7 @@
 package cat.dam.grup2.swipe4job_app.features.users.screens.login
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -34,8 +36,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.users.UserApiService
+import cat.dam.grup2.swipe4job_app.features.auth.AuthViewModel
+import cat.dam.grup2.swipe4job_app.features.users.UserViewModel
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserData
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
@@ -44,12 +50,12 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun UserLoginForm(navController: NavController, userApiService: UserApiService) {
+    val currentContext = LocalContext.current
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) } // Flag per indicar si s'està carregant
@@ -108,21 +114,37 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                 onClick = {
                     isLoading = true // Estableix la flag a true
                     scope.launch {
-                        val data = userApiService.userLogin(username, password)
-                        println(data)
-//                        val companiesCriteria = Criteria(filters = Filters.create(
-//                            FilterGroup.create(
-//                                Filter.create("CIF", Operators.EQUAL, "834242R")
-//                            ),
-//                        ), orders = Orders.EMPTY())
-//                        val data = userApiService.listCompanies(companiesCriteria)
-//                        println(data)
+                        // Saving data
+                        try {
+                            val data = userApiService.userLogin(username, password)
+                            val authViewModel = AuthViewModel.getInstance()
+                            authViewModel.accessToken = data.accessToken
+                        } catch (error: CustomError) {
+                            isLoading = false // Un cop finalitzada la crida, establim la flag a false
+                            Toast.makeText(currentContext, "Cannot log in :(", Toast.LENGTH_SHORT).show()
+                            return@launch
+                        }
 
-                        // Aquí pots realitzar qualsevol lògica de login
-                        // En aquest exemple, he afegit una suspensió simulada de 2 segons
-                        delay(2000)
+                        lateinit var userData: UserData
+                        try {
+                            userData = userApiService.getMyData()
+                            val userViewModel = UserViewModel.getInstance()
+                            userViewModel.userData = userData
+                        } catch (error: CustomError) {
+                            isLoading = false // Un cop finalitzada la crida, establim la flag a false
+                            Toast.makeText(currentContext, "Cannot get user info :(", Toast.LENGTH_SHORT).show()
+                            return@launch
+                        }
+
+//                        delay(2000)
+
                         isLoading = false // Un cop finalitzada la crida, establim la flag a false
-                        navController.navigate("rolSelection")
+                        // Checking the user role
+                        if (userData.role == "RECRUITER") {
+                            navController.navigate("candidateSimpleDetails")
+                        } else if (userData.role == "CANDIDATE") {
+                            navController.navigate("jobOfferSimpleDetails")
+                        }
                     }
                 },
                 text = stringResource(id = R.string.button_login_text)

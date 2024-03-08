@@ -24,7 +24,7 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPag
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage3
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
-import cat.dam.grup2.swipe4job_app.features.users.UserApiService
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
@@ -34,7 +34,7 @@ import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
+    NavHost(navController = navController, startDestination = "userLoginForm") {
         composable("userLoginForm") {
             UserLoginForm(navController, userApiService)
         }

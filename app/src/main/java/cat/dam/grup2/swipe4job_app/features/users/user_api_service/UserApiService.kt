@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.users
+package cat.dam.grup2.swipe4job_app.features.users.user_api_service
 
 import Criteria
 import android.net.http.HttpException
@@ -6,16 +6,17 @@ import android.os.Build
 import androidx.annotation.RequiresExtension
 import cat.dam.aria.retrofit.shared.criteria.CriteriaEncoder
 import cat.dam.grup2.swipe4job_app.CustomError
+import cat.dam.grup2.swipe4job_app.features.auth.AuthViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.UserData
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.UserLogin
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.UserLogout
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.UserPost
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserData
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserLogin
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserLogout
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserPost
 
 class UserApiService(val retrofit: RetrofitService) {
     suspend fun listUsers(criteria: Criteria): List<UserData> {
@@ -55,20 +56,30 @@ class UserApiService(val retrofit: RetrofitService) {
         return(results.data)
     }
 
-    suspend fun getMyData() {
-        val token = "" // get token from AuthViewModel
-        retrofit.getMyData("Bearer $token")
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    suspend fun getMyData(): UserData {
+        val token = AuthViewModel.getInstance().accessToken // get token from AuthViewModel
+        try {
+            val response = retrofit.getMyData("Bearer $token")
+            return response.data
+        } catch (e: HttpException) {
+            val errorMessage = "Error en la solicitud HTTP: ${e.message}"
+            throw CustomError(errorMessage)
+        } catch (e: Throwable) {
+            val errorMessage = "Error inesperado: ${e.message}"
+            throw CustomError(errorMessage)
+        }
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    suspend fun userLogin(email: String, password: String): RemoteResult<LoginResponseData> {
+    suspend fun userLogin(email: String, password: String): LoginResponseData {
         val userLogIn = UserLogin(
             email = email,
             password = password
         )
         try {
             var response = retrofit.userLogin(userLogIn)
-            return (response)
+            return response.data
         } catch (e: HttpException) {
             val errorMessage = "Error en la solicitud HTTP: ${e.message}"
             throw CustomError(errorMessage)
