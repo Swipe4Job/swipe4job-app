@@ -176,4 +176,52 @@
     <string name="jobOffer_publicationDate_title">Publication date</string>
     <string name="back_icon_description">Back arrow icon</string>
     <string name="button_cancel_text">Cancel</string>
+    <string name="language_text">Language</string>
+    <string name="level_text">Level</string>
+    <string-array name="languages_array">
+        <item>Arabic</item>
+        <item>Bengali</item>
+        <item>Chinese</item>
+        <item>Czech</item>
+        <item>Danish</item>
+        <item>Dutch</item>
+        <item>English</item>
+        <item>Estonian</item>
+        <item>Finnish</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Greek</item>
+        <item>Hebrew</item>
+        <item>Hindi</item>
+        <item>Hungarian</item>
+        <item>Indonesian</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Latvian</item>
+        <item>Lithuanian</item>
+        <item>Malay</item>
+        <item>Norwegian</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Romanian</item>
+        <item>Russian</item>
+        <item>Slovak</item>
+        <item>Slovenian</item>
+        <item>Spanish</item>
+        <item>Swedish</item>
+        <item>Thai</item>
+        <item>Turkish</item>
+        <item>Ukrainian</item>
+        <item>Vietnamese</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="languages_level_array">
+        <item>Low</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+        <item>Native</item>
+    </string-array>
+    <string name="comments_text">Comments</string>
+
 </resources>
