@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,12 +44,17 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JobOfferSimpleDetails(navController: NavController) {
 
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
+    var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
+
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -94,7 +100,18 @@ fun JobOfferSimpleDetails(navController: NavController) {
                     .fillMaxWidth()
                     .height(IntrinsicSize.Min)
             ) {
-                MatchButtons()
+                MatchButtons(
+                    onDislikeClick = {},
+                    onLikeClick = {
+                        connectionAnimation = true
+                    }
+                )
+            }
+            if (connectionAnimation) {
+                NewConnectionDialog(onDismiss = { connectionAnimation = false }) {
+                    delay(3000)
+                    connectionAnimation = false
+                }
             }
         }
     }
@@ -147,9 +164,10 @@ fun ColumnScope.JobOfferSimpleDetails() {
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         },
-//                        border = SuggestionChipDefaults.suggestionChipBorder(
-//                            borderWidth = 2.dp,
-//                        ),
+                        border = SuggestionChipDefaults.suggestionChipBorder(
+                            enabled = true,
+                            borderWidth = 2.dp
+                        ),
                         modifier = Modifier.padding(5.dp)
                     )
                 }
