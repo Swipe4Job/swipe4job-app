@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.shared.retrofit.model
+package cat.dam.grup2.swipe4job_app.features.users.user_api_service.model
 
 data class UserData(
     val email: String,
