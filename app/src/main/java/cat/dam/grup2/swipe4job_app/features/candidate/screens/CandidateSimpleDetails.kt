@@ -46,11 +46,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
-import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
 import kotlinx.coroutines.delay
 

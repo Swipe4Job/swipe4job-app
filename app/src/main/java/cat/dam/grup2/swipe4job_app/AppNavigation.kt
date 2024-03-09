@@ -11,30 +11,33 @@ import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddLanguage
 import cat.dam.grup2.swipe4job_app.features.users.UserApiService
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateCV
-import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
-import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSimpleDetails
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateComplexDetails
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage1
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage3
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSimpleDetails
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage2
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage3
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferComplexDetails
+import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferRecruiterView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferSimpleDetails
+import cat.dam.grup2.swipe4job_app.features.recruiter.screens.OffersList
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage3
-import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
-import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferRecruiterView
-import cat.dam.grup2.swipe4job_app.features.recruiter.screens.OffersList
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
+import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
+import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
+import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
-    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
+    
+    NavHost(navController = navController, startDestination = "userLoginForm") {
         composable("userLoginForm") {
             UserLoginForm(navController, userApiService)
         }
