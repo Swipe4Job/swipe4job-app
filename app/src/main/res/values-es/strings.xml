@@ -176,4 +176,55 @@
     <string name="jobOffer_publicationDate_title">Fecha de publicación</string>
     <string name="back_icon_description">Icono de flecha de volver atrás</string>
     <string name="button_cancel_text">Cancelar</string>
+    <string name="language_text">Idioma</string>
+    <string name="level_text">Nivel</string>
+    <string-array name="languages_array">
+        <item>Árabe</item>
+        <item>Bengalí</item>
+        <item>Chino</item>
+        <item>Checo</item>
+        <item>Danés</item>
+        <item>Holandés</item>
+        <item>Inglés</item>
+        <item>Estonio</item>
+        <item>Finlandés</item>
+        <item>Francés</item>
+        <item>Alemán</item>
+        <item>Griego</item>
+        <item>Hebreo</item>
+        <item>Hindi</item>
+        <item>Húngaro</item>
+        <item>Indonesio</item>
+        <item>Italiano</item>
+        <item>Japonés</item>
+        <item>Coreano</item>
+        <item>Letón</item>
+        <item>Lituano</item>
+        <item>Malayo</item>
+        <item>Noruego</item>
+        <item>Polaco</item>
+        <item>Portugués</item>
+        <item>Rumano</item>
+        <item>Ruso</item>
+        <item>Eslovaco</item>
+        <item>Esloveno</item>
+        <item>Español</item>
+        <item>Sueco</item>
+        <item>Tailandés</item>
+        <item>Turco</item>
+        <item>Ucraniano</item>
+        <item>Vietnamita</item>
+        <item>Otro</item>
+    </string-array>
+    <string-array name="languages_level_array">
+        <item>Bajo</item>
+        <item>Intermedio</item>
+        <item>Avanzado</item>
+        <item>Nativo</item>
+    </string-array>
+    <string name="comments_text">Comentarios</string>
+    <string name="commentsAddLanguage_text">Puedes indicar si tienes un certificado asociado a este idioma o si has elegido la opción Otro idioma, especificar de qué idioma se trata.</string>
+    <string name="addLanguage_text">Añadir idioma</string>
+    <string name="save_text">GUARDAR</string>
+
 </resources>

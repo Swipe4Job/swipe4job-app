@@ -73,7 +73,7 @@ fun JobOfferRecruiterView(navController: NavController, selectedItem: JobOfferIn
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                JobOfferInformationDisplayRecuiterView(selectedItem)
+                JobOfferInformationDisplayRecruiterView(selectedItem)
             }
         }
     }
@@ -82,8 +82,7 @@ fun JobOfferRecruiterView(navController: NavController, selectedItem: JobOfferIn
 
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
-fun JobOfferInformationDisplayRecuiterView(information: JobOfferInformation) {
+fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()

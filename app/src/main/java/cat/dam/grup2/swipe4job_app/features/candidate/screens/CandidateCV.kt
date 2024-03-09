@@ -82,10 +82,10 @@ fun CandidateCV(navController: NavController) {
         ) {
             item {
                 Header(candidate = candidate)
-                Experience(candidate = candidate)
-                Studies(candidate = candidate)
-                Skills(candidate = candidate)
-                Languages(candidate = candidate)
+                Experience(candidate = candidate, navController)
+                Studies(candidate = candidate, navController)
+                Skills(candidate = candidate, navController)
+                Languages(candidate = candidate, navController)
             }
         }
     }
@@ -120,38 +120,45 @@ fun Header(candidate: CandidateInformation) {
 }
 
 @Composable
-fun Experience(candidate: CandidateInformation) {
+fun Experience(candidate: CandidateInformation, navController: NavController) {
     EmptyField(
         candidate = candidate,
         title = R.string.candidate_jobExperience_title,
-        emptyField = R.string.emptyExperience_text
+        emptyField = R.string.emptyExperience_text,
+        onAddClick = { /* TODO */ }
     )
 }
 
 @Composable
-fun Studies(candidate: CandidateInformation) {
+fun Studies(candidate: CandidateInformation, navController: NavController) {
     EmptyField(
         candidate = candidate,
         title = R.string.candidate_studies_title,
-        emptyField = R.string.emptyStudies_text
+        emptyField = R.string.emptyStudies_text,
+        onAddClick = { /* TODO */ }
     )
 }
 
 @Composable
-fun Skills(candidate: CandidateInformation) {
+fun Skills(candidate: CandidateInformation, navController: NavController) {
     EmptyField(
         candidate = candidate,
         title = R.string.candidate_skills_title,
-        emptyField = R.string.emptySkills_text
+        emptyField = R.string.emptySkills_text,
+        onAddClick = { /* TODO */ }
     )
 }
 
 @Composable
-fun Languages(candidate: CandidateInformation) {
+fun Languages(candidate: CandidateInformation, navController: NavController) {
     EmptyField(
         candidate = candidate,
         title = R.string.candidate_languages_title,
-        emptyField = R.string.emptyLanguages_text
+        emptyField = R.string.emptyLanguages_text,
+        onAddClick = {
+            println("Navigating to addLanguage")
+            navController.navigate("addLanguage")
+        }
     )
 }
 
@@ -159,7 +166,8 @@ fun Languages(candidate: CandidateInformation) {
 fun EmptyField(
     candidate: CandidateInformation,
     title: Int,
-    emptyField: Int
+    emptyField: Int,
+    onAddClick: () -> Unit
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
@@ -177,9 +185,7 @@ fun EmptyField(
                 color = MaterialTheme.colorScheme.secondary
             )
             OutlinedButton(
-                onClick = {
-                    /*TODO*/
-                },
+                onClick = onAddClick,
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(vertical = 8.dp, horizontal = 2.dp),

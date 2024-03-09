@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddLanguage
+import cat.dam.grup2.swipe4job_app.features.users.UserApiService
+import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateCV
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateComplexDetails
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage1
@@ -109,6 +112,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("companyPostOfferPage3") {
             CompanyPostOfferPage3(navController)
+        }
+
+        composable("addLanguage") {
+            AddLanguage(navController)
         }
     }
 }
