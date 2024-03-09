@@ -8,7 +8,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddLanguage
-import cat.dam.grup2.swipe4job_app.features.users.UserApiService
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateCV
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateComplexDetails
@@ -30,7 +29,6 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
-import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
