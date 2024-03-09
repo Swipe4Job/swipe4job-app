@@ -223,5 +223,8 @@
         <item>Native</item>
     </string-array>
     <string name="comments_text">Comments</string>
+    <string name="commentsAddLanguage_text">You can indicate if you have a certificate associated with this language or if you have chosen the Other language option, specify which language it is.</string>
+    <string name="addLanguage_text">Add language</string>
+    <string name="save_text">SAVE</string>
 
 </resources>
