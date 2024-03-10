@@ -7,13 +7,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Password
@@ -45,6 +45,7 @@ import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserDat
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared.composables.LoadingDialog
 import kotlinx.coroutines.launch
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -67,108 +68,128 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // App logo
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = stringResource(id = R.string.logo_image_description),
-                modifier = Modifier
-                    .size(250.dp)
-                    .align(Alignment.CenterHorizontally) // Centrado horizontalmente
-            )
-            // Username TextField
-            CustomOutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = stringResource(id = R.string.label_username),
-                leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Person),
-                iconContentDescription = stringResource(id = R.string.user_icon_description),
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Email
+            item {
+                // App logo
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = stringResource(id = R.string.logo_image_description),
+                    modifier = Modifier
+                        .size(250.dp)
                 )
-            )
+                // Username TextField
+                CustomOutlinedTextField(
+                    value = username,
+                    onValueChange = { username = it },
+                    label = stringResource(id = R.string.label_username),
+                    leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Person),
+                    iconContentDescription = stringResource(id = R.string.user_icon_description),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Email
+                    )
+                )
+                
+                Spacer(modifier = Modifier.height(16.dp))
 
-            // Password TextField
-            CustomOutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = stringResource(id = R.string.label_password),
-                leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Password),
-                iconContentDescription = stringResource(id = R.string.password_icon_description),
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Password
-                ),
-                visualTransformation = PasswordVisualTransformation()
-            )
+                // Password TextField
+                CustomOutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = stringResource(id = R.string.label_password),
+                    leadingIcon = IconVector.ImageVectorIcon(Icons.Default.Password),
+                    iconContentDescription = stringResource(id = R.string.password_icon_description),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Password
+                    ),
+                    visualTransformation = PasswordVisualTransformation()
+                )
 
-            // Login Button
-            CustomButton(
-                onClick = {
-                    isLoading = true // Estableix la flag a true
-                    scope.launch {
-                        // Saving data
-                        try {
-                            val data = userApiService.userLogin(username, password)
-                            val authViewModel = AuthViewModel.getInstance()
-                            authViewModel.accessToken = data.accessToken
-                        } catch (error: CustomError) {
-                            isLoading = false // Un cop finalitzada la crida, establim la flag a false
-                            Toast.makeText(currentContext, "Cannot log in :(", Toast.LENGTH_SHORT).show()
-                            return@launch
-                        }
+                // Login Button
+                CustomButton(
+                    onClick = {
+                        isLoading = true // Estableix la flag a true
+                        scope.launch {
+                            // Saving data
+                            try {
+                                val data = userApiService.userLogin(username, password)
+                                val authViewModel = AuthViewModel.getInstance()
+                                authViewModel.accessToken = data.accessToken
+                            } catch (error: CustomError) {
+                                isLoading =
+                                    false // Un cop finalitzada la crida, establim la flag a false
+                                Toast.makeText(
+                                    currentContext,
+                                    "Cannot log in :(",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                return@launch
+                            }
 
-                        lateinit var userData: UserData
-                        try {
-                            userData = userApiService.getMyData()
-                            val userViewModel = UserViewModel.getInstance()
-                            userViewModel.userData = userData
-                        } catch (error: CustomError) {
-                            isLoading = false // Un cop finalitzada la crida, establim la flag a false
-                            Toast.makeText(currentContext, "Cannot get user info :(", Toast.LENGTH_SHORT).show()
-                            return@launch
-                        }
+                            lateinit var userData: UserData
+                            try {
+                                userData = userApiService.getMyData()
+                                val userViewModel = UserViewModel.getInstance()
+                                userViewModel.userData = userData
+                            } catch (error: CustomError) {
+                                isLoading =
+                                    false // Un cop finalitzada la crida, establim la flag a false
+                                Toast.makeText(
+                                    currentContext,
+                                    "Cannot get user info :(",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                return@launch
+                            }
 
 //                        delay(2000)
 
-                        isLoading = false // Un cop finalitzada la crida, establim la flag a false
-                        // Checking the user role
-                        if (userData.role == "RECRUITER") {
-                            navController.navigate("candidateSimpleDetails")
-                        } else if (userData.role == "CANDIDATE") {
-                            navController.navigate("jobOfferSimpleDetails")
+                            isLoading =
+                                false // Un cop finalitzada la crida, establim la flag a false
+                            // Checking the user role
+                            if (userData.role == "RECRUITER") {
+                                navController.navigate("candidateSimpleDetails")
+                            } else if (userData.role == "CANDIDATE") {
+                                navController.navigate("jobOfferSimpleDetails")
+                            }
                         }
-                    }
-                },
-                text = stringResource(id = R.string.button_login_text)
-            )
+                    },
+                    text = stringResource(id = R.string.button_login_text)
+                )
 
-            // Mostra l'animació Lottie si isLoading és true
-            if (isLoading) {
-                // Exemple d'ús de la funció AnimationItem amb l'animació ocupant tota la pantalla
-                AnimationItem(
-                    animationResId = R.raw.arc_animation,
-                    modifier = Modifier.fillMaxSize() // Modifica per ocupar tota la pantalla
+                // Mostra l'animació Lottie si isLoading és true
+//                if (isLoading) {
+//                    // Exemple d'ús de la funció AnimationItem amb l'animació ocupant tota la pantalla
+//                    AnimationItem(
+//                        animationResId = R.raw.loading_animation,
+//                        modifier = Modifier.fillMaxSize() // Modifica per ocupar tota la pantalla
+//                    )
+//                }
+                if (isLoading) {
+                    LoadingDialog(onDismiss = { isLoading  = false }) {
+//                        delay(3000)
+                        isLoading = false
+                    }
+                }
+
+                // Spacer
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Signup Button
+                CustomButton(
+                    onClick = {
+                        navController.navigate("rolSelection")
+                    },
+                    text = stringResource(id = R.string.button_signup_text)
                 )
             }
-
-            // Spacer
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Signup Button
-            CustomButton(
-                onClick = {
-                    navController.navigate("rolSelection")
-                },
-                text = stringResource(id = R.string.button_signup_text)
-            )
         }
     }
 }
@@ -190,6 +211,7 @@ fun AnimationItem(
         LottieAnimation(
             composition = composition,
             modifier = Modifier.fillMaxSize(), // Modifica per ocupar tota la pantalla
+            iterations = 10 // Establin un número gran de repeticions per assegurar que mentre està carregant la pàgina s'anirà reproduint l'animació
         )
     }
 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -33,31 +33,29 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
 
 @Composable
 fun RolSelection(navController: NavController) {
     var rol by remember { mutableStateOf("") }
 
-    Box(
+
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.background),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
+        item {
             // App logo
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = stringResource(id = R.string.logo_image_description),
                 modifier = Modifier
                     .size(250.dp)
-                    .align(Alignment.CenterHorizontally)
             )
 
             // Spacer
@@ -73,77 +71,87 @@ fun RolSelection(navController: NavController) {
             // Spacer
             Spacer(modifier = Modifier.height(16.dp))
 
-            Box(
+            // Rol selection buttons row
+            Row(
                 modifier = Modifier
                     .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Row(
+                OutlinedButton(
+                    onClick = {
+                        navController.navigate("candidateSignUpPage1")
+                    },
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    OutlinedButton(
-                        onClick = {
-                            navController.navigate("candidateSignUpPage1")
-                        },
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .padding(8.dp)
-                            .border(
-                                BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
-                                shape = CircleShape
-                            ),
+                        .wrapContentSize()
+                        .padding(8.dp)
+                        .border(
+                            BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
+                            shape = CircleShape
+                        ),
 
-                        content = {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.candidat_light_theme),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(50.dp)
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.candidate_Text),
-                                    color = MaterialTheme.colorScheme.secondary
-                                )
-                            }
+                    content = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.candidat_light_theme),
+                                contentDescription = null,
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.candidate_Text),
+                                color = MaterialTheme.colorScheme.secondary
+                            )
                         }
-                    )
+                    }
+                )
+                OutlinedButton(
+                    onClick = {
+                        navController.navigate("recruiterSignUpPage1")
+                    },
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(8.dp)
+                        .border(
+                            BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
+                            shape = CircleShape
+                        ),
 
-
-                    OutlinedButton(
-                        onClick = {
-                            navController.navigate("recruiterSignUpPage1")
-                        },
-                        modifier = Modifier
-                            .wrapContentSize() // Ajusta el tamaño del botón al contenido
-                            .padding(8.dp)
-                            .border(
-                                BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
-                                shape = CircleShape
-                            ),
-
-                        content = {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.recruiter_light_theme),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(50.dp)
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.recruiter_text),
-                                    color = MaterialTheme.colorScheme.secondary
-                                )
-                            }
+                    content = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.recruiter_light_theme),
+                                contentDescription = null,
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.recruiter_text),
+                                color = MaterialTheme.colorScheme.secondary
+                            )
                         }
-                    )
-                }
+                    }
+                )
             }
+            // Spacer
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Already have an account button row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                CustomButton(
+                    onClick = {
+                        navController.navigate("userLoginForm")
+                    },
+                    text = stringResource(id = R.string.alreadyHaveAnAccount_text)
+                )
+            }
+
         }
     }
 }

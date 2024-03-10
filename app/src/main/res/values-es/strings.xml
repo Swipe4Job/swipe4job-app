@@ -226,5 +226,7 @@
     <string name="commentsAddLanguage_text">Puedes indicar si tienes un certificado asociado a este idioma o si has elegido la opción Otro idioma, especificar de qué idioma se trata.</string>
     <string name="addLanguage_text">Añadir idioma</string>
     <string name="save_text">GUARDAR</string>
+    <string name="alreadyHaveAnAccount_text">Ya tengo una cuenta</string>
+    <string name="loading_text">Cargando...</string>
 
 </resources>
