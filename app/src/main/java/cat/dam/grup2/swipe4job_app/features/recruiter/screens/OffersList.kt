@@ -24,11 +24,11 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.OffersListView
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.ContractTypeOptions
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobOfferInformation
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobTypeOptions
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.SalaryRange
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.WorkingDayTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date

@@ -135,7 +135,7 @@ fun AddLanguageContent() {
 
             // Title - Comments
             Text(
-                stringResource(id = R.string.comments_text),
+                stringResource(id = R.string.academicTitle_text),
                 color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -148,10 +148,10 @@ fun AddLanguageContent() {
             )
 
             // Text field for the comments
-            var comments by remember { mutableStateOf("") }
+            var academicTitle by remember { mutableStateOf("") }
 
             CustomTextFieldMaxChar(
-                descriptionState = mutableStateOf(comments),
+                descriptionState = mutableStateOf(academicTitle),
                 maxCharacters = 200,
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,

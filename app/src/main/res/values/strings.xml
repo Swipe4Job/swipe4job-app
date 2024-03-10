@@ -15,7 +15,7 @@
     <string name="candidate_description_title">Description</string>
     <string name="candidate_jobExperience_title">Job experience</string>
     <string name="candidate_studies_title">Studies</string>
-    <string name="candidate_skills_title">Skills</string>
+    <string name="candidate_softskills_title">Soft skills</string>
     <string name="candidate_languages_title">Languages</string>
     <string name="label_name">First name</string>
     <string name="label_lastname">Last name</string>
@@ -54,8 +54,8 @@
     <string name="tipsDescriptionPostOffer_text">Tip: Summarize the position, explain what it takes to be successful in it and their place in the company.</string>
     <string name="responsabilities_text">Responsabilities</string>
     <string name="requirements_text">Requirements</string>
-    <string name="skills_text">Skills</string>
-    <string name="addSkills_text">Add skills</string>
+    <string name="softSkills_text">Soft skills</string>
+    <string name="addSoftskills_text">Add soft skills</string>
     <string name="add_icon_description">Add icon</string>
     <string name="salaryRange_text">Salary range (optional)</string>
     <string name="workingHours_text">Working hours (optional)</string>
@@ -156,7 +156,7 @@
     <string name="add_text_button">Add</string>
     <string name="emptyExperience_text">You haven\'t added any experience yet</string>
     <string name="emptyStudies_text">You haven\'t added any studies yet</string>
-    <string name="emptySkills_text">You haven\'t added any skills yet</string>
+    <string name="emptySoftskills_text">You haven\'t added any soft skills yet</string>
     <string name="emptyLanguages_text">You haven\'t added any language yet</string>
     <string name="search_icon_description">Search icon</string>
     <string name="connections_icon_description">Connections icon</string>
@@ -222,11 +222,31 @@
         <item>Advanced</item>
         <item>Native</item>
     </string-array>
-    <string name="comments_text">Comments</string>
-    <string name="commentsAddLanguage_text">You can indicate if you have a certificate associated with this language or if you have chosen the Other language option, specify which language it is.</string>
+    <string name="academicTitle_text">Academic title or certificate</string>
+    <string name="commentsAddLanguage_text">You can indicate if you have a certificate associated with this language.</string>
     <string name="addLanguage_text">Add language</string>
     <string name="save_text">SAVE</string>
     <string name="alreadyHaveAnAccount_text">I aready have an account</string>
     <string name="loading_text">Loading...</string>
-
+    <string-array name="soft_skills_array">
+        <item>Communication skills</item>
+        <item>Leadership</item>
+        <item>Teamwork</item>
+        <item>Problem-solving</item>
+        <item>Time management</item>
+        <item>Adaptability</item>
+        <item>Creativity</item>
+        <item>Critical thinking</item>
+        <item>Decision-making</item>
+        <item>Attention to detail</item>
+        <item>Organization</item>
+        <item>Negotiation</item>
+        <item>Emotional intelligence</item>
+        <item>Flexibility</item>
+        <item>Stress management</item>
+        <item>Networking</item>
+        <item>Conflict resolution</item>
+        <item>Analytical skills</item>
+        <item>Customer service</item>
+    </string-array>
 </resources>

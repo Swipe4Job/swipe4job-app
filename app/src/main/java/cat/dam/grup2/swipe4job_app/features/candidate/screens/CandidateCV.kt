@@ -2,7 +2,6 @@ package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -55,7 +53,7 @@ fun CandidateCV(navController: NavController) {
     val candidate = CandidateInformation(
         description = "",
         studies = listOf(),
-        skills = listOf(),
+        softskills = listOf(),
         name = "",
         lastname = "",
         location = "",
@@ -84,7 +82,7 @@ fun CandidateCV(navController: NavController) {
                 Header(candidate = candidate)
                 Experience(candidate = candidate, navController)
                 Studies(candidate = candidate, navController)
-                Skills(candidate = candidate, navController)
+                SoftSkills(candidate = candidate, navController)
                 Languages(candidate = candidate, navController)
             }
         }
@@ -140,11 +138,11 @@ fun Studies(candidate: CandidateInformation, navController: NavController) {
 }
 
 @Composable
-fun Skills(candidate: CandidateInformation, navController: NavController) {
+fun SoftSkills(candidate: CandidateInformation, navController: NavController) {
     EmptyField(
         candidate = candidate,
-        title = R.string.candidate_skills_title,
-        emptyField = R.string.emptySkills_text,
+        title = R.string.candidate_softskills_title,
+        emptyField = R.string.emptySoftskills_text,
         onAddClick = { /* TODO */ }
     )
 }
@@ -156,7 +154,6 @@ fun Languages(candidate: CandidateInformation, navController: NavController) {
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
         onAddClick = {
-            println("Navigating to addLanguage")
             navController.navigate("addLanguage")
         }
     )
@@ -228,7 +225,7 @@ fun Preview() {
     val candidate = CandidateInformation(
         description = "",
         studies = listOf(),
-        skills = listOf(),
+        softskills = listOf(),
         name = "Janira",
         lastname = "Huesca",
         location = "",

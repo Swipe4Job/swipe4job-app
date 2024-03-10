@@ -44,11 +44,11 @@ import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.Section
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.ContractTypeOptions
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobOfferInformation
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobTypeOptions
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.SalaryRange
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.WorkingDayTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
 import kotlinx.coroutines.delay
@@ -233,7 +233,7 @@ fun JobOfferInformationDisplay(information: JobOfferInformation) {
             }
 
             Section(
-                title = stringResource(id = R.string.candidate_skills_title),
+                title = stringResource(id = R.string.candidate_softskills_title),
                 icon = IconVector.ImageVectorIcon(Icons.Default.HistoryEdu)
             ) {
                 information.skills.forEach {

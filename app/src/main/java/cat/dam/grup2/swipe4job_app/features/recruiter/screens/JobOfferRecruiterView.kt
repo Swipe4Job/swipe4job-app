@@ -33,11 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.Section
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.ContractTypeOptions
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobOfferInformation
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobTypeOptions
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.SalaryRange
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.WorkingDayTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -206,7 +206,7 @@ fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
             }
 
             Section(
-                title = stringResource(id = R.string.candidate_skills_title),
+                title = stringResource(id = R.string.candidate_softskills_title),
                 icon = IconVector.ImageVectorIcon(
                     Icons.Default.HistoryEdu
                 )

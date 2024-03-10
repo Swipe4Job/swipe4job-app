@@ -63,7 +63,7 @@ enum class LanguageLevel {
 data class LanguageSkill(
     val language: String,
     val level: LanguageLevel,
-    val degree: String? = null,
+    val academicTitle: String? = null,
 )
 
 data class JobExperience(
@@ -214,14 +214,15 @@ fun CandidateComplexDetails(navController: NavController) {
                         name = "Paco",
                         lastname = "Garcia",
                         location = "Barcelona",
-                        skills = listOf("Kotlin", "Android Development", "Web Development"),
+                        softskills = listOf("Leadership", "Adaptability", "Negotiation"),
                         languages = listOf(
                             LanguageSkill(
                                 language = "English",
                                 level = LanguageLevel.Advanced,
-                                degree = "Oxford"
+                                academicTitle = "Oxford"
                             )
-                        )
+                        ),
+
                     )
                 )
             }
@@ -298,8 +299,8 @@ fun UserInformationDisplay(information: CandidateInformation) {
                 }
             }
 
-            Section(title = stringResource(id = R.string.candidate_skills_title), icon = IconVector.ImageVectorIcon(Icons.Default.HistoryEdu)) {
-                information.skills.forEach {
+            Section(title = stringResource(id = R.string.candidate_softskills_title), icon = IconVector.ImageVectorIcon(Icons.Default.HistoryEdu)) {
+                information.softskills.forEach {
                     SuggestionChip(onClick = { /*TODO*/ }, label = { Text(it) })
                 }
             }
@@ -311,9 +312,9 @@ fun UserInformationDisplay(information: CandidateInformation) {
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                     )
                     Text(it.level.name)
-                    if (it.degree != null) {
+                    if (it.academicTitle != null) {
                         Text(
-                            it.degree,
+                            it.academicTitle,
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Light
                         )

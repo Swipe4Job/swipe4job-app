@@ -151,7 +151,7 @@ fun CompanyPostOfferPage2(navController: NavController) {
 
                     // Title - Skills
                     Text(
-                        stringResource(id = R.string.skills_text),
+                        stringResource(id = R.string.softSkills_text),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.secondary
                     )
@@ -169,7 +169,7 @@ fun CompanyPostOfferPage2(navController: NavController) {
                                 horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 Text(
-                                    stringResource(id = R.string.addSkills_text),
+                                    stringResource(id = R.string.addSoftskills_text),
                                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
                                 )
                                 Icon(

@@ -1,7 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,10 +26,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.recruiter.modelos.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
 import java.text.SimpleDateFormat
 import java.util.Locale
-import androidx.compose.foundation.lazy.itemsIndexed
 
 @Composable
 fun OffersListView(
