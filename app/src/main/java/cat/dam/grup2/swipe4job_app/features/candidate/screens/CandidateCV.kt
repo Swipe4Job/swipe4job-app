@@ -45,7 +45,6 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CandidateCV(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.CV) }
@@ -54,8 +53,8 @@ fun CandidateCV(navController: NavController) {
         description = "",
         studies = listOf(),
         softskills = listOf(),
-        name = "",
-        lastname = "",
+        name = "Paco",
+        lastname = "Garcia",
         location = "",
         languages = listOf(),
         jobExperience = listOf()
@@ -111,7 +110,9 @@ fun Header(candidate: CandidateInformation) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "${candidate.name} ${candidate.lastname}"
+                text = "${candidate.name} ${candidate.lastname}",
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }
@@ -228,8 +229,8 @@ fun Preview() {
         description = "",
         studies = listOf(),
         softskills = listOf(),
-        name = "Janira",
-        lastname = "Huesca",
+        name = "Paco",
+        lastname = "Garcia",
         location = "",
         languages = listOf(),
         jobExperience = listOf()

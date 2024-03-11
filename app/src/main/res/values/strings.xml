@@ -154,9 +154,9 @@
     <string name="label_salaryRange">Select the salary range</string>
     <string name="grossAnnualSalary_text">(gross annual salary)</string>
     <string name="add_text_button">Add</string>
-    <string name="emptyExperience_text">You haven\'t added any experience yet</string>
-    <string name="emptyStudies_text">You haven\'t added any studies yet</string>
-    <string name="emptySoftskills_text">You haven\'t added any soft skills yet</string>
+    <string name="emptyExperience_text">You haven\'t added any job experience yet</string>
+    <string name="emptyStudies_text">You haven\'t added any study yet</string>
+    <string name="emptySoftskills_text">You haven\'t added any soft skill yet</string>
     <string name="emptyLanguages_text">You haven\'t added any language yet</string>
     <string name="search_icon_description">Search icon</string>
     <string name="connections_icon_description">Connections icon</string>
