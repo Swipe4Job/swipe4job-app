@@ -1,5 +1,7 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
+import android.content.Context
+import android.content.res.Resources
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -20,12 +23,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -35,14 +44,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
-import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
-import androidx.compose.material3.TopAppBar
-import androidx.compose.ui.Alignment
 
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun AddLanguage(navController: NavController) {
+@Composable
+fun AddSoftSkill(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,19 +68,19 @@ fun AddLanguage(navController: NavController) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.addLanguage_text),
+                            text = stringResource(id = R.string.addSoftskills_text),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(start = 8.dp)
                                 .weight(1f)
                         )
                         Text(
-                            /* TODO: verify that Language and Level fields are not empty */
+                            /* TODO: verify that at least one Soft skill has been selected */
                             text = stringResource(id = R.string.save_text),
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    /* TODO: Save data */
+                                    // TODO: Save data
                                     navController.popBackStack()
                                 }
                                 .padding(end = 16.dp),
@@ -96,76 +101,87 @@ fun AddLanguage(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                AddLanguageContent()
+                AddSoftSkillContent(context = LocalContext.current)
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddLanguageContent() {
-    var languageText = stringResource(id = R.string.language_text)
-    var selectedLanguageItem by remember { mutableStateOf(languageText) }
-    var languageOptions = stringArrayResource(R.array.languages_array).toList()
+fun AddSoftSkillContent(context: Context) {
+    val resources = context.resources
+    val suggestionsArray = resources.getStringArray(R.array.soft_skills_array).sortedArray()
+    var text by remember { mutableStateOf("") }
+    var filteredSuggestions by remember { mutableStateOf(emptyList<String>()) }
+    var isEditable by remember { mutableStateOf(true) }
+    var isListVisible by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-    var levelText = stringResource(id = R.string.level_text)
-    var selectedLevelItem by remember { mutableStateOf(levelText) }
-    var levelOptions = stringArrayResource(R.array.languages_level_array).toList()
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.Start
     ) {
-        item {
-            CustomDropdown(
-                placeholder = selectedLanguageItem,
-                items = languageOptions
-            ) {
-                selectedLanguageItem = it
+        Text(
+            stringResource(id = R.string.commentsAddLanguage_text),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = 12.dp)
+        )
+
+        TextField(
+            value = text,
+            onValueChange = {
+                text = it
+                filteredSuggestions = suggestionsArray.filter { suggestion ->
+                    suggestion.contains(text, ignoreCase = true)
+                }
+                isEditable = filteredSuggestions.isNotEmpty()
+                isListVisible = isEditable && text.isNotBlank() // Mostrar sugerencias solo si el texto no está vacío y es editable
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { isListVisible = true }, // Hacer clic en el TextField para mostrar las sugerencias
+            colors = TextFieldDefaults.textFieldColors(
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
+            ),
+            enabled = isEditable,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Text
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    keyboardController?.hide()
+                }
+            )
+        )
+
+        if (isListVisible) {
+            LazyColumn {
+                items(filteredSuggestions.size) { index ->
+                    val suggestion = filteredSuggestions[index]
+                    Text(
+                        text = suggestion,
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .clickable {
+                                text = suggestion
+                                isListVisible = false
+                            }
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            CustomDropdown(
-                placeholder = selectedLevelItem,
-                items = levelOptions
-            ) {
-                selectedLevelItem = it
-            }
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // Title - Comments
-            Text(
-                stringResource(id = R.string.academicTitle_text),
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Text(
-                stringResource(id = R.string.commentsAddLanguage_text),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 12.dp)
-            )
-
-            // Text field for the comments
-            var academicTitle by remember { mutableStateOf("") }
-
-            CustomTextFieldMaxChar(
-                descriptionState = mutableStateOf(academicTitle),
-                maxCharacters = 200,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Text
-                )
-            )
         }
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun AddLanguagePreview() {
-    AddLanguage(rememberNavController())
+fun AddSoftSkillPreview() {
+    AddSoftSkill(rememberNavController())
 }

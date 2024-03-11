@@ -249,4 +249,6 @@
         <item>Analytical skills</item>
         <item>Customer service</item>
     </string-array>
+    <string name="softSkill_text">Soft skill</string>
+    <string name="explanationAddSoftSkill_text">Start writing and select your soft skill from the suggestions. For example: teamwork, leadership, etc.</string>
 </resources>

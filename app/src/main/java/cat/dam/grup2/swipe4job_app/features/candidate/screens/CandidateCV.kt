@@ -143,7 +143,9 @@ fun SoftSkills(candidate: CandidateInformation, navController: NavController) {
         candidate = candidate,
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
-        onAddClick = { /* TODO */ }
+        onAddClick = {
+            navController.navigate("addSoftSkill")
+        }
     )
 }
 

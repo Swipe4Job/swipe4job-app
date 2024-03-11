@@ -15,7 +15,7 @@
     <string name="candidate_description_title">Descripción</string>
     <string name="candidate_jobExperience_title">Experiencia</string>
     <string name="candidate_studies_title">Estudios</string>
-    <string name="candidate_softskills_title">Habilidades</string>
+    <string name="candidate_softskills_title">Habilidades blandas</string>
     <string name="candidate_languages_title">Idiomas</string>
     <string name="label_name">Nombre</string>
     <string name="label_lastname">Apellido</string>
@@ -54,8 +54,8 @@
     <string name="tipsDescriptionPostOffer_text">Consejo: Resuma el puesto, explique qué se necesita para tener éxito en él y su lugar en la empresa.</string>
     <string name="responsabilities_text">Responsabilidades</string>
     <string name="requirements_text">Requisitos</string>
-    <string name="softSkills_text">Habilidades</string>
-    <string name="addSoftskills_text">Añadir habilidades</string>
+    <string name="softSkills_text">Habilidades blandas</string>
+    <string name="addSoftskills_text">Añadir habilidades blandas</string>
     <string name="add_icon_description">Icono de añadir</string>
     <string name="salaryRange_text">Rango salarial (opcional)</string>
     <string name="workingHours_text">Horario de trabajo (opcional)</string>
@@ -156,7 +156,7 @@
     <string name="add_text_button">Añadir</string>
     <string name="emptyExperience_text">Aún no has añadido ninguna experiencia</string>
     <string name="emptyStudies_text">Aún no has añadido ningún estudio</string>
-    <string name="emptySoftskills_text">Aún no has añadido ninguna habilidad</string>
+    <string name="emptySoftskills_text">Aún no has añadido ninguna habilidad blanda</string>
     <string name="emptyLanguages_text">Aún no has añadido ningún idioma</string>
     <string name="search_icon_description">Icono de búsqueda</string>
     <string name="connections_icon_description">Icono de conexiones</string>
@@ -249,4 +249,6 @@
         <item>Habilidades analíticas</item>
         <item>Servicio al cliente</item>
     </string-array>
+    <string name="softSkill_text">Habilidad blanda</string>
+    <string name="explanationAddSoftSkill_text">Empieza a escribir y selecciona de las sugerencias tu habilidad blanda. Por ejemplo: trabajo en equipo, liderazgo, etc.</string>
 </resources>
