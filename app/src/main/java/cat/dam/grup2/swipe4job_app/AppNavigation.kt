@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddLanguage
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddSoftSkill
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddStudy
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateCV
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateComplexDetails
@@ -119,6 +120,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("addSoftSkill") {
             AddSoftSkill(navController)
+        }
+
+        composable("addStudy") {
+            AddStudy(navController)
         }
     }
 }
