@@ -159,7 +159,7 @@ fun AddLanguageContent(
                 placeholder = selectedLevelItem,
                 items = levelOptions
             ) {
-                onLevelChange(toLanguageLevel(context, text = selectedLevelItem))
+                onLevelChange(toLanguageLevel(context, text = it))
             }
 
             Spacer(modifier = Modifier.height(32.dp))

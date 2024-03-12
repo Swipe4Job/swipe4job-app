@@ -64,6 +64,7 @@ fun CustomDropdown(
                         selectedItemIndex = index
                         selectedItem = item
                         expanded = false
+                        println("Selected item $selectedItem")
                         onChange(selectedItem)
                     }
                 )
