@@ -251,4 +251,5 @@
     </string-array>
     <string name="softSkill_text">Habilidad blanda</string>
     <string name="explanationAddSoftSkill_text">Empieza a escribir y selecciona de las sugerencias tu habilidad blanda. Por ejemplo: trabajo en equipo, liderazgo, etc.</string>
+    <string name="icon_logo_text">Icon logo</string>
 </resources>
