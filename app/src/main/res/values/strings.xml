@@ -251,6 +251,7 @@
     </string-array>
     <string name="softSkill_text">Soft skill</string>
     <string name="explanationAddSoftSkill_text">Start writing and select your soft skill from the suggestions. For example: teamwork, leadership, etc.</string>
+    <string name="icon_logo_text">Icon logo</string>
     <string name="addStudy_text">Add study</string>
     <string name="school_text">School or studies center</string>
     <string name="studiesName_text">Studies name (title)</string>
