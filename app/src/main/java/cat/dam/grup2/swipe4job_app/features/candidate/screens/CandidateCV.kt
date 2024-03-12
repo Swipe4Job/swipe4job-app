@@ -134,7 +134,9 @@ fun Studies(candidate: CandidateInformation, navController: NavController) {
         candidate = candidate,
         title = R.string.candidate_studies_title,
         emptyField = R.string.emptyStudies_text,
-        onAddClick = { /* TODO */ }
+        onAddClick = {
+            navController.navigate("addStudy")
+        }
     )
 }
 

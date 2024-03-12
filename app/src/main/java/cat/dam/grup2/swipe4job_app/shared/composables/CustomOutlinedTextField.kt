@@ -30,6 +30,7 @@ fun CustomOutlinedTextField(
     iconContentDescription: String?,
     keyboardOptions: KeyboardOptions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
         value = value,
@@ -78,13 +79,14 @@ fun CustomOutlinedTextField(
                 }
             }
         },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         colors = TextFieldDefaults.textFieldColors(
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
             focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
             containerColor = MaterialTheme.colorScheme.background
         ),
-        keyboardOptions = keyboardOptions
+        keyboardOptions = keyboardOptions,
+        singleLine = true
     )
 }

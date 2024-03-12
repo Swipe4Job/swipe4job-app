@@ -135,7 +135,7 @@ fun AddLanguageContent() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Title - Comments
+            // Title - Title or certificate
             Text(
                 stringResource(id = R.string.academicTitle_text),
                 color = MaterialTheme.colorScheme.secondary,

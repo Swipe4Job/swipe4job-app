@@ -251,4 +251,29 @@
     </string-array>
     <string name="softSkill_text">Soft skill</string>
     <string name="explanationAddSoftSkill_text">Start writing and select your soft skill from the suggestions. For example: teamwork, leadership, etc.</string>
+    <string name="addStudy_text">Add study</string>
+    <string name="school_text">School or studies center</string>
+    <string name="studiesName_text">Studies name (title)</string>
+    <string name="startingDate_text">Starting date</string>
+    <string name="endDate_text">End date</string>
+    <string name="label_study">Enter the study\'s name</string>
+    <string name="label_school">Enter the school\'s name</string>
+    <string name="label_startingDate">Enter the starting date</string>
+    <string name="label_endDate">Enter the end date</string>
+    <string name="month_text">Month</string>
+    <string name="year_text">Year</string>
+    <string-array name="months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>

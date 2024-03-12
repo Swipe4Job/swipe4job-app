@@ -251,4 +251,29 @@
     </string-array>
     <string name="softSkill_text">Habilidad blanda</string>
     <string name="explanationAddSoftSkill_text">Empieza a escribir y selecciona de las sugerencias tu habilidad blanda. Por ejemplo: trabajo en equipo, liderazgo, etc.</string>
+    <string name="addStudy_text">Añadir estudio</string>
+    <string name="school_text">Escuela o centro de estudios</string>
+    <string name="studiesName_text">Nombre de los estudios (título)</string>
+    <string name="startingDate_text">Fecha inicio</string>
+    <string name="endDate_text">Fecha fin</string>
+    <string name="label_study">Introduce el nombre del estudio</string>
+    <string name="label_school">Introduce el nombre del centro</string>
+    <string name="label_startingDate">Introduce la fecha de inicio</string>
+    <string name="label_endDate">Introduce la fecha de finalización</string>
+    <string name="month_text">Mes</string>
+    <string name="year_text">Año</string>
+    <string-array name="months_array">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </string-array>
 </resources>
