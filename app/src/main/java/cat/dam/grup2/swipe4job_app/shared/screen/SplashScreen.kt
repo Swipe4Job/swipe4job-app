@@ -5,11 +5,13 @@ import androidx.compose.animation.core.EaseOutElastic
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -21,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -81,7 +84,9 @@ fun SplashScreen(navController: NavController) {
     )
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -90,24 +95,24 @@ fun SplashScreen(navController: NavController) {
                 modifier = Modifier
                     .graphicsLayer(scaleX = logoScale, scaleY = logoScale)
                     .animateContentSize(),
-                painter = painterResource(id = getIconResource()),
-                contentDescription = stringResource(R.string.icon_logo_text)
+                painter = getIconResource(),
+                contentDescription = stringResource(R.string.logo_image_description)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Image(
                 modifier = Modifier
                     .graphicsLayer(scaleX = barScale, scaleY = barScale)
                     .animateContentSize(),
-                painter = painterResource(id = getBarResource()),
-                contentDescription = stringResource(R.string.icon_logo_text)
+                painter = getBarResource(),
+                contentDescription = stringResource(R.string.logo_image_description)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Image(
                 modifier = Modifier
                     .graphicsLayer(scaleX = textScale, scaleY = textScale)
                     .animateContentSize(),
-                painter = painterResource(id = getTextResource()),
-                contentDescription = stringResource(R.string.icon_logo_text)
+                painter = getTextResource(),
+                contentDescription = stringResource(R.string.logo_image_description)
             )
         }
     }
@@ -120,16 +125,29 @@ fun SplashScreen(navController: NavController) {
     }
 }
 
-
-private fun getIconResource(): Int {
-    // TODO check dark or light theme
-    return R.drawable.icon_dark
+@Composable
+private fun getIconResource(): Painter {
+    return if (isSystemInDarkTheme()) {
+        painterResource(id = R.drawable.icon_dark)
+    } else {
+        painterResource(id = R.drawable.icon_light)
+    }
 }
 
-private fun getBarResource(): Int {
-    return R.drawable.bar_dark
+@Composable
+private fun getBarResource(): Painter {
+    return if (isSystemInDarkTheme()) {
+        painterResource(id = R.drawable.bar_dark)
+    } else {
+        painterResource(id = R.drawable.bar_light)
+    }
 }
 
-private fun getTextResource(): Int {
-    return R.drawable.text_dark
+@Composable
+private fun getTextResource(): Painter {
+    return if (isSystemInDarkTheme()) {
+        painterResource(id = R.drawable.text_dark)
+    } else {
+        painterResource(id = R.drawable.text_light)
+    }
 }

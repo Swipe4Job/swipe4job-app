@@ -42,6 +42,7 @@ fun AppNavigation(navController: NavHostController) {
         composable("splashScreen") {
             SplashScreen(navController = navController)
         }
+
         composable("userLoginForm") {
             UserLoginForm(navController, userApiService)
         }
