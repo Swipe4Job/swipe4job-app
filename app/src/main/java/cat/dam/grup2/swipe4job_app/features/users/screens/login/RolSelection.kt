@@ -1,5 +1,8 @@
 package cat.dam.grup2.swipe4job_app.features.users.screens.login
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,9 +26,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,12 +40,33 @@ import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun RolSelection(navController: NavController) {
-    var rol by remember { mutableStateOf("") }
-
-
+    var selectedRol by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    var isLoading by remember {
+        mutableStateOf(false) }
+    var isLoading1 by remember {
+        mutableStateOf(false) }
+    val candidateScale by animateFloatAsState(
+        targetValue = if (isLoading) 1.2f else 1f,
+        animationSpec = tween(durationMillis = 300),
+        label = "candidate scale animation",
+        finishedListener = {
+            navController.navigate("candidateSignUpPage1")
+        }
+    )
+    val recruiterScale by animateFloatAsState(
+        targetValue = if (isLoading1) 1.2f else 1f,
+        animationSpec = tween(durationMillis = 300),
+            label = "recruiter scale animation",
+        finishedListener = {
+                navController.navigate("recruiterSignUpPage1")
+            }
+        )
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -79,7 +105,7 @@ fun RolSelection(navController: NavController) {
             ) {
                 OutlinedButton(
                     onClick = {
-                        navController.navigate("candidateSignUpPage1")
+                        isLoading = true
                     },
                     modifier = Modifier
                         .wrapContentSize()
@@ -88,16 +114,18 @@ fun RolSelection(navController: NavController) {
                             BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
                             shape = CircleShape
                         ),
-
                     content = {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
+                            // Candidate image with scaling animation
                             Image(
                                 painter = painterResource(id = R.drawable.candidat_light_theme),
                                 contentDescription = null,
-                                modifier = Modifier.size(50.dp)
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .scale(candidateScale) // Use the animated scale factor
                             )
                             Text(
                                 text = stringResource(id = R.string.candidate_Text),
@@ -108,7 +136,7 @@ fun RolSelection(navController: NavController) {
                 )
                 OutlinedButton(
                     onClick = {
-                        navController.navigate("recruiterSignUpPage1")
+                        isLoading1 = true
                     },
                     modifier = Modifier
                         .wrapContentSize()
@@ -117,16 +145,18 @@ fun RolSelection(navController: NavController) {
                             BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
                             shape = CircleShape
                         ),
-
                     content = {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
+                            // Recruiter image with scaling animation
                             Image(
                                 painter = painterResource(id = R.drawable.recruiter_light_theme),
                                 contentDescription = null,
-                                modifier = Modifier.size(50.dp)
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .scale(recruiterScale)
                             )
                             Text(
                                 text = stringResource(id = R.string.recruiter_text),
@@ -151,11 +181,9 @@ fun RolSelection(navController: NavController) {
                     text = stringResource(id = R.string.alreadyHaveAnAccount_text)
                 )
             }
-
         }
     }
 }
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CustomRolSelectionPreview() {
