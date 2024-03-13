@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.shared.screen
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.EaseOutElastic
 import androidx.compose.animation.core.animateFloatAsState
@@ -24,6 +25,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,6 +40,12 @@ import kotlinx.coroutines.launch
 fun SplashScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
     val maxScale = .9f
+    val density = LocalDensity.current.density
+    val screenWidthPixels = with(LocalContext.current.resources.displayMetrics) {
+        widthPixels.toFloat()
+    }
+    val orientation = LocalConfiguration.current.orientation
+    val textWidthDp = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 800f else 300f
     var isLogoAnimationLaunched by remember { mutableStateOf(false) }
     var isBarAnimationLaunched by remember { mutableStateOf(false) }
     var isTextAnimationLaunched by remember { mutableStateOf(false) }
@@ -59,7 +69,7 @@ fun SplashScreen(navController: NavController) {
         animationSpec = tween(
             durationMillis = 1000
         ),
-        label = "Elastic animation",
+        label = "Rotation animation",
         finishedListener = {
             scope.launch {
                 isTextAnimationLaunched = true
@@ -67,11 +77,10 @@ fun SplashScreen(navController: NavController) {
         }
     )
 
-    val textScale by animateFloatAsState(
-        targetValue = if (isTextAnimationLaunched) maxScale else 0f,
+    val textTranslationX by animateFloatAsState(
+        targetValue = if (isTextAnimationLaunched) 0f else screenWidthPixels / density + textWidthDp,
         animationSpec = tween(
-            durationMillis = 500,
-            easing = EaseOutElastic
+            durationMillis = 1000
         ),
         finishedListener = {
             scope.launch {
@@ -79,7 +88,7 @@ fun SplashScreen(navController: NavController) {
                 navController.navigate("userLoginForm")
             }
         },
-        label = "Elastic animation",
+        label = "Translation animation",
     )
 
     Column(
@@ -108,7 +117,7 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
                 modifier = Modifier
-                    .graphicsLayer(scaleX = textScale, scaleY = textScale)
+                    .graphicsLayer(translationX = textTranslationX)
                     .animateContentSize(),
                 painter = getTextResource(),
                 contentDescription = stringResource(R.string.logo_image_description)
