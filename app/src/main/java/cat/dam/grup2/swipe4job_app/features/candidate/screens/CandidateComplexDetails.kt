@@ -57,7 +57,8 @@ import kotlinx.coroutines.delay
 enum class LanguageLevel {
     Low,
     Intermediate,
-    Advanced
+    Advanced,
+    Native
 }
 
 data class LanguageSkill(
