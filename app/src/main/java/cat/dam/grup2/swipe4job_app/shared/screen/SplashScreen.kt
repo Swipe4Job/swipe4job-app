@@ -54,11 +54,10 @@ fun SplashScreen(navController: NavController) {
         }
     )
 
-    val barScale by animateFloatAsState(
-        targetValue = if (isBarAnimationLaunched) 0.8f else 0f,
+    val barRotation by animateFloatAsState(
+        targetValue = if (isBarAnimationLaunched) 360f else 0f,
         animationSpec = tween(
-            durationMillis = 500,
-            easing = EaseOutElastic
+            durationMillis = 1000
         ),
         label = "Elastic animation",
         finishedListener = {
@@ -101,7 +100,7 @@ fun SplashScreen(navController: NavController) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
                 modifier = Modifier
-                    .graphicsLayer(scaleX = barScale, scaleY = barScale)
+                    .graphicsLayer(rotationZ = barRotation)
                     .animateContentSize(),
                 painter = getBarResource(),
                 contentDescription = stringResource(R.string.logo_image_description)
