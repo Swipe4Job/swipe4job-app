@@ -39,7 +39,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
-    val maxScale = .9f
     val density = LocalDensity.current.density
     val screenWidthPixels = with(LocalContext.current.resources.displayMetrics) {
         widthPixels.toFloat()

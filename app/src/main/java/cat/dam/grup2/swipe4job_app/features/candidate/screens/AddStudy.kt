@@ -23,6 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -43,7 +45,7 @@ import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
+
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,6 +109,7 @@ fun AddStudy(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddStudyContent() {
     var study by remember { mutableStateOf("") }
@@ -114,13 +117,11 @@ fun AddStudyContent() {
     var startingDate by remember { mutableStateOf("") }
     var endDate by remember { mutableStateOf("") }
     val openDialog = remember { mutableStateOf(false) }
-    val selectedDate = remember { mutableStateOf("") }
-    var month = stringResource(id = R.string.month_text)
-    var selectedMonthItem by remember { mutableStateOf(month) }
+    val selectedMonth = remember { mutableStateOf("") }
+    val selectedYear = remember { mutableStateOf("") }
     var monthOptions = stringArrayResource(R.array.months_array).toList()
-    var year = stringResource(id = R.string.year_text)
-    var selectedYearItem by remember { mutableStateOf(year) }
-    val years = (1024..2024).map { it.toString() }
+    val years = (1924..2024).map { it.toString() }.reversed()
+    val yearsMap = years.associateWith { it }
 
     LazyColumn(
         modifier = Modifier
@@ -183,17 +184,30 @@ fun AddStudyContent() {
             )
 
             // Starting date TextField
-            CustomOutlinedTextField(
+
+            TextField(
                 value = startingDate,
-                onValueChange = { startingDate = it },
-                label = stringResource(id = R.string.label_startingDate),
-                leadingIcon = IconVector.ImageVectorIcon(Icons.Default.CalendarToday),
-                iconContentDescription = stringResource(id = R.string.calendar_icon_description),
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Number
-                ),
-                modifier = Modifier.clickable { openDialog.value = true }
+                onValueChange = { },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.label_startingDate),
+                        modifier = Modifier.clickable { openDialog.value = true }
+                    )
+                },
+                readOnly = true,
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.CalendarToday,
+                        contentDescription = stringResource(id = R.string.calendar_icon_description)
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                    focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -205,26 +219,44 @@ fun AddStudyContent() {
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-
             // End date TextField
-            CustomOutlinedTextField(
+
+            TextField(
                 value = endDate,
                 onValueChange = { endDate = it },
-                label = stringResource(id = R.string.label_endDate),
-                leadingIcon = IconVector.ImageVectorIcon(Icons.Default.CalendarToday),
-                iconContentDescription = stringResource(id = R.string.calendar_icon_description),
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Number
-                ),
-                modifier = Modifier.clickable { openDialog.value = true }
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.label_endDate),
+                        modifier = Modifier.clickable { openDialog.value = true }
+                    )
+                },
+                readOnly = true,
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.CalendarToday,
+                        contentDescription = stringResource(id = R.string.calendar_icon_description)
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                    focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
 
             CustomAlertDialog(
                 openDialog = openDialog,
-                selectedDate = selectedDate,
+                selectedMonth = selectedMonth,
+                selectedYear = selectedYear,
                 months = monthOptions,
-                years = years )
+                years = yearsMap,
+                onAccept = { selectedStartingDate, selectedEndDate ->
+                    startingDate = selectedStartingDate
+                    endDate = selectedEndDate
+                }
+            )
         }
     }
 }
@@ -232,9 +264,11 @@ fun AddStudyContent() {
 @Composable
 fun CustomAlertDialog(
     openDialog: MutableState<Boolean>,
-    selectedDate: MutableState<String>,
+    selectedMonth: MutableState<String>,
+    selectedYear: MutableState<String>,
     months: List<String>,
-    years: List<String>
+    years: Map<String, String>,
+    onAccept: (String, String) -> Unit
 ) {
     if (openDialog.value) {
         AlertDialog(
@@ -242,23 +276,34 @@ fun CustomAlertDialog(
             title = { Text(text = "Seleccione una fecha") },
             text = {
                 Column {
-                    Row(Modifier.fillMaxWidth()) {
-                        CustomDropdown(
-                            placeholder = stringResource(id = R.string.month_text),
-                            items = months,
-                            onChange = { month ->
-                                selectedDate.value = "$month ${selectedDate.value.split(" ")[1]}"
-                            }
-                        )
-                        CustomDropdown(
-                            placeholder = stringResource(id = R.string.year_text),
-                            items = years,
-                            onChange = { year ->
-                                selectedDate.value = "${selectedDate.value.split(" ")[0]} $year"
-                            }
-                        )
-                    }
-                    TextButton(onClick = { openDialog.value = false }) {
+                    // Dropdown para los meses
+                    CustomDropdown(
+                        modifier = Modifier.weight(1f), // Ocupa el 50% del ancho
+                        placeholder = stringResource(id = R.string.month_text),
+                        items = months,
+                        onChange = { month ->
+                            selectedMonth.value = month
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp)) // Espacio entre los dropdowns
+                    // Dropdown para los años
+                    CustomDropdown(
+                        modifier = Modifier.weight(1f), // Ocupa el 50% del ancho
+                        placeholder = stringResource(id = R.string.year_text),
+                        items = years.keys.toList(),
+                        onChange = { year ->
+                            selectedYear.value = year
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp)) // Espacio entre los dropdowns y el botón
+                    // Botón de aceptar
+                    TextButton(onClick = {
+                        openDialog.value = false
+                        // Llamar al callback para actualizar las fechas en AddStudyContent
+                        val selectedStartingDate = "${selectedMonth.value} ${selectedYear.value}"
+                        val selectedEndDate = "${selectedMonth.value} ${selectedYear.value}"
+                        onAccept(selectedStartingDate, selectedEndDate)
+                    }) {
                         Text("Aceptar")
                     }
                 }
@@ -267,6 +312,8 @@ fun CustomAlertDialog(
         )
     }
 }
+
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
