@@ -37,7 +37,7 @@ import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
+    NavHost(navController = navController, startDestination = "rolSelection") {
         composable("userLoginForm") {
             UserLoginForm(navController, userApiService)
         }

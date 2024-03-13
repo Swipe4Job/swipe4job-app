@@ -226,7 +226,7 @@
     <string name="commentsAddLanguage_text">You can indicate if you have a certificate associated with this language.</string>
     <string name="addLanguage_text">Add language</string>
     <string name="save_text">SAVE</string>
-    <string name="alreadyHaveAnAccount_text">I aready have an account</string>
+    <string name="alreadyHaveAnAccount_text">I already have an account</string>
     <string name="loading_text">Loading...</string>
     <string-array name="soft_skills_array">
         <item>Communication skills</item>
