@@ -69,16 +69,16 @@ data class LanguageSkill(
 
 data class JobExperience(
     val company: String,
-    val startDate: LocalDate,
-    val endDate: LocalDate?,
+    val startDate: String,
+    val endDate: String?,
     val position: String
 )
 
 data class Study(
+    val name: String,
     val school: String,
-    val startDate: LocalDate,
-    val endDate: LocalDate?,
-    val name: String
+    val startDate: String,
+    val endDate: String?
 )
 
 @Composable
@@ -187,14 +187,14 @@ fun CandidateComplexDetails(navController: NavController) {
                         jobExperience = listOf(
                             JobExperience(
                                 company = "Telefonica",
-                                startDate = LocalDate.of(2022, 7, 12),
-                                endDate = LocalDate.of(2023, 6, 20),
+                                startDate = "2022-07",
+                                endDate = "2023-06",
                                 position = "Full Stack developer"
                             ),
                             JobExperience(
                                 company = "Telefonica",
-                                startDate = LocalDate.of(2022, 7, 12),
-                                endDate = LocalDate.of(2023, 6, 20),
+                                startDate = "2022-07",
+                                endDate = "2023-06",
                                 position = "Full Stack developer"
                             )
                         ),
@@ -202,14 +202,14 @@ fun CandidateComplexDetails(navController: NavController) {
                             Study(
                                 school = "INS Pla de l'Estany",
                                 name = "DAM",
-                                startDate = LocalDate.of(2020, 9, 12),
-                                endDate = LocalDate.of(2022, 6, 20)
+                                startDate = "2022-07",
+                                endDate = "2023-06",
                             ),
                             Study(
                                 school = "INS Pla de l'Estany",
                                 name = "DAM",
-                                startDate = LocalDate.of(2020, 9, 12),
-                                endDate = LocalDate.of(2022, 6, 20)
+                                startDate = "2022-07",
+                                endDate = "2023-06",
                             )
                         ),
                         name = "Paco",
