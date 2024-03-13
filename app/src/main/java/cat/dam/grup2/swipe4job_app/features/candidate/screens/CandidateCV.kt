@@ -44,14 +44,12 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
-
-val candidateProfileViewModel = CandidateProfileViewModel.getInstance()
-val softSkillsList = candidateProfileViewModel.softSkills
-val languagesList = candidateProfileViewModel.languages
-
 @Composable
 fun CandidateCV(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.CV) }
+    val candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+    val softSkillsList = candidateProfileViewModel.softSkills
+    val languagesList = candidateProfileViewModel.languages
 
     val candidate = CandidateInformation(
         description = "",
@@ -85,8 +83,8 @@ fun CandidateCV(navController: NavController) {
                 Header(candidate = candidate)
                 Experience(candidate = candidate, navController)
                 Studies(candidate = candidate, navController)
-                SoftSkills(candidate = candidate, navController)
-                Languages(candidate = candidate, navController)
+                SoftSkills(candidate = candidate, navController, softSkillsList)
+                Languages(candidate = candidate, navController, languagesList)
             }
         }
     }
@@ -145,7 +143,7 @@ fun Studies(candidate: CandidateInformation, navController: NavController) {
 }
 
 @Composable
-fun SoftSkills(candidate: CandidateInformation, navController: NavController) {
+fun SoftSkills(candidate: CandidateInformation, navController: NavController, softSkillsList: List<String>) {
     Field(
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
@@ -157,7 +155,7 @@ fun SoftSkills(candidate: CandidateInformation, navController: NavController) {
 }
 
 @Composable
-fun Languages(candidate: CandidateInformation, navController: NavController) {
+fun Languages(candidate: CandidateInformation, navController: NavController, languagesList: List<LanguageSkill>) {
     Field(
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,

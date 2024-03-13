@@ -181,7 +181,7 @@ fun AddLanguageContent(
             // Text field for the comments
             var academicTitle = remember { mutableStateOf("") }
 
-            LaunchedEffect(academicTitle) {
+            LaunchedEffect(academicTitle.value) {
                 onTitleChange(academicTitle.value)
             }
 
@@ -216,7 +216,6 @@ fun toLanguageLevel(context: Context, text: String): LanguageLevel {
             throw CustomError("Can not convert $text to a language level")
         }
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
