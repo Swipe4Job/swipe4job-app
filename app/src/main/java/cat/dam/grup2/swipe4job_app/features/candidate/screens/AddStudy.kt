@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 
@@ -50,6 +52,13 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AddStudy(navController: NavController) {
+    var studyName by remember { mutableStateOf("") }
+    var school by remember { mutableStateOf("") }
+    var selectedStartingDate by remember { mutableStateOf("") }
+    var selectedEndDate by remember { mutableStateOf("") }
+    var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+    var studiesList = candidateProfileViewModel.studies
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -82,7 +91,15 @@ fun AddStudy(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    /* TODO: Save data */
+                                    studiesList.add(
+                                        Study(
+                                            studyName,
+                                            school,
+                                            selectedStartingDate,
+                                            selectedEndDate
+                                        )
+                                    )
+                                    /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
                                 .padding(end = 16.dp),
@@ -103,7 +120,12 @@ fun AddStudy(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                AddStudyContent()
+                AddStudyContent(
+                    onStudyNameChange = { studyName = it },
+                    onSchoolChange = { school = it },
+                    onStartingDateChange = { selectedStartingDate = it },
+                    onEndDateChange = { selectedEndDate = it }
+                )
             }
         }
     }
@@ -111,17 +133,23 @@ fun AddStudy(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddStudyContent() {
+fun AddStudyContent(
+    onStudyNameChange: (String) -> Unit,
+    onSchoolChange: (String) -> Unit,
+    onStartingDateChange: (String) -> Unit,
+    onEndDateChange: (String) -> Unit
+) {
     var study by remember { mutableStateOf("") }
     var school by remember { mutableStateOf("") }
     var startingDate by remember { mutableStateOf("") }
     var endDate by remember { mutableStateOf("") }
-    val openDialog = remember { mutableStateOf(false) }
-    val selectedMonth = remember { mutableStateOf("") }
-    val selectedYear = remember { mutableStateOf("") }
+    val openStartingDateDialog = remember { mutableStateOf(false) }
+    val openEndDateDialog = remember { mutableStateOf(false) }
     var monthOptions = stringArrayResource(R.array.months_array).toList()
     val years = (1924..2024).map { it.toString() }.reversed()
     val yearsMap = years.associateWith { it }
+
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier
@@ -140,14 +168,17 @@ fun AddStudyContent() {
             // Studies TextField
             CustomOutlinedTextField(
                 value = study,
-                onValueChange = { study = it },
+                onValueChange = {
+                    study = it
+                    onStudyNameChange(it)
+                },
                 label = stringResource(id = R.string.label_study),
                 leadingIcon = null,
                 iconContentDescription = null,
                 keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Number
-                )
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Text
+                ),
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -163,13 +194,16 @@ fun AddStudyContent() {
             // School TextField
             CustomOutlinedTextField(
                 value = school,
-                onValueChange = { school = it },
+                onValueChange = {
+                    school = it
+                    onSchoolChange(it)
+                },
                 label = stringResource(id = R.string.label_school),
                 leadingIcon = null,
                 iconContentDescription = null,
                 keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Number
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Text
                 )
             )
 
@@ -187,11 +221,14 @@ fun AddStudyContent() {
 
             TextField(
                 value = startingDate,
-                onValueChange = { },
+                onValueChange = {
+                    startingDate = it
+                    onStartingDateChange(it)
+                },
                 label = {
                     Text(
                         text = stringResource(id = R.string.label_startingDate),
-                        modifier = Modifier.clickable { openDialog.value = true }
+                        modifier = Modifier.clickable { openStartingDateDialog.value = true }
                     )
                 },
                 readOnly = true,
@@ -223,11 +260,14 @@ fun AddStudyContent() {
 
             TextField(
                 value = endDate,
-                onValueChange = { endDate = it },
+                onValueChange = {
+                    endDate = it
+                    onEndDateChange(it)
+                },
                 label = {
                     Text(
                         text = stringResource(id = R.string.label_endDate),
-                        modifier = Modifier.clickable { openDialog.value = true }
+                        modifier = Modifier.clickable { openEndDateDialog.value = true }
                     )
                 },
                 readOnly = true,
@@ -247,14 +287,22 @@ fun AddStudyContent() {
             )
 
             CustomAlertDialog(
-                openDialog = openDialog,
-                selectedMonth = selectedMonth,
-                selectedYear = selectedYear,
+                openDialog = openStartingDateDialog,
                 months = monthOptions,
                 years = yearsMap,
-                onAccept = { selectedStartingDate, selectedEndDate ->
-                    startingDate = selectedStartingDate
-                    endDate = selectedEndDate
+                onAccept = {
+                    startingDate = it
+                    onStartingDateChange(it)
+                }
+            )
+
+            CustomAlertDialog(
+                openDialog = openEndDateDialog,
+                months = monthOptions,
+                years = yearsMap,
+                onAccept = {
+                    endDate = it
+                    onEndDateChange(it)
                 }
             )
         }
@@ -264,12 +312,13 @@ fun AddStudyContent() {
 @Composable
 fun CustomAlertDialog(
     openDialog: MutableState<Boolean>,
-    selectedMonth: MutableState<String>,
-    selectedYear: MutableState<String>,
     months: List<String>,
     years: Map<String, String>,
-    onAccept: (String, String) -> Unit
+    onAccept: (String) -> Unit
 ) {
+    var selectedMonth by remember { mutableStateOf("") }
+    var selectedYear by remember { mutableStateOf("") }
+
     if (openDialog.value) {
         AlertDialog(
             onDismissRequest = { openDialog.value = false },
@@ -278,31 +327,29 @@ fun CustomAlertDialog(
                 Column {
                     // Dropdown para los meses
                     CustomDropdown(
-                        modifier = Modifier.weight(1f), // Ocupa el 50% del ancho
+                        modifier = Modifier.weight(1f),
                         placeholder = stringResource(id = R.string.month_text),
                         items = months,
                         onChange = { month ->
-                            selectedMonth.value = month
+                            selectedMonth = month
                         }
                     )
-                    Spacer(modifier = Modifier.height(8.dp)) // Espacio entre los dropdowns
+                    Spacer(modifier = Modifier.height(8.dp))
                     // Dropdown para los años
                     CustomDropdown(
-                        modifier = Modifier.weight(1f), // Ocupa el 50% del ancho
+                        modifier = Modifier.weight(1f),
                         placeholder = stringResource(id = R.string.year_text),
                         items = years.keys.toList(),
                         onChange = { year ->
-                            selectedYear.value = year
+                            selectedYear = year
                         }
                     )
-                    Spacer(modifier = Modifier.height(8.dp)) // Espacio entre los dropdowns y el botón
+                    Spacer(modifier = Modifier.height(8.dp))
                     // Botón de aceptar
                     TextButton(onClick = {
                         openDialog.value = false
-                        // Llamar al callback para actualizar las fechas en AddStudyContent
-                        val selectedStartingDate = "${selectedMonth.value} ${selectedYear.value}"
-                        val selectedEndDate = "${selectedMonth.value} ${selectedYear.value}"
-                        onAccept(selectedStartingDate, selectedEndDate)
+                        val selectedDate = "${selectedMonth} ${selectedYear}"
+                        onAccept(selectedDate)
                     }) {
                         Text("Aceptar")
                     }
@@ -312,7 +359,6 @@ fun CustomAlertDialog(
         )
     }
 }
-
 
 
 @Preview(showBackground = true, showSystemUi = true)

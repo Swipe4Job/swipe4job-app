@@ -23,7 +23,7 @@ sealed class IconVector {
 @Composable
 fun CustomOutlinedTextField(
     value: String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (item: String) -> Unit,
     label: String,
     leadingIcon: IconVector? = null,
     trailingIcon: IconVector? = null,

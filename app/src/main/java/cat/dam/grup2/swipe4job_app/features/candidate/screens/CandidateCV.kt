@@ -50,6 +50,7 @@ fun CandidateCV(navController: NavController) {
     val candidateProfileViewModel = CandidateProfileViewModel.getInstance()
     val softSkillsList = candidateProfileViewModel.softSkills
     val languagesList = candidateProfileViewModel.languages
+    val studiesList = candidateProfileViewModel.studies
 
     val candidate = CandidateInformation(
         description = "",
@@ -82,7 +83,7 @@ fun CandidateCV(navController: NavController) {
             item {
                 Header(candidate = candidate)
                 Experience(candidate = candidate, navController)
-                Studies(candidate = candidate, navController)
+                Studies(candidate = candidate, navController, studiesList)
                 SoftSkills(candidate = candidate, navController, softSkillsList)
                 Languages(candidate = candidate, navController, languagesList)
             }
@@ -131,15 +132,15 @@ fun Experience(candidate: CandidateInformation, navController: NavController) {
 }
 
 @Composable
-fun Studies(candidate: CandidateInformation, navController: NavController) {
+fun Studies(candidate: CandidateInformation, navController: NavController, studiesList: List<Study>) {
     Field(
         title = R.string.candidate_studies_title,
         emptyField = R.string.emptyStudies_text,
         onAddClick = {
             navController.navigate("addStudy")
         },
-        itemsList = listOf<Unit>(),
-    ) { }
+        itemsList = studiesList,
+    ) { Text(text = it.name + "\n" + it.school + "\n" + it.startDate + "\n" + it.endDate) }
 }
 
 @Composable
