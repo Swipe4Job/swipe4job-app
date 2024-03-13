@@ -31,13 +31,18 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
+import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "rolSelection") {
+    NavHost(navController = navController, startDestination = "splashScreen") {
+        composable("splashScreen") {
+            SplashScreen(navController = navController)
+        }
+
         composable("userLoginForm") {
             UserLoginForm(navController, userApiService)
         }

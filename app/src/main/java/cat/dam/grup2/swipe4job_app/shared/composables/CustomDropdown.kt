@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomDropdown(
+    modifier: Modifier = Modifier,
     placeholder: String,
     items: List<String>,
     onChange: (item: String) -> Unit
@@ -38,7 +39,7 @@ fun CustomDropdown(
             onValueChange = { },
             readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier
+            modifier = modifier
                 .menuAnchor()
                 .fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
@@ -64,6 +65,7 @@ fun CustomDropdown(
                         selectedItemIndex = index
                         selectedItem = item
                         expanded = false
+                        println("Selected item $selectedItem")
                         onChange(selectedItem)
                     }
                 )

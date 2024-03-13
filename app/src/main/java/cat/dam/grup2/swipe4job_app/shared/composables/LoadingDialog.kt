@@ -22,6 +22,7 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.animationFontRegular
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
@@ -70,7 +71,7 @@ private fun AnimationItem(
     val composition by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(
             animationResId
-        )
+        ),
     )
 
     LaunchedEffect(true) {
@@ -78,8 +79,9 @@ private fun AnimationItem(
     }
 
     LottieAnimation(
+        iterations = LottieConstants.IterateForever,
         composition = composition,
         modifier = modifier,
-        speed = 2.5f
+        speed = 1.5f
     )
 }

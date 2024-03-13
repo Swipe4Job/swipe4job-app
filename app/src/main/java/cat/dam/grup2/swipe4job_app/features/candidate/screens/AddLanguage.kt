@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,11 +39,21 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import cat.dam.grup2.swipe4job_app.CustomError
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AddLanguage(navController: NavController) {
+    var selectedLanguage by remember { mutableStateOf("") }
+    var selectedLevel by remember { mutableStateOf<LanguageLevel?>(null) }
+    var academicTitle by remember { mutableStateOf("") }
+    var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+    var languagesList = candidateProfileViewModel.languages
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -75,7 +86,14 @@ fun AddLanguage(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    /* TODO: Save data */
+                                    languagesList.add(
+                                        LanguageSkill(
+                                            selectedLanguage,
+                                            selectedLevel!!,
+                                            academicTitle
+                                        )
+                                    )
+                                    /* TODO: Save data in database */
                                     navController.popBackStack()
                                 }
                                 .padding(end = 16.dp),
@@ -96,14 +114,22 @@ fun AddLanguage(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                AddLanguageContent()
+                AddLanguageContent(
+                    onLanguageChange = { selectedLanguage = it },
+                    onLevelChange = { selectedLevel = it },
+                    onTitleChange = { academicTitle = it }
+                )
             }
         }
     }
 }
 
 @Composable
-fun AddLanguageContent() {
+fun AddLanguageContent(
+    onLanguageChange: (String) -> Unit,
+    onLevelChange: (LanguageLevel) -> Unit,
+    onTitleChange: (String) -> Unit
+) {
     var languageText = stringResource(id = R.string.language_text)
     var selectedLanguageItem by remember { mutableStateOf(languageText) }
     var languageOptions = stringArrayResource(R.array.languages_array).toList()
@@ -111,6 +137,9 @@ fun AddLanguageContent() {
     var levelText = stringResource(id = R.string.level_text)
     var selectedLevelItem by remember { mutableStateOf(levelText) }
     var levelOptions = stringArrayResource(R.array.languages_level_array).toList()
+
+    val context = LocalContext.current
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -121,7 +150,7 @@ fun AddLanguageContent() {
                 placeholder = selectedLanguageItem,
                 items = languageOptions
             ) {
-                selectedLanguageItem = it
+                onLanguageChange(it)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -130,7 +159,7 @@ fun AddLanguageContent() {
                 placeholder = selectedLevelItem,
                 items = levelOptions
             ) {
-                selectedLevelItem = it
+                onLevelChange(toLanguageLevel(context, text = it))
             }
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -150,16 +179,41 @@ fun AddLanguageContent() {
             )
 
             // Text field for the comments
-            var academicTitle by remember { mutableStateOf("") }
+            var academicTitle = remember { mutableStateOf("") }
+
+            LaunchedEffect(academicTitle.value) {
+                onTitleChange(academicTitle.value)
+            }
 
             CustomTextFieldMaxChar(
-                descriptionState = mutableStateOf(academicTitle),
+                descriptionState = academicTitle,
                 maxCharacters = 200,
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.Text
                 )
             )
+        }
+    }
+}
+
+
+fun toLanguageLevel(context: Context, text: String): LanguageLevel {
+    return when (text) {
+        context.resources.getStringArray(R.array.languages_level_array)
+            .toList()[0] -> LanguageLevel.Low
+
+        context.resources.getStringArray(R.array.languages_level_array)
+            .toList()[1] -> LanguageLevel.Intermediate
+
+        context.resources.getStringArray(R.array.languages_level_array)
+            .toList()[2] -> LanguageLevel.Advanced
+
+        context.resources.getStringArray(R.array.languages_level_array)
+            .toList()[3] -> LanguageLevel.Native
+
+        else -> {
+            throw CustomError("Can not convert $text to a language level")
         }
     }
 }
