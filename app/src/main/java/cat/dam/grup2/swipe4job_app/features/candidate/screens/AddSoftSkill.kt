@@ -39,6 +39,8 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomFilterableTextField
 @Composable
 fun AddSoftSkill(navController: NavController) {
     var selectedSoftSkill by remember { mutableStateOf("") }
+    var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+    var softSkillsList = candidateProfileViewModel.softSkills
 
     Scaffold(
         topBar = {
@@ -72,10 +74,8 @@ fun AddSoftSkill(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    var candidateProfileViewModel =
-                                        CandidateProfileViewModel.getInstance()
-                                    candidateProfileViewModel.softSkills.add(selectedSoftSkill)
-                                    // TODO: Save data
+                                    softSkillsList.add(selectedSoftSkill)
+                                    // TODO: Save data in database
                                     navController.popBackStack()
                                 }
                                 .padding(end = 16.dp),

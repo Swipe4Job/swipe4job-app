@@ -51,6 +51,8 @@ fun AddLanguage(navController: NavController) {
     var selectedLanguage by remember { mutableStateOf("") }
     var selectedLevel by remember { mutableStateOf<LanguageLevel?>(null) }
     var academicTitle by remember { mutableStateOf("") }
+    var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+    var languagesList = candidateProfileViewModel.languages
 
     Scaffold(
         topBar = {
@@ -84,9 +86,7 @@ fun AddLanguage(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    var candidateProfileViewModel =
-                                        CandidateProfileViewModel.getInstance()
-                                    candidateProfileViewModel.languages.add(
+                                    languagesList.add(
                                         LanguageSkill(
                                             selectedLanguage,
                                             selectedLevel!!,

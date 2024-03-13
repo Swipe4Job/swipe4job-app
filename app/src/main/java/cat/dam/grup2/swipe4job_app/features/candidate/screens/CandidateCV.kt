@@ -14,12 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -46,7 +44,10 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
+
 val candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+val softSkillsList = candidateProfileViewModel.softSkills
+val languagesList = candidateProfileViewModel.languages
 
 @Composable
 fun CandidateCV(navController: NavController) {
@@ -123,7 +124,7 @@ fun Header(candidate: CandidateInformation) {
 
 @Composable
 fun Experience(candidate: CandidateInformation, navController: NavController) {
-    EmptyField(
+    Field(
         title = R.string.candidate_jobExperience_title,
         emptyField = R.string.emptyExperience_text,
         onAddClick = { /* TODO */ },
@@ -133,7 +134,7 @@ fun Experience(candidate: CandidateInformation, navController: NavController) {
 
 @Composable
 fun Studies(candidate: CandidateInformation, navController: NavController) {
-    EmptyField(
+    Field(
         title = R.string.candidate_studies_title,
         emptyField = R.string.emptyStudies_text,
         onAddClick = {
@@ -145,30 +146,32 @@ fun Studies(candidate: CandidateInformation, navController: NavController) {
 
 @Composable
 fun SoftSkills(candidate: CandidateInformation, navController: NavController) {
-    EmptyField(
+    Field(
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
         onAddClick = {
             navController.navigate("addSoftSkill")
         },
-        itemsList = candidateProfileViewModel.softSkills,
+        itemsList = softSkillsList,
     ) { Text(text = it) }
 }
 
 @Composable
 fun Languages(candidate: CandidateInformation, navController: NavController) {
-    EmptyField(
+    Field(
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
         onAddClick = {
             navController.navigate("addLanguage")
         },
-        itemsList = candidateProfileViewModel.languages,
-    ) { Text(text = it.language) }
+        itemsList = languagesList,
+    ) {
+        Text(text = it.language + "\n" + it.level + "\n" + it.academicTitle)
+    }
 }
 
 @Composable
-fun <T> EmptyField(
+fun <T> Field(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,
