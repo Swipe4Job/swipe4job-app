@@ -116,9 +116,10 @@ fun AddStudyContent() {
     var school by remember { mutableStateOf("") }
     var startingDate by remember { mutableStateOf("") }
     var endDate by remember { mutableStateOf("") }
-    val openDialog = remember { mutableStateOf(false) }
-    val selectedMonth = remember { mutableStateOf("") }
-    val selectedYear = remember { mutableStateOf("") }
+    val openStartingDateDialog = remember { mutableStateOf(false) }
+    val openEndDateDialog = remember { mutableStateOf(false) }
+//    val selectedMonth = remember { mutableStateOf("") }
+//    val selectedYear = remember { mutableStateOf("") }
     var monthOptions = stringArrayResource(R.array.months_array).toList()
     val years = (1924..2024).map { it.toString() }.reversed()
     val yearsMap = years.associateWith { it }
@@ -191,7 +192,7 @@ fun AddStudyContent() {
                 label = {
                     Text(
                         text = stringResource(id = R.string.label_startingDate),
-                        modifier = Modifier.clickable { openDialog.value = true }
+                        modifier = Modifier.clickable { openStartingDateDialog.value = true }
                     )
                 },
                 readOnly = true,
@@ -227,7 +228,7 @@ fun AddStudyContent() {
                 label = {
                     Text(
                         text = stringResource(id = R.string.label_endDate),
-                        modifier = Modifier.clickable { openDialog.value = true }
+                        modifier = Modifier.clickable { openEndDateDialog.value = true }
                     )
                 },
                 readOnly = true,
@@ -247,15 +248,17 @@ fun AddStudyContent() {
             )
 
             CustomAlertDialog(
-                openDialog = openDialog,
-                selectedMonth = selectedMonth,
-                selectedYear = selectedYear,
+                openDialog = openStartingDateDialog,
                 months = monthOptions,
                 years = yearsMap,
-                onAccept = { selectedStartingDate, selectedEndDate ->
-                    startingDate = selectedStartingDate
-                    endDate = selectedEndDate
-                }
+                onAccept = { startingDate = it }
+            )
+
+            CustomAlertDialog(
+                openDialog = openEndDateDialog,
+                months = monthOptions,
+                years = yearsMap,
+                onAccept = { endDate = it }
             )
         }
     }
@@ -264,12 +267,13 @@ fun AddStudyContent() {
 @Composable
 fun CustomAlertDialog(
     openDialog: MutableState<Boolean>,
-    selectedMonth: MutableState<String>,
-    selectedYear: MutableState<String>,
     months: List<String>,
     years: Map<String, String>,
-    onAccept: (String, String) -> Unit
+    onAccept: (String) -> Unit
 ) {
+    var selectedMonth by remember { mutableStateOf("") }
+    var selectedYear by remember { mutableStateOf("") }
+
     if (openDialog.value) {
         AlertDialog(
             onDismissRequest = { openDialog.value = false },
@@ -282,7 +286,7 @@ fun CustomAlertDialog(
                         placeholder = stringResource(id = R.string.month_text),
                         items = months,
                         onChange = { month ->
-                            selectedMonth.value = month
+                            selectedMonth = month
                         }
                     )
                     Spacer(modifier = Modifier.height(8.dp)) // Espacio entre los dropdowns
@@ -292,7 +296,7 @@ fun CustomAlertDialog(
                         placeholder = stringResource(id = R.string.year_text),
                         items = years.keys.toList(),
                         onChange = { year ->
-                            selectedYear.value = year
+                            selectedYear = year
                         }
                     )
                     Spacer(modifier = Modifier.height(8.dp)) // Espacio entre los dropdowns y el botón
@@ -300,9 +304,8 @@ fun CustomAlertDialog(
                     TextButton(onClick = {
                         openDialog.value = false
                         // Llamar al callback para actualizar las fechas en AddStudyContent
-                        val selectedStartingDate = "${selectedMonth.value} ${selectedYear.value}"
-                        val selectedEndDate = "${selectedMonth.value} ${selectedYear.value}"
-                        onAccept(selectedStartingDate, selectedEndDate)
+                        val selectedDate = "${selectedMonth} ${selectedYear}"
+                        onAccept(selectedDate)
                     }) {
                         Text("Aceptar")
                     }
