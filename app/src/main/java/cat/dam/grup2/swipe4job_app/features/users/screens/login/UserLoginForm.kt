@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -150,8 +151,6 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                                 return@launch
                             }
 
-//                        delay(2000)
-
                             isLoading =
                                 false // Un cop finalitzada la crida, establim la flag a false
                             // Checking the user role
@@ -166,17 +165,8 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                 )
 
                 // Mostra l'animació Lottie si isLoading és true
-//                if (isLoading) {
-//                    // Exemple d'ús de la funció AnimationItem amb l'animació ocupant tota la pantalla
-//                    AnimationItem(
-//                        animationResId = R.raw.loading_animation,
-//                        modifier = Modifier.fillMaxSize() // Modifica per ocupar tota la pantalla
-//                    )
-//                }
                 if (isLoading) {
-                    LoadingDialog(onDismiss = { isLoading  = false }) {
-//                        delay(3000)
-                        isLoading = false
+                    LoadingDialog(onDismiss = {}) {
                     }
                 }
 
