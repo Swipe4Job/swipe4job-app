@@ -277,4 +277,9 @@
         <item>December</item>
     </string-array>
     <string name="hideCompanyName_text">Hide the company\'s name</string>
+    <string name="present_text">Present</string>
+    <string name="position_text">Position</string>
+    <string name="label_description">Enter the description</string>
+    <string name="accept_text">Accept</string>
+    <string name="selectADate_text">Select a date</string>
 </resources>

@@ -15,19 +15,16 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,7 +42,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
-import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
+import cat.dam.grup2.swipe4job_app.shared.composables.CustomDateSelectionAlertDialog
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 
 
@@ -286,7 +283,7 @@ fun AddStudyContent(
                 )
             )
 
-            CustomAlertDialog(
+            CustomDateSelectionAlertDialog(
                 openDialog = openStartingDateDialog,
                 months = monthOptions,
                 years = yearsMap,
@@ -296,7 +293,7 @@ fun AddStudyContent(
                 }
             )
 
-            CustomAlertDialog(
+            CustomDateSelectionAlertDialog(
                 openDialog = openEndDateDialog,
                 months = monthOptions,
                 years = yearsMap,
@@ -308,58 +305,6 @@ fun AddStudyContent(
         }
     }
 }
-
-@Composable
-fun CustomAlertDialog(
-    openDialog: MutableState<Boolean>,
-    months: List<String>,
-    years: Map<String, String>,
-    onAccept: (String) -> Unit
-) {
-    var selectedMonth by remember { mutableStateOf("") }
-    var selectedYear by remember { mutableStateOf("") }
-
-    if (openDialog.value) {
-        AlertDialog(
-            onDismissRequest = { openDialog.value = false },
-            title = { Text(text = "Seleccione una fecha") },
-            text = {
-                Column {
-                    // Dropdown para los meses
-                    CustomDropdown(
-                        modifier = Modifier.weight(1f),
-                        placeholder = stringResource(id = R.string.month_text),
-                        items = months,
-                        onChange = { month ->
-                            selectedMonth = month
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Dropdown para los años
-                    CustomDropdown(
-                        modifier = Modifier.weight(1f),
-                        placeholder = stringResource(id = R.string.year_text),
-                        items = years.keys.toList(),
-                        onChange = { year ->
-                            selectedYear = year
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Botón de aceptar
-                    TextButton(onClick = {
-                        openDialog.value = false
-                        val selectedDate = "${selectedMonth} ${selectedYear}"
-                        onAccept(selectedDate)
-                    }) {
-                        Text("Aceptar")
-                    }
-                }
-            },
-            confirmButton = { }
-        )
-    }
-}
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

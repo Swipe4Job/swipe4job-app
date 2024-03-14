@@ -51,6 +51,7 @@ fun CandidateCV(navController: NavController) {
     val softSkillsList = candidateProfileViewModel.softSkills
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
+    val experiencesList = candidateProfileViewModel.experiences
 
     val candidate = CandidateInformation(
         description = "",
@@ -82,10 +83,10 @@ fun CandidateCV(navController: NavController) {
         ) {
             item {
                 Header(candidate = candidate)
-                Experience(candidate = candidate, navController)
-                Studies(candidate = candidate, navController, studiesList)
-                SoftSkills(candidate = candidate, navController, softSkillsList)
-                Languages(candidate = candidate, navController, languagesList)
+                Experience(navController, experiencesList)
+                Studies(navController, studiesList)
+                SoftSkills(navController, softSkillsList)
+                Languages(navController, languagesList)
             }
         }
     }
@@ -122,17 +123,19 @@ fun Header(candidate: CandidateInformation) {
 }
 
 @Composable
-fun Experience(candidate: CandidateInformation, navController: NavController) {
+fun Experience(navController: NavController, experiencesList: List<JobExperience>) {
     Field(
         title = R.string.candidate_jobExperience_title,
         emptyField = R.string.emptyExperience_text,
-        onAddClick = { /* TODO */ },
-        itemsList = listOf<Unit>(),
-    ) { }
+        onAddClick = {
+            navController.navigate("addExperience")
+        },
+        itemsList = experiencesList,
+    ) { Text(text = it.position + "\n" + it.company + "\n" + it.startDate + "\n" + it.endDate + "\n" + it.description) }
 }
 
 @Composable
-fun Studies(candidate: CandidateInformation, navController: NavController, studiesList: List<Study>) {
+fun Studies(navController: NavController, studiesList: List<Study>) {
     Field(
         title = R.string.candidate_studies_title,
         emptyField = R.string.emptyStudies_text,
@@ -144,7 +147,7 @@ fun Studies(candidate: CandidateInformation, navController: NavController, studi
 }
 
 @Composable
-fun SoftSkills(candidate: CandidateInformation, navController: NavController, softSkillsList: List<String>) {
+fun SoftSkills(navController: NavController, softSkillsList: List<String>) {
     Field(
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
@@ -156,7 +159,7 @@ fun SoftSkills(candidate: CandidateInformation, navController: NavController, so
 }
 
 @Composable
-fun Languages(candidate: CandidateInformation, navController: NavController, languagesList: List<LanguageSkill>) {
+fun Languages(navController: NavController, languagesList: List<LanguageSkill>) {
     Field(
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
