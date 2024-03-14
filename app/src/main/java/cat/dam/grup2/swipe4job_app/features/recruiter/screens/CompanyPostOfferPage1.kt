@@ -58,9 +58,7 @@ fun CompanyPostOfferPage1(navController: NavController) {
     var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
     var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
 
-    val isCheckboxChecked = remember { mutableStateOf(false) }
     val switchIsOn = remember { mutableStateOf(false) }
-
 
     LazyColumn(
         modifier = Modifier
@@ -130,17 +128,8 @@ fun CompanyPostOfferPage1(navController: NavController) {
                     )
 
                     // Company Checkbox
-                    LabelledCheckbox(
-                        checked = isCheckboxChecked.value,
-                        onCheckedChange = { isCheckboxChecked.value = it },
-                        label = stringResource(id = R.string.hideCompanyName_text),
-                        colors = CheckboxDefaults.colors(
-                            checkedColor = MaterialTheme.colorScheme.primary,
-                            uncheckedColor = MaterialTheme.colorScheme.secondary,
-                            checkmarkColor = MaterialTheme.colorScheme.onPrimary
-                        )
-                    )
 
+                    // TODO: it functionality
                     LabelledSwitch(
                         checked = switchIsOn.value,
                         label = stringResource(id = R.string.hideCompanyName_text),
