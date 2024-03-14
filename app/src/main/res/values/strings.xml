@@ -276,4 +276,5 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+    <string name="hideCompanyName_text">Hide the company\'s name</string>
 </resources>

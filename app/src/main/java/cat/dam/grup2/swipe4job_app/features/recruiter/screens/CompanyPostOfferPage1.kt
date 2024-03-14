@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,6 +38,8 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared.composables.LabelledCheckbox
+import cat.dam.grup2.swipe4job_app.shared.composables.LabelledSwitch
 import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
 
 
@@ -54,7 +58,7 @@ fun CompanyPostOfferPage1(navController: NavController) {
     var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
     var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
 
-
+    val switchIsOn = remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -108,8 +112,8 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         leadingIcon = null,
                         iconContentDescription = null,
                         keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Number
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
                         )
                     )
 
@@ -123,16 +127,18 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Company TextField
-                    CustomOutlinedTextField(
-                        value = companyName,
-                        onValueChange = { companyName = it },
-                        label = stringResource(id = R.string.label_companyName),
-                        leadingIcon = null,
-                        iconContentDescription = null,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Number
+                    // Company Checkbox
+
+                    // TODO: it functionality
+                    LabelledSwitch(
+                        checked = switchIsOn.value,
+                        label = stringResource(id = R.string.hideCompanyName_text),
+                        onCheckedChange = { switchIsOn.value = it },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = MaterialTheme.colorScheme.primary,
+                            checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
+                            uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
+                            uncheckedTrackColor = MaterialTheme.colorScheme.secondaryContainer
                         )
                     )
 
@@ -172,8 +178,8 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         leadingIcon = null,
                         iconContentDescription = null,
                         keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Number
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
                         )
                     )
 
