@@ -70,7 +70,7 @@ data class LanguageSkill(
 data class JobExperience(
     val position: String,
     val company: String,
-    val description: String,
+    val description: String?,
     val startDate: String,
     val endDate: String?
 )
@@ -276,12 +276,15 @@ fun UserInformationDisplay(information: CandidateInformation) {
                     val dateRange = if (it.endDate != null) {
                         "${it.startDate} - ${it.endDate}"
                     } else {
-                        "${it.startDate} - Present"
+                        "${it.startDate} - {${stringResource(id = R.string.present_text)}"
                     }
                     Text(dateRange,
                         style = MaterialTheme.typography.bodyMedium)
-                    Text(it.description,
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Normal))
+                    it.description?.let { description ->
+                        Text(
+                            description,
+                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Normal))
+                    }
                     SectionDivider()
                 }
             }

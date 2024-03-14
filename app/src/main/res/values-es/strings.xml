@@ -277,4 +277,9 @@
         <item>Diciembre</item>
     </string-array>
     <string name="hideCompanyName_text">Ocultar el nombre de la empresa</string>
+    <string name="present_text">Actualmente</string>
+    <string name="position_text">Posición</string>
+    <string name="label_description">Introduce la descripción</string>
+    <string name="accept_text">Aceptar</string>
+    <string name="selectADate_text">Selecciona una fecha</string>
 </resources>

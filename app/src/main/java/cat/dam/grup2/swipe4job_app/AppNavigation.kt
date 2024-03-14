@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddExperience
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddLanguage
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddSoftSkill
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddStudy
@@ -129,6 +130,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("addStudy") {
             AddStudy(navController)
+        }
+
+        composable("addExperience") {
+            AddExperience(navController)
         }
     }
 }
