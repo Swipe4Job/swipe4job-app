@@ -68,10 +68,11 @@ data class LanguageSkill(
 )
 
 data class JobExperience(
+    val position: String,
     val company: String,
+    val description: String,
     val startDate: String,
-    val endDate: String?,
-    val position: String
+    val endDate: String?
 )
 
 data class Study(
@@ -186,16 +187,18 @@ fun CandidateComplexDetails(navController: NavController) {
                         description = "Hello how are you",
                         jobExperience = listOf(
                             JobExperience(
+                                position = "Full Stack developer",
                                 company = "Telefonica",
+                                description = "Hello how are you",
                                 startDate = "2022-07",
-                                endDate = "2023-06",
-                                position = "Full Stack developer"
+                                endDate = "2023-06"
                             ),
                             JobExperience(
+                                position = "Full Stack developer",
                                 company = "Telefonica",
+                                description = "Hello how are you",
                                 startDate = "2022-07",
-                                endDate = "2023-06",
-                                position = "Full Stack developer"
+                                endDate = "2023-06"
                             )
                         ),
                         studies = listOf(
@@ -277,6 +280,8 @@ fun UserInformationDisplay(information: CandidateInformation) {
                     }
                     Text(dateRange,
                         style = MaterialTheme.typography.bodyMedium)
+                    Text(it.description,
+                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Normal))
                     SectionDivider()
                 }
             }
