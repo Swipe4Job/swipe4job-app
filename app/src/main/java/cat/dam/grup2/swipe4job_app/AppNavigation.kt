@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddExperience
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddLanguage
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddPreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddSoftSkill
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddStudy
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
@@ -134,6 +135,10 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("addExperience") {
             AddExperience(navController)
+        }
+
+        composable("addPreferences") {
+            AddPreferences(navController)
         }
     }
 }
