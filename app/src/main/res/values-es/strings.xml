@@ -277,4 +277,7 @@
         <item>Diciembre</item>
     </string-array>
     <string name="hideCompanyName_text">Ocultar el nombre de la empresa</string>
+    <string name="deleteJobOfferDialog_text">Vas a eliminar la oferta, ¿estás seguro que quieres hacerlo?</string>
+    <string name="deleteJobOfferDialog_AcceptText">Si</string>
+    <string name="deleteJobOfferDialog_DeclineText">No</string>
 </resources>
