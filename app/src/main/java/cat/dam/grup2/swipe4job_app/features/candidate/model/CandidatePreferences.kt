@@ -11,4 +11,4 @@ data class CandidatePreferences (
     val workingDayType: WorkingDayTypeOptions,
     val jobTypeOptions: JobTypeOptions,
     val contractTypeOptions: ContractTypeOptions,
-) : MutableState<CandidatePreferences?>
+)

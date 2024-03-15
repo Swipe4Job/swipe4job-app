@@ -92,7 +92,7 @@ fun AddPreferences(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    preferences = CandidatePreferences(
+                                    preferences.value = CandidatePreferences(
                                         selectedSalaryRange!!,
                                         selectedWorkingDayType!!,
                                         selectedJobType!!,
@@ -266,21 +266,19 @@ fun toWorkingDayType(context: Context, text: String): WorkingDayTypeOptions {
 }
 
 fun toContractType(context: Context, text: String): ContractTypeOptions {
+    val stringResourceList =
+        context.resources.getStringArray(R.array.contract_type_array)
+        .toList()
     return when (text) {
-        context.resources.getStringArray(R.array.contract_type_array)
-            .toList()[0] -> ContractTypeOptions.Indefinite
+        stringResourceList[0] -> ContractTypeOptions.Indefinite
 
-        context.resources.getStringArray(R.array.contract_type_array)
-            .toList()[1] -> ContractTypeOptions.Temporary
+        stringResourceList[1] -> ContractTypeOptions.Temporary
 
-        context.resources.getStringArray(R.array.contract_type_array)
-            .toList()[2] -> ContractTypeOptions.Freelance
+        stringResourceList[2] -> ContractTypeOptions.Freelance
 
-        context.resources.getStringArray(R.array.contract_type_array)
-            .toList()[3] -> ContractTypeOptions.Internship
+        stringResourceList[3] -> ContractTypeOptions.Internship
 
-        context.resources.getStringArray(R.array.contract_type_array)
-            .toList()[4] -> ContractTypeOptions.Other
+        stringResourceList[4] -> ContractTypeOptions.Other
 
         else -> {
             throw CustomError("Can not convert $text to a contract type")

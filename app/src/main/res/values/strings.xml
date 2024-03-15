@@ -283,4 +283,6 @@
     <string name="accept_text">Accept</string>
     <string name="selectADate_text">Select a date</string>
     <string name="salaryRange_text">Salary range</string>
+    <string name="candidate_preferences_title">Preferences</string>
+    <string name="emptyPreferences_text">You haven\'t added any preference yet</string>
 </resources>
