@@ -57,7 +57,7 @@
     <string name="softSkills_text">Habilidades blandas</string>
     <string name="addSoftskills_text">Añadir habilidades blandas</string>
     <string name="add_icon_description">Icono de añadir</string>
-    <string name="salaryRange_text">Rango salarial (opcional)</string>
+    <string name="salaryRangeOptional_text">Rango salarial (opcional)</string>
     <string name="workingHours_text">Horario de trabajo (opcional)</string>
     <string name="departmentOrganisation_text">Organización y relaciones del departamento (opcional)</string>
     <string name="button_finish_text">Finalizar</string>
@@ -282,4 +282,7 @@
     <string name="label_description">Introduce la descripción</string>
     <string name="accept_text">Aceptar</string>
     <string name="selectADate_text">Selecciona una fecha</string>
+    <string name="salaryRange_text">Rango salarial</string>
+    <string name="candidate_preferences_title">Preferencias</string>
+    <string name="emptyPreferences_text">Aún no has añadido ninguna preferencia</string>
 </resources>

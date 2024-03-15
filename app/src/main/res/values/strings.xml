@@ -57,7 +57,7 @@
     <string name="softSkills_text">Soft skills</string>
     <string name="addSoftskills_text">Add soft skills</string>
     <string name="add_icon_description">Add icon</string>
-    <string name="salaryRange_text">Salary range (optional)</string>
+    <string name="salaryRangeOptional_text">Salary range (optional)</string>
     <string name="workingHours_text">Working hours (optional)</string>
     <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
     <string name="button_finish_text">Finish</string>
@@ -282,4 +282,7 @@
     <string name="label_description">Enter the description</string>
     <string name="accept_text">Accept</string>
     <string name="selectADate_text">Select a date</string>
+    <string name="salaryRange_text">Salary range</string>
+    <string name="candidate_preferences_title">Preferences</string>
+    <string name="emptyPreferences_text">You haven\'t added any preference yet</string>
 </resources>
