@@ -163,8 +163,6 @@ fun SoftSkills(
     softSkillsList: List<String>,
     chipItems: List<ChipItem>
 ) {
-    Field(
-fun SoftSkills(navController: NavController, softSkillsList: List<String>) {
     ListField(
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
