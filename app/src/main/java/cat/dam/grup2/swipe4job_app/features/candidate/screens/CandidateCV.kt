@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +49,7 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
+import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
 @Composable
@@ -58,6 +60,8 @@ fun CandidateCV(navController: NavController) {
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
+    val preferences = candidateProfileViewModel.preferences
+
     val candidate = CandidateInformation(
         description = "",
         studies = listOf(),
@@ -93,6 +97,7 @@ fun CandidateCV(navController: NavController) {
                 Studies(navController, studiesList)
                 SoftSkills(navController, softSkillsList, chipItems)
                 Languages(navController, languagesList)
+                Preferences(navController, preferences.value)
             }
         }
     }
@@ -130,7 +135,7 @@ fun Header(candidate: CandidateInformation) {
 
 @Composable
 fun Experience(navController: NavController, experiencesList: List<JobExperience>) {
-    Field(
+    ListField(
         title = R.string.candidate_jobExperience_title,
         emptyField = R.string.emptyExperience_text,
         onAddClick = {
@@ -142,7 +147,7 @@ fun Experience(navController: NavController, experiencesList: List<JobExperience
 
 @Composable
 fun Studies(navController: NavController, studiesList: List<Study>) {
-    Field(
+    ListField(
         title = R.string.candidate_studies_title,
         emptyField = R.string.emptyStudies_text,
         onAddClick = {
@@ -159,6 +164,8 @@ fun SoftSkills(
     chipItems: List<ChipItem>
 ) {
     Field(
+fun SoftSkills(navController: NavController, softSkillsList: List<String>) {
+    ListField(
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
         onAddClick = {
@@ -191,7 +198,7 @@ fun generateChips(softSkillsList: List<String>): List<ChipItem> {
 
 @Composable
 fun Languages(navController: NavController, languagesList: List<LanguageSkill>) {
-    Field(
+    ListField(
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
         onAddClick = {
@@ -204,7 +211,87 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
 }
 
 @Composable
-fun <T> Field(
+fun Preferences(navController: NavController, preferences: CandidatePreferences?) {
+    SingleField(
+        title = R.string.candidate_preferences_title,
+        onAddClick = {
+            navController.navigate("addPreferences")
+        },
+    ) {
+        if (preferences == null) {
+            Text(stringResource(id = R.string.emptyPreferences_text))
+            return@SingleField
+        }
+
+        Text("""
+            ${preferences.salaryRange.toStringResource(LocalContext.current)}
+            ${preferences.jobTypeOptions.toStringResource(LocalContext.current)}
+            ${preferences.workingDayType.toStringResource(LocalContext.current)}
+            ${preferences.contractTypeOptions.toStringResource(LocalContext.current)}
+        """.trimIndent())
+    }
+}
+
+@Composable
+fun SingleField(
+    title: Int,
+    onAddClick: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(id = title),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.secondary
+            )
+            OutlinedButton(
+                onClick = onAddClick,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(vertical = 8.dp, horizontal = 2.dp),
+                border = BorderStroke(2.dp, color = MaterialTheme.colorScheme.primary),
+                content = {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = stringResource(id = R.string.add_icon_description),
+                        )
+                        Text(
+                            text = stringResource(id = R.string.add_text_button),
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                    }
+                }
+            )
+        }
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    content()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun <T> ListField(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,

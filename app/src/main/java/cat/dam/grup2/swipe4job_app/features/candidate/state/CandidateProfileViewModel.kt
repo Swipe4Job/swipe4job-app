@@ -1,6 +1,8 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.state
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.JobExperience
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.LanguageSkill
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.Study
@@ -20,4 +22,5 @@ class CandidateProfileViewModel : ViewModel() {
     var languages = mutableListOf<LanguageSkill>()
     var studies = mutableListOf<Study>()
     var experiences = mutableListOf<JobExperience>()
+    var preferences = mutableStateOf<CandidatePreferences?>(null)
 }
