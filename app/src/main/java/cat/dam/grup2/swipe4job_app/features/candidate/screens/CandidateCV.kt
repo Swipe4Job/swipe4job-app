@@ -2,6 +2,7 @@ package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -221,18 +222,21 @@ fun Preferences(navController: NavController, preferences: CandidatePreferences?
             return@SingleField
         }
 
-        Text("""
+        Text(
+            """
             ${preferences.salaryRange.toStringResource(LocalContext.current)}
             ${preferences.jobTypeOptions.toStringResource(LocalContext.current)}
             ${preferences.workingDayType.toStringResource(LocalContext.current)}
             ${preferences.contractTypeOptions.toStringResource(LocalContext.current)}
-        """.trimIndent())
+        """.trimIndent()
+        )
     }
 }
 
 @Composable
 fun SingleField(
     title: Int,
+    onClick: () -> Unit = {},
     onAddClick: () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -293,6 +297,7 @@ fun <T> ListField(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,
+    onClick: (item: T) -> Unit = {},
     itemsList: List<T>,
     itemRenderer: @Composable (T) -> Unit
 ) {
@@ -344,7 +349,16 @@ fun <T> ListField(
                     if (itemsList.isEmpty()) {
                         Text(stringResource(id = emptyField))
                     } else {
-                        itemsList.forEach { itemRenderer(it) }
+                        itemsList.forEach {
+                            Box(modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onClick(it)
+                                }) {
+                                itemRenderer(it)
+                            }
+                        }
+
                     }
                 }
             }
