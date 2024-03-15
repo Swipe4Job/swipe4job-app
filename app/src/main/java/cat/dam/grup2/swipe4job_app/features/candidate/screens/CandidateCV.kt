@@ -17,20 +17,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.sourceInformation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -66,6 +72,7 @@ fun CandidateCV(navController: NavController) {
         languages = listOf(),
         jobExperience = listOf()
     )
+    val chipItems by remember { mutableStateOf(generateChips(softSkillsList)) }
 
     Scaffold(
         bottomBar = {
@@ -88,7 +95,7 @@ fun CandidateCV(navController: NavController) {
                 Header(candidate = candidate)
                 Experience(navController, experiencesList)
                 Studies(navController, studiesList)
-                SoftSkills(navController, softSkillsList)
+                SoftSkills(navController, softSkillsList, chipItems)
                 Languages(navController, languagesList)
                 Preferences(navController, preferences.value)
             }
@@ -151,6 +158,12 @@ fun Studies(navController: NavController, studiesList: List<Study>) {
 }
 
 @Composable
+fun SoftSkills(
+    navController: NavController,
+    softSkillsList: List<String>,
+    chipItems: List<ChipItem>
+) {
+    Field(
 fun SoftSkills(navController: NavController, softSkillsList: List<String>) {
     ListField(
         title = R.string.candidate_softskills_title,
@@ -159,8 +172,29 @@ fun SoftSkills(navController: NavController, softSkillsList: List<String>) {
             navController.navigate("addSoftSkill")
         },
         itemsList = softSkillsList,
-    ) { Text(text = it) }
+    ) {
+        SuggestionChip(
+            onClick = { /* Add your click action here */ },
+            label = {
+                Text(
+                    text = it,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            },
+            border = SuggestionChipDefaults.suggestionChipBorder(
+                enabled = true,
+                borderColor = MaterialTheme.colorScheme.secondary,
+                borderWidth = 2.dp,
+            )
+        )
+    }
 }
+
+// Función para generar la lista de chips a partir de la lista de soft skills
+fun generateChips(softSkillsList: List<String>): List<ChipItem> {
+    return softSkillsList.distinct().map { ChipItem(label = it, icon = Icons.Default.Done) }
+}
+
 
 @Composable
 fun Languages(navController: NavController, languagesList: List<LanguageSkill>) {
