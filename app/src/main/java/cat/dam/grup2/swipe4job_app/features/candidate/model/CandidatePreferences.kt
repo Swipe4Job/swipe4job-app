@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.model
 
+import androidx.compose.runtime.MutableState
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
@@ -10,4 +11,4 @@ data class CandidatePreferences (
     val workingDayType: WorkingDayTypeOptions,
     val jobTypeOptions: JobTypeOptions,
     val contractTypeOptions: ContractTypeOptions,
-)
+) : MutableState<CandidatePreferences?>
