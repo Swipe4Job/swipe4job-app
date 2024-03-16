@@ -388,7 +388,9 @@ fun <T> ListField(
                             Column(modifier = Modifier
                                 .clickable {
                                     onClick(it)
-                                }) {
+                                }
+                                .fillMaxWidth()
+                            ) {
                                 itemRenderer(it)
                             }
                         }
