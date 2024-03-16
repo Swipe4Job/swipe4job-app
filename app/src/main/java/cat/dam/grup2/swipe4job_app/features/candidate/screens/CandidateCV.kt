@@ -146,8 +146,35 @@ fun Experience(navController: NavController, experiencesList: List<JobExperience
             navController.navigate("addExperience")
         },
         itemsList = experiencesList,
-    ) { Text(text = it.position + "\n" + it.company + "\n" + it.startDate + "\n" + it.endDate + "\n" + it.description) }
+    ) {
+        Text(
+            it.position,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            it.company,
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold)
+        )
+        val dateRange = if (it.endDate != null) {
+            "${it.startDate} - ${it.endDate}"
+        } else {
+            "${it.startDate} - {${stringResource(id = R.string.present_text)}"
+        }
+        Text(
+            dateRange,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        it.description?.let { description ->
+            Text(
+                description,
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Normal)
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
+    }
 }
+
 
 @Composable
 fun Studies(navController: NavController, studiesList: List<Study>) {
@@ -227,7 +254,6 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
         },
         itemsList = languagesList,
     ) {
-//        Text(text = it.language + "\n" + it.level + "\n" + it.academicTitle)
         Text(
             it.language,
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
@@ -256,14 +282,36 @@ fun Preferences(navController: NavController, preferences: CandidatePreferences?
             Text(stringResource(id = R.string.emptyPreferences_text))
             return@SingleField
         }
-
         Text(
-            """
-            ${preferences.salaryRange.toStringResource(LocalContext.current)}
-            ${preferences.jobTypeOptions.toStringResource(LocalContext.current)}
-            ${preferences.workingDayType.toStringResource(LocalContext.current)}
-            ${preferences.contractTypeOptions.toStringResource(LocalContext.current)}
-        """.trimIndent()
+            text = stringResource(id = R.string.salaryRange_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = "${preferences.salaryRange.toStringResource(LocalContext.current)}"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.jobType_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = "${preferences.jobTypeOptions.toStringResource(LocalContext.current)}"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.workingDayType_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = "${preferences.workingDayType.toStringResource(LocalContext.current)}"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.contractType_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = "${preferences.contractTypeOptions.toStringResource(LocalContext.current)}"
         )
     }
 }

@@ -92,9 +92,9 @@ fun AddExperience(navController: NavController) {
                                         JobExperience(
                                             position,
                                             company,
+                                            description,
                                             selectedStartingDate,
-                                            selectedEndDate,
-                                            description
+                                            selectedEndDate
                                         )
                                     )
                                     /* TODO: Save data in database*/
@@ -135,9 +135,9 @@ fun AddExperience(navController: NavController) {
 fun AddExperienceContent(
     onPositionChange: (String) -> Unit,
     onCompanyChange: (String) -> Unit,
+    onDescriptionChange: (String) -> Unit,
     onStartingDateChange: (String) -> Unit,
-    onEndDateChange: (String) -> Unit,
-    onDescriptionChange: (String) -> Unit
+    onEndDateChange: (String) -> Unit
 ) {
     var position by remember { mutableStateOf("") }
     var company by remember { mutableStateOf("") }
