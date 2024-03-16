@@ -227,7 +227,20 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
         },
         itemsList = languagesList,
     ) {
-        Text(text = it.language + "\n" + it.level + "\n" + it.academicTitle)
+//        Text(text = it.language + "\n" + it.level + "\n" + it.academicTitle)
+        Text(
+            it.language,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(it.level.name)
+        if (it.academicTitle != null) {
+            Text(
+                it.academicTitle,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Light
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
