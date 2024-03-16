@@ -44,7 +44,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
-import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
 import kotlinx.coroutines.delay
 

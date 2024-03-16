@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.shared.ui.theme
+package cat.dam.grup2.swipe4job_app.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

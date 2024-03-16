@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.auth
+package cat.dam.grup2.swipe4job_app.features.auth.state
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

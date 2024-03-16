@@ -38,7 +38,7 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
-import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
 fun RecruiterSignUpPage1(navController: NavController) {

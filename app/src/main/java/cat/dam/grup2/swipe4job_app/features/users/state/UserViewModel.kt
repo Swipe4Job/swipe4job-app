@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.users
+package cat.dam.grup2.swipe4job_app.features.users.state
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

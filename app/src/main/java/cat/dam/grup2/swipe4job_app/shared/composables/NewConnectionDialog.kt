@@ -23,7 +23,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.shared.ui.theme.animationFontRegular
+import cat.dam.grup2.swipe4job_app.ui.theme.animationFontRegular
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
