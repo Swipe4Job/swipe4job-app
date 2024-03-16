@@ -6,7 +6,7 @@ import android.os.Build
 import androidx.annotation.RequiresExtension
 import cat.dam.aria.retrofit.shared.criteria.CriteriaEncoder
 import cat.dam.grup2.swipe4job_app.CustomError
-import cat.dam.grup2.swipe4job_app.features.auth.AuthViewModel
+import cat.dam.grup2.swipe4job_app.features.auth.state.AuthViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyPost

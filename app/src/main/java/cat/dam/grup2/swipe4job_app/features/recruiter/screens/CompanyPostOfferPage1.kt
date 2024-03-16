@@ -40,7 +40,7 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.LabelledCheckbox
 import cat.dam.grup2.swipe4job_app.shared.composables.LabelledSwitch
-import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 
 @Composable

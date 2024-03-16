@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
-import cat.dam.grup2.swipe4job_app.shared.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import java.time.LocalDate
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation

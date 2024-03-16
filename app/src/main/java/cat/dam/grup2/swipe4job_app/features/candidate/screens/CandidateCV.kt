@@ -2,12 +2,14 @@ package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,6 +39,7 @@ import androidx.compose.runtime.sourceInformation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -155,7 +158,26 @@ fun Studies(navController: NavController, studiesList: List<Study>) {
             navController.navigate("addStudy")
         },
         itemsList = studiesList,
-    ) { Text(text = it.name + "\n" + it.school + "\n" + it.startDate + "\n" + it.endDate) }
+    ) {
+        Text(
+            text = it.name,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = it.school,
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold)
+        )
+        val dateRange = if (it.endDate != null) {
+            "${it.startDate} - ${it.endDate}"
+        } else {
+            "${it.startDate} - Present"
+        }
+        Text(
+            dateRange,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+    }
 }
 
 @Composable
@@ -350,8 +372,7 @@ fun <T> ListField(
                         Text(stringResource(id = emptyField))
                     } else {
                         itemsList.forEach {
-                            Box(modifier = Modifier
-                                .fillMaxWidth()
+                            Column(modifier = Modifier
                                 .clickable {
                                     onClick(it)
                                 }) {
