@@ -62,7 +62,7 @@ fun RecruiterSignUpPage3(navController: NavController) {
                 ) {
                     // Steps number
                     Text(
-                        "2/3",
+                        "3/3",
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .background(Color.Transparent)
