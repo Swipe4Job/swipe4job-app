@@ -1,12 +1,12 @@
 package cat.dam.grup2.swipe4job_app.features.users.screens.login
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,17 +40,17 @@ import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun RolSelection(navController: NavController) {
     var selectedRol by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     var isLoading by remember {
-        mutableStateOf(false) }
+        mutableStateOf(false)
+    }
     var isLoading1 by remember {
-        mutableStateOf(false) }
+        mutableStateOf(false)
+    }
     val candidateScale by animateFloatAsState(
         targetValue = if (isLoading) 1.2f else 1f,
         animationSpec = tween(durationMillis = 300),
@@ -62,11 +62,11 @@ fun RolSelection(navController: NavController) {
     val recruiterScale by animateFloatAsState(
         targetValue = if (isLoading1) 1.2f else 1f,
         animationSpec = tween(durationMillis = 300),
-            label = "recruiter scale animation",
+        label = "recruiter scale animation",
         finishedListener = {
-                navController.navigate("recruiterSignUpPage1")
-            }
-        )
+            navController.navigate("recruiterSignUpPage1")
+        }
+    )
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -78,7 +78,11 @@ fun RolSelection(navController: NavController) {
         item {
             // App logo
             Image(
-                painter = painterResource(id = R.drawable.logo),
+                if (isSystemInDarkTheme()) {
+                    painterResource(id = R.drawable.full_logo_dark)
+                } else {
+                    painterResource(id = R.drawable.full_logo_light)
+                },
                 contentDescription = stringResource(id = R.string.logo_image_description),
                 modifier = Modifier
                     .size(250.dp)
@@ -121,7 +125,11 @@ fun RolSelection(navController: NavController) {
                         ) {
                             // Candidate image with scaling animation
                             Image(
-                                painter = painterResource(id = R.drawable.candidat_light_theme),
+                                if (isSystemInDarkTheme()) {
+                                    painterResource(id = R.drawable.candidate_dark_theme)
+                                } else {
+                                    painterResource(id = R.drawable.candidate_light_theme)
+                                },
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(50.dp)
@@ -152,7 +160,11 @@ fun RolSelection(navController: NavController) {
                         ) {
                             // Recruiter image with scaling animation
                             Image(
-                                painter = painterResource(id = R.drawable.recruiter_light_theme),
+                                if (isSystemInDarkTheme()) {
+                                    painterResource(id = R.drawable.recruiter_dark_theme)
+                                } else {
+                                    painterResource(id = R.drawable.recruiter_light_theme)
+                                },
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(50.dp)
@@ -184,6 +196,7 @@ fun RolSelection(navController: NavController) {
         }
     }
 }
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CustomRolSelectionPreview() {

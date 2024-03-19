@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -77,7 +78,11 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
             item {
                 // App logo
                 Image(
-                    painter = painterResource(id = R.drawable.logo),
+                    if (isSystemInDarkTheme()) {
+                        painterResource(id = R.drawable.full_logo_dark)
+                    } else {
+                        painterResource(id = R.drawable.full_logo_light)
+                    },
                     contentDescription = stringResource(id = R.string.logo_image_description),
                     modifier = Modifier
                         .size(250.dp)
