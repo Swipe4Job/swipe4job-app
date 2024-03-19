@@ -287,4 +287,7 @@
     <string name="emptyPreferences_text">Aún no has añadido ninguna preferencia</string>
     <string name="addJobExperience_text">Añadir experiencia laboral</string>
     <string name="addPreferences_text">Añadir preferencias</string>
+    <string name="deleteJobOfferDialog_DeclineText">Si</string>
+    <string name="deleteJobOfferDialog_AcceptText">No</string>
+    <string name="deleteJobOfferDialog_text">Vas a eliminar la oferta. ¿Estás seguro que quieres hacerlo?</string>
 </resources>
