@@ -41,6 +41,7 @@ fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
     NavHost(navController = navController, startDestination = "rolSelection") {
+
         composable("splashScreen") {
             SplashScreen(navController = navController)
         }
