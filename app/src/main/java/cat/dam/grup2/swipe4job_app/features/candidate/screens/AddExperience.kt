@@ -76,7 +76,7 @@ fun AddExperience(navController: NavController) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.addStudy_text),
+                            text = stringResource(id = R.string.addJobExperience_text),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(start = 8.dp)

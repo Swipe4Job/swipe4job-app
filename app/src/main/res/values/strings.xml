@@ -285,4 +285,6 @@
     <string name="salaryRange_text">Salary range</string>
     <string name="candidate_preferences_title">Preferences</string>
     <string name="emptyPreferences_text">You haven\'t added any preference yet</string>
+    <string name="addJobExperience_text">Add job experience</string>
+    <string name="addPreferences_text">Add preferences</string>
 </resources>

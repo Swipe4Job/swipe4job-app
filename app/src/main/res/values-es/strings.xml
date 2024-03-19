@@ -285,4 +285,6 @@
     <string name="salaryRange_text">Rango salarial</string>
     <string name="candidate_preferences_title">Preferencias</string>
     <string name="emptyPreferences_text">Aún no has añadido ninguna preferencia</string>
+    <string name="addJobExperience_text">Añadir experiencia laboral</string>
+    <string name="addPreferences_text">Añadir preferencias</string>
 </resources>

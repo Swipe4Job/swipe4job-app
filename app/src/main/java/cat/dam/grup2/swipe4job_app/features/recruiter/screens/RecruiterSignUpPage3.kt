@@ -155,7 +155,7 @@ fun RecruiterSignUpPage3(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-                                    /*TODO*/
+                                    navController.navigate("candidateSimpleDetails")
                                 },
                                 text = stringResource(id = R.string.button_finish_text),
                                 modifier = Modifier.weight(1f)

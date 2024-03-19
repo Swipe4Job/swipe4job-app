@@ -80,7 +80,7 @@ fun CandidateSignUpPage3(navController: NavController) {
 
                     CustomButton(
                         onClick = {
-                            /*TODO*/
+                            navController.navigate("candidateCV")
                         },
                         text = stringResource(id = R.string.button_Yes_text)
                     )
@@ -90,7 +90,7 @@ fun CandidateSignUpPage3(navController: NavController) {
 
                     CustomButton(
                         onClick = {
-                            /*TODO*/
+                            navController.navigate("jobOfferSimpleDetails")
                         },
                         text = stringResource(id = R.string.button_notNow_text)
                     )
