@@ -23,15 +23,12 @@ import androidx.compose.material.icons.filled.Work
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +46,8 @@ import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
 import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
@@ -141,41 +140,21 @@ fun Section(title: String, icon: IconVector? = null, content: @Composable () -> 
 
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun CandidateComplexDetails(navController: NavController) {
+    var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) }
 
     Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = {
-//                    Row(
-//                        verticalAlignment = Alignment.CenterVertically
-//                    ) {
-//                        IconButton(
-//                            onClick = {
-//                                navController.popBackStack() // O navega a la pantalla anterior según sea necesario
-//                            },
-//                            modifier = Modifier.padding(end = 4.dp)
-//                        ) {
-//                            Icon(
-//                                imageVector = Icons.Default.ArrowBack,
-//                                contentDescription = stringResource(id = R.string.back_icon_description)
-//                            )
-//                        }
-//                        Text(
-//                            text = "Paco Garcia",
-//                            style = MaterialTheme.typography.headlineMedium,
-//                            modifier = Modifier.padding(start = 4.dp)
-//                        )
-//                    }
-//                },
-//                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-//                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-//                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-//                )
-//            )
-//        },
+        bottomBar = {
+            BottomNavigationBar(
+                searchClick = { selected = BottomNavigationItem.SEARCH },
+                connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
+                offersClick = { selected = BottomNavigationItem.OFFERS },
+                notificationsClick = { selected = BottomNavigationItem.NOTIFICATIONS },
+                selected = selected,
+                navController = navController
+            )
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
