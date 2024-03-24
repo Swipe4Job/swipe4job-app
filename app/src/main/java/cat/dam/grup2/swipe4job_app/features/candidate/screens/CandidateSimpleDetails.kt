@@ -52,6 +52,9 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
+import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
+import com.alexstyl.swipeablecard.rememberSwipeableCardState
+import com.alexstyl.swipeablecard.swipableCard
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,27 +65,27 @@ fun CandidateSimpleDetails(navController: NavController) {
     var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    TextButton(
-                        onClick = {
-                            navController.navigate("candidateComplexDetails")
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.End)
-                            .padding(end = 4.dp)
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.text_moreDetails),
-                            textDecoration = TextDecoration.Underline
-                        )
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
+//        topBar = {
+//            TopAppBar(
+//                title = {
+//                    TextButton(
+//                        onClick = {
+//                            navController.navigate("candidateComplexDetails")
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .wrapContentWidth(Alignment.End)
+//                            .padding(end = 4.dp)
+//                    ) {
+//                        Text(
+//                            text = stringResource(id = R.string.text_moreDetails),
+//                            textDecoration = TextDecoration.Underline
+//                        )
+//                    }
+//                },
+//                modifier = Modifier.fillMaxWidth()
+//            )
+//        },
         bottomBar = {
             BottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
@@ -99,7 +102,7 @@ fun CandidateSimpleDetails(navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxWidth(),
         ) {
-            SimpleDetails()
+            SimpleDetails(navController)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -122,21 +125,45 @@ fun CandidateSimpleDetails(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalSwipeableCardApi::class)
 @Composable
-fun ColumnScope.SimpleDetails() {
+fun ColumnScope.SimpleDetails(navController: NavController) {
     val skills = listOf("Kotlin", "Android Development", "Web Development")
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
+    val state = rememberSwipeableCardState()
 
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f)
-            .padding(top = 10.dp),
+            .padding(top = 10.dp)
+            .swipableCard(
+            state = state,
+            onSwiped = { direction ->
+                println("The card was swiped to $direction")
+            },
+            onSwipeCancel = {
+                println("The swiping was cancelled")
+            }
+        ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         item {
+            TextButton(
+                onClick = {
+                    navController.navigate("candidateComplexDetails")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.End)
+                    .padding(end = 4.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.text_moreDetails),
+                    textDecoration = TextDecoration.Underline
+                )
+            }
             Image(
                 painter = painterResource(id = R.drawable.profile),
                 contentDescription = stringResource(id = R.string.profile_image_description),
