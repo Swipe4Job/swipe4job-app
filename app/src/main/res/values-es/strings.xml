@@ -290,4 +290,11 @@
     <string name="deleteJobOfferDialog_DeclineText">Si</string>
     <string name="deleteJobOfferDialog_AcceptText">No</string>
     <string name="deleteJobOfferDialog_text">Vas a eliminar la oferta. ¿Estás seguro que quieres hacerlo?</string>
+    <string name="read_external_storage">Lectura de almacenamiento externo</string>
+    <string name="read_media_images">Lectura de imágenes</string>
+    <string name="write_external_storage">Escritura de almacenamiento externo</string>
+    <string name="camera">Cámara</string>
+    <string name="internet">Internet</string>
+    <string name="permission_title">Solicitud de permisos</string>
+    <string name="permission_description">Descripción del permiso</string>
 </resources>

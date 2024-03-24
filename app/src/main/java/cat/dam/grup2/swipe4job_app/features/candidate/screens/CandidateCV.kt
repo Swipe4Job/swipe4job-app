@@ -93,7 +93,7 @@ fun CandidateCV(navController: NavController) {
                 .fillMaxSize()
         ) {
             item {
-                Header(candidate = candidate)
+                Header(navController, candidate = candidate)
                 Experience(navController, experiencesList)
                 Studies(navController, studiesList)
                 SoftSkills(navController, softSkillsList, chipItems)
@@ -106,7 +106,7 @@ fun CandidateCV(navController: NavController) {
 
 
 @Composable
-fun Header(candidate: CandidateInformation) {
+fun Header(navController: NavController, candidate: CandidateInformation) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -138,7 +138,7 @@ fun Header(candidate: CandidateInformation) {
                     .align(Alignment.BottomEnd)
                     .padding(4.dp)
                     .size(26.dp)
-                    .clickable(onClick = {}),
+                    .clickable(onClick = {navController.navigate("addProfilePicture")}),
                 containerColor = MaterialTheme.colorScheme.primaryContainer
             )
         }
