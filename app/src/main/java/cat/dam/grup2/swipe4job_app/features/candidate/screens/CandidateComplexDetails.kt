@@ -264,7 +264,7 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
         ) {
             IconButton(
                 onClick = {
-                    navController.popBackStack() // O navega a la pantalla anterior según sea necesario
+                    navController.popBackStack()
                 },
                 modifier = Modifier.padding(end = 4.dp)
             ) {
