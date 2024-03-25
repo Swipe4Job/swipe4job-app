@@ -290,4 +290,19 @@
     <string name="deleteJobOfferDialog_DeclineText">Si</string>
     <string name="deleteJobOfferDialog_AcceptText">No</string>
     <string name="deleteJobOfferDialog_text">Vas a eliminar la oferta. ¿Estás seguro que quieres hacerlo?</string>
+    <string name="read_external_storage">Lectura de almacenamiento externo</string>
+    <string name="read_media_images">Lectura de imágenes</string>
+    <string name="write_external_storage">Escritura de almacenamiento externo</string>
+    <string name="camera">Cámara</string>
+    <string name="internet">Internet</string>
+    <string name="permission_title">Solicitud de permisos</string>
+    <string name="permission_description">Descripción del permiso</string>
+    <string name="no_thanks">No, gracias</string>
+    <string name="button_ok">De acuerdo</string>
+    <string name="permission_description_permanently">Permiso denegado permanentemente</string>
+    <string name="go_to_settings">Ir a configuración</string>
+    <string name="take_photo_text">Hacer una foto</string>
+    <string name="choose_photo_text">Elegir foto de la galería</string>
+    <string name="camera_icon_description">Icono de cámara de fotos</string>
+    <string name="gallery_icon_description">Icono de galería de fotos</string>
 </resources>

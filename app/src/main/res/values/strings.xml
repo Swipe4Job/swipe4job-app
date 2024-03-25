@@ -290,4 +290,19 @@
     <string name="deleteJobOfferDialog_text">You are going to delete the offer. Are you sure that you want to do it?</string>
     <string name="deleteJobOfferDialog_AcceptText">Yes</string>
     <string name="deleteJobOfferDialog_DeclineText">No</string>
+    <string name="read_external_storage">External storage reading</string>
+    <string name="read_media_images">Media images reading</string>
+    <string name="write_external_storage">External storage writing</string>
+    <string name="camera">Camera</string>
+    <string name="internet">Internet</string>
+    <string name="permission_title">Permission request</string>
+    <string name="permission_description">Permission description</string>
+    <string name="no_thanks">No, thanks</string>
+    <string name="button_ok">Ok</string>
+    <string name="permission_description_permanently">Permission denied permanently</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="take_photo_text">Take a photo</string>
+    <string name="choose_photo_text">Choose photo from gallery</string>
+    <string name="camera_icon_description">Photo camera icon</string>
+    <string name="gallery_icon_description">Photo gallery icon</string>
 </resources>
