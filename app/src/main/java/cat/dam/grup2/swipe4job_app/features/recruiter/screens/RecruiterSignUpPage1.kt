@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,18 +36,22 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserPost
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @Composable
-fun RecruiterSignUpPage1(navController: NavController) {
+fun RecruiterSignUpPage1(navController: NavController, userApiService: UserApiService) {
     var name by remember { mutableStateOf("") }
     var lastname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
     LazyColumn(
         modifier = Modifier
@@ -166,7 +171,18 @@ fun RecruiterSignUpPage1(navController: NavController) {
                         // Create account Button
                         CustomButton(
                             onClick = {
-                                navController.navigate("recruiterSignUpPage2")
+                                scope.launch {
+                                    val userPost = UserPost(
+                                        email = email,
+                                        lastName = lastname,
+                                        name = name,
+                                        password = password,
+                                        phoneNumber = phoneNumber,
+                                        role = "RECRUITER"
+                                    )
+                                    userApiService?.addUser(userPost)
+                                    navController.navigate("recruiterSignUpPage2")
+                                }
                             },
                             text = stringResource(id = R.string.button_createAccount_text)
                         )
@@ -186,10 +202,10 @@ fun RecruiterSignUpPage1(navController: NavController) {
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun CustomRecruiterSignUpPage1Preview() {
-    AppTheme {
-        RecruiterSignUpPage1(rememberNavController())
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun CustomRecruiterSignUpPage1Preview() {
+//    AppTheme {
+//        RecruiterSignUpPage1(rememberNavController())
+//    }
+//}

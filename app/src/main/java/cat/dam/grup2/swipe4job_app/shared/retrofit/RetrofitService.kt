@@ -23,7 +23,6 @@ interface RetrofitService {
     suspend fun listUsers(
         @Query("criteria") param1: String
     ) : RemoteResult<List<UserData>>
-
     @GET("/users/me")
     suspend fun getMyData(
         @Header("Authorization") token: String,
