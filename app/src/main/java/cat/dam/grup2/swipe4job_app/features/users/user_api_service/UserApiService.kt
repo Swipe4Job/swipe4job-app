@@ -31,15 +31,7 @@ class UserApiService(val retrofit: RetrofitService) {
         val results = retrofit.listCompanies(encodedCriteria)
         return results.data
     }
-    suspend fun addUser(): Unit {
-        val userPost = UserPost(
-            email = "patata@example.com",
-            lastName = "Patata",
-            name = "Patata",
-            password = "password123",
-            phoneNumber = "123346597",
-            role = "CANDIDATE"
-        )
+    suspend fun addUser(userPost: UserPost): Unit {
         val results = retrofit.addUser(userPost)
         return(results.data)
     }
