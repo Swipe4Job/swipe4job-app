@@ -229,6 +229,11 @@ fun Header(
 }
 
 @Composable
+fun DisplayImage() {
+
+}
+
+@Composable
 fun Experience(navController: NavController, experiencesList: List<JobExperience>) {
     ListField(
         title = R.string.candidate_jobExperience_title,
