@@ -58,8 +58,8 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
     val sectors = stringArrayResource(R.array.sectors_array).toList()
     var companySizeText = stringResource(id = R.string.label_companySize)
     var selectedCompanySizeItem by remember { mutableStateOf(companySizeText) }
-    var companySizeOptions = stringArrayResource(R.array.company_size_array).toList()
-    var companyDescription by remember { mutableStateOf("") }
+    var companySizeOptions =  stringArrayResource(R.array.company_size_array).toList()
+    var companyDescription by remember { mutableStateOf(mutableStateOf("")) }
     var acceptedTerms by remember { mutableStateOf(false) }
     var acceptedEmailPolicy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -216,7 +216,7 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
 
                     // Text field for the description
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(companyDescription),
+                        descriptionState = companyDescription,
                         maxCharacters = 1000,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
