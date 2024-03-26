@@ -15,10 +15,13 @@ import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddStudy
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateCV
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateComplexDetails
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateConnections
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage1
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSimpleDetails
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.RecruiterContact
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.recruiterToView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CandidateContact
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage2
@@ -42,7 +45,7 @@ import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -150,6 +153,18 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("addPreferences") {
             AddPreferences(navController)
+        }
+
+        composable("candidateConnections") {
+            CandidateConnections(navController)
+        }
+
+        composable("recruiterContact") { navBackStackEntry ->
+            if (recruiterToView == null) {
+                println("handle error")
+                throw Exception("recruiter to view is null")
+            }
+            RecruiterContact(navController, recruiterToView!!)
         }
     }
 }

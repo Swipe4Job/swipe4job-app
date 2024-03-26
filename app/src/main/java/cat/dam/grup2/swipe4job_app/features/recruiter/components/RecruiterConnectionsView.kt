@@ -29,12 +29,12 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun ConnectionsView(
-    connectionsList: List<RecruiterConnection>,
+fun RecruiterConnectionsView(
+    recruiterConnectionsList: List<RecruiterConnection>,
     onContactClick: (candidate: RecruiterConnection) -> Unit
 ) {
     LazyColumn {
-        items(connectionsList) {connection ->
+        items(recruiterConnectionsList) { connection ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()

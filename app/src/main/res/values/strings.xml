@@ -310,4 +310,5 @@
     <string name="connectionDate_text">Connection date</string>
     <string name="contact_icon_description">Contact icon</string>
     <string name="label_email">Email</string>
+    <string name="recruiter_text">Recruiter</string>
 </resources>
