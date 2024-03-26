@@ -58,6 +58,7 @@ import filters.Filters
 import filters.filter.Filter
 import filters.filter.Operators
 import orders.Orders
+import retrofit2.HttpException
 
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -142,6 +143,7 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                                 val authViewModel = AuthViewModel.getInstance()
                                 authViewModel.accessToken = data.accessToken
                             } catch (error: CustomError) {
+                                println(error.message)
                                 isLoading =
                                     false // Un cop finalitzada la crida, establim la flag a false
                                 Toast.makeText(
@@ -171,6 +173,7 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                             isLoading =
                                 false // Un cop finalitzada la crida, establim la flag a false
                             // Checking the user role
+                            println("navigate to another route")
                             if (userData.role == "RECRUITER") {
                                 navController.navigate("candidateSimpleDetails")
                             } else if (userData.role == "CANDIDATE") {

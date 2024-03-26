@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +44,8 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySectorFromStringResource
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySizeFromStringResource
 import kotlinx.coroutines.launch
 
 @Composable
@@ -59,6 +63,7 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
     var acceptedTerms by remember { mutableStateOf(false) }
     var acceptedEmailPolicy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier
@@ -282,16 +287,22 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
                             CustomButton(
                                 onClick = {
                                     scope.launch {
+
                                         val companyPost = CompanyPost(
                                             CIF = nif,
-                                            companySize = companySizeText,
+                                            companySize = context.companySizeFromStringResource(selectedCompanySizeItem),
                                             description = companyDescription,
                                             name = companyName,
                                             phone = companyPhoneNumber,
-                                            sector = sectorText
+                                            sector = context.companySectorFromStringResource(selectedSectorItem)
                                         )
-                                        userApiService?.addCompany(companyPost)
-                                        navController.navigate("candidateSimpleDetails")
+                                        try {
+                                            userApiService.addCompany(companyPost)
+                                            navController.navigate("candidateSimpleDetails")
+                                        } catch (e: Exception) {
+                                            println(e)
+                                            Toast.makeText(context, "Cannot create company", Toast.LENGTH_SHORT).show()
+                                        }
                                     }
                                 },
                                 text = stringResource(id = R.string.button_finish_text),
