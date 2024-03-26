@@ -19,6 +19,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPag
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSimpleDetails
+import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CandidateContact
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage2
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage3
@@ -26,8 +27,10 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferComplexDet
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferRecruiterView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferSimpleDetails
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.OffersList
+import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterConnections
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage2
+import cat.dam.grup2.swipe4job_app.features.recruiter.screens.candidateToView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
@@ -39,7 +42,7 @@ import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "recruiterSignUpPage2") {
+    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -115,6 +118,18 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("companyPostOfferPage3") {
             CompanyPostOfferPage3(navController)
+        }
+
+        composable("recruiterConnections") {
+            RecruiterConnections(navController)
+        }
+
+        composable("candidateContact") { navBackStackEntry ->
+            if (candidateToView == null) {
+                println("handle error")
+                throw Exception("candidate to view is null")
+            }
+            CandidateContact(navController, candidateToView!!)
         }
 
         composable("addLanguage") {

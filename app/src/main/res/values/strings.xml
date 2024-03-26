@@ -62,8 +62,8 @@
     <string name="departmentOrganisation_text">Department organisation and relationships (optional)</string>
     <string name="button_finish_text">Finish</string>
     <string name="rolSelection_text">Select your rol</string>
-    <string name="candidate_Text">I\'m a candidate</string>
-    <string name="recruiter_text">I\'m a recruiter</string>
+    <string name="candidate_rol_text">I\'m a candidate</string>
+    <string name="recruiter_rol_text">I\'m a recruiter</string>
     <string name="companyData_text">Company data</string>
     <string name="label_companyPhoneNumber">Company phone number</string>
     <string name="label_companyNif">Enter the company N.I.F.</string>
@@ -305,4 +305,9 @@
     <string name="choose_photo_text">Choose photo from gallery</string>
     <string name="camera_icon_description">Photo camera icon</string>
     <string name="gallery_icon_description">Photo gallery icon</string>
+    <string name="candidate_text">Candidate</string>
+    <string name="jobOffer_text">Job offer</string>
+    <string name="connectionDate_text">Connection date</string>
+    <string name="contact_icon_description">Contact icon</string>
+    <string name="label_email">Email</string>
 </resources>
