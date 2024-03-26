@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.recruiter.screens
+package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,13 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.candidate.screens.Section
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.RecruiterConnection
+import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun CandidateContact(navController: NavController, selectedItem: RecruiterConnection) {
+fun RecruiterContact(navController: NavController, selectedItem: CandidateConnection) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -57,7 +56,7 @@ fun CandidateContact(navController: NavController, selectedItem: RecruiterConnec
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                CandidateContactInformationDisplay(selectedItem)
+                RecruiterContactInformationDisplay(selectedItem)
             }
         }
     }
@@ -65,7 +64,7 @@ fun CandidateContact(navController: NavController, selectedItem: RecruiterConnec
 }
 
 @Composable
-fun CandidateContactInformationDisplay(information: RecruiterConnection) {
+fun RecruiterContactInformationDisplay(information: CandidateConnection) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,7 +77,7 @@ fun CandidateContactInformationDisplay(information: RecruiterConnection) {
             )
         ) {
             Text(
-                text = information.candidatePhone,
+                text = information.recruiterPhone,
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -90,7 +89,7 @@ fun CandidateContactInformationDisplay(information: RecruiterConnection) {
             )
         ) {
             Text(
-                text = information.candidateEmail,
+                text = information.recruiterEmail,
                 style = MaterialTheme.typography.bodyMedium
             )
         }

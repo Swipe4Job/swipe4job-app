@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.recruiter.screens
+package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,41 +11,42 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateConnectionsView
+import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterConnectionsView
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.RecruiterConnection
+import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 
 
-var candidateToView by mutableStateOf<RecruiterConnection?>(null)
+var recruiterToView by mutableStateOf<CandidateConnection?>(null)
 
-fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
-    val candidateNames = listOf(
-        "Janira",
-        "Arià",
-        "Alejandro",
-        "Edgar"
+fun generateCandidateConnectionsFakeData(): List<CandidateConnection> {
+    val recruiterNames = listOf(
+        "Marc",
+        "Joan",
+        "David",
+        "Úrsula"
     )
 
-    val candidateLastnames = listOf(
-        "Huesca",
-        "Casellas",
-        "Marin",
-        "Medina"
+    val recruiterLastnames = listOf(
+        "Pararols",
+        "Coll",
+        "Lozano",
+        "Heredia"
     )
 
-    val candidatePhones = listOf(
+    val recruiterPhones = listOf(
         "611111111",
         "622222222",
         "633333333",
         "644444444"
     )
 
-    val candidateEmails = listOf(
-        "candidate1@gmail.com",
-        "candidate2@gmail.com",
-        "candidate3@gmail.com",
-        "candidate4@gmail.com"
+    val recruiterEmails = listOf(
+        "recruiter1@gmail.com",
+        "recruiter2@gmail.com",
+        "recruiter3@gmail.com",
+        "recruiter4@gmail.com"
     )
 
     val jobOfferTitles = listOf(
@@ -55,32 +56,33 @@ fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
         "Product Manager",
     )
 
-    val recruiterConnectionsList = mutableListOf<RecruiterConnection>()
+    val candidateConnectionsList = mutableListOf<CandidateConnection>()
     repeat(4) {
-        val candidateName = candidateNames.random()
-        val candidateLastname = candidateLastnames.random()
-        val candidatePhone = candidatePhones.random()
-        val candidateEmail = candidateEmails.random()
+        val recruiterName = recruiterNames.random()
+        val recruiterLastname = recruiterLastnames.random()
+        val recruiterPhone = recruiterPhones.random()
+        val recruiterEmail = recruiterEmails.random()
         val jobOfferTitle = jobOfferTitles.random()
         val connectionDate = generateRandomDate()
 
-        recruiterConnectionsList.add(
-            RecruiterConnection(
-                candidateName = candidateName,
-                candidateLastName = candidateLastname,
-                candidatePhone = candidatePhone,
-                candidateEmail = candidateEmail,
+        candidateConnectionsList.add(
+            CandidateConnection(
+                recruiterName = recruiterName,
+                recruiterLastName = recruiterLastname,
+                recruiterPhone = recruiterPhone,
+                recruiterEmail = recruiterEmail,
                 jobOfferTitle = jobOfferTitle,
                 connectionDate = connectionDate
             )
         )
     }
-    return recruiterConnectionsList
+    return candidateConnectionsList
 }
 
-val recruiterConnectionsList = generateRecruiterConnectionsFakeData()
+val candidateConnectionsList = generateCandidateConnectionsFakeData()
+
 @Composable
-fun RecruiterConnections(navController: NavController) {
+fun CandidateConnections(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.CONNECTIONS) }
 
     Scaffold(
@@ -100,11 +102,11 @@ fun RecruiterConnections(navController: NavController) {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            RecruiterConnectionsView(
-                recruiterConnectionsList = recruiterConnectionsList,
-                onContactClick = { candidate ->
-                    candidateToView = candidate
-                    navController.navigate("candidateContact")
+            CandidateConnectionsView(
+                candidateConnectionsList = candidateConnectionsList,
+                onContactClick = { recruiter ->
+                    recruiterToView = recruiter
+                    navController.navigate("recruiterContact")
                 }
             )
         }

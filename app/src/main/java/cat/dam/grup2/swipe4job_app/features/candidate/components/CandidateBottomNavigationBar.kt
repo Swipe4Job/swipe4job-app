@@ -62,7 +62,7 @@ fun BottomNavigationBar(
                 else MaterialTheme.colorScheme.secondary
             IconButton(onClick = {
                 connectionsClick()
-                navController.navigate("jobOfferSimpleDetails")
+                navController.navigate("candidateConnections")
             }) {
                 Column( horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
