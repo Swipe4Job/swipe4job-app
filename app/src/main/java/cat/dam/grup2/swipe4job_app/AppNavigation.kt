@@ -45,7 +45,7 @@ import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "recruiterSignUpPage2") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
