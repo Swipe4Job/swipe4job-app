@@ -57,7 +57,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
-import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
@@ -89,7 +89,7 @@ fun CandidateCV(navController: NavController) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
+            CandidateBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 cvClick = { selected = BottomNavigationItem.CV },

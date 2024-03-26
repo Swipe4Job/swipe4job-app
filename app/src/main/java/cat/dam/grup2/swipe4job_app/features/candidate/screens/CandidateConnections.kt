@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateConnectionsView
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 
@@ -87,7 +87,7 @@ fun CandidateConnections(navController: NavController) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
+            RecruiterBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 offersClick = { selected = BottomNavigationItem.OFFERS },

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
@@ -14,16 +15,16 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.R
 
 @Composable
-fun BottomNavigationBar(
+fun CandidateBottomNavigationBar(
     searchClick: () -> Unit,
     connectionsClick: () -> Unit,
     cvClick: () -> Unit,
@@ -36,82 +37,74 @@ fun BottomNavigationBar(
     BottomAppBar {
         Row(
             modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            val searchIconColor =
-                if (selected == BottomNavigationItem.SEARCH) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.secondary
-            IconButton(onClick = {
-                searchClick()
-                navController.navigate("jobOfferSimpleDetails")
-            }) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = stringResource(id = R.string.search_icon_description),
-                        tint = searchIconColor,
-                        modifier = Modifier.size(25.dp)
-                    )
+            CandidateBottomNavigationItem(
+                icon = Icons.Default.Search,
+                label = "Search",
+                selected = selected == BottomNavigationItem.SEARCH,
+                onClick = {
+                    searchClick()
+                    navController.navigate("jobOfferSimpleDetails")
                 }
-            }
-            val connectionsIconColor =
-                if (selected == BottomNavigationItem.CONNECTIONS) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.secondary
-            IconButton(onClick = {
-                connectionsClick()
-                navController.navigate("candidateConnections")
-            }) {
-                Column( horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = stringResource(id = R.string.connections_icon_description),
-                        tint = connectionsIconColor,
-                        modifier = Modifier.size(25.dp)
-                    )
+            )
+            CandidateBottomNavigationItem(
+                icon = Icons.Default.Favorite,
+                label = "Connections",
+                selected = selected == BottomNavigationItem.CONNECTIONS,
+                onClick = {
+                    connectionsClick()
+                    navController.navigate("candidateConnections")
                 }
-            }
-            val cvIconColor =
-                if (selected == BottomNavigationItem.CV) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.secondary
-            IconButton(onClick = {
-                cvClick()
-                navController.navigate("candidateCV")
-            }) {
-                Column( horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Description,
-                        contentDescription = stringResource(id = R.string.cv_icon_description),
-                        tint = cvIconColor,
-                        modifier = Modifier.size(25.dp)
-                    )
+            )
+            CandidateBottomNavigationItem(
+                icon = Icons.Default.Description,
+                label = "CV",
+                selected = selected == BottomNavigationItem.CV,
+                onClick = {
+                    cvClick()
+                    navController.navigate("candidateCV")
                 }
-            }
-            val notificationsIconColor =
-                if (selected == BottomNavigationItem.NOTIFICATIONS) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.secondary
-            IconButton(onClick = {
-                notificationsClick()
-                navController.navigate("candidateCV")
-            }) {
-                Column( horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Notifications,
-                        contentDescription = stringResource(id = R.string.notifications_icon_description),
-                        tint = notificationsIconColor,
-                        modifier = Modifier.size(25.dp)
-                    )
+            )
+            CandidateBottomNavigationItem(
+                icon = Icons.Default.Notifications,
+                label = "Notifications",
+                selected = selected == BottomNavigationItem.NOTIFICATIONS,
+                onClick = {
+                    notificationsClick()
+                    navController.navigate("candidateCV")
                 }
-            }
+            )
         }
+    }
+}
+
+@Composable
+private fun CandidateBottomNavigationItem(
+    icon: ImageVector,
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    val iconColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                tint = iconColor,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+        Text(
+            text = label,
+            color = iconColor,
+            style = MaterialTheme.typography.bodySmall,
+        )
     }
 }
 

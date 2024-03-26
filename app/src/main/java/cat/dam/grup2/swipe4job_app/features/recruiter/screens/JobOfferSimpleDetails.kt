@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
@@ -61,7 +61,7 @@ fun JobOfferSimpleDetails(navController: NavController) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
+            CandidateBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 cvClick = { selected = BottomNavigationItem.CV },

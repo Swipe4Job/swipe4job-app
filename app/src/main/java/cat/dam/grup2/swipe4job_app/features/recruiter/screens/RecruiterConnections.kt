@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterConnectionsView
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.RecruiterConnection
@@ -85,7 +85,7 @@ fun RecruiterConnections(navController: NavController) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
+            RecruiterBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 offersClick = { selected = BottomNavigationItem.OFFERS },

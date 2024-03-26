@@ -46,7 +46,7 @@ import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
@@ -146,7 +146,7 @@ fun CandidateComplexDetails(navController: NavController) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
+            RecruiterBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 offersClick = { selected = BottomNavigationItem.OFFERS },

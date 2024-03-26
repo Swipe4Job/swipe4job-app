@@ -21,7 +21,7 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.OffersListView
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
@@ -154,7 +154,7 @@ fun OffersList(navController: NavController) {
             }
         },
         bottomBar = {
-            BottomNavigationBar(
+            RecruiterBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
                 offersClick = { selected = BottomNavigationItem.OFFERS },
