@@ -58,7 +58,7 @@ interface RetrofitService {
 }
 
 object RetrofitServiceFactory {
-    val BASE_URL = "https://1582-212-169-209-14.ngrok-free.app/"
+    val BASE_URL = "https://swipe4job-api.fly.dev/"
 
     private var instance: RetrofitService? = null
 
