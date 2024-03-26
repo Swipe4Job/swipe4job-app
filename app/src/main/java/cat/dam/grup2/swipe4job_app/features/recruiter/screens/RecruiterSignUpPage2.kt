@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
@@ -56,6 +54,7 @@ fun RecruiterSignUpPage2(navController: NavController) {
     var companySizeText = stringResource(id = R.string.label_companySize)
     var selectedCompanySizeItem by remember { mutableStateOf(companySizeText) }
     var companySizeOptions =  stringArrayResource(R.array.company_size_array).toList()
+    var companyDescription by remember { mutableStateOf("") }
     var acceptedTerms by remember { mutableStateOf(false) }
     var acceptedEmailPolicy by remember { mutableStateOf(false) }
 
@@ -209,8 +208,6 @@ fun RecruiterSignUpPage2(navController: NavController) {
                     )
 
                     // Text field for the description
-                    var companyDescription by remember { mutableStateOf("") }
-
                     CustomTextFieldMaxChar(
                         descriptionState = mutableStateOf(companyDescription),
                         maxCharacters = 1000,
