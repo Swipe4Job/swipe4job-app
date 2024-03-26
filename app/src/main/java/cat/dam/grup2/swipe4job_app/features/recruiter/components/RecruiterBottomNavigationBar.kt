@@ -1,10 +1,10 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -20,8 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cat.dam.grup2.swipe4job_app.R
 
 @Composable
 fun RecruiterBottomNavigationBar(
@@ -41,7 +43,8 @@ fun RecruiterBottomNavigationBar(
         ) {
             RecruiterBottomNavigationItem(
                 icon = Icons.Default.Search,
-                label = "Search",
+                labelRes = R.string.search_text,
+                contentDescriptionRes = R.string.search_icon_description,
                 selected = selected == BottomNavigationItem.SEARCH,
                 onClick = {
                     searchClick()
@@ -50,7 +53,8 @@ fun RecruiterBottomNavigationBar(
             )
             RecruiterBottomNavigationItem(
                 icon = Icons.Default.Favorite,
-                label = "Connections",
+                labelRes = R.string.connections_text,
+                contentDescriptionRes = R.string.connections_icon_description,
                 selected = selected == BottomNavigationItem.CONNECTIONS,
                 onClick = {
                     connectionsClick()
@@ -59,7 +63,8 @@ fun RecruiterBottomNavigationBar(
             )
             RecruiterBottomNavigationItem(
                 icon = Icons.Default.ListAlt,
-                label = "Offers",
+                labelRes = R.string.offers_text,
+                contentDescriptionRes = R.string.offers_icon_description,
                 selected = selected == BottomNavigationItem.OFFERS,
                 onClick = {
                     offersClick()
@@ -68,7 +73,8 @@ fun RecruiterBottomNavigationBar(
             )
             RecruiterBottomNavigationItem(
                 icon = Icons.Default.Notifications,
-                label = "Notifications",
+                labelRes = R.string.notifications_text,
+                contentDescriptionRes = R.string.notifications_icon_description,
                 selected = selected == BottomNavigationItem.NOTIFICATIONS,
                 onClick = {
                     notificationsClick()
@@ -82,10 +88,13 @@ fun RecruiterBottomNavigationBar(
 @Composable
 private fun RecruiterBottomNavigationItem(
     icon: ImageVector,
-    label: String,
+    @StringRes labelRes: Int,
+    @StringRes contentDescriptionRes: Int,
     selected: Boolean,
     onClick: () -> Unit
 ) {
+    val label = stringResource(id = labelRes)
+    val contentDescription = stringResource(id = contentDescriptionRes)
     val iconColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -94,7 +103,7 @@ private fun RecruiterBottomNavigationItem(
         IconButton(onClick = onClick) {
             Icon(
                 imageVector = icon,
-                contentDescription = label,
+                contentDescription = contentDescription,
                 tint = iconColor,
                 modifier = Modifier.size(25.dp)
             )
