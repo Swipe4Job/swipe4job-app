@@ -8,8 +8,8 @@ import cat.dam.aria.retrofit.shared.criteria.CriteriaEncoder
 import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.features.auth.state.AuthViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -35,15 +35,15 @@ class UserApiService(val retrofit: RetrofitService) {
         val results = retrofit.addUser(userPost)
         return(results.data)
     }
-    suspend fun addCompany(): Unit {
-        val companyPost = CompanyPost(
-            CIF = "834242R",
-            companySize = "LESS_10",
-            description = "si",
-            name = "test",
-            phone = "43243423",
-            sector = "CONSTRUCTION"
-        )
+    suspend fun addCompany(companyPost: CompanyPost): Unit {
+//        val companyPost = CompanyPost(
+//            CIF = "834242R",
+//            companySize = "LESS_10",
+//            description = "si",
+//            name = "test",
+//            phone = "43243423",
+//            sector = "CONSTRUCTION"
+//        )
         val results = retrofit.addCompany(companyPost)
         return(results.data)
     }
