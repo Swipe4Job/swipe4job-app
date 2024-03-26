@@ -136,7 +136,7 @@ fun RolSelection(navController: NavController) {
                                     .scale(candidateScale) // Use the animated scale factor
                             )
                             Text(
-                                text = stringResource(id = R.string.candidate_Text),
+                                text = stringResource(id = R.string.candidate_rol_text),
                                 color = MaterialTheme.colorScheme.secondary
                             )
                         }
@@ -171,7 +171,7 @@ fun RolSelection(navController: NavController) {
                                     .scale(recruiterScale)
                             )
                             Text(
-                                text = stringResource(id = R.string.recruiter_text),
+                                text = stringResource(id = R.string.recruiter_rol_text),
                                 color = MaterialTheme.colorScheme.secondary
                             )
                         }

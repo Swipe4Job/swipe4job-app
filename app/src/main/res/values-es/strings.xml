@@ -62,8 +62,8 @@
     <string name="departmentOrganisation_text">Organización y relaciones del departamento (opcional)</string>
     <string name="button_finish_text">Finalizar</string>
     <string name="rolSelection_text">Selecciona tu rol</string>
-    <string name="candidate_Text">Soy un/a candidato/a</string>
-    <string name="recruiter_text">Soy un/a reclutador/a</string>
+    <string name="candidate_rol_text">Soy un/a candidato/a</string>
+    <string name="recruiter_rol_text">Soy un/a reclutador/a</string>
     <string name="companyData_text">Datos de la empresa</string>
     <string name="label_companyPhoneNumber">Número de teléfono de la empresa</string>
     <string name="label_companyNif">Introduce el N.I.F. de la empresa</string>
@@ -305,4 +305,9 @@
     <string name="choose_photo_text">Elegir foto de la galería</string>
     <string name="camera_icon_description">Icono de cámara de fotos</string>
     <string name="gallery_icon_description">Icono de galería de fotos</string>
+    <string name="candidate_text">Candidato/a</string>
+    <string name="jobOffer_text">Oferta de empleo</string>
+    <string name="connectionDate_text">Fecha de la conexión</string>
+    <string name="contact_icon_description">Icono de contacto</string>
+    <string name="label_email">Correo electrónico</string>
 </resources>
