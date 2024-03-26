@@ -75,7 +75,7 @@ fun RecruiterSignUpPage2(navController: NavController) {
                         .fillMaxSize()
                 ) {
                     Text(
-                        "2/3",
+                        "2/2",
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .background(Color.Transparent)
