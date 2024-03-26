@@ -1,7 +1,7 @@
 package cat.dam.grup2.swipe4job_app.shared.retrofit
 
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyData
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.CompanyPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -14,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 

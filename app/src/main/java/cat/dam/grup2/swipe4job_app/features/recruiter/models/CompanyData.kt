@@ -1,6 +1,6 @@
-package cat.dam.grup2.swipe4job_app.shared.retrofit.model
+package cat.dam.grup2.swipe4job_app.features.recruiter.models
 
-data class CompanyPost(
+data class CompanyData(
     val CIF: String,
     val companySize: String,
     val description: String,
