@@ -116,7 +116,7 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
                         iconContentDescription = null,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Number
+                            keyboardType = KeyboardType.Text
                         )
                     )
 
@@ -291,11 +291,12 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
                                         val companyPost = CompanyPost(
                                             CIF = nif,
                                             companySize = context.companySizeFromStringResource(selectedCompanySizeItem),
-                                            description = companyDescription,
+                                            description = companyDescription.value,
                                             name = companyName,
                                             phone = companyPhoneNumber,
                                             sector = context.companySectorFromStringResource(selectedSectorItem)
                                         )
+                                        println(companyPost)
                                         try {
                                             userApiService.addCompany(companyPost)
                                             navController.navigate("candidateSimpleDetails")
