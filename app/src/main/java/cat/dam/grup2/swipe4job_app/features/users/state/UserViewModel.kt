@@ -16,6 +16,5 @@ class UserViewModel : ViewModel() {
             }
             return instance!!
         }
-
     }
 }

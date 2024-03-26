@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,29 +23,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
-import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySectorFromStringResource
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySizeFromStringResource
+import kotlinx.coroutines.launch
 
 @Composable
-fun RecruiterSignUpPage2(navController: NavController) {
+fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiService) {
     var companyName by remember { mutableStateOf("") }
     var companyPhoneNumber by remember { mutableStateOf("") }
     var nif by remember { mutableStateOf("") }
@@ -57,6 +62,8 @@ fun RecruiterSignUpPage2(navController: NavController) {
     var companyDescription by remember { mutableStateOf(mutableStateOf("")) }
     var acceptedTerms by remember { mutableStateOf(false) }
     var acceptedEmailPolicy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier
@@ -259,7 +266,7 @@ fun RecruiterSignUpPage2(navController: NavController) {
                         }
                     }
 
-                    // Buttons - Previous + Next
+                    // Buttons - Previous + Finish
                     Box(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -279,7 +286,24 @@ fun RecruiterSignUpPage2(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("candidateSimpleDetails")
+                                    scope.launch {
+
+                                        val companyPost = CompanyPost(
+                                            CIF = nif,
+                                            companySize = context.companySizeFromStringResource(selectedCompanySizeItem),
+                                            description = companyDescription,
+                                            name = companyName,
+                                            phone = companyPhoneNumber,
+                                            sector = context.companySectorFromStringResource(selectedSectorItem)
+                                        )
+                                        try {
+                                            userApiService.addCompany(companyPost)
+                                            navController.navigate("candidateSimpleDetails")
+                                        } catch (e: Exception) {
+                                            println(e)
+                                            Toast.makeText(context, "Cannot create company", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
                                 },
                                 text = stringResource(id = R.string.button_finish_text),
                                 modifier = Modifier.weight(1f)
@@ -293,10 +317,10 @@ fun RecruiterSignUpPage2(navController: NavController) {
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun CustomRecruiterSignUpPage2Preview() {
-    AppTheme {
-        RecruiterSignUpPage2(rememberNavController())
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun CustomRecruiterSignUpPage2Preview() {
+//    AppTheme {
+//        RecruiterSignUpPage2(rememberNavController())
+//    }
+//}
