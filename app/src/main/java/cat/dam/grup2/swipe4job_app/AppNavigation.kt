@@ -28,7 +28,6 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.JobOfferSimpleDeta
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.OffersList
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage2
-import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage3
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
@@ -40,7 +39,7 @@ import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
     
-    NavHost(navController = navController, startDestination = "userLoginForm") {
+    NavHost(navController = navController, startDestination = "recruiterSignUpPage2") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -96,10 +95,6 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("recruiterSignUpPage2") {
             RecruiterSignUpPage2(navController)
-        }
-
-        composable("recruiterSignUpPage3") {
-            RecruiterSignUpPage3(navController)
         }
 
         composable("candidateCV") {

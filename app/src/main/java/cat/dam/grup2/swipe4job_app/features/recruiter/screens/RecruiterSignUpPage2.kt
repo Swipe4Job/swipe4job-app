@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,10 +41,10 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
+import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun RecruiterSignUpPage2(navController: NavController) {
     var companyName by remember { mutableStateOf("") }
@@ -54,6 +56,8 @@ fun RecruiterSignUpPage2(navController: NavController) {
     var companySizeText = stringResource(id = R.string.label_companySize)
     var selectedCompanySizeItem by remember { mutableStateOf(companySizeText) }
     var companySizeOptions =  stringArrayResource(R.array.company_size_array).toList()
+    var acceptedTerms by remember { mutableStateOf(false) }
+    var acceptedEmailPolicy by remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -195,6 +199,69 @@ fun RecruiterSignUpPage2(navController: NavController) {
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    // Title - Description
+                    Text(
+                        stringResource(id = R.string.companyDescription_text),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier
+                            .padding(bottom = 12.dp)
+                    )
+
+                    // Text field for the description
+                    var companyDescription by remember { mutableStateOf("") }
+
+                    CustomTextFieldMaxChar(
+                        descriptionState = mutableStateOf(companyDescription),
+                        maxCharacters = 1000,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        )
+                    )
+
+                    // Sections spacer
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Checkboxes
+                    Column {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Checkbox(
+                                checked = acceptedTerms,
+                                onCheckedChange = { acceptedTerms = it },
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                stringResource(id = R.string.acceptedTerms_text),
+                                color = MaterialTheme.colorScheme.onBackground,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Checkbox(
+                                checked = acceptedEmailPolicy,
+                                onCheckedChange = { acceptedEmailPolicy = it },
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                stringResource(id = R.string.acceptedEmailPolicy_text),
+                                color = MaterialTheme.colorScheme.onBackground,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                    }
+
                     // Buttons - Previous + Next
                     Box(
                         modifier = Modifier
@@ -215,9 +282,9 @@ fun RecruiterSignUpPage2(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("recruiterSignUpPage3")
+                                    navController.navigate("candidateSimpleDetails")
                                 },
-                                text = stringResource(id = R.string.button_next_text),
+                                text = stringResource(id = R.string.button_finish_text),
                                 modifier = Modifier.weight(1f)
                             )
                         }
