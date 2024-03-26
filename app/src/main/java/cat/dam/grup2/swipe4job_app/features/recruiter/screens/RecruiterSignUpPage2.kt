@@ -54,7 +54,7 @@ fun RecruiterSignUpPage2(navController: NavController) {
     var companySizeText = stringResource(id = R.string.label_companySize)
     var selectedCompanySizeItem by remember { mutableStateOf(companySizeText) }
     var companySizeOptions =  stringArrayResource(R.array.company_size_array).toList()
-    var companyDescription by remember { mutableStateOf("") }
+    var companyDescription by remember { mutableStateOf(mutableStateOf("")) }
     var acceptedTerms by remember { mutableStateOf(false) }
     var acceptedEmailPolicy by remember { mutableStateOf(false) }
 
@@ -209,7 +209,7 @@ fun RecruiterSignUpPage2(navController: NavController) {
 
                     // Text field for the description
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(companyDescription),
+                        descriptionState = companyDescription,
                         maxCharacters = 1000,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
