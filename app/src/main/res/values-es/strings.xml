@@ -312,4 +312,6 @@
     <string name="label_email">Correo electrónico</string>
     <string name="recruiter_text">Recruiter</string>
     <string name="offers_text">Ofertas</string>
+    <string name="notificationDate_text">Fecha de la notificación</string>
+    <string name="notification_text">Notificación</string>
 </resources>
