@@ -11,17 +11,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateNotification
-import cat.dam.grup2.swipe4job_app.features.candidate.model.NotificationEvent
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.NotificationEvent
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateNotificationsView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
-import java.text.SimpleDateFormat
-import java.util.Locale
 
-fun generateFakeCandidateNotifications(): List<CandidateNotification> {
-    val notifications = mutableListOf<CandidateNotification>()
+fun generateFakeCandidateNotifications(): List<Notification> {
+    val notifications = mutableListOf<Notification>()
 
     val eventTypes = NotificationEvent.values()
 
@@ -30,7 +28,7 @@ fun generateFakeCandidateNotifications(): List<CandidateNotification> {
         val message = getMessageForEventType(eventType)
         val date = generateRandomDate()
 
-        notifications.add(CandidateNotification(eventType, message, date))
+        notifications.add(Notification(eventType, null, message, date))
     }
 
     return notifications
@@ -39,7 +37,8 @@ fun generateFakeCandidateNotifications(): List<CandidateNotification> {
 fun getMessageForEventType(eventType: NotificationEvent): String {
     return when (eventType) {
         NotificationEvent.LIKE_RECEIVED -> "Liked your profile"
-        NotificationEvent.MATCH_WITH_JOB_OFFER -> "Matched with job offer"
+        NotificationEvent.JOB_OFFER_CONNECTION -> "Matched with job offer"
+        NotificationEvent.CANDIDATE_CONNECTION -> "Matched with candidate"
     }
 }
 
@@ -67,7 +66,7 @@ fun CandidateNotifications(navController: NavController) {
                 .padding(innerPadding)
         ) {
             CandidateNotificationsView(
-                candidateNotificationsList = candidateNotifications,
+                notificationsList = candidateNotifications,
                 onDeleteClick = { /* TODO  delete notification*/ }
             )
         }

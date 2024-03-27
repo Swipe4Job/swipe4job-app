@@ -314,4 +314,8 @@
     <string name="offers_text">Offers</string>
     <string name="notificationDate_text">Notification date</string>
     <string name="notification_text">Notification</string>
+    <string name="editJobExperience_text">Edit job experience</string>
+    <string name="delete_text">Delete</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="deleteExperience_text">Delete experience</string>
 </resources>

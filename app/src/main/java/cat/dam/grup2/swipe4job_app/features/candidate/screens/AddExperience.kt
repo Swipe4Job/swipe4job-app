@@ -10,26 +10,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,11 +40,13 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDateSelectionAlertDialog
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 
@@ -100,7 +103,7 @@ fun AddExperience(navController: NavController) {
                         }
                         Text(
                             text =
-                            if (isEditing) "Edit job experience"
+                            if (isEditing) stringResource(id = R.string.editJobExperience_text)
                             else stringResource(id = R.string.addJobExperience_text),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
@@ -155,7 +158,9 @@ fun AddExperience(navController: NavController) {
                     company = company,
                     startingDate = selectedStartingDate,
                     endDate = selectedEndDate,
-                    description = description
+                    description = description,
+                    experiencesList = experiencesList,
+                    navController = navController
                 )
             }
         }
@@ -169,17 +174,18 @@ fun AddExperienceContent(
     company: MutableState<String>,
     startingDate: MutableState<String>,
     endDate: MutableState<String>,
-    description: MutableState<String>
+    description: MutableState<String>,
+    experiencesList: MutableList<JobExperience>,
+    navController: NavController
 ) {
-    var addExperienceViewModel = AddExperienceViewModel.instance
-    var isEditing = addExperienceViewModel.editingJobExperience != null
     val openStartingDateDialog = remember { mutableStateOf(false) }
     val openEndDateDialog = remember { mutableStateOf(false) }
     var monthOptions = stringArrayResource(R.array.months_array).toList()
     val years = (1924..2024).map { it.toString() }.reversed()
     val yearsMap = years.associateWith { it }
-
-    val context = LocalContext.current
+    var addExperienceViewModel = AddExperienceViewModel.instance
+    var isEditing = addExperienceViewModel.editingJobExperience != null
+    val showDeleteConfirmationDialog = remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -355,9 +361,62 @@ fun AddExperienceContent(
                     endDate.value = it
                 }
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (isEditing) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.deleteExperience_text),
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .clickable {
+                                showDeleteConfirmationDialog.value = true
+                            }
+                    )
+                }
+            }
         }
     }
+
+    if (showDeleteConfirmationDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                showDeleteConfirmationDialog.value = false
+            },
+            text = {
+                Text(text = "Se va a eliminar ${position.value}")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        experiencesList.removeAt(addExperienceViewModel.editingIndex)
+                        showDeleteConfirmationDialog.value = false
+                        navController.popBackStack()
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.delete_text))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteConfirmationDialog.value = false
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.cancel_text))
+                }
+            }
+        )
+    }
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
