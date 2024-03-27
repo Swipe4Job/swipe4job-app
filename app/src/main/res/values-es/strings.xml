@@ -318,4 +318,7 @@
     <string name="delete_text">Eliminar</string>
     <string name="cancel_text">Cancelar</string>
     <string name="deleteExperience_text">Eliminar experiencia</string>
+    <string name="editLanguage_text">Editar idioma</string>
+    <string name="experienceToDelete_text">Experiencia a eliminar</string>
+    <string name="languageToDelete_text">Idioma a eliminar</string>
 </resources>

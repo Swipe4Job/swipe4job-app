@@ -391,7 +391,8 @@ fun AddExperienceContent(
                 showDeleteConfirmationDialog.value = false
             },
             text = {
-                Text(text = "Se va a eliminar ${position.value}")
+                val text = stringResource(id = R.string.experienceToDelete_text)
+                Text(text = "$text: ${position.value}")
             },
             confirmButton = {
                 TextButton(
