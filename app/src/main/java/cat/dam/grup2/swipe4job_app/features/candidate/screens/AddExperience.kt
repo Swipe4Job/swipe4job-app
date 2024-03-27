@@ -25,6 +25,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,15 +50,34 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AddExperience(navController: NavController) {
-    var position by remember { mutableStateOf("") }
-    var company by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
-    var selectedStartingDate by remember { mutableStateOf("") }
-    var selectedEndDate by remember { mutableStateOf("") }
-    var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
-    var experiencesList = candidateProfileViewModel.experiences
     var addExperienceViewModel = AddExperienceViewModel.instance
     var isEditing = addExperienceViewModel.editingJobExperience != null
+    var position = remember {
+        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.position else "")
+    }
+    var company = remember {
+        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.company else "")
+    }
+    var description = remember {
+        mutableStateOf(
+            if (isEditing) {
+                addExperienceViewModel.editingJobExperience!!.description ?: ""
+            } else ""
+        )
+    }
+    var selectedStartingDate = remember {
+        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.startDate else "")
+    }
+    var selectedEndDate = remember {
+        mutableStateOf(
+            if (isEditing) {
+                addExperienceViewModel.editingJobExperience!!.endDate ?: ""
+            } else ""
+        )
+    }
+    var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+    var experiencesList = candidateProfileViewModel.experiences
+
 
     Scaffold(
         topBar = {
@@ -95,14 +115,20 @@ fun AddExperience(navController: NavController) {
                                 .clickable {
                                     var jobExperience =
                                         JobExperience(
-                                            position,
-                                            company,
-                                            description,
-                                            selectedStartingDate,
-                                            selectedEndDate
+                                            position.value,
+                                            company.value,
+                                            description.value,
+                                            selectedStartingDate.value,
+                                            selectedEndDate.value
                                         )
-                                    if (isEditing) { experiencesList.set(addExperienceViewModel.editingIndex, jobExperience) }
-                                    else { experiencesList.add(jobExperience) }
+                                    if (isEditing) {
+                                        experiencesList.set(
+                                            addExperienceViewModel.editingIndex,
+                                            jobExperience
+                                        )
+                                    } else {
+                                        experiencesList.add(jobExperience)
+                                    }
                                     /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
@@ -125,11 +151,11 @@ fun AddExperience(navController: NavController) {
                     .weight(1f)
             ) {
                 AddExperienceContent(
-                    onPositionChange = { position = it },
-                    onCompanyChange = { company = it },
-                    onStartingDateChange = { selectedStartingDate = it },
-                    onEndDateChange = { selectedEndDate = it },
-                    onDescriptionChange = { description = it }
+                    position = position,
+                    company = company,
+                    startingDate = selectedStartingDate,
+                    endDate = selectedEndDate,
+                    description = description
                 )
             }
         }
@@ -139,29 +165,19 @@ fun AddExperience(navController: NavController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddExperienceContent(
-    onPositionChange: (String) -> Unit,
-    onCompanyChange: (String) -> Unit,
-    onDescriptionChange: (String) -> Unit,
-    onStartingDateChange: (String) -> Unit,
-    onEndDateChange: (String) -> Unit
+    position: MutableState<String>,
+    company: MutableState<String>,
+    startingDate: MutableState<String>,
+    endDate: MutableState<String>,
+    description: MutableState<String>
 ) {
     var addExperienceViewModel = AddExperienceViewModel.instance
     var isEditing = addExperienceViewModel.editingJobExperience != null
-
-    var position by remember {
-        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.position else "")
-    }
-    var company by remember {
-        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.company else "")
-    }
-    var startingDate by remember { mutableStateOf("") }
-    var endDate by remember { mutableStateOf("") }
     val openStartingDateDialog = remember { mutableStateOf(false) }
     val openEndDateDialog = remember { mutableStateOf(false) }
     var monthOptions = stringArrayResource(R.array.months_array).toList()
     val years = (1924..2024).map { it.toString() }.reversed()
     val yearsMap = years.associateWith { it }
-    var description by remember { mutableStateOf("") }
 
     val context = LocalContext.current
 
@@ -181,10 +197,9 @@ fun AddExperienceContent(
 
             // Position TextField
             CustomOutlinedTextField(
-                value = position,
+                value = position.value,
                 onValueChange = {
-                    position = it
-                    onPositionChange(it)
+                    position.value = it
                 },
                 label = stringResource(id = R.string.label_jobTitle),
                 leadingIcon = null,
@@ -207,10 +222,9 @@ fun AddExperienceContent(
 
             // Company TextField
             CustomOutlinedTextField(
-                value = company,
+                value = company.value,
                 onValueChange = {
-                    company = it
-                    onCompanyChange(it)
+                    company.value = it
                 },
                 label = stringResource(id = R.string.label_companyName),
                 leadingIcon = null,
@@ -233,10 +247,9 @@ fun AddExperienceContent(
 
             // Description TextField
             CustomOutlinedTextField(
-                value = description,
+                value = description.value,
                 onValueChange = {
-                    description = it
-                    onDescriptionChange(it)
+                    description.value = it
                 },
                 label = stringResource(id = R.string.label_description),
                 leadingIcon = null,
@@ -260,10 +273,9 @@ fun AddExperienceContent(
             // Starting date TextField
 
             TextField(
-                value = startingDate,
+                value = startingDate.value,
                 onValueChange = {
-                    startingDate = it
-                    onStartingDateChange(it)
+                    startingDate.value = it
                 },
                 label = {
                     Text(
@@ -300,10 +312,9 @@ fun AddExperienceContent(
             // End date TextField
 
             TextField(
-                value = endDate,
+                value = endDate.value,
                 onValueChange = {
-                    endDate = it
-                    onEndDateChange(it)
+                    endDate.value = it
                 },
                 label = {
                     Text(
@@ -332,8 +343,7 @@ fun AddExperienceContent(
                 months = monthOptions,
                 years = yearsMap,
                 onAccept = {
-                    startingDate = it
-                    onStartingDateChange(it)
+                    startingDate.value = it
                 }
             )
 
@@ -342,8 +352,7 @@ fun AddExperienceContent(
                 months = monthOptions,
                 years = yearsMap,
                 onAccept = {
-                    endDate = it
-                    onEndDateChange(it)
+                    endDate.value = it
                 }
             )
         }
