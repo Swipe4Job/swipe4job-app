@@ -60,6 +60,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,7 +128,8 @@ fun CandidateCV(navController: NavController) {
                         Toast.makeText(context, "Clicked on take photo", Toast.LENGTH_SHORT).show()
                     },
                     onChoosePhotoClick = {
-                        Toast.makeText(context, "Clicked on choose photo", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Clicked on choose photo", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 )
             }
@@ -239,6 +241,11 @@ fun Experience(navController: NavController, experiencesList: List<JobExperience
         title = R.string.candidate_jobExperience_title,
         emptyField = R.string.emptyExperience_text,
         onAddClick = {
+            navController.navigate("addExperience")
+        },
+        onClick = { jobExperience, index ->
+            AddExperienceViewModel.instance.editingJobExperience = jobExperience
+            AddExperienceViewModel.instance.editingIndex = index
             navController.navigate("addExperience")
         },
         itemsList = experiencesList,
@@ -476,7 +483,7 @@ fun <T> ListField(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,
-    onClick: (item: T) -> Unit = {},
+    onClick: (item: T, index: Int) -> Unit = {item, index -> },
     itemsList: List<T>,
     itemRenderer: @Composable (T) -> Unit
 ) {
@@ -528,14 +535,14 @@ fun <T> ListField(
                     if (itemsList.isEmpty()) {
                         Text(stringResource(id = emptyField))
                     } else {
-                        itemsList.forEach {
+                        itemsList.forEachIndexed() { index, item ->
                             Column(modifier = Modifier
                                 .clickable {
-                                    onClick(it)
+                                    onClick(item, index)
                                 }
                                 .fillMaxWidth()
                             ) {
-                                itemRenderer(it)
+                                itemRenderer(item)
                             }
                         }
 

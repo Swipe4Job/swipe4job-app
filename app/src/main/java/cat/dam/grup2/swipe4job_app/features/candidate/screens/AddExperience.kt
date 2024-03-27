@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDateSelectionAlertDialog
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
@@ -55,6 +56,8 @@ fun AddExperience(navController: NavController) {
     var selectedEndDate by remember { mutableStateOf("") }
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
     var experiencesList = candidateProfileViewModel.experiences
+    var addExperienceViewModel = AddExperienceViewModel.instance
+    var isEditing = addExperienceViewModel.editingJobExperience != null
 
     Scaffold(
         topBar = {
@@ -76,7 +79,9 @@ fun AddExperience(navController: NavController) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.addJobExperience_text),
+                            text =
+                            if (isEditing) "Edit job experience"
+                            else stringResource(id = R.string.addJobExperience_text),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(start = 8.dp)
@@ -88,7 +93,7 @@ fun AddExperience(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    experiencesList.add(
+                                    var jobExperience =
                                         JobExperience(
                                             position,
                                             company,
@@ -96,7 +101,8 @@ fun AddExperience(navController: NavController) {
                                             selectedStartingDate,
                                             selectedEndDate
                                         )
-                                    )
+                                    if (isEditing) { experiencesList.set(addExperienceViewModel.editingIndex, jobExperience) }
+                                    else { experiencesList.add(jobExperience) }
                                     /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
@@ -139,8 +145,15 @@ fun AddExperienceContent(
     onStartingDateChange: (String) -> Unit,
     onEndDateChange: (String) -> Unit
 ) {
-    var position by remember { mutableStateOf("") }
-    var company by remember { mutableStateOf("") }
+    var addExperienceViewModel = AddExperienceViewModel.instance
+    var isEditing = addExperienceViewModel.editingJobExperience != null
+
+    var position by remember {
+        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.position else "")
+    }
+    var company by remember {
+        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.company else "")
+    }
     var startingDate by remember { mutableStateOf("") }
     var endDate by remember { mutableStateOf("") }
     val openStartingDateDialog = remember { mutableStateOf(false) }
