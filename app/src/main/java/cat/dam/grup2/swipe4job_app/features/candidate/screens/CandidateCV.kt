@@ -241,6 +241,7 @@ fun Experience(navController: NavController, experiencesList: List<JobExperience
         title = R.string.candidate_jobExperience_title,
         emptyField = R.string.emptyExperience_text,
         onAddClick = {
+            AddExperienceViewModel.instance.editingJobExperience = null
             navController.navigate("addExperience")
         },
         onClick = { jobExperience, index ->
