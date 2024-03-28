@@ -58,7 +58,11 @@ fun AddLanguage(navController: NavController) {
     var selectedLanguage = remember {
         mutableStateOf(if (isEditing) addLanguageViewModel.editingLanguage!!.language else "")
     }
-    var selectedLevel by remember { mutableStateOf<LanguageLevel?>(null) }
+    var selectedLevel = remember {
+        mutableStateOf(
+            if (isEditing) addLanguageViewModel.editingLanguage!!.level else LanguageLevel.Intermediate
+        )
+    }
     var academicTitle = remember {
         mutableStateOf(
             if (isEditing) {
@@ -106,7 +110,7 @@ fun AddLanguage(navController: NavController) {
                                     var language =
                                         LanguageSkill(
                                             selectedLanguage.value,
-                                            selectedLevel!!,
+                                            selectedLevel.value,
                                             academicTitle.value
                                         )
                                     if (isEditing) {
@@ -182,7 +186,7 @@ fun AddLanguageContent(
                 placeholder = selectedLanguageItem,
                 items = languageOptions
             ) {
-                language.value
+                language.value = it
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -191,7 +195,7 @@ fun AddLanguageContent(
                 placeholder = selectedLevelItem,
                 items = levelOptions
             ) {
-                level.value
+                level.value = LanguageLevel.fromResourceString(context, it)
             }
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -210,9 +214,9 @@ fun AddLanguageContent(
                 modifier = Modifier.padding(bottom = 12.dp)
             )
 
-            LaunchedEffect(academicTitle.value) {
-                onTitleChange(academicTitle.value)
-            }
+//            LaunchedEffect(academicTitle.value) {
+//                onTitleChange(academicTitle.value)
+//            }
 
             CustomTextFieldMaxChar(
                 descriptionState = academicTitle,

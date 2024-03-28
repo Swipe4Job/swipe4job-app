@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -60,7 +61,33 @@ enum class LanguageLevel {
     Low,
     Intermediate,
     Advanced,
-    Native
+    Native;
+
+    companion object {
+        fun fromResourceString(context: Context, resourceString: String): LanguageLevel {
+            val languageLevelResourceList =
+                context.resources.getStringArray(R.array.languages_level_array).toList()
+
+            return when (resourceString) {
+                languageLevelResourceList[0] -> Low
+                languageLevelResourceList[1] -> Intermediate
+                languageLevelResourceList[2] -> Advanced
+                languageLevelResourceList[3] -> Native
+                else -> throw Error("Unexpected language level resource string $resourceString")
+            }
+        }
+    }
+    fun toResourceString(context: Context): String {
+        val languageLevelResourceList =
+            context.resources.getStringArray(R.array.languages_level_array).toList()
+
+        return when (this) {
+            Low -> languageLevelResourceList[0]
+            Intermediate -> languageLevelResourceList[1]
+            Advanced -> languageLevelResourceList[2]
+            Native -> languageLevelResourceList[3]
+        }
+    }
 }
 
 data class LanguageSkill(
