@@ -60,6 +60,8 @@ import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddLanguageViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,7 +129,8 @@ fun CandidateCV(navController: NavController) {
                         Toast.makeText(context, "Clicked on take photo", Toast.LENGTH_SHORT).show()
                     },
                     onChoosePhotoClick = {
-                        Toast.makeText(context, "Clicked on choose photo", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Clicked on choose photo", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 )
             }
@@ -239,6 +242,12 @@ fun Experience(navController: NavController, experiencesList: List<JobExperience
         title = R.string.candidate_jobExperience_title,
         emptyField = R.string.emptyExperience_text,
         onAddClick = {
+            AddExperienceViewModel.instance.editingJobExperience = null
+            navController.navigate("addExperience")
+        },
+        onClick = { jobExperience, index ->
+            AddExperienceViewModel.instance.editingJobExperience = jobExperience
+            AddExperienceViewModel.instance.editingIndex = index
             navController.navigate("addExperience")
         },
         itemsList = experiencesList,
@@ -334,7 +343,6 @@ fun SoftSkills(
     }
 }
 
-// Función para generar la lista de chips a partir de la lista de soft skills
 fun generateChips(softSkillsList: List<String>): List<ChipItem> {
     return softSkillsList.distinct().map { ChipItem(label = it, icon = Icons.Default.Done) }
 }
@@ -346,6 +354,11 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
         onAddClick = {
+            navController.navigate("addLanguage")
+        },
+        onClick = { language, index ->
+            AddLanguageViewModel.instance.editingLanguage = language
+            AddLanguageViewModel.instance.editingIndex = index
             navController.navigate("addLanguage")
         },
         itemsList = languagesList,
@@ -476,7 +489,7 @@ fun <T> ListField(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,
-    onClick: (item: T) -> Unit = {},
+    onClick: (item: T, index: Int) -> Unit = {item, index -> },
     itemsList: List<T>,
     itemRenderer: @Composable (T) -> Unit
 ) {
@@ -528,14 +541,14 @@ fun <T> ListField(
                     if (itemsList.isEmpty()) {
                         Text(stringResource(id = emptyField))
                     } else {
-                        itemsList.forEach {
+                        itemsList.forEachIndexed() { index, item ->
                             Column(modifier = Modifier
                                 .clickable {
-                                    onClick(it)
+                                    onClick(item, index)
                                 }
                                 .fillMaxWidth()
                             ) {
-                                itemRenderer(it)
+                                itemRenderer(item)
                             }
                         }
 

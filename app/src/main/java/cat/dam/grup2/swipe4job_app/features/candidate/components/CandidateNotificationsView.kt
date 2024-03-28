@@ -24,17 +24,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateNotification
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
 fun CandidateNotificationsView(
-    candidateNotificationsList: List<CandidateNotification>,
-    onDeleteClick: (notification: CandidateNotification) -> Unit
+    notificationsList: List<Notification>,
+    onDeleteClick: (notification: Notification) -> Unit
 ) {
     LazyColumn {
-        items(candidateNotificationsList) { notification ->
+        items(notificationsList) { notification ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
