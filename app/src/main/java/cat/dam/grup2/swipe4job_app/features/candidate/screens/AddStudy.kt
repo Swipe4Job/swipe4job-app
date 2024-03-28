@@ -15,23 +15,23 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDateSelectionAlertDialog
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
@@ -49,10 +50,34 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AddStudy(navController: NavController) {
-    var studyName by remember { mutableStateOf("") }
-    var school by remember { mutableStateOf("") }
-    var selectedStartingDate by remember { mutableStateOf("") }
-    var selectedEndDate by remember { mutableStateOf("") }
+    var addStudyViewModel = AddStudyViewModel.instance
+    var isEditing = addStudyViewModel.editingStudy != null
+    var studyName = remember {
+        mutableStateOf(
+            if (isEditing) addStudyViewModel.editingStudy!!.name
+            else ""
+        )
+    }
+    var school = remember {
+        mutableStateOf(
+            if (isEditing) addStudyViewModel.editingStudy!!.school
+            else ""
+        )
+    }
+    var selectedStartingDate = remember {
+        mutableStateOf(
+            if (isEditing) addStudyViewModel.editingStudy!!.startDate
+            else ""
+        )
+    }
+    var selectedEndDate = remember {
+        mutableStateOf(
+            if (isEditing) {
+                addStudyViewModel.editingStudy!!.endDate ?: ""
+            } else ""
+        )
+    }
+
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
     var studiesList = candidateProfileViewModel.studies
 
@@ -76,7 +101,9 @@ fun AddStudy(navController: NavController) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.addStudy_text),
+                            text =
+                            if (isEditing) stringResource(id = R.string.editStudy_text)
+                            else stringResource(id = R.string.addStudy_text),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(start = 8.dp)
@@ -88,14 +115,21 @@ fun AddStudy(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    studiesList.add(
+                                    var study =
                                         Study(
-                                            studyName,
-                                            school,
-                                            selectedStartingDate,
-                                            selectedEndDate
+                                            studyName.value,
+                                            school.value,
+                                            selectedStartingDate.value,
+                                            selectedEndDate.value
                                         )
-                                    )
+                                    if (isEditing) {
+                                        studiesList.set(
+                                            addStudyViewModel.editingIndex,
+                                            study
+                                        )
+                                    } else {
+                                        studiesList.add(study)
+                                    }
                                     /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
@@ -118,10 +152,12 @@ fun AddStudy(navController: NavController) {
                     .weight(1f)
             ) {
                 AddStudyContent(
-                    onStudyNameChange = { studyName = it },
-                    onSchoolChange = { school = it },
-                    onStartingDateChange = { selectedStartingDate = it },
-                    onEndDateChange = { selectedEndDate = it }
+                    study = studyName,
+                    school = school,
+                    startingDate = selectedStartingDate,
+                    endDate = selectedEndDate,
+                    studiesList = studiesList,
+                    navController = navController
                 )
             }
         }
@@ -131,22 +167,21 @@ fun AddStudy(navController: NavController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddStudyContent(
-    onStudyNameChange: (String) -> Unit,
-    onSchoolChange: (String) -> Unit,
-    onStartingDateChange: (String) -> Unit,
-    onEndDateChange: (String) -> Unit
+    study: MutableState<String>,
+    school: MutableState<String>,
+    startingDate: MutableState<String>,
+    endDate: MutableState<String>,
+    studiesList: MutableList<Study>,
+    navController: NavController
 ) {
-    var study by remember { mutableStateOf("") }
-    var school by remember { mutableStateOf("") }
-    var startingDate by remember { mutableStateOf("") }
-    var endDate by remember { mutableStateOf("") }
     val openStartingDateDialog = remember { mutableStateOf(false) }
     val openEndDateDialog = remember { mutableStateOf(false) }
     var monthOptions = stringArrayResource(R.array.months_array).toList()
     val years = (1924..2024).map { it.toString() }.reversed()
     val yearsMap = years.associateWith { it }
-
-    val context = LocalContext.current
+    var addStudyViewModel = AddStudyViewModel.instance
+    var isEditing = addStudyViewModel.editingStudy != null
+    val showDeleteConfirmationDialog = remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -164,10 +199,9 @@ fun AddStudyContent(
 
             // Studies TextField
             CustomOutlinedTextField(
-                value = study,
+                value = study.value,
                 onValueChange = {
-                    study = it
-                    onStudyNameChange(it)
+                    study.value = it
                 },
                 label = stringResource(id = R.string.label_study),
                 leadingIcon = null,
@@ -190,10 +224,9 @@ fun AddStudyContent(
 
             // School TextField
             CustomOutlinedTextField(
-                value = school,
+                value = school.value,
                 onValueChange = {
-                    school = it
-                    onSchoolChange(it)
+                    school.value = it
                 },
                 label = stringResource(id = R.string.label_school),
                 leadingIcon = null,
@@ -217,10 +250,9 @@ fun AddStudyContent(
             // Starting date TextField
 
             TextField(
-                value = startingDate,
+                value = startingDate.value,
                 onValueChange = {
-                    startingDate = it
-                    onStartingDateChange(it)
+                    startingDate.value = it
                 },
                 label = {
                     Text(
@@ -256,10 +288,9 @@ fun AddStudyContent(
             // End date TextField
 
             TextField(
-                value = endDate,
+                value = endDate.value,
                 onValueChange = {
-                    endDate = it
-                    onEndDateChange(it)
+                    endDate.value = it
                 },
                 label = {
                     Text(
@@ -288,8 +319,7 @@ fun AddStudyContent(
                 months = monthOptions,
                 years = yearsMap,
                 onAccept = {
-                    startingDate = it
-                    onStartingDateChange(it)
+                    startingDate.value = it
                 }
             )
 
@@ -298,11 +328,61 @@ fun AddStudyContent(
                 months = monthOptions,
                 years = yearsMap,
                 onAccept = {
-                    endDate = it
-                    onEndDateChange(it)
+                    endDate.value = it
                 }
             )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (isEditing) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.deleteStudy_text),
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .clickable {
+                                showDeleteConfirmationDialog.value = true
+                            }
+                    )
+                }
+            }
         }
+    }
+    if (showDeleteConfirmationDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                showDeleteConfirmationDialog.value = false
+            },
+            text = {
+                val text = stringResource(id = R.string.studyToDelete_text)
+                Text(text = "$text: ${study.value}")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        studiesList.removeAt(addStudyViewModel.editingIndex)
+                        showDeleteConfirmationDialog.value = false
+                        navController.popBackStack()
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.delete_text))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteConfirmationDialog.value = false
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.cancel_text))
+                }
+            }
+        )
     }
 }
 

@@ -62,6 +62,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddLanguageViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -287,6 +288,12 @@ fun Studies(navController: NavController, studiesList: List<Study>) {
         title = R.string.candidate_studies_title,
         emptyField = R.string.emptyStudies_text,
         onAddClick = {
+            AddStudyViewModel.instance.editingStudy = null
+            navController.navigate("addStudy")
+        },
+        onClick = { study, index ->
+            AddStudyViewModel.instance.editingStudy = study
+            AddStudyViewModel.instance.editingIndex = index
             navController.navigate("addStudy")
         },
         itemsList = studiesList,
@@ -354,6 +361,7 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
         onAddClick = {
+            AddLanguageViewModel.instance.editingLanguage = null
             navController.navigate("addLanguage")
         },
         onClick = { language, index ->

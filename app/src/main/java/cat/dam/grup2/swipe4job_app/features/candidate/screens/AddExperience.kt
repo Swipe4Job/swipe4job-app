@@ -69,7 +69,10 @@ fun AddExperience(navController: NavController) {
         )
     }
     var selectedStartingDate = remember {
-        mutableStateOf(if (isEditing) addExperienceViewModel.editingJobExperience!!.startDate else "")
+        mutableStateOf(
+            if (isEditing) addExperienceViewModel.editingJobExperience!!.startDate
+            else ""
+        )
     }
     var selectedEndDate = remember {
         mutableStateOf(
