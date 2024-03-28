@@ -226,29 +226,28 @@ fun AddLanguageContent(
                     keyboardType = KeyboardType.Text
                 )
             )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (isEditing) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.deleteLanguage_text),
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .clickable {
+                                showDeleteConfirmationDialog.value = true
+                            }
+                    )
+                }
+            }
         }
     }
-    Spacer(modifier = Modifier.height(16.dp))
-
-    if (isEditing) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(id = R.string.deleteExperience_text),
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .clickable {
-                        showDeleteConfirmationDialog.value = true
-                    }
-            )
-        }
-    }
-
 
     if (showDeleteConfirmationDialog.value) {
         AlertDialog(
