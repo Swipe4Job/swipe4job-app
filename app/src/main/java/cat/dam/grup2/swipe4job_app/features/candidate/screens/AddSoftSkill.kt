@@ -32,12 +32,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddSoftskillViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomFilterableTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddSoftSkill(navController: NavController) {
+    var addSoftskillViewModel = AddSoftskillViewModel.instance
+    var isEditing = addSoftskillViewModel.editingSoftskill != null
     var selectedSoftSkill by remember { mutableStateOf("") }
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
     var softSkillsList = candidateProfileViewModel.softSkills
@@ -104,6 +107,8 @@ fun AddSoftSkill(navController: NavController) {
 
 @Composable
 fun AddSoftSkillContent(context: Context, onValueChange: (String) -> Unit) {
+    var addSoftskillViewModel = AddSoftskillViewModel.instance
+    var isEditing = addSoftskillViewModel.editingSoftskill != null
     val resources = context.resources
     val suggestionsArray = resources.getStringArray(R.array.soft_skills_array).sortedArray()
 
