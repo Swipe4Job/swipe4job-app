@@ -321,4 +321,5 @@
     <string name="editLanguage_text">Edit language</string>
     <string name="experienceToDelete_text">Experience to delete</string>
     <string name="languageToDelete_text">Language to delete</string>
+    <string name="deleteLanguage_text">Delete language</string>
 </resources>
