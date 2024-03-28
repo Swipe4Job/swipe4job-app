@@ -61,6 +61,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottom
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddLanguageViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -342,7 +343,6 @@ fun SoftSkills(
     }
 }
 
-// Función para generar la lista de chips a partir de la lista de soft skills
 fun generateChips(softSkillsList: List<String>): List<ChipItem> {
     return softSkillsList.distinct().map { ChipItem(label = it, icon = Icons.Default.Done) }
 }
@@ -354,6 +354,11 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
         title = R.string.candidate_languages_title,
         emptyField = R.string.emptyLanguages_text,
         onAddClick = {
+            navController.navigate("addLanguage")
+        },
+        onClick = { language, index ->
+            AddLanguageViewModel.instance.editingLanguage = language
+            AddLanguageViewModel.instance.editingIndex = index
             navController.navigate("addLanguage")
         },
         itemsList = languagesList,
