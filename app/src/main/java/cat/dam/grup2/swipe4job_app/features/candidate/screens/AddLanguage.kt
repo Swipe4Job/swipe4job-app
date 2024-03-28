@@ -164,11 +164,14 @@ fun AddLanguageContent(
 ) {
     var addLanguageViewModel = AddLanguageViewModel.instance
     var isEditing = addLanguageViewModel.editingLanguage != null
-    var languageText = stringResource(id = R.string.language_text)
+    var languageText = language.value.ifEmpty { stringResource(id = R.string.language_text) }
     var selectedLanguageItem by remember { mutableStateOf(languageText) }
     var languageOptions = stringArrayResource(R.array.languages_array).toList()
 
-    var levelText = stringResource(id = R.string.level_text)
+    var levelText =
+        if (language.value.isEmpty()) stringResource(id = R.string.level_text) else level.value.toResourceString(
+            LocalContext.current
+        )
     var selectedLevelItem by remember { mutableStateOf(levelText) }
     var levelOptions = stringArrayResource(R.array.languages_level_array).toList()
 
