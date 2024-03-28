@@ -322,4 +322,7 @@
     <string name="experienceToDelete_text">Experiencia a eliminar</string>
     <string name="languageToDelete_text">Idioma a eliminar</string>
     <string name="deleteLanguage_text">Eliminar idioma</string>
+    <string name="deleteStudy_text">Eliminar estudio</string>
+    <string name="studyToDelete_text">Estudio a eliminar</string>
+    <string name="editStudy_text">Editar estudio</string>
 </resources>
