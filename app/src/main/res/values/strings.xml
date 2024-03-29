@@ -312,4 +312,17 @@
     <string name="label_email">Email</string>
     <string name="recruiter_text">Recruiter</string>
     <string name="offers_text">Offers</string>
+    <string name="notificationDate_text">Notification date</string>
+    <string name="notification_text">Notification</string>
+    <string name="editJobExperience_text">Edit job experience</string>
+    <string name="delete_text">Delete</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="deleteExperience_text">Delete experience</string>
+    <string name="editLanguage_text">Edit language</string>
+    <string name="experienceToDelete_text">Experience to delete</string>
+    <string name="languageToDelete_text">Language to delete</string>
+    <string name="deleteLanguage_text">Delete language</string>
+    <string name="deleteStudy_text">Delete study</string>
+    <string name="studyToDelete_text">Study to delete</string>
+    <string name="editStudy_text">Edit study</string>
 </resources>

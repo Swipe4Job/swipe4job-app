@@ -79,7 +79,7 @@ fun CandidateBottomNavigationBar(
                 selected = selected == BottomNavigationItem.NOTIFICATIONS,
                 onClick = {
                     notificationsClick()
-                    navController.navigate("candidateCV")
+                    navController.navigate("candidateNotifications")
                 }
             )
         }

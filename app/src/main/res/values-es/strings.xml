@@ -312,4 +312,17 @@
     <string name="label_email">Correo electrónico</string>
     <string name="recruiter_text">Recruiter</string>
     <string name="offers_text">Ofertas</string>
+    <string name="notificationDate_text">Fecha de la notificación</string>
+    <string name="notification_text">Notificación</string>
+    <string name="editJobExperience_text">Editar experiencia laboral</string>
+    <string name="delete_text">Eliminar</string>
+    <string name="cancel_text">Cancelar</string>
+    <string name="deleteExperience_text">Eliminar experiencia</string>
+    <string name="editLanguage_text">Editar idioma</string>
+    <string name="experienceToDelete_text">Experiencia a eliminar</string>
+    <string name="languageToDelete_text">Idioma a eliminar</string>
+    <string name="deleteLanguage_text">Eliminar idioma</string>
+    <string name="deleteStudy_text">Eliminar estudio</string>
+    <string name="studyToDelete_text">Estudio a eliminar</string>
+    <string name="editStudy_text">Editar estudio</string>
 </resources>

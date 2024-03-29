@@ -16,6 +16,7 @@ import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitServiceFactory
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateCV
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateComplexDetails
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateConnections
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateNotifications
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage1
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage3
@@ -164,6 +165,10 @@ fun AppNavigation(navController: NavHostController) {
                 throw Exception("recruiter to view is null")
             }
             RecruiterContact(navController, recruiterToView!!)
+        }
+
+        composable("candidateNotifications") {
+            CandidateNotifications(navController)
         }
     }
 }
