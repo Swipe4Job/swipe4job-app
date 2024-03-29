@@ -299,7 +299,7 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
                                         println(companyPost)
                                         try {
                                             userApiService.addCompany(companyPost)
-                                            navController.navigate("candidateSimpleDetails")
+                                            navController.navigate("offersList")
                                         } catch (e: Exception) {
                                             println(e)
                                             Toast.makeText(context, "Cannot create company", Toast.LENGTH_SHORT).show()
