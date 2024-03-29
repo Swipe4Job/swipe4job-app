@@ -48,6 +48,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddSoftSkillContent
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.AddJobOfferViewModel
@@ -109,10 +113,10 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     // Text field for the description
-                    var description by remember { mutableStateOf("") }
+                    var description by remember { mutableStateOf(mutableStateOf("")) }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(description),
+                        descriptionState = description,
                         maxCharacters = 1000,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
@@ -139,10 +143,10 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     // Text field for the responsabilities
-                    var responsibilities by remember { mutableStateOf("") }
+                    var responsibilities by remember { mutableStateOf(mutableStateOf("")) }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(responsibilities),
+                        descriptionState = responsibilities,
                         maxCharacters = 1500,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
@@ -162,10 +166,10 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     // Text field for the requirements
-                    var requirements by remember { mutableStateOf("") }
+                    var requirements by remember { mutableStateOf(mutableStateOf("")) }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(requirements),
+                        descriptionState = requirements,
                         maxCharacters = 1500,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
@@ -242,6 +246,13 @@ fun CompanyPostOfferPage2(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
+                                    val offerViewModel = OfferViewModel.instance
+
+                                    offerViewModel.description = description.value
+                                    offerViewModel.responsibilities = responsibilities.value
+                                    offerViewModel.requirements = requirements.value
+                                    offerViewModel.skills = listOf("COMMUNICATION","ADAPTABILITY")
+
                                     navController.navigate("companyPostOfferPage3")
                                 },
                                 text = stringResource(id = R.string.button_next_text),

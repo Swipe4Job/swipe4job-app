@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -34,11 +34,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferViewModel
+import cat.dam.grup2.swipe4job_app.features.users.state.UserViewModel
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserData
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.shared.composables.LabelledCheckbox
 import cat.dam.grup2.swipe4job_app.shared.composables.LabelledSwitch
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
@@ -47,18 +54,35 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 fun CompanyPostOfferPage1(navController: NavController) {
     var jobTitle by remember { mutableStateOf("") }
     var companyName by remember { mutableStateOf("") }
-    var jobTypeText = stringResource(id = R.string.label_jobType)
-    var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
-    var jobTypeOptions = stringArrayResource(R.array.job_type_array).toList()
     var location by remember { mutableStateOf("") }
-    var contractTypeText = stringResource(id = R.string.label_contractType)
-    var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
-    var contractTypeOptions = stringArrayResource(R.array.contract_type_array).toList()
-    var workingDayTypeText = stringResource(id = R.string.label_workingDayType)
-    var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
-    var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
 
     val switchIsOn = remember { mutableStateOf(false) }
+
+    var jobTypeText = stringResource(id = R.string.label_jobType)
+    var contractTypeText = stringResource(id = R.string.label_contractType)
+    var workingDayTypeText = stringResource(id = R.string.label_workingDayType)
+
+    var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
+    var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
+    var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
+
+    var jobTypeOptions = stringArrayResource(R.array.job_type_array).toList()
+    var contractTypeOptions = stringArrayResource(R.array.contract_type_array).toList()
+    var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
+
+    // Aquesta és la llista de recursos de jobType
+    val jobTypeResourceList = stringArrayResource(id = R.array.job_type_array).toList()
+    val contractTypeResourceList = stringArrayResource(id = R.array.contract_type_array).toList()
+    val workingDayTypeResourceList = stringArrayResource(id = R.array.working_day_type_array).toList()
+
+    // Variable per desar l'ítem seleccionat del dropdown
+    var selectedJobTypeItemList by remember { mutableStateOf(jobTypeResourceList[0]) }
+    var selectedContractTypeItemList by remember { mutableStateOf(contractTypeResourceList[0]) }
+    var selectedWorkingDayTypeItemList by remember { mutableStateOf(workingDayTypeResourceList[0]) }
+
+    var selectedJobTypeIndex = jobTypeResourceList.indexOf(selectedJobTypeItemList)
+    var selectedContractTypeIndex = contractTypeResourceList.indexOf(selectedContractTypeItemList)
+    var selectedWorkingDayTypeIndex = workingDayTypeResourceList.indexOf(selectedWorkingDayTypeItemList)
 
     LazyColumn(
         modifier = Modifier
@@ -156,9 +180,11 @@ fun CompanyPostOfferPage1(navController: NavController) {
                     CustomDropdown(
                         placeholder = selectedJobTypeItem,
                         items = jobTypeOptions
-                    ) {
-                        selectedJobTypeItem = it
+                    ) { selectedItem ->
+                        selectedJobTypeItem = selectedItem
+                        selectedJobTypeIndex = jobTypeResourceList.indexOf(selectedItem)
                     }
+
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
@@ -197,8 +223,9 @@ fun CompanyPostOfferPage1(navController: NavController) {
                     CustomDropdown(
                         placeholder = selectedContractTypeItem,
                         items = contractTypeOptions
-                    ) {
-                        selectedContractTypeItem = it
+                    ) { selectedItem ->
+                        selectedContractTypeItem = selectedItem
+                        selectedContractTypeIndex = contractTypeResourceList.indexOf(selectedItem)
                     }
 
                     // Spacer
@@ -215,8 +242,9 @@ fun CompanyPostOfferPage1(navController: NavController) {
                     CustomDropdown(
                         placeholder = selectedWorkingDayTypeItem,
                         items = workingDayTypeOptions
-                    ) {
-                        selectedWorkingDayTypeItem = it
+                    ) { selectedItem ->
+                        selectedWorkingDayTypeItem = selectedItem
+                        selectedWorkingDayTypeIndex = workingDayTypeResourceList.indexOf(selectedItem)
                     }
 
                     // Spacer
@@ -243,12 +271,24 @@ fun CompanyPostOfferPage1(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
+//                                    println("Índex seleccionat: " + JobTypesList.jobTypes[selectedJobTypeIndex])
+//                                    println("Índex seleccionat: " + ContractTypesList.contractTypes[selectedContractTypeIndex])
+//                                    println("Índex seleccionat: " + WorkingDayTypesList.workingDayTypes[selectedWorkingDayTypeIndex])
+                                    val offerViewModel = OfferViewModel.instance
+
+                                    offerViewModel.title = jobTitle
+                                    offerViewModel.recruiterId = "d75267d3-9e04-48a9-a34a-e2e84d7f83bc"
+                                    offerViewModel.companyName = "Programadors_xd"
+                                    offerViewModel.publicationDate = "2024-03-27T00:00:00.000Z"
+                                    offerViewModel.jobType = JobTypesList.jobTypes[selectedJobTypeIndex]
+                                    offerViewModel.contractType = ContractTypesList.contractTypes[selectedContractTypeIndex]
+                                    offerViewModel.workingDay = WorkingDayTypesList.workingDayTypes[selectedWorkingDayTypeIndex]
+
                                     navController.navigate("companyPostOfferPage2")
                                 },
                                 text = stringResource(id = R.string.button_next_text),
                                 modifier = Modifier.weight(1f)
                             )
-
                         }
                     }
                 }
@@ -256,6 +296,7 @@ fun CompanyPostOfferPage1(navController: NavController) {
         }
     }
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

@@ -10,6 +10,10 @@ import cat.dam.grup2.swipe4job_app.features.auth.state.AuthViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySectorFromStringResource
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySizeFromStringResource
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -31,20 +35,23 @@ class UserApiService(val retrofit: RetrofitService) {
         val results = retrofit.listCompanies(encodedCriteria)
         return results.data
     }
+    suspend fun listOffers(criteria: Criteria): List<OfferData> {
+        val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
+        println(encodedCriteria)
+        val results = retrofit.listOffers(encodedCriteria)
+        return results.data
+    }
     suspend fun addUser(userPost: UserPost): Unit {
         val results = retrofit.addUser(userPost)
         return(results.data)
     }
     suspend fun addCompany(companyPost: CompanyPost): Unit {
-//        val companyPost = CompanyPost(
-//            CIF = "834242R",
-//            companySize = "LESS_10",
-//            description = "si",
-//            name = "test",
-//            phone = "43243423",
-//            sector = "CONSTRUCTION"
-//        )
         val results = retrofit.addCompany(companyPost)
+        return(results.data)
+    }
+    suspend fun addOffer(offerPost: OfferPost): Unit {
+        val results = retrofit.addOffer(offerPost)
+        println(results)
         return(results.data)
     }
 

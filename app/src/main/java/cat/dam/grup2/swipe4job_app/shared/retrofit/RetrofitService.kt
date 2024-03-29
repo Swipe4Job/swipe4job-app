@@ -2,6 +2,8 @@ package cat.dam.grup2.swipe4job_app.shared.retrofit
 
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -36,6 +38,10 @@ interface RetrofitService {
         @Query("criteria") param1: String
     ): RemoteResult<List<CompanyData>>
 
+    @GET("/offer")
+    suspend fun listOffers(
+        @Query("criteria") param1: String
+    ): RemoteResult<List<OfferData>>
     @POST("/users/register")
     suspend fun addUser(
         @Body post: UserPost
@@ -44,6 +50,11 @@ interface RetrofitService {
     @POST("/company")
     suspend fun addCompany(
         @Body post: CompanyPost
+    ): RemoteResult<Unit>
+
+    @POST("/offer")
+    suspend fun addOffer(
+        @Body post: OfferPost
     ): RemoteResult<Unit>
 
     @POST("/auth/users/login")
