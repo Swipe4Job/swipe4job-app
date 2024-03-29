@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,16 +34,31 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRangeList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypesList
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferViewModel
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun CompanyPostOfferPage3(navController: NavController) {
+fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiService) {
     var salaryRangeText = stringResource(id = R.string.label_salaryRange)
     var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
-    var salaryRangeOptions = stringArrayResource(R.array.salary_range_array).toList()
+    var salaryRangeResourceList = stringArrayResource(R.array.salary_range_array).toList()
+
+    // Variable per desar l'ítem seleccionat del dropdown
+    var selectedSalaryRangeItemList by remember { mutableStateOf(salaryRangeResourceList[0]) }
+
+    var selectedSalaryRangeIndex = salaryRangeResourceList.indexOf(selectedSalaryRangeItemList)
+
+    val scope = rememberCoroutineScope()
 
     LazyColumn(
         modifier = Modifier
@@ -79,13 +95,14 @@ fun CompanyPostOfferPage3(navController: NavController) {
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Salary range dropdown
                     CustomDropdown(
                         placeholder = selectedSalaryRangeItem,
-                        items = salaryRangeOptions
-                    ) {
-                        selectedSalaryRangeItem = it
+                        items = salaryRangeResourceList
+                    ) { selectedItem ->
+                        selectedSalaryRangeItem = selectedItem
+                        selectedSalaryRangeIndex = salaryRangeResourceList.indexOf(selectedItem)
                     }
+
 
                     Text(
                         stringResource(id = R.string.grossAnnualSalary_text),
@@ -104,10 +121,10 @@ fun CompanyPostOfferPage3(navController: NavController) {
                     )
 
                     // Text field for the working hours
-                    var workingHours by remember { mutableStateOf("") }
+                    var workingHours by remember { mutableStateOf(mutableStateOf("")) }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(workingHours),
+                        descriptionState = workingHours,
                         maxCharacters = 500,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
@@ -126,10 +143,10 @@ fun CompanyPostOfferPage3(navController: NavController) {
                     )
 
                     // Text field for the department organization and relationships
-                    var departmentOrganisation by remember { mutableStateOf("") }
+                    var departmentOrganisation by remember { mutableStateOf(mutableStateOf("")) }
 
                     CustomTextFieldMaxChar(
-                        descriptionState = mutableStateOf(departmentOrganisation),
+                        descriptionState = departmentOrganisation,
                         maxCharacters = 1000,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done,
@@ -160,7 +177,36 @@ fun CompanyPostOfferPage3(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-                                    navController.navigate("offersList")
+//                                    println("Índex seleccionat: " + SalaryRangeList.salaryRange[selectedSalaryRangeIndex])
+                                    val offerViewModel = OfferViewModel.instance
+
+                                    offerViewModel.salaryRange = SalaryRangeList.salaryRange[selectedSalaryRangeIndex]
+                                    offerViewModel.workingHours = workingHours.value
+                                    offerViewModel.departmentOrganisation = departmentOrganisation.value
+
+                                    scope.launch {
+                                        val offerPost = OfferPost(
+                                            companyName = offerViewModel.companyName,
+                                            contractType = offerViewModel.contractType,
+                                            departmentOrganisation = offerViewModel.departmentOrganisation,
+                                            description = offerViewModel.description,
+                                            jobType = offerViewModel.jobType,
+                                            publicationDate = offerViewModel.publicationDate,
+                                            recruiterId = offerViewModel.recruiterId,
+                                            requirements = offerViewModel.requirements,
+                                            responsibilities = offerViewModel.responsibilities,
+                                            salaryRange = offerViewModel.salaryRange,
+                                            skills = offerViewModel.skills,
+                                            title = offerViewModel.title,
+                                            workingDay = offerViewModel.workingDay,
+                                            workingHours = offerViewModel.workingHours
+                                        )
+
+                                        println(offerPost)
+
+                                        userApiService?.addOffer(offerPost)
+                                        navController.navigate("offersList")
+                                    }
                                 },
                                 text = stringResource(id = R.string.button_finish_text),
                                 modifier = Modifier.weight(1f)
@@ -173,10 +219,10 @@ fun CompanyPostOfferPage3(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun CustomCompanyPostOfferPage3Preview() {
-    AppTheme {
-        CompanyPostOfferPage3(rememberNavController())
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun CustomCompanyPostOfferPage3Preview() {
+//    AppTheme {
+//        CompanyPostOfferPage3(rememberNavController())
+//    }
+//}
