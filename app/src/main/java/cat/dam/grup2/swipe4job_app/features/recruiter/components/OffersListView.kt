@@ -2,6 +2,7 @@ package cat.dam.grup2.swipe4job_app.features.recruiter.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,10 +29,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.dam.grup2.swipe4job_app.R
@@ -42,6 +46,7 @@ import java.util.Locale
 @Composable
 fun OffersListView(
     offerList: List<JobOfferInformation>,
+    onSearchClick: () -> Unit,
     onViewClick: (offer: JobOfferInformation) -> Unit,
     onEditClick: (offer: JobOfferInformation) -> Unit,
     onDeleteClick: (offer: JobOfferInformation) -> Unit
@@ -95,56 +100,75 @@ fun OffersListView(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp),
-                        horizontalArrangement = Arrangement.End
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(
-                            onClick = { onViewClick(offer) },
-                            modifier = Modifier
-                                .background(
-                                    color = Color.Transparent,
-                                    shape = RoundedCornerShape(50)
+                        Box(modifier = Modifier.weight(1f)) {
+                            TextButton(
+                                onClick = { onSearchClick() }
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.searchCandidates_text),
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontWeight = FontWeight.Bold,
+                                    textDecoration = TextDecoration.Underline
                                 )
-                                .size(36.dp)
-                        )
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Visibility,
-                                contentDescription = stringResource(id = R.string.visibility_icon_description)
-                            )
+                            }
                         }
-                        IconButton(
-                            onClick = { onEditClick(offer) },
-                            modifier = Modifier
-                                .background(
-                                    color = Color.Transparent,
-                                    shape = RoundedCornerShape(50)
-                                )
-                                .size(36.dp)
-                        )
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Edit,
-                                contentDescription = stringResource(id = R.string.edit_icon_description)
+                        Row(
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            IconButton(
+                                onClick = { onViewClick(offer) },
+                                modifier = Modifier
+                                    .background(
+                                        color = Color.Transparent,
+                                        shape = RoundedCornerShape(50)
+                                    )
+                                    .size(36.dp)
                             )
-                        }
-                        IconButton(
-                            onClick = {
-                                onDeleteClick(offer)
-                                openDeleteDialog.value = true
-                            },
-                            modifier = Modifier
-                                .background(
-                                    color = Color.Transparent,
-                                    shape = RoundedCornerShape(50)
+                            {
+                                Icon(
+                                    imageVector = Icons.Default.Visibility,
+                                    contentDescription = stringResource(id = R.string.visibility_icon_description)
                                 )
-                                .size(36.dp)
-                                .padding(start = 8.dp)
-                        )
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(id = R.string.delete_icon_description)
+                            }
+                            IconButton(
+                                onClick = { onEditClick(offer) },
+                                modifier = Modifier
+                                    .background(
+                                        color = Color.Transparent,
+                                        shape = RoundedCornerShape(50)
+                                    )
+                                    .size(36.dp)
+                                    .padding(start = 8.dp)
                             )
+                            {
+                                Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = stringResource(id = R.string.edit_icon_description)
+                                )
+                            }
+                            IconButton(
+                                onClick = {
+                                    onDeleteClick(offer)
+                                    openDeleteDialog.value = true
+                                },
+                                modifier = Modifier
+                                    .background(
+                                        color = Color.Transparent,
+                                        shape = RoundedCornerShape(50)
+                                    )
+                                    .size(36.dp)
+                                    .padding(start = 8.dp)
+                            )
+                            {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = stringResource(id = R.string.delete_icon_description)
+                                )
+                            }
                         }
                         CustomAlertDialog(
                             openDialog = openDeleteDialog,
@@ -191,7 +215,10 @@ fun CustomAlertDialog(
                                 .height(56.dp)
                                 .width(100.dp) // Adjust the width as needed
                         ) {
-                            Text(text = stringResource(R.string.deleteJobOfferDialog_AcceptText), fontSize = 16.sp) // Adjust the font size as needed
+                            Text(
+                                text = stringResource(R.string.deleteJobOfferDialog_AcceptText),
+                                fontSize = 16.sp
+                            ) // Adjust the font size as needed
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                         TextButton(
@@ -204,7 +231,10 @@ fun CustomAlertDialog(
                                 .height(56.dp)
                                 .width(100.dp) // Adjust the width as needed
                         ) {
-                            Text(text = stringResource(R.string.deleteJobOfferDialog_DeclineText), fontSize = 16.sp) // Adjust the font size as needed
+                            Text(
+                                text = stringResource(R.string.deleteJobOfferDialog_DeclineText),
+                                fontSize = 16.sp
+                            ) // Adjust the font size as needed
                         }
                     }
                 }

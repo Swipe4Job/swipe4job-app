@@ -325,4 +325,5 @@
     <string name="deleteStudy_text">Delete study</string>
     <string name="studyToDelete_text">Study to delete</string>
     <string name="editStudy_text">Edit study</string>
+    <string name="searchCandidates_text">Search candidates for this offer</string>
 </resources>

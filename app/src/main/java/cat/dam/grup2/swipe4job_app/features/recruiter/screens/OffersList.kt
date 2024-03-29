@@ -171,6 +171,9 @@ fun OffersList(navController: NavController) {
         ) {
             OffersListView(
                 offerList = offerList,
+                onSearchClick = {
+                    navController.navigate("candidateSimpleDetails")
+                },
                 onViewClick = { offer ->
                     itemToView = offer
                     navController.navigate("jobOfferRecruiterView")
