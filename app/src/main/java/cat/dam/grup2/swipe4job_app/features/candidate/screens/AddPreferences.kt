@@ -14,14 +14,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +41,7 @@ import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
@@ -49,16 +53,35 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 @Composable
 fun AddPreferences(navController: NavController) {
 
-    // create candidate prefences object
-//    CandidateProfileViewModel.getInstance().preferences = createdPreferencesObject
+    var addPreferencesViewModel = AddPreferencesViewModel.instance
+    var isEditing = addPreferencesViewModel.editingPreference != null
 
-//    lateinit var preferences: CandidatePreferences
-    var selectedSalaryRange by remember { mutableStateOf<SalaryRange?>(null) }
-    var selectedJobType by remember { mutableStateOf<JobTypeOptions?>(null) }
-    var selectedWorkingDayType by remember { mutableStateOf<WorkingDayTypeOptions?>(null) }
-    var selectedContractType by remember { mutableStateOf<ContractTypeOptions?>(null) }
+    var selectedSalaryRange = remember {
+        mutableStateOf(
+            if (isEditing) addPreferencesViewModel.editingPreference!!.salaryRange
+            else SalaryRange.Between(25_000.0, 35_000.0)
+        )
+    }
+    var selectedJobType = remember {
+        mutableStateOf(
+            if (isEditing) addPreferencesViewModel.editingPreference!!.jobTypeOptions
+            else JobTypeOptions.Hybrid
+        )
+    }
+    var selectedWorkingDayType = remember {
+        mutableStateOf(
+            if (isEditing) addPreferencesViewModel.editingPreference!!.workingDayType
+            else WorkingDayTypeOptions.Flexible
+        )
+    }
+    var selectedContractType = remember {
+        mutableStateOf(
+            if (isEditing) addPreferencesViewModel.editingPreference!!.contractTypeOptions
+            else ContractTypeOptions.Freelance
+        )
+    }
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
-    var preferences = candidateProfileViewModel.preferences
+    var preferencesList = candidateProfileViewModel.preferences
 
     Scaffold(
         topBar = {
@@ -80,7 +103,9 @@ fun AddPreferences(navController: NavController) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.addPreferences_text),
+                            text =
+                            if (isEditing) stringResource(id = R.string.editPreferences_text)
+                            else stringResource(id = R.string.addPreferences_text),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(start = 8.dp)
@@ -92,12 +117,21 @@ fun AddPreferences(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    preferences.value = CandidatePreferences(
-                                        selectedSalaryRange!!,
-                                        selectedWorkingDayType!!,
-                                        selectedJobType!!,
-                                        selectedContractType!!
-                                    )
+                                    var preference =
+                                        CandidatePreferences(
+                                            selectedSalaryRange.value!!,
+                                            selectedWorkingDayType.value!!,
+                                            selectedJobType.value!!,
+                                            selectedContractType.value!!
+                                        )
+                                    if (isEditing) {
+                                        preferencesList.set(
+                                            addPreferencesViewModel.editingIndex,
+                                            preference
+                                        )
+                                    } else {
+                                        preferencesList.add(preference)
+                                    }
                                     /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
@@ -120,10 +154,12 @@ fun AddPreferences(navController: NavController) {
                     .weight(1f)
             ) {
                 AddPreferencesContent(
-                    onSalaryRangeChange = { selectedSalaryRange = it },
-                    onJobTypeChange = { selectedJobType = it },
-                    onWorkingDayTypeChange = { selectedWorkingDayType = it },
-                    onContractTypeChange = { selectedContractType = it }
+                    salaryRange = selectedSalaryRange,
+                    jobType = selectedJobType,
+                    workingDayType = selectedWorkingDayType,
+                    contractType = selectedContractType,
+                    preferencesList = preferencesList,
+                    navController = navController
                 )
             }
         }
@@ -133,28 +169,42 @@ fun AddPreferences(navController: NavController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPreferencesContent(
-    onSalaryRangeChange: (SalaryRange) -> Unit,
-    onJobTypeChange: (JobTypeOptions) -> Unit,
-    onWorkingDayTypeChange: (WorkingDayTypeOptions) -> Unit,
-    onContractTypeChange: (ContractTypeOptions) -> Unit
+    salaryRange: MutableState<SalaryRange>,
+    jobType: MutableState<JobTypeOptions>,
+    workingDayType: MutableState<WorkingDayTypeOptions>,
+    contractType: MutableState<ContractTypeOptions>,
+    preferencesList: MutableList<CandidatePreferences>,
+    navController: NavController
 ) {
-    var salaryRangeText = stringResource(id = R.string.salaryRange_text)
+    var addPreferencesViewModel = AddPreferencesViewModel.instance
+    var isEditing = addPreferencesViewModel.editingPreference != null
+    val context = LocalContext.current
+
+    var salaryRangeText =
+        if (salaryRange.value == null) stringResource(id = R.string.salaryRange_text)
+        else salaryRange.value.toStringResource(context)
     var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
     var salaryRangeOptions = stringArrayResource(id = R.array.salary_range_array).toList()
 
-    var jobTypeText = stringResource(id = R.string.jobType_text)
+    var jobTypeText =
+        if (jobType.value == null) stringResource(id = R.string.jobType_text)
+        else jobType.value.toStringResource(context)
     var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
     var jobTypeOptions = stringArrayResource(id = R.array.job_type_array).toList()
 
-    var workingDayTypeText = stringResource(id = R.string.workingDayType_text)
+    var workingDayTypeText =
+        if (workingDayType.value == null) stringResource(id = R.string.workingDayType_text)
+        else workingDayType.value.toStringResource(context)
     var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
     var workingDayTypeOptions = stringArrayResource(id = R.array.working_day_type_array).toList()
 
-    var contractTypeText = stringResource(id = R.string.contractType_text)
+    var contractTypeText =
+        if (workingDayType.value == null) stringResource(id = R.string.contractType_text)
+        else workingDayType.value.toStringResource(context)
     var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
     var contractTypeOptions = stringArrayResource(id = R.array.contract_type_array).toList()
 
-    val context = LocalContext.current
+    val showDeleteConfirmationDialog = remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -166,7 +216,7 @@ fun AddPreferencesContent(
                 placeholder = selectedSalaryRangeItem,
                 items = salaryRangeOptions
             ) {
-                onSalaryRangeChange(toSalaryRange(context, text = it))
+                salaryRange.value = toSalaryRange(context, it)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -175,7 +225,7 @@ fun AddPreferencesContent(
                 placeholder = selectedJobTypeItem,
                 items = jobTypeOptions
             ) {
-                onJobTypeChange(toJobType(context, text = it))
+                jobType.value = toJobType(context, it)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -184,7 +234,7 @@ fun AddPreferencesContent(
                 placeholder = selectedWorkingDayTypeItem,
                 items = workingDayTypeOptions
             ) {
-                onWorkingDayTypeChange(toWorkingDayType(context, it))
+                workingDayType.value = toWorkingDayType(context, it)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -193,9 +243,60 @@ fun AddPreferencesContent(
                 placeholder = selectedContractTypeItem,
                 items = contractTypeOptions
             ) {
-                onContractTypeChange(toContractType(context, it))
+                contractType.value = toContractType(context, it)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (isEditing) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.deletePreference_text),
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .clickable {
+                                showDeleteConfirmationDialog.value = true
+                            }
+                    )
+                }
             }
         }
+    }
+    if (showDeleteConfirmationDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                showDeleteConfirmationDialog.value = false
+            },
+            text = {
+                val text = stringResource(id = R.string.preferenceToDelete_text)
+                Text(text = "$text ${salaryRange.value}")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        preferencesList.removeAt(addPreferencesViewModel.editingIndex)
+                        showDeleteConfirmationDialog.value = false
+                        navController.popBackStack()
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.delete_text))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteConfirmationDialog.value = false
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.cancel_text))
+                }
+            }
+        )
     }
 }
 
@@ -268,7 +369,7 @@ fun toWorkingDayType(context: Context, text: String): WorkingDayTypeOptions {
 fun toContractType(context: Context, text: String): ContractTypeOptions {
     val stringResourceList =
         context.resources.getStringArray(R.array.contract_type_array)
-        .toList()
+            .toList()
     return when (text) {
         stringResourceList[0] -> ContractTypeOptions.Indefinite
 

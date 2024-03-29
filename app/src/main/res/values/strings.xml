@@ -327,4 +327,7 @@
     <string name="editStudy_text">Edit study</string>
     <string name="searchCandidates_text">Search candidates for this offer</string>
     <string name="noJobOffersPosted_text">You don\'t have any job offer posted yet</string>
+    <string name="editPreferences_text">Edit preferences</string>
+    <string name="deletePreference_text">Delete preference</string>
+    <string name="preferenceToDelete_text">Preference to delete</string>
 </resources>

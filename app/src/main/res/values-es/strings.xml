@@ -327,4 +327,7 @@
     <string name="editStudy_text">Editar estudio</string>
     <string name="searchCandidates_text">Buscar candidatos/as para esta oferta</string>
     <string name="noJobOffersPosted_text">Aún no tienes ninguna oferta de trabajo publicada</string>
+    <string name="editPreferences_text">Editar preferencias</string>
+    <string name="deletePreference_text">Eliminar preferencia</string>
+    <string name="preferenceToDelete_text">Preferencia a eliminar</string>
 </resources>
