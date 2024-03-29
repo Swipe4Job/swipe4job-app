@@ -325,4 +325,7 @@
     <string name="deleteStudy_text">Delete study</string>
     <string name="studyToDelete_text">Study to delete</string>
     <string name="editStudy_text">Edit study</string>
+    <string name="editPreferences_text">Edit preferences</string>
+    <string name="deletePreference_text">Delete preference</string>
+    <string name="preferenceToDelete_text">Preference to delete</string>
 </resources>

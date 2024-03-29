@@ -62,6 +62,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddLanguageViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
@@ -74,7 +75,7 @@ fun CandidateCV(navController: NavController) {
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
-    val preferences = candidateProfileViewModel.preferences
+    val preferencesList = candidateProfileViewModel.preferences
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -115,7 +116,7 @@ fun CandidateCV(navController: NavController) {
                 Studies(navController, studiesList)
                 SoftSkills(navController, softSkillsList, chipItems)
                 Languages(navController, languagesList)
-                Preferences(navController, preferences.value)
+                Preferences(navController, preferencesList)
             }
         }
     }
@@ -388,10 +389,16 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
 }
 
 @Composable
-fun Preferences(navController: NavController, preferences: CandidatePreferences?) {
+fun Preferences(navController: NavController, preferences: MutableList<CandidatePreferences>) {
     SingleField(
         title = R.string.candidate_preferences_title,
+        onClick = {
+            AddPreferencesViewModel.instance.editingPreference
+            AddPreferencesViewModel.instance.editingIndex
+            navController.navigate("addPreferences")
+        },
         onAddClick = {
+            AddPreferencesViewModel.instance.editingPreference = null
             navController.navigate("addPreferences")
         },
     ) {
@@ -399,37 +406,37 @@ fun Preferences(navController: NavController, preferences: CandidatePreferences?
             Text(stringResource(id = R.string.emptyPreferences_text))
             return@SingleField
         }
-        Text(
-            text = stringResource(id = R.string.salaryRange_text),
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-        )
-        Text(
-            text = "${preferences.salaryRange.toStringResource(LocalContext.current)}"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(id = R.string.jobType_text),
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-        )
-        Text(
-            text = "${preferences.jobTypeOptions.toStringResource(LocalContext.current)}"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(id = R.string.workingDayType_text),
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-        )
-        Text(
-            text = "${preferences.workingDayType.toStringResource(LocalContext.current)}"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(id = R.string.contractType_text),
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-        )
-        Text(
-            text = "${preferences.contractTypeOptions.toStringResource(LocalContext.current)}"
-        )
+//        Text(
+//            text = stringResource(id = R.string.salaryRange_text),
+//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+//        )
+//        Text(
+//            text = "${preferences.salaryRange.toStringResource(LocalContext.current)}"
+//        )
+//        Spacer(modifier = Modifier.height(8.dp))
+//        Text(
+//            text = stringResource(id = R.string.jobType_text),
+//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+//        )
+//        Text(
+//            text = "${preferences.jobTypeOptions.toStringResource(LocalContext.current)}"
+//        )
+//        Spacer(modifier = Modifier.height(8.dp))
+//        Text(
+//            text = stringResource(id = R.string.workingDayType_text),
+//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+//        )
+//        Text(
+//            text = "${preferences.workingDayType.toStringResource(LocalContext.current)}"
+//        )
+//        Spacer(modifier = Modifier.height(8.dp))
+//        Text(
+//            text = stringResource(id = R.string.contractType_text),
+//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+//        )
+//        Text(
+//            text = "${preferences.contractTypeOptions.toStringResource(LocalContext.current)}"
+//        )
     }
 }
 

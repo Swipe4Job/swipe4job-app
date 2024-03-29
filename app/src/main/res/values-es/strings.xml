@@ -325,4 +325,7 @@
     <string name="deleteStudy_text">Eliminar estudio</string>
     <string name="studyToDelete_text">Estudio a eliminar</string>
     <string name="editStudy_text">Editar estudio</string>
+    <string name="editPreferences_text">Editar preferencias</string>
+    <string name="deletePreference_text">Eliminar preferencia</string>
+    <string name="preferenceToDelete_text">Preferencia a eliminar</string>
 </resources>
