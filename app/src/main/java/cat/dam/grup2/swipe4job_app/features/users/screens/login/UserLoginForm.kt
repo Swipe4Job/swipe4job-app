@@ -173,9 +173,8 @@ fun UserLoginForm(navController: NavController, userApiService: UserApiService) 
                             isLoading =
                                 false // Un cop finalitzada la crida, establim la flag a false
                             // Checking the user role
-                            println("navigate to another route")
                             if (userData.role == "RECRUITER") {
-                                navController.navigate("candidateSimpleDetails")
+                                navController.navigate("offersList")
                             } else if (userData.role == "CANDIDATE") {
                                 navController.navigate("jobOfferSimpleDetails")
                             }

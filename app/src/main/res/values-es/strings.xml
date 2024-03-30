@@ -325,4 +325,5 @@
     <string name="deleteStudy_text">Eliminar estudio</string>
     <string name="studyToDelete_text">Estudio a eliminar</string>
     <string name="editStudy_text">Editar estudio</string>
+    <string name="searchCandidates_text">Buscar candidatos/as para esta oferta</string>
 </resources>
