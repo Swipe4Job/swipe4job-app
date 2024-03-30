@@ -11,20 +11,20 @@ import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserDat
 
 class OfferViewModel : ViewModel() {
     var offerPost by mutableStateOf<OfferPost?>(null)
-    var companyName by mutableStateOf<String>("")
-    var contractType by mutableStateOf<String>("")
-    var departmentOrganisation by mutableStateOf<String>("")
-    var description by mutableStateOf<String>("")
-    var jobType by mutableStateOf<String>("")
-    var recruiterId by mutableStateOf<String>("")
-    var requirements by mutableStateOf<String>("")
-    var responsibilities by mutableStateOf<String>("")
-    var salaryRange by mutableStateOf<String>("")
+    var companyName by mutableStateOf("")
+    var contractType by mutableStateOf("")
+    var departmentOrganisation by mutableStateOf("")
+    var description by mutableStateOf("")
+    var jobType by mutableStateOf("")
+    var recruiterId by mutableStateOf("")
+    var requirements by mutableStateOf("")
+    var responsibilities by mutableStateOf("")
+    var salaryRange by mutableStateOf("")
     var skills = mutableStateListOf<String>()
-    var location by mutableStateOf<String>("")
-    var title by mutableStateOf<String>("")
-    var workingDay by mutableStateOf<String>("")
-    var workingHours by mutableStateOf<String>("")
+    var location by mutableStateOf("")
+    var title by mutableStateOf("")
+    var workingDay by mutableStateOf("")
+    var workingHours by mutableStateOf("")
     companion object {
         val instance: OfferViewModel = OfferViewModel()
     }
@@ -35,5 +35,23 @@ class OfferViewModel : ViewModel() {
         }
 
         skills.add(skill)
+    }
+
+    fun clear() {
+        offerPost = null
+        companyName = ""
+        contractType = ""
+        departmentOrganisation = ""
+        description = ""
+        jobType = ""
+        recruiterId = ""
+        requirements = ""
+        responsibilities = ""
+        salaryRange = ""
+        skills.clear()
+        location = ""
+        title = ""
+        workingDay = ""
+        workingHours = ""
     }
 }

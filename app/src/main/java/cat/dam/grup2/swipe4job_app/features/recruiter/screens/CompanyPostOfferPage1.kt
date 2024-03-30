@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,37 +53,59 @@ import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 @Composable
 fun CompanyPostOfferPage1(navController: NavController) {
-    var jobTitle by remember { mutableStateOf("") }
-    var companyName by remember { mutableStateOf("") }
-    var location by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    var jobTitle by remember {
+        val value = OfferViewModel.instance.title
+        mutableStateOf(value)
+    }
+    var companyName by remember {
+        val value = OfferViewModel.instance.companyName
+        mutableStateOf(value)
+    }
+    var location by remember {
+        val value = OfferViewModel.instance.companyName
+        mutableStateOf(value)
+    }
 
-    val switchIsOn = remember { mutableStateOf(false) }
+    val jobTypeText = stringResource(id = R.string.label_jobType)
+    val contractTypeText = stringResource(id = R.string.label_contractType)
+    val workingDayTypeText = stringResource(id = R.string.label_workingDayType)
 
-    var jobTypeText = stringResource(id = R.string.label_jobType)
-    var contractTypeText = stringResource(id = R.string.label_contractType)
-    var workingDayTypeText = stringResource(id = R.string.label_workingDayType)
+    var selectedJobTypeItem by remember {
+        if (OfferViewModel.instance.jobType == "") {
+            mutableStateOf(jobTypeText)
+        } else {
+            mutableStateOf(JobTypesList.toResourceString(context, OfferViewModel.instance.jobType))
+        }
+    }
+    var selectedContractTypeItem by remember {
+        if (OfferViewModel.instance.contractType == "") {
+            mutableStateOf(contractTypeText)
+        } else {
+            mutableStateOf(
+                ContractTypesList.toResourceString(
+                    context,
+                    OfferViewModel.instance.contractType
+                )
+            )
+        }
+    }
+    var selectedWorkingDayTypeItem by remember {
+        if (OfferViewModel.instance.contractType == "") {
+            mutableStateOf(workingDayTypeText)
+        } else {
+            mutableStateOf(
+                WorkingDayTypesList.toResourceString(
+                    context,
+                    OfferViewModel.instance.workingDay
+                )
+            )
+        }
+    }
 
-    var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
-    var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
-    var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
-
-    var jobTypeOptions = stringArrayResource(R.array.job_type_array).toList()
-    var contractTypeOptions = stringArrayResource(R.array.contract_type_array).toList()
-    var workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
-
-    // Aquesta és la llista de recursos de jobType
-    val jobTypeResourceList = stringArrayResource(id = R.array.job_type_array).toList()
-    val contractTypeResourceList = stringArrayResource(id = R.array.contract_type_array).toList()
-    val workingDayTypeResourceList = stringArrayResource(id = R.array.working_day_type_array).toList()
-
-    // Variable per desar l'ítem seleccionat del dropdown
-    var selectedJobTypeItemList by remember { mutableStateOf(jobTypeResourceList[0]) }
-    var selectedContractTypeItemList by remember { mutableStateOf(contractTypeResourceList[0]) }
-    var selectedWorkingDayTypeItemList by remember { mutableStateOf(workingDayTypeResourceList[0]) }
-
-    var selectedJobTypeIndex = jobTypeResourceList.indexOf(selectedJobTypeItemList)
-    var selectedContractTypeIndex = contractTypeResourceList.indexOf(selectedContractTypeItemList)
-    var selectedWorkingDayTypeIndex = workingDayTypeResourceList.indexOf(selectedWorkingDayTypeItemList)
+    val jobTypeOptions = stringArrayResource(R.array.job_type_array).toList()
+    val contractTypeOptions = stringArrayResource(R.array.contract_type_array).toList()
+    val workingDayTypeOptions = stringArrayResource(R.array.working_day_type_array).toList()
 
     LazyColumn(
         modifier = Modifier
@@ -131,7 +154,10 @@ fun CompanyPostOfferPage1(navController: NavController) {
                     // Job title TextField
                     CustomOutlinedTextField(
                         value = jobTitle,
-                        onValueChange = { jobTitle = it },
+                        onValueChange = {
+                            jobTitle = it
+                            OfferViewModel.instance.title = it
+                        },
                         label = stringResource(id = R.string.label_jobTitle),
                         leadingIcon = null,
                         iconContentDescription = null,
@@ -155,7 +181,10 @@ fun CompanyPostOfferPage1(navController: NavController) {
 
                     CustomOutlinedTextField(
                         value = companyName,
-                        onValueChange = { companyName = it },
+                        onValueChange = {
+                            companyName = it
+                            OfferViewModel.instance.companyName = it
+                        },
                         label = stringResource(id = R.string.label_companyName),
                         leadingIcon = null,
                         iconContentDescription = null,
@@ -194,7 +223,9 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         items = jobTypeOptions
                     ) { selectedItem ->
                         selectedJobTypeItem = selectedItem
-                        selectedJobTypeIndex = jobTypeResourceList.indexOf(selectedItem)
+                        OfferViewModel.instance.jobType = JobTypesList.fromResourceString(
+                            context, selectedItem
+                        )
                     }
 
 
@@ -211,7 +242,10 @@ fun CompanyPostOfferPage1(navController: NavController) {
                     // Location TextField
                     CustomOutlinedTextField(
                         value = location,
-                        onValueChange = { location = it },
+                        onValueChange = {
+                            location = it
+                            OfferViewModel.instance.location = it
+                        },
                         label = stringResource(id = R.string.label_location),
                         leadingIcon = null,
                         iconContentDescription = null,
@@ -237,7 +271,8 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         items = contractTypeOptions
                     ) { selectedItem ->
                         selectedContractTypeItem = selectedItem
-                        selectedContractTypeIndex = contractTypeResourceList.indexOf(selectedItem)
+                        OfferViewModel.instance.contractType =
+                            ContractTypesList.fromStringResource(context, selectedItem)
                     }
 
                     // Spacer
@@ -256,7 +291,8 @@ fun CompanyPostOfferPage1(navController: NavController) {
                         items = workingDayTypeOptions
                     ) { selectedItem ->
                         selectedWorkingDayTypeItem = selectedItem
-                        selectedWorkingDayTypeIndex = workingDayTypeResourceList.indexOf(selectedItem)
+                        OfferViewModel.instance.workingDay =
+                            WorkingDayTypesList.fromResourceString(context, selectedItem)
                     }
 
                     // Spacer
@@ -276,6 +312,7 @@ fun CompanyPostOfferPage1(navController: NavController) {
                             CustomButton(
                                 onClick = {
                                     navController.navigate("offersList")
+                                    OfferViewModel.instance.clear()
                                 },
                                 text = stringResource(id = R.string.button_cancel_text),
                                 modifier = Modifier.weight(1f)
@@ -283,18 +320,10 @@ fun CompanyPostOfferPage1(navController: NavController) {
 
                             CustomButton(
                                 onClick = {
-//                                    println("Índex seleccionat: " + JobTypesList.jobTypes[selectedJobTypeIndex])
-//                                    println("Índex seleccionat: " + ContractTypesList.contractTypes[selectedContractTypeIndex])
-//                                    println("Índex seleccionat: " + WorkingDayTypesList.workingDayTypes[selectedWorkingDayTypeIndex])
                                     val offerViewModel = OfferViewModel.instance
 
-                                    offerViewModel.title = jobTitle
-                                    offerViewModel.recruiterId = "d75267d3-9e04-48a9-a34a-e2e84d7f83bc"
-                                    offerViewModel.companyName = companyName
-                                    offerViewModel.location = location
-                                    offerViewModel.jobType = JobTypesList.jobTypes[selectedJobTypeIndex]
-                                    offerViewModel.contractType = ContractTypesList.contractTypes[selectedContractTypeIndex]
-                                    offerViewModel.workingDay = WorkingDayTypesList.workingDayTypes[selectedWorkingDayTypeIndex]
+                                    offerViewModel.recruiterId =
+                                        "d75267d3-9e04-48a9-a34a-e2e84d7f83bc"
 
                                     navController.navigate("companyPostOfferPage2")
                                 },
