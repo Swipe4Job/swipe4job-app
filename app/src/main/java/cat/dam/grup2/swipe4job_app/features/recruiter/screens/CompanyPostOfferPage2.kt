@@ -251,7 +251,7 @@ fun CompanyPostOfferPage2(navController: NavController) {
                                     offerViewModel.description = description.value
                                     offerViewModel.responsibilities = responsibilities.value
                                     offerViewModel.requirements = requirements.value
-                                    offerViewModel.skills = AddJobOfferViewModel.instance.softSkills
+                                    offerViewModel.skills = AddJobOfferViewModel.instance.softSkills.toList()
 
                                     navController.navigate("companyPostOfferPage3")
                                 },

@@ -153,18 +153,30 @@ fun CompanyPostOfferPage1(navController: NavController) {
 
                     // Company Checkbox
 
-                    // TODO: it functionality
-                    LabelledSwitch(
-                        checked = switchIsOn.value,
-                        label = stringResource(id = R.string.hideCompanyName_text),
-                        onCheckedChange = { switchIsOn.value = it },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colorScheme.primary,
-                            checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
-                            uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
-                            uncheckedTrackColor = MaterialTheme.colorScheme.secondaryContainer
+                    CustomOutlinedTextField(
+                        value = companyName,
+                        onValueChange = { companyName = it },
+                        label = stringResource(id = R.string.label_companyName),
+                        leadingIcon = null,
+                        iconContentDescription = null,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
                         )
                     )
+
+                    // TODO: it functionality
+//                    LabelledSwitch(
+//                        checked = switchIsOn.value,
+//                        label = stringResource(id = R.string.hideCompanyName_text),
+//                        onCheckedChange = { switchIsOn.value = it },
+//                        colors = SwitchDefaults.colors(
+//                            checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
+//                            checkedThumbColor = MaterialTheme.colorScheme.primary,
+//                            uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
+//                            uncheckedTrackColor = MaterialTheme.colorScheme.secondaryContainer
+//                        )
+//                    )
 
                     // Spacer
                     Spacer(modifier = Modifier.height(16.dp))
@@ -278,8 +290,8 @@ fun CompanyPostOfferPage1(navController: NavController) {
 
                                     offerViewModel.title = jobTitle
                                     offerViewModel.recruiterId = "d75267d3-9e04-48a9-a34a-e2e84d7f83bc"
-                                    offerViewModel.companyName = "Programadors_xd"
-                                    offerViewModel.publicationDate = "2024-03-27T00:00:00.000Z"
+                                    offerViewModel.companyName = companyName
+                                    offerViewModel.location = location
                                     offerViewModel.jobType = JobTypesList.jobTypes[selectedJobTypeIndex]
                                     offerViewModel.contractType = ContractTypesList.contractTypes[selectedContractTypeIndex]
                                     offerViewModel.workingDay = WorkingDayTypesList.workingDayTypes[selectedWorkingDayTypeIndex]

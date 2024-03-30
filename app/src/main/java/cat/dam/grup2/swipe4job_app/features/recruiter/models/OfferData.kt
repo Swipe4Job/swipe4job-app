@@ -7,12 +7,12 @@ data class OfferData(
     val departmentOrganisation: String,
     val description: String,
     val jobType: String,
-    val publicationDate: String,
     val recruiterId: String,
     val requirements: String,
     val responsibilities: String,
     val salaryRange: String,
     val skills: List<String>,
+    val location: String,
     val title: String,
     val workingDay: String,
     val workingHours: String

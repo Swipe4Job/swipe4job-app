@@ -52,12 +52,14 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
     var salaryRangeText = stringResource(id = R.string.label_salaryRange)
     var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
     var salaryRangeResourceList = stringArrayResource(R.array.salary_range_array).toList()
+    var softSkillResourceList = stringArrayResource(R.array.soft_skills_array).toList()
 
     // Variable per desar l'ítem seleccionat del dropdown
     var selectedSalaryRangeItemList by remember { mutableStateOf(salaryRangeResourceList[0]) }
+    var selecteSoftSkillItemList by remember { mutableStateOf(softSkillResourceList[0]) }
 
     var selectedSalaryRangeIndex = salaryRangeResourceList.indexOf(selectedSalaryRangeItemList)
-
+    var selectedSoftSkillIndex = softSkillResourceList.indexOf(selecteSoftSkillItemList)
     val scope = rememberCoroutineScope()
 
     LazyColumn(
@@ -190,12 +192,12 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                                             departmentOrganisation = offerViewModel.departmentOrganisation,
                                             description = offerViewModel.description,
                                             jobType = offerViewModel.jobType,
-                                            publicationDate = offerViewModel.publicationDate,
                                             recruiterId = offerViewModel.recruiterId,
                                             requirements = offerViewModel.requirements,
                                             responsibilities = offerViewModel.responsibilities,
                                             salaryRange = offerViewModel.salaryRange,
                                             skills = offerViewModel.skills,
+                                            location = offerViewModel.location,
                                             title = offerViewModel.title,
                                             workingDay = offerViewModel.workingDay,
                                             workingHours = offerViewModel.workingHours
@@ -203,7 +205,7 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
 
                                         println(offerPost)
 
-                                        userApiService?.addOffer(offerPost)
+                                        userApiService.addOffer(offerPost)
                                         navController.navigate("offersList")
                                     }
                                 },
