@@ -25,6 +25,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -112,8 +113,15 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     // Text field for the description
-                    var description by remember { mutableStateOf(mutableStateOf("")) }
+                    var description = remember {
+                        var value = OfferViewModel.instance.description
+                        mutableStateOf(value)
+                    }
 
+                    LaunchedEffect(description.value) {
+                        val offerViewModel = OfferViewModel.instance
+                        offerViewModel.description = description.value
+                    }
                     CustomTextFieldMaxChar(
                         descriptionState = description,
                         maxCharacters = 1000,
@@ -142,7 +150,15 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     // Text field for the responsabilities
-                    var responsibilities by remember { mutableStateOf(mutableStateOf("")) }
+                    var responsibilities = remember {
+                        var value = OfferViewModel.instance.responsibilities
+                        mutableStateOf(value)
+                    }
+
+                    LaunchedEffect(responsibilities.value) {
+                        val offerViewModel = OfferViewModel.instance
+                        offerViewModel.responsibilities = responsibilities.value
+                    }
 
                     CustomTextFieldMaxChar(
                         descriptionState = responsibilities,
@@ -165,7 +181,14 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     // Text field for the requirements
-                    var requirements by remember { mutableStateOf(mutableStateOf("")) }
+                    var requirements = remember {
+                        var value = OfferViewModel.instance.requirements
+                        mutableStateOf(value)
+                    }
+                    LaunchedEffect(requirements.value) {
+                        val offerViewModel = OfferViewModel.instance
+                        offerViewModel.requirements = requirements.value
+                    }
 
                     CustomTextFieldMaxChar(
                         descriptionState = requirements,

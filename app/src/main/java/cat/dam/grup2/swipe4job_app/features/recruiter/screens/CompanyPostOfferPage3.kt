@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -123,7 +124,15 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                     )
 
                     // Text field for the working hours
-                    var workingHours by remember { mutableStateOf(mutableStateOf("")) }
+                    var workingHours = remember {
+                        var value = OfferViewModel.instance.workingHours
+                        mutableStateOf(value)
+                    }
+
+                    LaunchedEffect(workingHours.value) {
+                        val offerViewModel = OfferViewModel.instance
+                        offerViewModel.workingHours = workingHours.value
+                    }
 
                     CustomTextFieldMaxChar(
                         descriptionState = workingHours,
@@ -145,7 +154,15 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                     )
 
                     // Text field for the department organization and relationships
-                    var departmentOrganisation by remember { mutableStateOf(mutableStateOf("")) }
+                    var departmentOrganisation = remember {
+                        var value = OfferViewModel.instance.departmentOrganisation
+                        mutableStateOf(value)
+                    }
+
+                    LaunchedEffect(departmentOrganisation.value) {
+                        val offerViewModel = OfferViewModel.instance
+                        offerViewModel.departmentOrganisation = departmentOrganisation.value
+                    }
 
                     CustomTextFieldMaxChar(
                         descriptionState = departmentOrganisation,
@@ -182,8 +199,6 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                                     val offerViewModel = OfferViewModel.instance
 
                                     offerViewModel.salaryRange = SalaryRangeList.salaryRange[selectedSalaryRangeIndex]
-                                    offerViewModel.workingHours = workingHours.value
-                                    offerViewModel.departmentOrganisation = departmentOrganisation.value
 
                                     scope.launch {
                                         val offerPost = OfferPost(
