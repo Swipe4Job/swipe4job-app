@@ -14,14 +14,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.InputChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SuggestionChip
@@ -40,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -48,13 +45,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypesList
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypesList
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypesList
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.AddSoftSkillContent
-import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
-import cat.dam.grup2.swipe4job_app.features.recruiter.state.AddJobOfferViewModel
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SoftSkillsList
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
 
@@ -63,6 +56,7 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomTextFieldMaxChar
 @Composable
 fun CompanyPostOfferPage2(navController: NavController) {
     var showAddSkillDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     AddSkillDialog(
         showDialogState = showAddSkillDialog,
@@ -70,7 +64,12 @@ fun CompanyPostOfferPage2(navController: NavController) {
             showAddSkillDialog.value = false
         },
         onSaveSkill = {
-            AddJobOfferViewModel.instance.addSoftSkill(it)
+            OfferViewModel.instance.addSoftSkill(
+                SoftSkillsList.fromResourceString(
+                    context,
+                    it
+                )
+            )
             showAddSkillDialog.value = false
         }
     )
@@ -188,11 +187,11 @@ fun CompanyPostOfferPage2(navController: NavController) {
                     )
 
                     FlowRow {
-                        AddJobOfferViewModel.instance.softSkills.forEachIndexed { index, skill ->
+                        OfferViewModel.instance.skills.forEachIndexed { index, skill ->
                             SuggestionChip(
                                 modifier = Modifier.padding(4.dp, 0.dp),
                                 onClick = {
-                                          AddJobOfferViewModel.instance.softSkills.removeAt(index)
+                                    OfferViewModel.instance.skills.removeAt(index)
                                 },
                                 label = { Text(skill) },
                             )
@@ -251,7 +250,6 @@ fun CompanyPostOfferPage2(navController: NavController) {
                                     offerViewModel.description = description.value
                                     offerViewModel.responsibilities = responsibilities.value
                                     offerViewModel.requirements = requirements.value
-                                    offerViewModel.skills = AddJobOfferViewModel.instance.softSkills.toList()
 
                                     navController.navigate("companyPostOfferPage3")
                                 },

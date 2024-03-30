@@ -1,6 +1,7 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.state
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -19,12 +20,20 @@ class OfferViewModel : ViewModel() {
     var requirements by mutableStateOf<String>("")
     var responsibilities by mutableStateOf<String>("")
     var salaryRange by mutableStateOf<String>("")
-    var skills by mutableStateOf<List<String>>(emptyList())
+    var skills = mutableStateListOf<String>()
     var location by mutableStateOf<String>("")
     var title by mutableStateOf<String>("")
     var workingDay by mutableStateOf<String>("")
     var workingHours by mutableStateOf<String>("")
     companion object {
         val instance: OfferViewModel = OfferViewModel()
+    }
+
+    fun addSoftSkill(skill: String) {
+        if (this.skills.contains(skill)) {
+            return
+        }
+
+        skills.add(skill)
     }
 }
