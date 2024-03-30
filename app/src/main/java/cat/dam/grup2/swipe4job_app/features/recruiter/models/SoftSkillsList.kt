@@ -44,6 +44,6 @@ object SoftSkillsList {
             throw CustomError("Cannot convert this skill '$skill'")
         }
 
-        return softSkills[desiredIndex]
+        return skillsArray[desiredIndex]
     }
 }
