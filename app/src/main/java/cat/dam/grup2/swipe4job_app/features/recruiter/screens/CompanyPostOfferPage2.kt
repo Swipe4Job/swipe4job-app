@@ -193,7 +193,7 @@ fun CompanyPostOfferPage2(navController: NavController) {
                                 onClick = {
                                     OfferViewModel.instance.skills.removeAt(index)
                                 },
-                                label = { Text(skill) },
+                                label = { Text(SoftSkillsList.toResourceString(LocalContext.current, skill)) },
                             )
                         }
                     }
