@@ -177,7 +177,6 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
 
                             CustomButton(
                                 onClick = {
-//                                    println("Índex seleccionat: " + SalaryRangeList.salaryRange[selectedSalaryRangeIndex])
                                     val offerViewModel = OfferViewModel.instance
 
                                     offerViewModel.salaryRange = SalaryRangeList.salaryRange[selectedSalaryRangeIndex]
