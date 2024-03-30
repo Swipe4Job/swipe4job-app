@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -50,17 +51,23 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiService) {
+    val context = LocalContext.current
     var salaryRangeText = stringResource(id = R.string.label_salaryRange)
-    var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
+    var selectedSalaryRangeItem by remember {
+        if (OfferViewModel.instance.salaryRange == "") {
+            mutableStateOf(salaryRangeText)
+        } else {
+            mutableStateOf(
+                SalaryRangeList.toResourceString(
+                    context,
+                    OfferViewModel.instance.salaryRange
+                )
+            )
+        }
+    }
     var salaryRangeResourceList = stringArrayResource(R.array.salary_range_array).toList()
-    var softSkillResourceList = stringArrayResource(R.array.soft_skills_array).toList()
 
     // Variable per desar l'ítem seleccionat del dropdown
-    var selectedSalaryRangeItemList by remember { mutableStateOf(salaryRangeResourceList[0]) }
-    var selecteSoftSkillItemList by remember { mutableStateOf(softSkillResourceList[0]) }
-
-    var selectedSalaryRangeIndex = salaryRangeResourceList.indexOf(selectedSalaryRangeItemList)
-    var selectedSoftSkillIndex = softSkillResourceList.indexOf(selecteSoftSkillItemList)
     val scope = rememberCoroutineScope()
 
     LazyColumn(
@@ -103,7 +110,8 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                         items = salaryRangeResourceList
                     ) { selectedItem ->
                         selectedSalaryRangeItem = selectedItem
-                        selectedSalaryRangeIndex = salaryRangeResourceList.indexOf(selectedItem)
+                        OfferViewModel.instance.salaryRange =
+                            SalaryRangeList.fromResourceString(context, selectedItem)
                     }
 
 
@@ -197,8 +205,6 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                             CustomButton(
                                 onClick = {
                                     val offerViewModel = OfferViewModel.instance
-
-                                    offerViewModel.salaryRange = SalaryRangeList.salaryRange[selectedSalaryRangeIndex]
 
                                     scope.launch {
                                         val offerPost = OfferPost(
