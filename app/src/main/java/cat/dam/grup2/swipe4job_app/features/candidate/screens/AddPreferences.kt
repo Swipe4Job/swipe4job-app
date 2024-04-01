@@ -198,7 +198,7 @@ fun AddPreferencesContent(
 
     var contractTypeText =
         if (!isEditing) stringResource(id = R.string.contractType_text)
-        else workingDayType.value.toStringResource(context)
+        else contractType.value.toStringResource(context)
     var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
     var contractTypeOptions = stringArrayResource(id = R.array.contract_type_array).toList()
 
@@ -272,13 +272,12 @@ fun AddPreferencesContent(
             },
             text = {
                 val text = stringResource(id = R.string.preferenceToDelete_text)
-                Text(text = "$text ${salaryRange.value}")
+                Text(text = text)
             },
             confirmButton = {
                 TextButton(
                     onClick = {
-//                        candidatePreferences.removeAt(addPreferencesViewModel.editingIndex)
-
+                        CandidateProfileViewModel.getInstance().preferences.value = null
                         showDeleteConfirmationDialog.value = false
                         navController.popBackStack()
                     }

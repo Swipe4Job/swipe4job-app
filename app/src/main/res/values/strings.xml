@@ -329,5 +329,6 @@
     <string name="noJobOffersPosted_text">You don\'t have any job offer posted yet</string>
     <string name="editPreferences_text">Edit preferences</string>
     <string name="deletePreference_text">Delete preference</string>
-    <string name="preferenceToDelete_text">Preference to delete</string>
+    <string name="preferenceToDelete_text">You are going to delete your preferences configuration</string>
+    <string name="edit_text">Edit</string>
 </resources>

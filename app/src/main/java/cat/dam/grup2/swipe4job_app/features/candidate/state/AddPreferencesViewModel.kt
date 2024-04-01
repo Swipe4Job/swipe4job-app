@@ -7,5 +7,5 @@ class AddPreferencesViewModel : ViewModel() {
     companion object { val instance = AddPreferencesViewModel() }
 
     var editingPreference: CandidatePreferences? = null
-    var editingIndex: Int = -1
+//    var editingIndex: Int = -1
 }

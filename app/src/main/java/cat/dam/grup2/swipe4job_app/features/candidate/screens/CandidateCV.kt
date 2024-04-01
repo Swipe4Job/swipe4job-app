@@ -396,13 +396,13 @@ fun Preferences(navController: NavController, preferences: MutableState<Candidat
 
     SingleField(
         title = R.string.candidate_preferences_title,
-        onClick = {
-            AddPreferencesViewModel.instance.editingPreference
-            AddPreferencesViewModel.instance.editingIndex
+        onEditClick = {
+            println("Editing preferences")
+            AddPreferencesViewModel.instance.editingPreference = CandidateProfileViewModel.getInstance().preferences.value
             navController.navigate("addPreferences")
         },
+        editing = preferences.value != null,
         onAddClick = {
-            AddPreferencesViewModel.instance.editingPreference = null
             navController.navigate("addPreferences")
         },
     ) {
@@ -449,9 +449,10 @@ fun Preferences(navController: NavController, preferences: MutableState<Candidat
 @Composable
 fun SingleField(
     title: Int,
-    onClick: () -> Unit = {},
+    onEditClick: () -> Unit = {},
     onAddClick: () -> Unit,
-    content: @Composable () -> Unit
+    editing: Boolean,
+    content: @Composable () -> Unit,
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
@@ -469,7 +470,13 @@ fun SingleField(
                 color = MaterialTheme.colorScheme.secondary
             )
             OutlinedButton(
-                onClick = onAddClick,
+                onClick = {
+                    if (editing) {
+                        onEditClick()
+                    } else {
+                        onAddClick()
+                    }
+                },
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(vertical = 8.dp, horizontal = 2.dp),
@@ -480,11 +487,15 @@ fun SingleField(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = stringResource(id = R.string.add_icon_description),
+                            imageVector = if (!editing) Icons.Default.Add else Icons.Default.Edit,
+                            contentDescription = if (!editing) stringResource(id = R.string.add_icon_description) else stringResource(
+                                id = R.string.edit_icon_description
+                            ),
                         )
                         Text(
-                            text = stringResource(id = R.string.add_text_button),
+                            text = if (!editing) stringResource(id = R.string.add_text_button) else stringResource(
+                                id = R.string.edit_text
+                            ),
                             color = MaterialTheme.colorScheme.secondary
                         )
                     }
@@ -510,7 +521,7 @@ fun <T> ListField(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,
-    onClick: (item: T, index: Int) -> Unit = {item, index -> },
+    onClick: (item: T, index: Int) -> Unit = { item, index -> },
     itemsList: List<T>,
     itemRenderer: @Composable (T) -> Unit
 ) {
