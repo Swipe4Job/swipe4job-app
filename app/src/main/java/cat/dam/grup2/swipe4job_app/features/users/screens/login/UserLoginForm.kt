@@ -1,6 +1,5 @@
 package cat.dam.grup2.swipe4job_app.features.users.screens.login
 
-import Criteria
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresExtension
@@ -27,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.sourceInformation
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -53,12 +51,6 @@ import kotlinx.coroutines.launch
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import filters.FilterGroup
-import filters.Filters
-import filters.filter.Filter
-import filters.filter.Operators
-import orders.Orders
-import retrofit2.HttpException
 
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)

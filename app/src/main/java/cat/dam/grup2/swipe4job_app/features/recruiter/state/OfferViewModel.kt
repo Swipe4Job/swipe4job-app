@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
-import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserData
 
 class OfferViewModel : ViewModel() {
     var offerPost by mutableStateOf<OfferPost?>(null)

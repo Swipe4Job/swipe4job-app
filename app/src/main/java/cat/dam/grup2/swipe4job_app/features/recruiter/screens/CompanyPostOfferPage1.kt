@@ -1,6 +1,5 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,19 +33,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypesList
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypesList
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypesList
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferViewModel
-import cat.dam.grup2.swipe4job_app.features.users.state.UserViewModel
-import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserData
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomDropdown
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomOutlinedTextField
-import cat.dam.grup2.swipe4job_app.shared.composables.LabelledSwitch
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 
 
