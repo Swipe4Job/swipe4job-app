@@ -146,7 +146,7 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                         descriptionState = workingHours,
                         maxCharacters = 500,
                         keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next,
+                            imeAction = ImeAction.Done,
                             keyboardType = KeyboardType.Text
                         )
                     )
