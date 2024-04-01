@@ -37,6 +37,7 @@ import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -75,7 +76,7 @@ fun CandidateCV(navController: NavController) {
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
-    val preferencesList = candidateProfileViewModel.preferences
+    val candidatePreferences = candidateProfileViewModel.preferences
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -116,7 +117,7 @@ fun CandidateCV(navController: NavController) {
                 Studies(navController, studiesList)
                 SoftSkills(navController, softSkillsList, chipItems)
                 Languages(navController, languagesList)
-                Preferences(navController, preferencesList)
+                Preferences(navController, candidatePreferences)
             }
         }
     }
@@ -389,7 +390,7 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
 }
 
 @Composable
-fun Preferences(navController: NavController, preferences: MutableList<CandidatePreferences>) {
+fun Preferences(navController: NavController, preferences: MutableState<CandidatePreferences?>) {
     SingleField(
         title = R.string.candidate_preferences_title,
         onClick = {
@@ -402,41 +403,42 @@ fun Preferences(navController: NavController, preferences: MutableList<Candidate
             navController.navigate("addPreferences")
         },
     ) {
-        if (preferences == null) {
+        if (preferences.value == null) {
             Text(stringResource(id = R.string.emptyPreferences_text))
             return@SingleField
         }
-//        Text(
-//            text = stringResource(id = R.string.salaryRange_text),
-//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-//        )
-//        Text(
-//            text = "${preferences.salaryRange.toStringResource(LocalContext.current)}"
-//        )
-//        Spacer(modifier = Modifier.height(8.dp))
-//        Text(
-//            text = stringResource(id = R.string.jobType_text),
-//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-//        )
-//        Text(
-//            text = "${preferences.jobTypeOptions.toStringResource(LocalContext.current)}"
-//        )
-//        Spacer(modifier = Modifier.height(8.dp))
-//        Text(
-//            text = stringResource(id = R.string.workingDayType_text),
-//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-//        )
-//        Text(
-//            text = "${preferences.workingDayType.toStringResource(LocalContext.current)}"
-//        )
-//        Spacer(modifier = Modifier.height(8.dp))
-//        Text(
-//            text = stringResource(id = R.string.contractType_text),
-//            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
-//        )
-//        Text(
-//            text = "${preferences.contractTypeOptions.toStringResource(LocalContext.current)}"
-//        )
+        val preferencesValue = preferences.value!!
+        Text(
+            text = stringResource(id = R.string.salaryRange_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = preferencesValue.salaryRange.toStringResource(LocalContext.current)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.jobType_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = preferencesValue.jobTypeOptions.toStringResource(LocalContext.current)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.workingDayType_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = preferencesValue.workingDayType.toStringResource(LocalContext.current)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.contractType_text),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+        )
+        Text(
+            text = preferencesValue.contractTypeOptions.toStringResource(LocalContext.current)
+        )
     }
 }
 

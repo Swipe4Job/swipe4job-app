@@ -81,7 +81,7 @@ fun AddPreferences(navController: NavController) {
         )
     }
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
-    var preferencesList = candidateProfileViewModel.preferences
+    var candidatePreferences = candidateProfileViewModel.preferences
 
     Scaffold(
         topBar = {
@@ -119,19 +119,15 @@ fun AddPreferences(navController: NavController) {
                                 .clickable {
                                     var preference =
                                         CandidatePreferences(
-                                            selectedSalaryRange.value!!,
-                                            selectedWorkingDayType.value!!,
-                                            selectedJobType.value!!,
-                                            selectedContractType.value!!
+                                            salaryRange = selectedSalaryRange.value,
+                                            workingDayType =  selectedWorkingDayType.value,
+                                            jobTypeOptions = selectedJobType.value,
+                                            contractTypeOptions = selectedContractType.value
                                         )
-                                    if (isEditing) {
-                                        preferencesList.set(
-                                            addPreferencesViewModel.editingIndex,
-                                            preference
-                                        )
-                                    } else {
-                                        preferencesList.add(preference)
-                                    }
+                                    println("Saved preference: $preference")
+
+                                    // TODO in case to save this into an API remember check if it is editing
+                                    candidatePreferences.value = preference
                                     /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
@@ -158,7 +154,7 @@ fun AddPreferences(navController: NavController) {
                     jobType = selectedJobType,
                     workingDayType = selectedWorkingDayType,
                     contractType = selectedContractType,
-                    preferencesList = preferencesList,
+                    candidatePreferences = candidatePreferences,
                     navController = navController
                 )
             }
@@ -173,7 +169,7 @@ fun AddPreferencesContent(
     jobType: MutableState<JobTypeOptions>,
     workingDayType: MutableState<WorkingDayTypeOptions>,
     contractType: MutableState<ContractTypeOptions>,
-    preferencesList: MutableList<CandidatePreferences>,
+    candidatePreferences: MutableState<CandidatePreferences?>,
     navController: NavController
 ) {
     var addPreferencesViewModel = AddPreferencesViewModel.instance
@@ -279,7 +275,7 @@ fun AddPreferencesContent(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        preferencesList.removeAt(addPreferencesViewModel.editingIndex)
+//                        candidatePreferences.removeAt(addPreferencesViewModel.editingIndex)
                         showDeleteConfirmationDialog.value = false
                         navController.popBackStack()
                     }

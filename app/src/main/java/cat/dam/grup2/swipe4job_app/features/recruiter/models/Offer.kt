@@ -116,7 +116,7 @@ enum class WorkingDayTypeOptions {
     PartTime,
     Flexible;
     fun toStringResource(context: Context): String {
-        val stringResourceList = context.resources.getStringArray(R.array.job_type_array).toList()
+        val stringResourceList = context.resources.getStringArray(R.array.working_day_type_array).toList()
         return when (this) {
             FullTime -> stringResourceList[0]
             PartTime -> stringResourceList[1]
