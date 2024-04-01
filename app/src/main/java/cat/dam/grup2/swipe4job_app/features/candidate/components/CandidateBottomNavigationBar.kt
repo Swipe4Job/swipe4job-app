@@ -2,6 +2,7 @@ package cat.dam.grup2.swipe4job_app.features.candidate.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -24,6 +29,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.shared.composables.BottomNavBarBadge
+
 
 @Composable
 fun CandidateBottomNavigationBar(
@@ -35,6 +42,11 @@ fun CandidateBottomNavigationBar(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
+    var showConnectionBadge by remember { mutableStateOf(false) }
+    var connectionBadgeCount by remember { mutableStateOf(0) }
+    var showNotificationBadge by remember { mutableStateOf(false) }
+    var notificationBadgeCount by remember { mutableStateOf(0) }
+
 
     BottomAppBar {
         Row(
@@ -47,6 +59,8 @@ fun CandidateBottomNavigationBar(
                 labelRes = R.string.search_text,
                 contentDescriptionRes = R.string.search_icon_description,
                 selected = selected == BottomNavigationItem.SEARCH,
+                showBadge = false,
+                badgeCount = 0,
                 onClick = {
                     searchClick()
                     navController.navigate("jobOfferSimpleDetails")
@@ -57,6 +71,8 @@ fun CandidateBottomNavigationBar(
                 labelRes = R.string.connections_text,
                 contentDescriptionRes = R.string.connections_icon_description,
                 selected = selected == BottomNavigationItem.CONNECTIONS,
+                showBadge = showConnectionBadge,
+                badgeCount = connectionBadgeCount,
                 onClick = {
                     connectionsClick()
                     navController.navigate("candidateConnections")
@@ -67,6 +83,8 @@ fun CandidateBottomNavigationBar(
                 labelRes = R.string.cv_text,
                 contentDescriptionRes = R.string.cv_icon_description,
                 selected = selected == BottomNavigationItem.CV,
+                showBadge = false,
+                badgeCount = 0,
                 onClick = {
                     cvClick()
                     navController.navigate("candidateCV")
@@ -77,6 +95,8 @@ fun CandidateBottomNavigationBar(
                 labelRes = R.string.notifications_text,
                 contentDescriptionRes = R.string.notifications_icon_description,
                 selected = selected == BottomNavigationItem.NOTIFICATIONS,
+                showBadge = showNotificationBadge,
+                badgeCount = notificationBadgeCount,
                 onClick = {
                     notificationsClick()
                     navController.navigate("candidateNotifications")
@@ -92,6 +112,8 @@ private fun CandidateBottomNavigationItem(
     @StringRes labelRes: Int,
     @StringRes contentDescriptionRes: Int,
     selected: Boolean,
+    showBadge: Boolean,
+    badgeCount: Int,
     onClick: () -> Unit
 ) {
     val label = stringResource(id = labelRes)
@@ -101,13 +123,22 @@ private fun CandidateBottomNavigationItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        IconButton(onClick = onClick) {
-            Icon(
-                imageVector = icon,
-                contentDescription = contentDescription,
-                tint = iconColor,
-                modifier = Modifier.size(25.dp)
-            )
+        Box {
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = contentDescription,
+                    tint = iconColor,
+                    modifier = Modifier.size(25.dp)
+                )
+            }
+            if (showBadge && badgeCount > 0) {
+                BottomNavBarBadge(
+                    content = badgeCount.toString(),
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                )
+            }
         }
         Text(
             text = label,
