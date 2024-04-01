@@ -55,11 +55,14 @@ fun AddLanguage(navController: NavController) {
     var isEditing = addLanguageViewModel.editingLanguage != null
 
     var selectedLanguage = remember {
-        mutableStateOf(if (isEditing) addLanguageViewModel.editingLanguage!!.language else "")
+        mutableStateOf(if (isEditing) addLanguageViewModel.editingLanguage!!.language
+        else ""
+        )
     }
     var selectedLevel = remember {
         mutableStateOf(
-            if (isEditing) addLanguageViewModel.editingLanguage!!.level else LanguageLevel.Intermediate
+            if (isEditing) addLanguageViewModel.editingLanguage!!.level
+            else LanguageLevel.Intermediate
         )
     }
     var academicTitle = remember {
@@ -163,20 +166,19 @@ fun AddLanguageContent(
 ) {
     var addLanguageViewModel = AddLanguageViewModel.instance
     var isEditing = addLanguageViewModel.editingLanguage != null
+    val context = LocalContext.current
+
     var languageText = language.value.ifEmpty { stringResource(id = R.string.language_text) }
     var selectedLanguageItem by remember { mutableStateOf(languageText) }
     var languageOptions = stringArrayResource(R.array.languages_array).toList()
 
     var levelText =
-        if (language.value.isEmpty()) stringResource(id = R.string.level_text) else level.value.toResourceString(
-            LocalContext.current
-        )
+        if (language.value.isEmpty()) stringResource(id = R.string.level_text)
+        else level.value.toResourceString(context)
     var selectedLevelItem by remember { mutableStateOf(levelText) }
     var levelOptions = stringArrayResource(R.array.languages_level_array).toList()
 
     val showDeleteConfirmationDialog = remember { mutableStateOf(false) }
-
-    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier

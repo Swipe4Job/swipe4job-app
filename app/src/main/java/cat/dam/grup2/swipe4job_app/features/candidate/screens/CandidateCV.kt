@@ -37,6 +37,7 @@ import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -62,6 +63,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddLanguageViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
@@ -74,7 +76,8 @@ fun CandidateCV(navController: NavController) {
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
-    val preferences = candidateProfileViewModel.preferences
+    val candidatePreferences = candidateProfileViewModel.preferences
+
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -115,7 +118,8 @@ fun CandidateCV(navController: NavController) {
                 Studies(navController, studiesList)
                 SoftSkills(navController, softSkillsList, chipItems)
                 Languages(navController, languagesList)
-                Preferences(navController, preferences.value)
+                Preferences(navController, candidatePreferences)
+
             }
         }
     }
@@ -388,23 +392,31 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
 }
 
 @Composable
-fun Preferences(navController: NavController, preferences: CandidatePreferences?) {
+fun Preferences(navController: NavController, preferences: MutableState<CandidatePreferences?>) {
+
     SingleField(
         title = R.string.candidate_preferences_title,
+        onEditClick = {
+            println("Editing preferences")
+            AddPreferencesViewModel.instance.editingPreference = CandidateProfileViewModel.getInstance().preferences.value
+            navController.navigate("addPreferences")
+        },
+        editing = preferences.value != null,
         onAddClick = {
             navController.navigate("addPreferences")
         },
     ) {
-        if (preferences == null) {
+        if (preferences.value == null) {
             Text(stringResource(id = R.string.emptyPreferences_text))
             return@SingleField
         }
+        val preferencesValue = preferences.value!!
         Text(
             text = stringResource(id = R.string.salaryRange_text),
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
         )
         Text(
-            text = "${preferences.salaryRange.toStringResource(LocalContext.current)}"
+            text = preferencesValue.salaryRange.toStringResource(LocalContext.current)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -412,7 +424,7 @@ fun Preferences(navController: NavController, preferences: CandidatePreferences?
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
         )
         Text(
-            text = "${preferences.jobTypeOptions.toStringResource(LocalContext.current)}"
+            text = preferencesValue.jobTypeOptions.toStringResource(LocalContext.current)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -420,7 +432,7 @@ fun Preferences(navController: NavController, preferences: CandidatePreferences?
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
         )
         Text(
-            text = "${preferences.workingDayType.toStringResource(LocalContext.current)}"
+            text = preferencesValue.workingDayType.toStringResource(LocalContext.current)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -428,17 +440,19 @@ fun Preferences(navController: NavController, preferences: CandidatePreferences?
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
         )
         Text(
-            text = "${preferences.contractTypeOptions.toStringResource(LocalContext.current)}"
+            text = preferencesValue.contractTypeOptions.toStringResource(LocalContext.current)
         )
+
     }
 }
 
 @Composable
 fun SingleField(
     title: Int,
-    onClick: () -> Unit = {},
+    onEditClick: () -> Unit = {},
     onAddClick: () -> Unit,
-    content: @Composable () -> Unit
+    editing: Boolean,
+    content: @Composable () -> Unit,
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
@@ -456,7 +470,13 @@ fun SingleField(
                 color = MaterialTheme.colorScheme.secondary
             )
             OutlinedButton(
-                onClick = onAddClick,
+                onClick = {
+                    if (editing) {
+                        onEditClick()
+                    } else {
+                        onAddClick()
+                    }
+                },
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(vertical = 8.dp, horizontal = 2.dp),
@@ -467,11 +487,15 @@ fun SingleField(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = stringResource(id = R.string.add_icon_description),
+                            imageVector = if (!editing) Icons.Default.Add else Icons.Default.Edit,
+                            contentDescription = if (!editing) stringResource(id = R.string.add_icon_description) else stringResource(
+                                id = R.string.edit_icon_description
+                            ),
                         )
                         Text(
-                            text = stringResource(id = R.string.add_text_button),
+                            text = if (!editing) stringResource(id = R.string.add_text_button) else stringResource(
+                                id = R.string.edit_text
+                            ),
                             color = MaterialTheme.colorScheme.secondary
                         )
                     }
@@ -497,7 +521,7 @@ fun <T> ListField(
     title: Int,
     emptyField: Int,
     onAddClick: () -> Unit,
-    onClick: (item: T, index: Int) -> Unit = {item, index -> },
+    onClick: (item: T, index: Int) -> Unit = { item, index -> },
     itemsList: List<T>,
     itemRenderer: @Composable (T) -> Unit
 ) {
