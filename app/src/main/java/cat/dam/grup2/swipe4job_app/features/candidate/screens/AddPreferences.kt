@@ -83,6 +83,7 @@ fun AddPreferences(navController: NavController) {
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
     var candidatePreferences = candidateProfileViewModel.preferences
 
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -128,6 +129,7 @@ fun AddPreferences(navController: NavController) {
 
                                     // TODO in case to save this into an API remember check if it is editing
                                     candidatePreferences.value = preference
+
                                     /* TODO: Save data in database*/
                                     navController.popBackStack()
                                 }
@@ -276,6 +278,7 @@ fun AddPreferencesContent(
                 TextButton(
                     onClick = {
 //                        candidatePreferences.removeAt(addPreferencesViewModel.editingIndex)
+
                         showDeleteConfirmationDialog.value = false
                         navController.popBackStack()
                     }

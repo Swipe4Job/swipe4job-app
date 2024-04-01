@@ -77,6 +77,7 @@ fun CandidateCV(navController: NavController) {
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
     val candidatePreferences = candidateProfileViewModel.preferences
+
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -118,6 +119,7 @@ fun CandidateCV(navController: NavController) {
                 SoftSkills(navController, softSkillsList, chipItems)
                 Languages(navController, languagesList)
                 Preferences(navController, candidatePreferences)
+
             }
         }
     }
@@ -391,6 +393,7 @@ fun Languages(navController: NavController, languagesList: List<LanguageSkill>) 
 
 @Composable
 fun Preferences(navController: NavController, preferences: MutableState<CandidatePreferences?>) {
+
     SingleField(
         title = R.string.candidate_preferences_title,
         onClick = {
@@ -439,6 +442,7 @@ fun Preferences(navController: NavController, preferences: MutableState<Candidat
         Text(
             text = preferencesValue.contractTypeOptions.toStringResource(LocalContext.current)
         )
+
     }
 }
 
