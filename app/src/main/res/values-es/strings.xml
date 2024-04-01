@@ -331,4 +331,5 @@
     <string name="deletePreference_text">Eliminar preferencia</string>
     <string name="preferenceToDelete_text">Vas a eliminar tus preferencias</string>
     <string name="edit_text">Editar</string>
+    <string name="editSoftskills_text">Editar habilidades blandas</string>
 </resources>

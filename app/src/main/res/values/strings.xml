@@ -331,4 +331,5 @@
     <string name="deletePreference_text">Delete preference</string>
     <string name="preferenceToDelete_text">You are going to delete your preferences configuration</string>
     <string name="edit_text">Edit</string>
+    <string name="editSoftskills_text">Edit soft skills</string>
 </resources>

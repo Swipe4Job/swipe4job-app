@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.PhotoLibrary
@@ -37,6 +38,7 @@ import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,6 +66,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddExperienceViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddLanguageViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.state.AddSoftskillViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 
@@ -72,7 +75,6 @@ import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileView
 fun CandidateCV(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.CV) }
     val candidateProfileViewModel = CandidateProfileViewModel.getInstance()
-    val softSkillsList = candidateProfileViewModel.softSkills
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
@@ -91,7 +93,6 @@ fun CandidateCV(navController: NavController) {
         languages = listOf(),
         jobExperience = listOf()
     )
-    val chipItems by remember { mutableStateOf(generateChips(softSkillsList)) }
 
     Scaffold(
         bottomBar = {
@@ -116,7 +117,7 @@ fun CandidateCV(navController: NavController) {
                     editClick = { openEditBottomSheet = !openEditBottomSheet })
                 Experience(navController, experiencesList)
                 Studies(navController, studiesList)
-                SoftSkills(navController, softSkillsList, chipItems)
+                SoftSkills(navController, candidateProfileViewModel.softSkills)
                 Languages(navController, languagesList)
                 Preferences(navController, candidatePreferences)
 
@@ -327,18 +328,23 @@ fun Studies(navController: NavController, studiesList: List<Study>) {
 fun SoftSkills(
     navController: NavController,
     softSkillsList: List<String>,
-    chipItems: List<ChipItem>
 ) {
     ListField(
         title = R.string.candidate_softskills_title,
         emptyField = R.string.emptySoftskills_text,
         onAddClick = {
+            val candidateProfileViewModel = CandidateProfileViewModel.getInstance()
+            val addSoftskillViewModel = AddSoftskillViewModel.instance
+
+            addSoftskillViewModel.editingSoftSkills.clear()
+            addSoftskillViewModel.editingSoftSkills.addAll(candidateProfileViewModel.softSkills)
             navController.navigate("addSoftSkill")
         },
         itemsList = softSkillsList,
     ) {
         SuggestionChip(
-            onClick = { /* Add your click action here */ },
+            onClick = {
+            },
             label = {
                 Text(
                     text = it,
@@ -353,11 +359,6 @@ fun SoftSkills(
         )
     }
 }
-
-fun generateChips(softSkillsList: List<String>): List<ChipItem> {
-    return softSkillsList.distinct().map { ChipItem(label = it, icon = Icons.Default.Done) }
-}
-
 
 @Composable
 fun Languages(navController: NavController, languagesList: List<LanguageSkill>) {
@@ -398,7 +399,8 @@ fun Preferences(navController: NavController, preferences: MutableState<Candidat
         title = R.string.candidate_preferences_title,
         onEditClick = {
             println("Editing preferences")
-            AddPreferencesViewModel.instance.editingPreference = CandidateProfileViewModel.getInstance().preferences.value
+            AddPreferencesViewModel.instance.editingPreference =
+                CandidateProfileViewModel.getInstance().preferences.value
             navController.navigate("addPreferences")
         },
         editing = preferences.value != null,

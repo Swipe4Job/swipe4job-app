@@ -23,4 +23,6 @@ class CandidateProfileViewModel : ViewModel() {
     var studies = mutableListOf<Study>()
     var experiences = mutableListOf<JobExperience>()
     var preferences = mutableStateOf<CandidatePreferences?>(null)
+
+
 }
