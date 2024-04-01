@@ -1,24 +1,26 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
@@ -40,7 +42,7 @@ private var itemToDelete by mutableStateOf<JobOfferInformation?>(null)
 private var itemToEdit by mutableStateOf<JobOfferInformation?>(null)
 
 // GENERATING FAKE DATA:
-fun generateFakeData(): List<JobOfferInformation> {
+fun generateFakeData(): MutableList<JobOfferInformation> {
     val jobTitles = listOf(
         "Software Engineer",
         "Data Analyst",
@@ -130,10 +132,6 @@ fun generateRandomDate(): Date {
 
 val offerList = generateFakeData()
 
-@OptIn(ExperimentalComposeUiApi::class)
-lateinit var keyboardController: SoftwareKeyboardController
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OffersList(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.OFFERS) }
@@ -164,27 +162,44 @@ fun OffersList(navController: NavController) {
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            OffersListView(
-                offerList = offerList,
-                onSearchClick = {
-                    navController.navigate("candidateSimpleDetails")
-                },
-                onViewClick = { offer ->
-                    itemToView = offer
-                    navController.navigate("jobOfferRecruiterView")
-                },
-                onEditClick = { offer ->
-                    itemToEdit = offer
-                },
-                onDeleteClick = { offer ->
-                    itemToDelete = offer
-                }
-            )
+        val content = if (offerList.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(id = R.string.noJobOffersPosted_text),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 32.dp)
+                )
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                OffersListView(
+                    offerList = offerList,
+                    onSearchClick = {
+                        navController.navigate("candidateSimpleDetails")
+                    },
+                    onViewClick = { offer ->
+                        itemToView = offer
+                        navController.navigate("jobOfferRecruiterView")
+                    },
+                    onEditClick = { offer ->
+                        itemToEdit = offer
+                    },
+                    onDeleteClick = { offer ->
+                        itemToDelete = offer
+                    }
+                )
+            }
         }
+        content
     }
 }

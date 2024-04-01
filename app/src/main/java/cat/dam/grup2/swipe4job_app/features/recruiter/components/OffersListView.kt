@@ -27,13 +27,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -45,13 +46,15 @@ import java.util.Locale
 
 @Composable
 fun OffersListView(
-    offerList: List<JobOfferInformation>,
+    offerList: MutableList<JobOfferInformation>,
     onSearchClick: () -> Unit,
     onViewClick: (offer: JobOfferInformation) -> Unit,
     onEditClick: (offer: JobOfferInformation) -> Unit,
     onDeleteClick: (offer: JobOfferInformation) -> Unit
 ) {
     val openDeleteDialog = remember { mutableStateOf(false) }
+    var selectedOfferToDelete: JobOfferInformation? by remember { mutableStateOf(null) }
+
     LazyColumn {
         items(offerList) { offer ->
             Card(
@@ -172,8 +175,11 @@ fun OffersListView(
                         }
                         CustomAlertDialog(
                             openDialog = openDeleteDialog,
-                            onAccept = { selectedDate ->
-                                // Implement delete action here if needed
+                            onAccept = {
+                                selectedOfferToDelete?.let { offerToDelete ->
+                                    offerList.remove(offerToDelete)
+                                    onDeleteClick(offerToDelete)
+                                }
                             },
                             onDecline = {
                                 // Do nothing or handle cancellation if needed
@@ -190,51 +196,50 @@ fun OffersListView(
 fun CustomAlertDialog(
     openDialog: MutableState<Boolean>,
     onAccept: (String) -> Unit,
-    onDecline: () -> Unit // Add a callback for declining
+    onDecline: () -> Unit
 ) {
 
     if (openDialog.value) {
         AlertDialog(
             onDismissRequest = { openDialog.value = false },
-            title = { Text(text = stringResource(R.string.deleteJobOfferDialog_text)) },
             text = {
-                Column {
-                    Spacer(modifier = Modifier.height(8.dp))
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = stringResource(R.string.deleteJobOfferDialog_text))
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceAround
                     ) {
                         TextButton(
                             onClick = {
                                 openDialog.value = false
                                 val selectedOption = "Deleted"
                                 onAccept(selectedOption)
-                            },
-                            modifier = Modifier
-                                .padding(8.dp)
-                                .height(56.dp)
-                                .width(100.dp) // Adjust the width as needed
+                            }
                         ) {
                             Text(
                                 text = stringResource(R.string.deleteJobOfferDialog_AcceptText),
-                                fontSize = 16.sp
-                            ) // Adjust the font size as needed
+                            )
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                         TextButton(
                             onClick = {
                                 openDialog.value = false
                                 onDecline()
-                            },
-                            modifier = Modifier
-                                .padding(8.dp)
-                                .height(56.dp)
-                                .width(100.dp) // Adjust the width as needed
+                            }
                         ) {
                             Text(
                                 text = stringResource(R.string.deleteJobOfferDialog_DeclineText),
-                                fontSize = 16.sp
-                            ) // Adjust the font size as needed
+                            )
                         }
                     }
                 }

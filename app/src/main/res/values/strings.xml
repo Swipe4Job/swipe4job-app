@@ -326,4 +326,5 @@
     <string name="studyToDelete_text">Study to delete</string>
     <string name="editStudy_text">Edit study</string>
     <string name="searchCandidates_text">Search candidates for this offer</string>
+    <string name="noJobOffersPosted_text">You don\'t have any job offer posted yet</string>
 </resources>
