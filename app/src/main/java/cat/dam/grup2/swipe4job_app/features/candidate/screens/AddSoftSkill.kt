@@ -5,21 +5,26 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,11 +44,11 @@ import cat.dam.grup2.swipe4job_app.shared.composables.CustomFilterableTextField
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddSoftSkill(navController: NavController) {
-    var addSoftskillViewModel = AddSoftskillViewModel.instance
-    var isEditing = addSoftskillViewModel.editingSoftskill != null
-    var selectedSoftSkill by remember { mutableStateOf("") }
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
-    var softSkillsList = candidateProfileViewModel.softSkills
+    val addSoftskillViewModel = AddSoftskillViewModel.instance
+    val isEditing = remember {
+        addSoftskillViewModel.editingSoftSkills.size > 0
+    }
 
     Scaffold(
         topBar = {
@@ -65,7 +70,9 @@ fun AddSoftSkill(navController: NavController) {
                             )
                         }
                         Text(
-                            text = stringResource(id = R.string.addSoftskills_text),
+                            text = if (!isEditing) stringResource(id = R.string.addSoftskills_text) else stringResource(
+                                R.string.editSoftskills_text
+                            ),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                                 .padding(start = 8.dp)
@@ -77,7 +84,10 @@ fun AddSoftSkill(navController: NavController) {
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier
                                 .clickable {
-                                    softSkillsList.add(selectedSoftSkill)
+                                    candidateProfileViewModel.softSkills.clear()
+                                    candidateProfileViewModel.softSkills.addAll(
+                                        AddSoftskillViewModel.instance.editingSoftSkills
+                                    )
                                     // TODO: Save data in database
                                     navController.popBackStack()
                                 }
@@ -99,20 +109,41 @@ fun AddSoftSkill(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                AddSoftSkillContent(context = LocalContext.current) { selectedSoftSkill = it }
+                AddSoftSkillContent(context = LocalContext.current) {
+                    AddSoftskillViewModel.instance.addSoftSkill(it)
+                }
             }
         }
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AddSoftSkillContent(context: Context, onValueChange: (String) -> Unit) {
-    var addSoftskillViewModel = AddSoftskillViewModel.instance
-    var isEditing = addSoftskillViewModel.editingSoftskill != null
     val resources = context.resources
     val suggestionsArray = resources.getStringArray(R.array.soft_skills_array).sortedArray()
 
     Column {
+        val addSoftSkillViewModel = AddSoftskillViewModel.instance
+        FlowRow {
+            for (i in 0..addSoftSkillViewModel.editingSoftSkills.size - 1) {
+                val item = addSoftSkillViewModel.editingSoftSkills[i]
+                SuggestionChip(
+                    onClick = {},
+                    label = {
+                        Text(item)
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                addSoftSkillViewModel.editingSoftSkills.removeAt(
+                                    i
+                                )
+                            })
+                    }, modifier = Modifier.padding(5.dp, 0.dp)
+                )
+            }
+        }
         CustomFilterableTextField(
             suggestions = suggestionsArray,
             onItemSelected = onValueChange
