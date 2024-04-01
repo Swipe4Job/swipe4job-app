@@ -179,25 +179,25 @@ fun AddPreferencesContent(
     val context = LocalContext.current
 
     var salaryRangeText =
-        if (salaryRange.value == null) stringResource(id = R.string.salaryRange_text)
+        if (!isEditing) stringResource(id = R.string.salaryRange_text)
         else salaryRange.value.toStringResource(context)
     var selectedSalaryRangeItem by remember { mutableStateOf(salaryRangeText) }
     var salaryRangeOptions = stringArrayResource(id = R.array.salary_range_array).toList()
 
     var jobTypeText =
-        if (jobType.value == null) stringResource(id = R.string.jobType_text)
+        if (!isEditing) stringResource(id = R.string.jobType_text)
         else jobType.value.toStringResource(context)
     var selectedJobTypeItem by remember { mutableStateOf(jobTypeText) }
     var jobTypeOptions = stringArrayResource(id = R.array.job_type_array).toList()
 
     var workingDayTypeText =
-        if (workingDayType.value == null) stringResource(id = R.string.workingDayType_text)
+        if (!isEditing) stringResource(id = R.string.workingDayType_text)
         else workingDayType.value.toStringResource(context)
     var selectedWorkingDayTypeItem by remember { mutableStateOf(workingDayTypeText) }
     var workingDayTypeOptions = stringArrayResource(id = R.array.working_day_type_array).toList()
 
     var contractTypeText =
-        if (workingDayType.value == null) stringResource(id = R.string.contractType_text)
+        if (!isEditing) stringResource(id = R.string.contractType_text)
         else workingDayType.value.toStringResource(context)
     var selectedContractTypeItem by remember { mutableStateOf(contractTypeText) }
     var contractTypeOptions = stringArrayResource(id = R.array.contract_type_array).toList()
