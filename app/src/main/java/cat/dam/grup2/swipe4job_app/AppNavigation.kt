@@ -45,7 +45,7 @@ import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 @Composable
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
-    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
+    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -77,7 +77,6 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("jobOfferRecruiterView") { navBackStackEntry ->
             if (itemToView == null) {
-                println("handle error")
                 throw Exception("item to view is null")
             }
             JobOfferRecruiterView(navController, itemToView!!)
@@ -129,7 +128,6 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("candidateContact") { navBackStackEntry ->
             if (candidateToView == null) {
-                println("handle error")
                 throw Exception("candidate to view is null")
             }
             CandidateContact(navController, candidateToView!!)
@@ -161,7 +159,6 @@ fun AppNavigation(navController: NavHostController) {
 
         composable("recruiterContact") { navBackStackEntry ->
             if (recruiterToView == null) {
-                println("handle error")
                 throw Exception("recruiter to view is null")
             }
             RecruiterContact(navController, recruiterToView!!)

@@ -398,7 +398,6 @@ fun Preferences(navController: NavController, preferences: MutableState<Candidat
     SingleField(
         title = R.string.candidate_preferences_title,
         onEditClick = {
-            println("Editing preferences")
             AddPreferencesViewModel.instance.editingPreference =
                 CandidateProfileViewModel.getInstance().preferences.value
             navController.navigate("addPreferences")

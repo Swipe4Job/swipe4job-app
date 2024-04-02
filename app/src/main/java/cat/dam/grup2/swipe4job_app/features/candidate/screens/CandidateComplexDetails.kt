@@ -274,12 +274,8 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
             .fillMaxSize()
             .swipableCard(
                 state = state,
-                onSwiped = { direction ->
-                    println("The card was swiped to $direction")
-                },
-                onSwipeCancel = {
-                    println("The swiping was cancelled")
-                }
+                onSwiped = {},
+                onSwipeCancel = {}
             )
     )
     {

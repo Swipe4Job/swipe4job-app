@@ -296,7 +296,6 @@ fun RecruiterSignUpPage2(navController: NavController, userApiService: UserApiSe
                                             phone = companyPhoneNumber,
                                             sector = context.companySectorFromStringResource(selectedSectorItem)
                                         )
-                                        println(companyPost)
                                         try {
                                             userApiService.addCompany(companyPost)
                                             navController.navigate("offersList")

@@ -125,7 +125,6 @@ fun AddPreferences(navController: NavController) {
                                             jobTypeOptions = selectedJobType.value,
                                             contractTypeOptions = selectedContractType.value
                                         )
-                                    println("Saved preference: $preference")
 
                                     // TODO in case to save this into an API remember check if it is editing
                                     candidatePreferences.value = preference

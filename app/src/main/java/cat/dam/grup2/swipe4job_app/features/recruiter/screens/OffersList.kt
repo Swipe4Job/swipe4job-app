@@ -12,7 +12,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,15 +33,15 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferListViewModel
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
 
 
 // var offerList = mutableStateListOf<JobOfferInformation>()
-public var itemToView by mutableStateOf<JobOfferInformation?>(null)
-private var itemToDelete by mutableStateOf<JobOfferInformation?>(null)
-private var itemToEdit by mutableStateOf<JobOfferInformation?>(null)
+var itemToView by mutableStateOf<JobOfferInformation?>(null)
+var itemToEdit by mutableStateOf<JobOfferInformation?>(null)
 
 // GENERATING FAKE DATA:
 fun generateFakeData(): MutableList<JobOfferInformation> {
@@ -130,12 +132,9 @@ fun generateRandomDate(): Date {
     return Date.from(randomDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
 }
 
-val offerList = generateFakeData()
-
 @Composable
 fun OffersList(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.OFFERS) }
-
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -162,7 +161,7 @@ fun OffersList(navController: NavController) {
             )
         }
     ) { innerPadding ->
-        val content = if (offerList.isEmpty()) {
+        if (OfferListViewModel.instance.offerList.isEmpty()) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -182,24 +181,8 @@ fun OffersList(navController: NavController) {
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                OffersListView(
-                    offerList = offerList,
-                    onSearchClick = {
-                        navController.navigate("candidateSimpleDetails")
-                    },
-                    onViewClick = { offer ->
-                        itemToView = offer
-                        navController.navigate("jobOfferRecruiterView")
-                    },
-                    onEditClick = { offer ->
-                        itemToEdit = offer
-                    },
-                    onDeleteClick = { offer ->
-                        itemToDelete = offer
-                    }
-                )
+                OffersListView(navController)
             }
         }
-        content
     }
 }
