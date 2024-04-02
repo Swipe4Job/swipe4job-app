@@ -25,16 +25,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateConnectionNotification
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateConnectionsViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
 fun CandidateConnectionsView(
-    candidateConnectionsList: List<CandidateConnection>,
+    candidateConnectionsList: List<CandidateConnectionNotification>,
     onContactClick: (recruiter: CandidateConnection) -> Unit
 ) {
     LazyColumn {
-        items(candidateConnectionsList) { connection ->
+        items(candidateConnectionsList.size) { index ->
+            val notification = candidateConnectionsList[index]
+            val connection = notification.connection
+            val seen = notification.seen
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -48,19 +53,22 @@ fun CandidateConnectionsView(
                     Text(
                         text = "${stringResource(R.string.recruiter_text)}: ${connection.recruiterName} ${connection.recruiterLastName}",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Text(
+                        modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.jobOffer_text)}: ${connection.jobOfferTitle}",
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
+
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     val formattedConnectionDate = dateFormatter.format(connection.connectionDate)
                     Text(
+                        modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.connectionDate_text)}: $formattedConnectionDate",
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Row(
                         modifier = Modifier
@@ -69,7 +77,11 @@ fun CandidateConnectionsView(
                         horizontalArrangement = Arrangement.End
                     ) {
                         IconButton(
-                            onClick = { onContactClick(connection) },
+                            onClick = {
+                                notification.seen = true
+                                CandidateConnectionsViewModel.obtainInstance().notifications[index] = notification
+                                onContactClick(connection)
+                            },
                             modifier = Modifier
                                 .background(
                                     color = Color.Transparent,

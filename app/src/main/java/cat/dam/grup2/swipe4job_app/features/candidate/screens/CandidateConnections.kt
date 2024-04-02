@@ -15,6 +15,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateConnec
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateConnectionsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 
 
@@ -79,7 +80,7 @@ fun generateCandidateConnectionsFakeData(): List<CandidateConnection> {
     return candidateConnectionsList
 }
 
-val candidateConnectionsList = generateCandidateConnectionsFakeData()
+val candidateConnectionsList = CandidateConnectionsViewModel.obtainInstance().notifications
 
 @Composable
 fun CandidateConnections(navController: NavController) {
