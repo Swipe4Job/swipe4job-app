@@ -1,8 +1,12 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
 import android.app.Activity
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -155,13 +159,15 @@ fun EditOptions(
     onTakePhotoClick: () -> Unit,
     onChoosePhotoClick: () -> Unit
 ) {
+    val context = LocalContext.current
     val takePictureLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            // Se capturó una foto exitosamente
             val imageBitmap = result.data?.extras?.get("data") as Bitmap?
-            // Aquí puedes hacer lo que quieras con la foto capturada
+            imageBitmap?.let { bitmap ->
+                saveImageToGallery(context, bitmap)
+            }
         }
     }
 
@@ -172,7 +178,6 @@ fun EditOptions(
     ) {
         EditOption(
             onClick = {
-                // Iniciar la actividad de la cámara
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 takePictureLauncher.launch(takePictureIntent)
             },
@@ -184,6 +189,24 @@ fun EditOptions(
             icon = Icons.Default.PhotoLibrary,
             text = stringResource(id = R.string.choose_photo_text)
         )
+    }
+}
+
+private fun saveImageToGallery(context: Context, bitmap: Bitmap) {
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, "image_${System.currentTimeMillis()}.jpg")
+        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+        }
+    }
+
+    val resolver = context.contentResolver
+    val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+    uri?.let { imageUri ->
+        resolver.openOutputStream(imageUri)?.use { outputStream ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        }
     }
 }
 
@@ -224,7 +247,7 @@ fun Header(
                 .size(100.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.profile),
+                painter = painterResource(id = R.drawable.profile), //aquesta es
                 contentDescription = stringResource(id = R.string.profile_image_description),
                 modifier = Modifier
                     .clip(CircleShape),
