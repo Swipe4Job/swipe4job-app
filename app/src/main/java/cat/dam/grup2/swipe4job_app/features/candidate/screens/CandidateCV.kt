@@ -91,7 +91,7 @@ fun CandidateCV(navController: NavController) {
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
     val candidatePreferences = candidateProfileViewModel.preferences
-
+    var selectedProfileImageUri by rememberSaveable { mutableStateOf<Uri?>(null) } // Agrega un estado para la URI de la imagen
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -126,7 +126,9 @@ fun CandidateCV(navController: NavController) {
             item {
                 Header(
                     candidate = candidate,
-                    editClick = { openEditBottomSheet = !openEditBottomSheet })
+                    editClick = { openEditBottomSheet = !openEditBottomSheet },
+                    profileImageUri = selectedProfileImageUri
+                )
                 Experience(navController, experiencesList)
                 Studies(navController, studiesList)
                 SoftSkills(navController, candidateProfileViewModel.softSkills)
@@ -144,17 +146,15 @@ fun CandidateCV(navController: NavController) {
                 val context = LocalContext.current
                 EditOptions(
                     onTakePhotoClick = {
-                        Toast.makeText(context, "Clicked on take photo", Toast.LENGTH_SHORT).show()
+
                     },
-                    onChoosePhotoClick = {
-                        Toast.makeText(context, "Clicked on choose photo", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                    onChoosePhotoClick = { selectedProfileImageUri = it }
                 )
             }
         )
     }
-}
+    }
+
 
 @Composable
 fun EditOptions(
