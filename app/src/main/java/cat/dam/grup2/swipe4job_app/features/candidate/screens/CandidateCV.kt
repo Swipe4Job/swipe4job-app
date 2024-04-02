@@ -91,7 +91,6 @@ fun CandidateCV(navController: NavController) {
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
     val candidatePreferences = candidateProfileViewModel.preferences
-    var selectedProfileImageUri by rememberSaveable { mutableStateOf<Uri?>(null) } // Agrega un estado para la URI de la imagen
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -127,7 +126,7 @@ fun CandidateCV(navController: NavController) {
                 Header(
                     candidate = candidate,
                     editClick = { openEditBottomSheet = !openEditBottomSheet },
-                    profileImageUri = selectedProfileImageUri
+                    profileImageUri = CandidateProfileViewModel.getInstance().imageURI.value
                 )
                 Experience(navController, experiencesList)
                 Studies(navController, studiesList)
@@ -148,7 +147,7 @@ fun CandidateCV(navController: NavController) {
                     onTakePhotoClick = {
 
                     },
-                    onChoosePhotoClick = { selectedProfileImageUri = it }
+                    onChoosePhotoClick = { CandidateProfileViewModel.getInstance().imageURI.value = it }
                 )
             }
         )
