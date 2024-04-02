@@ -18,6 +18,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateConnectionsViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.BottomNavBarBadge
 
 
@@ -42,11 +44,9 @@ fun CandidateBottomNavigationBar(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    var showConnectionBadge by remember { mutableStateOf(false) }
-    var connectionBadgeCount by remember { mutableStateOf(0) }
+    val badgeCount = CandidateConnectionsViewModel.obtainInstance().notifications.filter { !it.seen }.size
     var showNotificationBadge by remember { mutableStateOf(false) }
     var notificationBadgeCount by remember { mutableStateOf(0) }
-
 
     BottomAppBar {
         Row(
@@ -71,8 +71,8 @@ fun CandidateBottomNavigationBar(
                 labelRes = R.string.connections_text,
                 contentDescriptionRes = R.string.connections_icon_description,
                 selected = selected == BottomNavigationItem.CONNECTIONS,
-                showBadge = showConnectionBadge,
-                badgeCount = connectionBadgeCount,
+                showBadge = badgeCount > 0,
+                badgeCount = badgeCount,
                 onClick = {
                     connectionsClick()
                     navController.navigate("candidateConnections")
@@ -118,7 +118,8 @@ private fun CandidateBottomNavigationItem(
 ) {
     val label = stringResource(id = labelRes)
     val contentDescription = stringResource(id = contentDescriptionRes)
-    val iconColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+    val iconColor =
+        if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
