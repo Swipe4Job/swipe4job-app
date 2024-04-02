@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -160,6 +161,7 @@ fun EditOptions(
     onChoosePhotoClick: () -> Unit
 ) {
     val context = LocalContext.current
+
     val takePictureLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -169,6 +171,12 @@ fun EditOptions(
                 saveImageToGallery(context, bitmap)
             }
         }
+    }
+
+    val choosePhotoLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { onChoosePhotoClick() }
     }
 
     Column(
@@ -185,7 +193,7 @@ fun EditOptions(
             text = stringResource(id = R.string.take_photo_text)
         )
         EditOption(
-            onClick = onChoosePhotoClick,
+            onClick = { choosePhotoLauncher.launch("image/*") },
             icon = Icons.Default.PhotoLibrary,
             text = stringResource(id = R.string.choose_photo_text)
         )
@@ -247,7 +255,7 @@ fun Header(
                 .size(100.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.profile), //aquesta es
+                painter = painterResource(id = R.drawable.profile), //aquesta imatge
                 contentDescription = stringResource(id = R.string.profile_image_description),
                 modifier = Modifier
                     .clip(CircleShape),
