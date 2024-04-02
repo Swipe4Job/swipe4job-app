@@ -18,7 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,7 +43,7 @@ fun CandidateBottomNavigationBar(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    val badgeCount = CandidateConnectionsViewModel.obtainInstance().notifications.filter { !it.seen }.size
+    val connectionsBadgeCount = CandidateConnectionsViewModel.obtainInstance().notifications.filter { !it.seen }.size
     var showNotificationBadge by remember { mutableStateOf(false) }
     var notificationBadgeCount by remember { mutableStateOf(0) }
 
@@ -71,8 +70,8 @@ fun CandidateBottomNavigationBar(
                 labelRes = R.string.connections_text,
                 contentDescriptionRes = R.string.connections_icon_description,
                 selected = selected == BottomNavigationItem.CONNECTIONS,
-                showBadge = badgeCount > 0,
-                badgeCount = badgeCount,
+                showBadge = connectionsBadgeCount > 0,
+                badgeCount = connectionsBadgeCount,
                 onClick = {
                     connectionsClick()
                     navController.navigate("candidateConnections")

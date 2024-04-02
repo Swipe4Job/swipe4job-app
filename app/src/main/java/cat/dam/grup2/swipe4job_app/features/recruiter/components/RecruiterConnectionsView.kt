@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Contacts
@@ -25,16 +24,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.RecruiterConnection
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterConnectionNotification
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterConnectionsViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
 fun RecruiterConnectionsView(
-    recruiterConnectionsList: List<RecruiterConnection>,
+    recruiterConnectionsList: List<RecruiterConnectionNotification>,
     onContactClick: (candidate: RecruiterConnection) -> Unit
 ) {
     LazyColumn {
-        items(recruiterConnectionsList) { connection ->
+        items(recruiterConnectionsList.size) { index ->
+            val notification = recruiterConnectionsList[index]
+            val connection = notification.connection
+            val seen = notification.seen
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -48,19 +52,21 @@ fun RecruiterConnectionsView(
                     Text(
                         text = "${stringResource(R.string.candidate_text)}: ${connection.candidateName} ${connection.candidateLastName}",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Text(
+                        modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.jobOffer_text)}: ${connection.jobOfferTitle}",
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     val formattedConnectionDate = dateFormatter.format(connection.connectionDate)
                     Text(
+                        modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.connectionDate_text)}: $formattedConnectionDate",
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Row(
                         modifier = Modifier
@@ -69,7 +75,11 @@ fun RecruiterConnectionsView(
                         horizontalArrangement = Arrangement.End
                     ) {
                         IconButton(
-                            onClick = { onContactClick(connection) },
+                            onClick = {
+                                notification.seen = true
+                                RecruiterConnectionsViewModel.obtainInstance().notifications[index] = notification
+                                onContactClick(connection)
+                            },
                             modifier = Modifier
                                 .background(
                                     color = Color.Transparent,

@@ -15,6 +15,7 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottom
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterConnectionsView
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.RecruiterConnection
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterConnectionsViewModel
 
 
 var candidateToView by mutableStateOf<RecruiterConnection?>(null)
@@ -78,7 +79,7 @@ fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
     return recruiterConnectionsList
 }
 
-val recruiterConnectionsList = generateRecruiterConnectionsFakeData()
+val recruiterConnectionsList = RecruiterConnectionsViewModel.obtainInstance().notifications
 @Composable
 fun RecruiterConnections(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.CONNECTIONS) }

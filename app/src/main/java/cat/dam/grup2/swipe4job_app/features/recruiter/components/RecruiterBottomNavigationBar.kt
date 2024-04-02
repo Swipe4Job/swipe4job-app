@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterConnectionsViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.BottomNavBarBadge
 
 @Composable
@@ -41,8 +42,7 @@ fun RecruiterBottomNavigationBar(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    var showConnectionBadge by remember { mutableStateOf(false) }
-    var connectionBadgeCount by remember { mutableStateOf(0) }
+    val connectionsBadgeCount = RecruiterConnectionsViewModel.obtainInstance().notifications.filter { !it.seen }.size
     var showNotificationBadge by remember { mutableStateOf(false) }
     var notificationBadgeCount by remember { mutableStateOf(0) }
 
@@ -69,8 +69,8 @@ fun RecruiterBottomNavigationBar(
                 labelRes = R.string.connections_text,
                 contentDescriptionRes = R.string.connections_icon_description,
                 selected = selected == BottomNavigationItem.CONNECTIONS,
-                showBadge = showConnectionBadge,
-                badgeCount = connectionBadgeCount,
+                showBadge = connectionsBadgeCount > 0,
+                badgeCount = connectionsBadgeCount,
                 onClick = {
                     connectionsClick()
                     navController.navigate("recruiterConnections")
