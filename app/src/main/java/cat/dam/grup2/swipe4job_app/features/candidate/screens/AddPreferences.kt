@@ -65,19 +65,19 @@ fun AddPreferences(navController: NavController) {
     var selectedJobType = remember {
         mutableStateOf(
             if (isEditing) addPreferencesViewModel.editingPreference!!.jobTypeOptions
-            else JobTypeOptions.Hybrid
+            else JobTypeOptions.HYBRID
         )
     }
     var selectedWorkingDayType = remember {
         mutableStateOf(
             if (isEditing) addPreferencesViewModel.editingPreference!!.workingDayType
-            else WorkingDayTypeOptions.Flexible
+            else WorkingDayTypeOptions.FLEXIBLE
         )
     }
     var selectedContractType = remember {
         mutableStateOf(
             if (isEditing) addPreferencesViewModel.editingPreference!!.contractTypeOptions
-            else ContractTypeOptions.Freelance
+            else ContractTypeOptions.FREELANCE
         )
     }
     var candidateProfileViewModel = CandidateProfileViewModel.getInstance()
@@ -300,13 +300,13 @@ fun AddPreferencesContent(
 fun toJobType(context: Context, text: String): JobTypeOptions {
     return when (text) {
         context.resources.getStringArray(R.array.job_type_array)
-            .toList()[0] -> JobTypeOptions.Remotely
+            .toList()[0] -> JobTypeOptions.REMOTELY
 
         context.resources.getStringArray(R.array.job_type_array)
-            .toList()[1] -> JobTypeOptions.Onsite
+            .toList()[1] -> JobTypeOptions.ONSITE
 
         context.resources.getStringArray(R.array.job_type_array)
-            .toList()[2] -> JobTypeOptions.Hybrid
+            .toList()[2] -> JobTypeOptions.HYBRID
 
         else -> {
             throw CustomError("Can not convert $text to a job type")
@@ -349,13 +349,13 @@ fun toSalaryRange(context: Context, text: String): SalaryRange {
 fun toWorkingDayType(context: Context, text: String): WorkingDayTypeOptions {
     return when (text) {
         context.resources.getStringArray(R.array.working_day_type_array)
-            .toList()[0] -> WorkingDayTypeOptions.FullTime
+            .toList()[0] -> WorkingDayTypeOptions.FULL_TIME
 
         context.resources.getStringArray(R.array.working_day_type_array)
-            .toList()[1] -> WorkingDayTypeOptions.PartTime
+            .toList()[1] -> WorkingDayTypeOptions.PART_TIME
 
         context.resources.getStringArray(R.array.working_day_type_array)
-            .toList()[2] -> WorkingDayTypeOptions.Flexible
+            .toList()[2] -> WorkingDayTypeOptions.FLEXIBLE
 
         else -> {
             throw CustomError("Can not convert $text to a working day type")
@@ -368,15 +368,15 @@ fun toContractType(context: Context, text: String): ContractTypeOptions {
         context.resources.getStringArray(R.array.contract_type_array)
             .toList()
     return when (text) {
-        stringResourceList[0] -> ContractTypeOptions.Indefinite
+        stringResourceList[0] -> ContractTypeOptions.INDEFINITE
 
-        stringResourceList[1] -> ContractTypeOptions.Temporary
+        stringResourceList[1] -> ContractTypeOptions.TEMPORARY
 
-        stringResourceList[2] -> ContractTypeOptions.Freelance
+        stringResourceList[2] -> ContractTypeOptions.FREELANCE
 
-        stringResourceList[3] -> ContractTypeOptions.Internship
+        stringResourceList[3] -> ContractTypeOptions.INTERNSHIP
 
-        stringResourceList[4] -> ContractTypeOptions.Other
+        stringResourceList[4] -> ContractTypeOptions.OTHER
 
         else -> {
             throw CustomError("Can not convert $text to a contract type")

@@ -72,55 +72,55 @@ data class JobOfferInformation(
     val skills: List<String>,
     val salaryRange: SalaryRange,
     val workingHours: String? = null,
-    val departmentOrganisation: String,
+    val departmentOrganization: String,
     val publicationDate: Date
 )
 
 
 enum class JobTypeOptions {
-    Onsite,
-    Remotely,
-    Hybrid;
+    ONSITE,
+    REMOTELY,
+    HYBRID;
 
     fun toStringResource(context: Context): String {
         val stringResourceList = context.resources.getStringArray(R.array.job_type_array).toList()
         return when (this) {
-            Remotely -> stringResourceList[0]
-            Onsite -> stringResourceList[1]
-            Hybrid -> stringResourceList[2]
+            REMOTELY -> stringResourceList[0]
+            ONSITE -> stringResourceList[1]
+            HYBRID -> stringResourceList[2]
         }
     }
 }
 
 enum class ContractTypeOptions {
-    Freelance,
-    Internship,
-    Temporary,
-    Indefinite,
-    Other;
+    FREELANCE,
+    INTERNSHIP,
+    TEMPORARY,
+    INDEFINITE,
+    OTHER;
 
     fun toStringResource(context: Context): String {
         val stringResourceList = context.resources.getStringArray(R.array.contract_type_array).toList()
         return when (this) {
-            Indefinite -> stringResourceList[0]
-            Temporary -> stringResourceList[1]
-            Freelance -> stringResourceList[2]
-            Internship -> stringResourceList[3]
-            Other -> stringResourceList[4]
+            INDEFINITE -> stringResourceList[0]
+            TEMPORARY -> stringResourceList[1]
+            FREELANCE -> stringResourceList[2]
+            INTERNSHIP -> stringResourceList[3]
+            OTHER -> stringResourceList[4]
         }
     }
 }
 
 enum class WorkingDayTypeOptions {
-    FullTime,
-    PartTime,
-    Flexible;
+    FULL_TIME,
+    PART_TIME,
+    FLEXIBLE;
     fun toStringResource(context: Context): String {
         val stringResourceList = context.resources.getStringArray(R.array.working_day_type_array).toList()
         return when (this) {
-            FullTime -> stringResourceList[0]
-            PartTime -> stringResourceList[1]
-            Flexible -> stringResourceList[2]
+            FULL_TIME -> stringResourceList[0]
+            PART_TIME -> stringResourceList[1]
+            FLEXIBLE -> stringResourceList[2]
         }
     }
 }

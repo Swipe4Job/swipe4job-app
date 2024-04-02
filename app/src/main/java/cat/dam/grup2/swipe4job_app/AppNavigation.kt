@@ -41,11 +41,12 @@ import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
 import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 
+val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
+
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "offersList") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -107,7 +108,7 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("offersList") {
-            OffersList(navController)
+            OffersList(navController, userApiService)
         }
 
         composable("companyPostOfferPage1") {
