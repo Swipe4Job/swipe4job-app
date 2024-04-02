@@ -92,7 +92,7 @@ fun CandidateSimpleDetails(navController: NavController) {
                 )
             }
             if (connectionAnimation) {
-                NewConnectionDialog(onDismiss = {connectionAnimation = false}) {
+                NewConnectionDialog(onDismiss = { connectionAnimation = false }) {
                     delay(3000)
                     connectionAnimation = false
                 }
@@ -114,14 +114,13 @@ fun ColumnScope.SimpleDetails(navController: NavController) {
             .weight(1f)
             .padding(top = 10.dp)
             .swipableCard(
-            state = state,
-            onSwiped = { direction ->
-                println("The card was swiped to $direction")
-            },
-            onSwipeCancel = {
-                println("The swiping was cancelled")
-            }
-        ),
+                state = state,
+                onSwiped = {
+                },
+                onSwipeCancel = {
+
+                }
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

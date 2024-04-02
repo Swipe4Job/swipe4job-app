@@ -218,8 +218,6 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                                             workingHours = offerViewModel.workingHours
                                         )
 
-                                        println(offerPost)
-
                                         userApiService.addOffer(offerPost)
                                         navController.navigate("offersList")
                                     }

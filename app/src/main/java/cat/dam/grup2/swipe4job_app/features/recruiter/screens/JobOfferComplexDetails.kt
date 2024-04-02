@@ -138,11 +138,9 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
             .fillMaxSize()
             .swipableCard(
                 state = state,
-                onSwiped = { direction ->
-                    println("The card was swiped to $direction")
+                onSwiped = {
                 },
                 onSwipeCancel = {
-                    println("The swiping was cancelled")
                 }
             )
     )

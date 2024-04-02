@@ -114,10 +114,8 @@ fun ColumnScope.JobOfferSimpleDetails(navController: NavController) {
             .swipableCard(
                 state = state,
                 onSwiped = { direction ->
-                    println("The card was swiped to $direction")
                 },
                 onSwipeCancel = {
-                    println("The swiping was cancelled")
                 }
             ),
         horizontalAlignment = Alignment.CenterHorizontally,

@@ -25,7 +25,6 @@ import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserPos
 class UserApiService(val retrofit: RetrofitService) {
     suspend fun listUsers(criteria: Criteria): List<UserData> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
-        println(encodedCriteria)
         val results = retrofit.listUsers(encodedCriteria)
         return results.data
     }
@@ -51,7 +50,6 @@ class UserApiService(val retrofit: RetrofitService) {
     }
     suspend fun addOffer(offerPost: OfferPost): Unit {
         val results = retrofit.addOffer(offerPost)
-        println(results)
         return(results.data)
     }
 
