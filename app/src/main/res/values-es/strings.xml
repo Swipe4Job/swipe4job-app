@@ -332,4 +332,5 @@
     <string name="preferenceToDelete_text">Vas a eliminar tus preferencias</string>
     <string name="edit_text">Editar</string>
     <string name="editSoftskills_text">Editar habilidades blandas</string>
+    <string name="softSkillsTip_text">Empieza a teclear y te aparecerán las opciones disponibles</string>
 </resources>

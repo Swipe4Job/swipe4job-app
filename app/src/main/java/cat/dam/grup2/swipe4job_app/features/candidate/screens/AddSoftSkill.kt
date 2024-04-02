@@ -129,7 +129,7 @@ fun AddSoftSkillContent(context: Context, onValueChange: (String) -> Unit) {
             for (i in 0..addSoftSkillViewModel.editingSoftSkills.size - 1) {
                 val item = addSoftSkillViewModel.editingSoftSkills[i]
                 SuggestionChip(
-                    onClick = {},
+                    onClick = { },
                     label = {
                         Text(item)
                         Icon(
@@ -139,8 +139,9 @@ fun AddSoftSkillContent(context: Context, onValueChange: (String) -> Unit) {
                                 addSoftSkillViewModel.editingSoftSkills.removeAt(
                                     i
                                 )
-                            })
-                    }, modifier = Modifier.padding(5.dp, 0.dp)
+                            }
+                        )
+                    }, modifier = Modifier.padding(4.dp, 0.dp)
                 )
             }
         }

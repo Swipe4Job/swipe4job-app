@@ -332,4 +332,5 @@
     <string name="preferenceToDelete_text">You are going to delete your preferences configuration</string>
     <string name="edit_text">Edit</string>
     <string name="editSoftskills_text">Edit soft skills</string>
+    <string name="softSkillsTip_text">Start typing and the available options will appear</string>
 </resources>

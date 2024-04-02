@@ -2,6 +2,7 @@ package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -211,11 +213,19 @@ fun CompanyPostOfferPage2(navController: NavController) {
                         OfferViewModel.instance.skills.forEachIndexed { index, skill ->
                             SuggestionChip(
                                 modifier = Modifier.padding(4.dp, 0.dp),
-                                onClick = {
-                                    OfferViewModel.instance.skills.removeAt(index)
+                                onClick = { },
+                                label = {
+                                    Text(
+                                        SoftSkillsList.toResourceString(LocalContext.current, skill)
+                                    )
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = null,
+                                        modifier = Modifier.clickable {
+                                            OfferViewModel.instance.skills.removeAt(index)
+                                        }
+                                    )
                                 },
-                                label = { Text(SoftSkillsList.toResourceString(LocalContext.current, skill)) },
-
                             )
                         }
                     }
