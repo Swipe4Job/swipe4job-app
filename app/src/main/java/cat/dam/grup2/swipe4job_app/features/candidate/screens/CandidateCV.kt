@@ -1,6 +1,17 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
+import android.app.Activity
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -69,6 +80,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewMo
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddSoftskillViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
+import coil.compose.rememberImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,7 +91,6 @@ fun CandidateCV(navController: NavController) {
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
     val candidatePreferences = candidateProfileViewModel.preferences
-
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
 
@@ -114,7 +125,9 @@ fun CandidateCV(navController: NavController) {
             item {
                 Header(
                     candidate = candidate,
-                    editClick = { openEditBottomSheet = !openEditBottomSheet })
+                    editClick = { openEditBottomSheet = !openEditBottomSheet },
+                    profileImageUri = CandidateProfileViewModel.getInstance().imageURI.value
+                )
                 Experience(navController, experiencesList)
                 Studies(navController, studiesList)
                 SoftSkills(navController, candidateProfileViewModel.softSkills)
@@ -132,39 +145,80 @@ fun CandidateCV(navController: NavController) {
                 val context = LocalContext.current
                 EditOptions(
                     onTakePhotoClick = {
-                        Toast.makeText(context, "Clicked on take photo", Toast.LENGTH_SHORT).show()
+
                     },
-                    onChoosePhotoClick = {
-                        Toast.makeText(context, "Clicked on choose photo", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                    onChoosePhotoClick = { CandidateProfileViewModel.getInstance().imageURI.value = it }
                 )
             }
         )
     }
-}
+    }
+
 
 @Composable
 fun EditOptions(
     onTakePhotoClick: () -> Unit,
-    onChoosePhotoClick: () -> Unit
+    onChoosePhotoClick: (Uri) -> Unit
 ) {
+    val context = LocalContext.current
+
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageBitmap = result.data?.extras?.get("data") as Bitmap?
+            imageBitmap?.let { bitmap ->
+                val uri = saveImageToGallery(context, bitmap)
+                uri?.let { onChoosePhotoClick(it) }
+            }
+        }
+    }
+
+    val choosePhotoLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { onChoosePhotoClick(it) }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp, bottom = 32.dp, start = 16.dp, end = 16.dp)
     ) {
         EditOption(
-            onClick = onTakePhotoClick,
+            onClick = {
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                takePictureLauncher.launch(takePictureIntent)
+            },
             icon = Icons.Default.CameraAlt,
             text = stringResource(id = R.string.take_photo_text)
         )
         EditOption(
-            onClick = onChoosePhotoClick,
+            onClick = { choosePhotoLauncher.launch("image/*") },
             icon = Icons.Default.PhotoLibrary,
             text = stringResource(id = R.string.choose_photo_text)
         )
     }
+}
+
+private fun saveImageToGallery(context: Context, bitmap: Bitmap): Uri? {
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, "image_${System.currentTimeMillis()}.jpg")
+        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+        }
+    }
+
+    val resolver = context.contentResolver
+    val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+    uri?.let { imageUri ->
+        resolver.openOutputStream(imageUri)?.use { outputStream ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        }
+        return imageUri
+    }
+    return null
 }
 
 @Composable
@@ -191,7 +245,8 @@ fun EditOption(
 @Composable
 fun Header(
     candidate: CandidateInformation,
-    editClick: () -> Unit
+    editClick: () -> Unit,
+    profileImageUri: Uri? = null
 ) {
     Column(
         modifier = Modifier
@@ -204,7 +259,11 @@ fun Header(
                 .size(100.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.profile),
+                painter = if (profileImageUri != null) {
+                    rememberImagePainter(profileImageUri)
+                } else {
+                    painterResource(id = R.drawable.profile)
+                },
                 contentDescription = stringResource(id = R.string.profile_image_description),
                 modifier = Modifier
                     .clip(CircleShape),
@@ -236,6 +295,7 @@ fun Header(
         )
     }
 }
+
 
 @Composable
 fun DisplayImage() {

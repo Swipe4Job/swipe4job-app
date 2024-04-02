@@ -8,9 +8,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- for android 11 and higher
-    Required only if your app needs to access images or photos
-         that other apps created.(READ->READ AND WRITE) -->
     <uses-permission
         android:name="android.permission.READ_MEDIA_IMAGES"
         android:minSdkVersion="30" />

@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.state
 
+import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidatePreferences
@@ -18,6 +19,7 @@ class CandidateProfileViewModel : ViewModel() {
         }
     }
 
+    var imageURI = mutableStateOf<Uri?>(null)
     var softSkills = mutableListOf<String>()
     var languages = mutableListOf<LanguageSkill>()
     var studies = mutableListOf<Study>()
