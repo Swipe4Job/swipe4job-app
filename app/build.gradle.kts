@@ -61,6 +61,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("androidx.compose.material3:material3")
     implementation("com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0")
+    implementation("androidx.camera:camera-camera2:1.1.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.airbnb.android:lottie-compose:6.4.0")

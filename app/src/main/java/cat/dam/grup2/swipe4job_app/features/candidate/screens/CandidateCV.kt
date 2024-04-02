@@ -1,6 +1,12 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -149,13 +155,27 @@ fun EditOptions(
     onTakePhotoClick: () -> Unit,
     onChoosePhotoClick: () -> Unit
 ) {
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Se capturó una foto exitosamente
+            val imageBitmap = result.data?.extras?.get("data") as Bitmap?
+            // Aquí puedes hacer lo que quieras con la foto capturada
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp, bottom = 32.dp, start = 16.dp, end = 16.dp)
     ) {
         EditOption(
-            onClick = onTakePhotoClick,
+            onClick = {
+                // Iniciar la actividad de la cámara
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                takePictureLauncher.launch(takePictureIntent)
+            },
             icon = Icons.Default.CameraAlt,
             text = stringResource(id = R.string.take_photo_text)
         )
