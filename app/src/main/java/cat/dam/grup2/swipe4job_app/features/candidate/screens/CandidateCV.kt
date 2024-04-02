@@ -80,6 +80,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewMo
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddSoftskillViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
+import coil.compose.rememberImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -158,7 +159,7 @@ fun CandidateCV(navController: NavController) {
 @Composable
 fun EditOptions(
     onTakePhotoClick: () -> Unit,
-    onChoosePhotoClick: () -> Unit
+    onChoosePhotoClick: (Uri) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -168,7 +169,8 @@ fun EditOptions(
         if (result.resultCode == Activity.RESULT_OK) {
             val imageBitmap = result.data?.extras?.get("data") as Bitmap?
             imageBitmap?.let { bitmap ->
-                saveImageToGallery(context, bitmap)
+                val uri = saveImageToGallery(context, bitmap)
+                uri?.let { onChoosePhotoClick(it) }
             }
         }
     }
@@ -176,7 +178,7 @@ fun EditOptions(
     val choosePhotoLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        uri?.let { onChoosePhotoClick() }
+        uri?.let { onChoosePhotoClick(it) }
     }
 
     Column(
@@ -200,7 +202,7 @@ fun EditOptions(
     }
 }
 
-private fun saveImageToGallery(context: Context, bitmap: Bitmap) {
+private fun saveImageToGallery(context: Context, bitmap: Bitmap): Uri? {
     val contentValues = ContentValues().apply {
         put(MediaStore.Images.Media.DISPLAY_NAME, "image_${System.currentTimeMillis()}.jpg")
         put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
@@ -215,7 +217,9 @@ private fun saveImageToGallery(context: Context, bitmap: Bitmap) {
         resolver.openOutputStream(imageUri)?.use { outputStream ->
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         }
+        return imageUri
     }
+    return null
 }
 
 @Composable
@@ -242,7 +246,8 @@ fun EditOption(
 @Composable
 fun Header(
     candidate: CandidateInformation,
-    editClick: () -> Unit
+    editClick: () -> Unit,
+    profileImageUri: Uri? = null
 ) {
     Column(
         modifier = Modifier
@@ -255,7 +260,11 @@ fun Header(
                 .size(100.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.profile), //aquesta imatge
+                painter = if (profileImageUri != null) {
+                    rememberImagePainter(profileImageUri)
+                } else {
+                    painterResource(id = R.drawable.profile)
+                },
                 contentDescription = stringResource(id = R.string.profile_image_description),
                 modifier = Modifier
                     .clip(CircleShape),
@@ -287,6 +296,7 @@ fun Header(
         )
     }
 }
+
 
 @Composable
 fun DisplayImage() {
