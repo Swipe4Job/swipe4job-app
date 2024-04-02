@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -105,7 +106,10 @@ fun CandidateCV(navController: NavController) {
         val storageGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: false
 
         if (!cameraGranted || !storageGranted) {
-
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri: Uri = Uri.fromParts("package", context.packageName, null)
+            intent.data = uri
+            context.startActivity(intent)
         }
     }
 
