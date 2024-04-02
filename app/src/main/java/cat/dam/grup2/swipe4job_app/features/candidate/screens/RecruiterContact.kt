@@ -24,10 +24,11 @@ import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun RecruiterContact(navController: NavController, selectedItem: CandidateConnection) {
+fun RecruiterContact(navController: NavController, selectedItem: Notification) {
     Scaffold(
         topBar = {
             TopAppBar(

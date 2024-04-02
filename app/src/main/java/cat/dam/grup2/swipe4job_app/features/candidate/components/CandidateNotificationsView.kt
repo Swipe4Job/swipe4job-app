@@ -8,10 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Contacts
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,17 +23,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationNotification
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
 fun CandidateNotificationsView(
-    notificationsList: List<Notification>,
+    notificationsList: List<CandidateNotificationNotification>,
     onDeleteClick: (notification: Notification) -> Unit
 ) {
     LazyColumn {
-        items(notificationsList) { notification ->
+        items(notificationsList.size) { index ->
+            val item = notificationsList[index]
+            val notification = item.notification
+            val seen = item.seen
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -48,14 +51,15 @@ fun CandidateNotificationsView(
                     Text(
                         text = "${stringResource(R.string.notification_text)}: ${notification.notificationMessage}",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     val formattedConnectionDate = dateFormatter.format(notification.notificationDate)
                     Text(
+                        modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.notificationDate_text)}: $formattedConnectionDate",
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
+                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Row(
                         modifier = Modifier
@@ -74,8 +78,8 @@ fun CandidateNotificationsView(
                         )
                         {
                             Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(id = R.string.delete_icon_description)
+                                imageVector = Icons.Default.Contacts,
+                                contentDescription = stringResource(id = R.string.contact_icon_description)
                             )
                         }
                     }

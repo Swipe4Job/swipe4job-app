@@ -16,7 +16,10 @@ import cat.dam.grup2.swipe4job_app.shared.retrofit.model.NotificationEvent
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateNotificationsView
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
+
+var recruiterContact by mutableStateOf<Notification?>(null)
 
 fun generateFakeCandidateNotifications(): List<Notification> {
     val notifications = mutableListOf<Notification>()
@@ -42,8 +45,7 @@ fun getMessageForEventType(eventType: NotificationEvent): String {
     }
 }
 
-val candidateNotifications = generateFakeCandidateNotifications()
-
+val candidateNotificationsList = CandidateNotificationsViewModel.obtainInstance().notifications
 @Composable
 fun CandidateNotifications(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.NOTIFICATIONS) }
@@ -66,8 +68,11 @@ fun CandidateNotifications(navController: NavController) {
                 .padding(innerPadding)
         ) {
             CandidateNotificationsView(
-                notificationsList = candidateNotifications,
-                onDeleteClick = { /* TODO  delete notification*/ }
+                notificationsList = candidateNotificationsList,
+                onDeleteClick = { recruiter ->
+                    recruiterContact = recruiter
+                    navController.navigate("recruiterContact")
+                }
             )
         }
     }

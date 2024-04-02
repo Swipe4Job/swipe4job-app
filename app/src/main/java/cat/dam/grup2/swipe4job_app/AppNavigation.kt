@@ -22,7 +22,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPag
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSimpleDetails
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.RecruiterContact
-import cat.dam.grup2.swipe4job_app.features.candidate.screens.recruiterToView
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.recruiterContact
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CandidateContact
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage2
@@ -45,7 +45,7 @@ import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 @Composable
 fun AppNavigation(navController: NavHostController) {
     val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
-    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
+    NavHost(navController = navController, startDestination = "jobOfferSimpleDetails") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -158,10 +158,10 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("recruiterContact") { navBackStackEntry ->
-            if (recruiterToView == null) {
+            if (recruiterContact == null) {
                 throw Exception("recruiter to view is null")
             }
-            RecruiterContact(navController, recruiterToView!!)
+            RecruiterContact(navController, recruiterContact!!)
         }
 
         composable("candidateNotifications") {
