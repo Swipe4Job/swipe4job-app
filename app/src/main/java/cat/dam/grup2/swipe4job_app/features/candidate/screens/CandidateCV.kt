@@ -86,6 +86,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewMo
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddSoftskillViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
+import cat.dam.grup2.swipe4job_app.features.users.state.UserViewModel
 import cat.dam.grup2.swipe4job_app.userApiService
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
@@ -103,7 +104,9 @@ fun CandidateCV(navController: NavController) {
     val candidatePreferences = candidateProfileViewModel.preferences
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
+    val fullName = candidateProfileViewModel.fullName.value
 
+//    candidateProfileViewModel.fetchRemoteCVData()
 
     val requestPermissionsLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -140,19 +143,18 @@ fun CandidateCV(navController: NavController) {
             permissionRequested = true
         }
     }
-    val scope = rememberCoroutineScope()
 
 //    val candidate = userApiService.listCandidates()
-    val candidate = CandidateInformation(
-        description = "",
-        studies = listOf(),
-        softskills = listOf(),
-        name = "Paco",
-        lastname = "Garcia",
-        location = "",
-        languages = listOf(),
-        jobExperience = listOf()
-    )
+//    val candidate = CandidateInformation(
+//        description = "",
+//        studies = listOf(),
+//        softskills = listOf(),
+//        name = "Paco",
+//        lastname = "Garcia",
+//        location = "",
+//        languages = listOf(),
+//        jobExperience = listOf()
+//    )
 
     Scaffold(
         bottomBar = {
@@ -173,7 +175,7 @@ fun CandidateCV(navController: NavController) {
         ) {
             item {
                 Header(
-                    candidate = candidate,
+                    fullName = fullName!!,
                     editClick = { openEditBottomSheet = !openEditBottomSheet },
                     profileImageUri = CandidateProfileViewModel.getInstance().imageURI.value
                 )
@@ -295,7 +297,7 @@ fun EditOption(
 
 @Composable
 fun Header(
-    candidate: CandidateInformation,
+    fullName: String,
     editClick: () -> Unit,
     profileImageUri: Uri? = null
 ) {
@@ -340,7 +342,7 @@ fun Header(
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "${candidate.name} ${candidate.lastname}",
+            text = fullName,
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.primary
         )

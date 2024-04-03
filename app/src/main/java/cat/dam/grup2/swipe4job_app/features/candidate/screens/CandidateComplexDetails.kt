@@ -58,10 +58,10 @@ import kotlinx.coroutines.delay
 
 
 enum class LanguageLevel {
-    Low,
-    Intermediate,
-    Advanced,
-    Native;
+    LOW,
+    INTERMEDIATE,
+    ADVANCED,
+    NATIVE;
 
     companion object {
         fun fromResourceString(context: Context, resourceString: String): LanguageLevel {
@@ -69,10 +69,10 @@ enum class LanguageLevel {
                 context.resources.getStringArray(R.array.languages_level_array).toList()
 
             return when (resourceString) {
-                languageLevelResourceList[0] -> Low
-                languageLevelResourceList[1] -> Intermediate
-                languageLevelResourceList[2] -> Advanced
-                languageLevelResourceList[3] -> Native
+                languageLevelResourceList[0] -> LOW
+                languageLevelResourceList[1] -> INTERMEDIATE
+                languageLevelResourceList[2] -> ADVANCED
+                languageLevelResourceList[3] -> NATIVE
                 else -> throw Error("Unexpected language level resource string $resourceString")
             }
         }
@@ -83,10 +83,10 @@ enum class LanguageLevel {
             context.resources.getStringArray(R.array.languages_level_array).toList()
 
         return when (this) {
-            Low -> languageLevelResourceList[0]
-            Intermediate -> languageLevelResourceList[1]
-            Advanced -> languageLevelResourceList[2]
-            Native -> languageLevelResourceList[3]
+            LOW -> languageLevelResourceList[0]
+            INTERMEDIATE -> languageLevelResourceList[1]
+            ADVANCED -> languageLevelResourceList[2]
+            NATIVE -> languageLevelResourceList[3]
         }
     }
 }

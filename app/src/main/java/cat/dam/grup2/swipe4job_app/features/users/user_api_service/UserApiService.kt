@@ -42,7 +42,6 @@ class UserApiService(val retrofit: RetrofitService) {
 
     suspend fun listCompanies(criteria: Criteria): List<CompanyData> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
-        println(encodedCriteria)
         val results = retrofit.listCompanies(encodedCriteria)
         return results.data
     }
@@ -50,7 +49,6 @@ class UserApiService(val retrofit: RetrofitService) {
 
     suspend fun listOffers(criteria: Criteria): List<JobOfferInformation> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
-        println(encodedCriteria)
         val results = retrofit.listOffers(encodedCriteria)
 
         val format = DateTimeFormatter.ISO_INSTANT
@@ -78,9 +76,9 @@ class UserApiService(val retrofit: RetrofitService) {
 
     suspend fun listCandidates(criteria: Criteria): List<CandidateInformation> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
-        println(encodedCriteria)
         val results = retrofit.listCandidate(encodedCriteria)
         return results.data.map { candidateData ->
+            println(candidateData)
             CandidateInformation(
                 description = candidateData.description,
                 location = candidateData.location,

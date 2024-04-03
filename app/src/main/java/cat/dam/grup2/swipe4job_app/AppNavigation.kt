@@ -40,6 +40,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.screens.recruiterToView
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
+import cat.dam.grup2.swipe4job_app.features.users.state.UserViewModel
 import cat.dam.grup2.swipe4job_app.shared.screen.SplashScreen
 
 val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService())
@@ -47,7 +48,7 @@ val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService()
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "candidateCV") {
+    NavHost(navController = navController, startDestination = "userLoginForm") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)
@@ -105,6 +106,10 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("candidateCV") {
+            val userViewModel = UserViewModel.getInstance()
+            if (userViewModel.userData == null) {
+                navController.navigate("userLoginForm")
+            }
             CandidateCV(navController)
         }
 

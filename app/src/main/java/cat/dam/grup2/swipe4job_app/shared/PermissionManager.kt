@@ -327,11 +327,9 @@ class PermissionManager(var activity: ComponentActivity) : ComponentActivity() {
 
     private fun requestPermissions() {
         val list = getPermissionList()
-        println("list: $list")
         val deniedList = list.filter { isPermanentlyDenied(activity, it) }
         this.deniedList.addAll(deniedList)
         val finalList = list.subtract(deniedList.toSet())
-        println("final: $finalList")
         permissionCheck.launch(finalList.toTypedArray())
     }
 

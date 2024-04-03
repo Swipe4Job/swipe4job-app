@@ -62,7 +62,7 @@ fun AddLanguage(navController: NavController) {
     var selectedLevel = remember {
         mutableStateOf(
             if (isEditing) addLanguageViewModel.editingLanguage!!.level
-            else LanguageLevel.Intermediate
+            else LanguageLevel.INTERMEDIATE
         )
     }
     var academicTitle = remember {
@@ -286,16 +286,16 @@ fun AddLanguageContent(
 fun toLanguageLevel(context: Context, text: String): LanguageLevel {
     return when (text) {
         context.resources.getStringArray(R.array.languages_level_array)
-            .toList()[0] -> LanguageLevel.Low
+            .toList()[0] -> LanguageLevel.LOW
 
         context.resources.getStringArray(R.array.languages_level_array)
-            .toList()[1] -> LanguageLevel.Intermediate
+            .toList()[1] -> LanguageLevel.INTERMEDIATE
 
         context.resources.getStringArray(R.array.languages_level_array)
-            .toList()[2] -> LanguageLevel.Advanced
+            .toList()[2] -> LanguageLevel.ADVANCED
 
         context.resources.getStringArray(R.array.languages_level_array)
-            .toList()[3] -> LanguageLevel.Native
+            .toList()[3] -> LanguageLevel.NATIVE
 
         else -> {
             throw CustomError("Can not convert $text to a language level")
