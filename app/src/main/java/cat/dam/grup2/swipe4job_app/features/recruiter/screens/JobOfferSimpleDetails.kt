@@ -47,6 +47,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottom
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SoftSkillsList
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.JobOfferDetailsViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
@@ -147,7 +148,7 @@ fun ColumnScope.JobOfferSimpleDetailsView(
     }
 
     val skills = jobOffer.skills
-    val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
+    val chipItems = skills.map { ChipItem(label = SoftSkillsList.toResourceString(LocalContext.current, it), icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
     val scope = rememberCoroutineScope()
     scope.launch {
