@@ -18,6 +18,20 @@ sealed class SalaryRange {
             Between(55_000.0, 65_000.0),
             GreaterThan(65_000.0)
         )
+
+        fun formValue(value: String): SalaryRange {
+            return when (value) {
+                "LOWER_THAN_15" -> SalaryRange.LowerThan(15_000.0)
+                "BETWEEN_15_20" -> SalaryRange.Between(15_000.0, 20_000.0)
+                "BETWEEN_20_25" -> SalaryRange.Between(20_000.0, 25_000.0)
+                "BETWEEN_25_35" -> SalaryRange.Between(25_000.0, 35_000.0)
+                "BETWEEN_35_45" -> SalaryRange.Between(35_000.0, 45_000.0)
+                "BETWEEN_45_55" -> SalaryRange.Between(45_000.0, 55_000.0)
+                "BETWEEN_55_65" -> SalaryRange.Between(55_000.0, 65_000.0)
+                "GREATER_THAN_65" -> SalaryRange.GreaterThan(65_000.0)
+                else -> throw CustomError("Unknown salary range: $value")
+            }
+        }
     }
     class Between(val start: Double, val end: Double) : SalaryRange() {
         override fun equals(other: Any?): Boolean {

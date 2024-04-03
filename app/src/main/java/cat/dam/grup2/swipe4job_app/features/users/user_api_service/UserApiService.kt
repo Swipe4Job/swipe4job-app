@@ -10,10 +10,12 @@ import cat.dam.grup2.swipe4job_app.features.auth.state.AuthViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySectorFromStringResource
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.companySizeFromStringResource
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.RemoteResult
@@ -21,6 +23,9 @@ import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserDat
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserLogin
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserLogout
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserPost
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 class UserApiService(val retrofit: RetrofitService) {
     suspend fun listUsers(criteria: Criteria): List<UserData> {
@@ -28,29 +33,55 @@ class UserApiService(val retrofit: RetrofitService) {
         val results = retrofit.listUsers(encodedCriteria)
         return results.data
     }
+
     suspend fun listCompanies(criteria: Criteria): List<CompanyData> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
         println(encodedCriteria)
         val results = retrofit.listCompanies(encodedCriteria)
         return results.data
     }
-    suspend fun listOffers(criteria: Criteria): List<OfferData> {
+
+    suspend fun listOffers(criteria: Criteria): List<JobOfferInformation> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
         println(encodedCriteria)
         val results = retrofit.listOffers(encodedCriteria)
-        return results.data
+
+        val format = DateTimeFormatter.ISO_INSTANT
+
+        return results.data.map {
+            val instant = Instant.from(format.parse(it.publicationDate))
+            JobOfferInformation(
+                companyName = it.companyName.ifEmpty { null },
+                departmentOrganization = it.departmentOrganization,
+                jobTitle = it.title,
+                description = it.description,
+                location = it.location,
+                requirements = it.requirements,
+                publicationDate = Date.from(instant),
+                responsabilities = it.responsabilities,
+                skills = it.skills,
+                workingHours = it.workingHours.ifEmpty { null },
+                workingDayType = WorkingDayTypeOptions.valueOf(it.workingDay),
+                contractType = ContractTypeOptions.valueOf(it.contractType),
+                jobType = JobTypeOptions.valueOf(it.jobType),
+                salaryRange = SalaryRange.formValue(it.salaryRange)
+            )
+        }
     }
+
     suspend fun addUser(userPost: UserPost): Unit {
         val results = retrofit.addUser(userPost)
-        return(results.data)
+        return (results.data)
     }
+
     suspend fun addCompany(companyPost: CompanyPost): Unit {
         val results = retrofit.addCompany(companyPost)
-        return(results.data)
+        return (results.data)
     }
+
     suspend fun addOffer(offerPost: OfferPost): Unit {
         val results = retrofit.addOffer(offerPost)
-        return(results.data)
+        return (results.data)
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
