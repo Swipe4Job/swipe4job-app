@@ -36,7 +36,7 @@ fun generateFakeCandidateNotifications(): List<Notification> {
 //        val message = getMessageForEventType(eventType)
         val date = generateRandomDate()
 
-        notifications.add(Notification(eventType, null, date))
+        notifications.add(Notification(eventType, null, date, null))
     }
 
     return notifications

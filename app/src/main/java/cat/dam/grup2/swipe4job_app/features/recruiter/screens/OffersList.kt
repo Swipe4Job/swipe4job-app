@@ -142,7 +142,7 @@ fun OffersList(navController: NavController, userApiService: UserApiService) {
         try {
             println(offerListViewModel.offerList)
         } catch (error: CustomError) {
-            // Maneixar l'error, per exemple, mostrant un missatge d'error a l'usuari
+            // Gestionar l'error, per exemple, mostrant un missatge d'error a l'usuari
         }
     }
 
