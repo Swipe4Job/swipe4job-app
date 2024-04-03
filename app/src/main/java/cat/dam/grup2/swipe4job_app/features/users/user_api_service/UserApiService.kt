@@ -7,6 +7,7 @@ import androidx.annotation.RequiresExtension
 import cat.dam.aria.retrofit.shared.criteria.CriteriaEncoder
 import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.features.auth.state.AuthViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
@@ -38,6 +39,12 @@ class UserApiService(val retrofit: RetrofitService) {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
         println(encodedCriteria)
         val results = retrofit.listOffers(encodedCriteria)
+        return results.data
+    }
+    suspend fun listCandidates(criteria: Criteria): List<CandidateData> {
+        val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
+        println(encodedCriteria)
+        val results = retrofit.listCandidate(encodedCriteria)
         return results.data
     }
     suspend fun addUser(userPost: UserPost): Unit {

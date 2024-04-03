@@ -57,6 +57,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -71,6 +72,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
@@ -84,7 +86,9 @@ import cat.dam.grup2.swipe4job_app.features.candidate.state.AddPreferencesViewMo
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddSoftskillViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
+import cat.dam.grup2.swipe4job_app.userApiService
 import coil.compose.rememberImagePainter
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -101,25 +105,30 @@ fun CandidateCV(navController: NavController) {
     val bottomEditSheetState = rememberModalBottomSheetState()
 
 
-    val requestPermissionsLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-        val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
+    val requestPermissionsLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
 
 
-        if (!cameraGranted) {
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            val uri: Uri = Uri.fromParts("package", context.packageName, null)
-            intent.data = uri
-            context.startActivity(intent)
+            if (!cameraGranted) {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", context.packageName, null)
+                intent.data = uri
+                context.startActivity(intent)
+            }
         }
-    }
 
 
     var permissionRequested by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = permissionRequested) {
         if (!permissionRequested) {
-            val cameraPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
-            val storagePermission = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val cameraPermission =
+                ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+            val storagePermission = ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
             if (cameraPermission != PackageManager.PERMISSION_GRANTED || storagePermission != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionsLauncher.launch(
                     arrayOf(
@@ -131,7 +140,9 @@ fun CandidateCV(navController: NavController) {
             permissionRequested = true
         }
     }
+    val scope = rememberCoroutineScope()
 
+//    val candidate = userApiService.listCandidates()
     val candidate = CandidateInformation(
         description = "",
         studies = listOf(),
@@ -185,7 +196,9 @@ fun CandidateCV(navController: NavController) {
                     onTakePhotoClick = {
 
                     },
-                    onChoosePhotoClick = { CandidateProfileViewModel.getInstance().imageURI.value = it }
+                    onChoosePhotoClick = {
+                        CandidateProfileViewModel.getInstance().imageURI.value = it
+                    }
                 )
             }
         )
