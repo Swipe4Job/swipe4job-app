@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -21,8 +20,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationNotification
-import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 import java.text.SimpleDateFormat
 import java.util.Locale

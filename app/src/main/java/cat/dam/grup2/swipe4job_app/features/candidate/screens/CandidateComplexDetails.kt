@@ -47,13 +47,13 @@ import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateDetailsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
-import com.alexstyl.swipeablecard.rememberSwipeableCardState
-import com.alexstyl.swipeablecard.swipableCard
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
 import kotlinx.coroutines.delay
 
 
@@ -77,6 +77,7 @@ enum class LanguageLevel {
             }
         }
     }
+
     fun toResourceString(context: Context): String {
         val languageLevelResourceList =
             context.resources.getStringArray(R.array.languages_level_array).toList()
@@ -168,8 +169,13 @@ fun Section(title: String, icon: IconVector? = null, content: @Composable () -> 
 
 @Composable
 fun CandidateComplexDetails(navController: NavController) {
+    val candidateViewModel = CandidateDetailsViewModel.getInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) }
+    val currentCandidate = candidateViewModel.currentCandidate
+    if (currentCandidate == null) {
+        return
+    }
 
     Scaffold(
         bottomBar = {
@@ -195,51 +201,7 @@ fun CandidateComplexDetails(navController: NavController) {
             ) {
                 UserInformationDisplay(
                     navController,
-                    information =
-                    CandidateInformation(
-                        description = "Hello how are you",
-                        jobExperience = listOf(
-                            JobExperience(
-                                position = "Full Stack developer",
-                                company = "Telefonica",
-                                description = "Hello how are you",
-                                startDate = "2022-07",
-                                endDate = "2023-06"
-                            ),
-                            JobExperience(
-                                position = "Full Stack developer",
-                                company = "Telefonica",
-                                description = "Hello how are you",
-                                startDate = "2022-07",
-                                endDate = "2023-06"
-                            )
-                        ),
-                        studies = listOf(
-                            Study(
-                                school = "INS Pla de l'Estany",
-                                name = "DAM",
-                                startDate = "2022-07",
-                                endDate = "2023-06",
-                            ),
-                            Study(
-                                school = "INS Pla de l'Estany",
-                                name = "DAM",
-                                startDate = "2022-07",
-                                endDate = "2023-06",
-                            )
-                        ),
-                        name = "Paco",
-                        lastname = "Garcia",
-                        location = "Barcelona",
-                        softskills = listOf("Leadership", "Adaptability", "Negotiation"),
-                        languages = listOf(
-                            LanguageSkill(
-                                language = "English",
-                                level = LanguageLevel.Advanced,
-                                academicTitle = "Oxford"
-                            )
-                        ),
-                    )
+                    information = currentCandidate
                 )
             }
             Box(
@@ -247,7 +209,9 @@ fun CandidateComplexDetails(navController: NavController) {
                     .height(IntrinsicSize.Min)
             ) {
                 MatchButtons(
-                    onDislikeClick = {},
+                    onDislikeClick = {
+                        candidateViewModel.goToNextCandidate()
+                    },
                     onLikeClick = {
                         connectionAnimation = true
                     }
@@ -258,13 +222,13 @@ fun CandidateComplexDetails(navController: NavController) {
                     delay(3000)
                     connectionAnimation = false
                     navController.navigate("candidateSimpleDetails")
+                    candidateViewModel.goToNextCandidate()
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalSwipeableCardApi::class)
 @Composable
 fun UserInformationDisplay(navController: NavController, information: CandidateInformation) {
     val state = rememberSwipeableCardState()

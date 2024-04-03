@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -33,6 +35,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,21 +46,42 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.ChipItem
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.JobOfferDetailsViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
-import com.alexstyl.swipeablecard.rememberSwipeableCardState
-import com.alexstyl.swipeablecard.swipableCard
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.Direction
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun JobOfferSimpleDetails(navController: NavController) {
 
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
+    val jobOfferDetailsViewModel = JobOfferDetailsViewModel.getInstance()
+    val context = LocalContext.current
 
-    val scope = rememberCoroutineScope()
+
+    val likeHandler = { _: JobOfferInformation ->
+        Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show()
+        jobOfferDetailsViewModel.goToNextJobOffer()
+        if (jobOfferDetailsViewModel.currentJobOffer != null) {
+            Toast.makeText(context, "Is not null", Toast.LENGTH_SHORT).show()
+        }
+        connectionAnimation = true
+    }
+
+    val dislikeHandler = { _: JobOfferInformation ->
+        Toast.makeText(context, "Dislike", Toast.LENGTH_SHORT).show()
+        jobOfferDetailsViewModel.goToNextJobOffer()
+        if (jobOfferDetailsViewModel.currentJobOffer != null) {
+            Toast.makeText(context, "Is not null", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -76,16 +100,18 @@ fun JobOfferSimpleDetails(navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxWidth(),
         ) {
-            JobOfferSimpleDetails(navController)
+            JobOfferSimpleDetailsView(navController, onLike = likeHandler, onDislike = dislikeHandler)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(IntrinsicSize.Min)
             ) {
                 MatchButtons(
-                    onDislikeClick = {},
+                    onDislikeClick = {
+                        dislikeHandler(jobOfferDetailsViewModel.currentJobOffer!!)
+                    },
                     onLikeClick = {
-                        connectionAnimation = true
+                        likeHandler(jobOfferDetailsViewModel.currentJobOffer!!)
                     }
                 )
             }
@@ -99,12 +125,34 @@ fun JobOfferSimpleDetails(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalSwipeableCardApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ColumnScope.JobOfferSimpleDetails(navController: NavController) {
-    val skills = listOf("Kotlin", "Android Development", "Web Development")
+fun ColumnScope.JobOfferSimpleDetailsView(
+    navController: NavController,
+    onLike: (jobOffer: JobOfferInformation) -> Unit,
+    onDislike: (jobOffer: JobOfferInformation) -> Unit
+) {
+    val jobOfferDetailsViewModel = JobOfferDetailsViewModel.getInstance()
+    val jobOffer = jobOfferDetailsViewModel.currentJobOffer
+
+    if (jobOffer == null) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(align = Alignment.Center)
+        ) {
+            Text(stringResource(id = R.string.noMoreJobOffersToShow_text))
+        }
+        return
+    }
+
+    val skills = jobOffer.skills
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
+    val scope = rememberCoroutineScope()
+    scope.launch {
+        state.reset()
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -113,10 +161,17 @@ fun ColumnScope.JobOfferSimpleDetails(navController: NavController) {
             .padding(top = 10.dp)
             .swipableCard(
                 state = state,
-                onSwiped = { direction ->
+                onSwiped = {
+                    val liked = it == Direction.Right
+                    if (liked) {
+                        onLike(jobOffer)
+                    } else {
+                        onDislike(jobOffer)
+                    }
                 },
                 onSwipeCancel = {
-                }
+                },
+                blockedDirections = listOf(Direction.Up, Direction.Down)
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -140,7 +195,7 @@ fun ColumnScope.JobOfferSimpleDetails(navController: NavController) {
             Spacer(modifier = Modifier.height(48.dp))
 
             Text(
-                text = "Backend developer",
+                text = jobOffer.jobTitle,
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -155,7 +210,7 @@ fun ColumnScope.JobOfferSimpleDetails(navController: NavController) {
                     tint = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
-                    text = "Barcelona",
+                    text = jobOffer.location,
                     color = MaterialTheme.colorScheme.secondary
                 )
             }
@@ -179,11 +234,13 @@ fun ColumnScope.JobOfferSimpleDetails(navController: NavController) {
                     )
                 }
             }
-            Text(
-                text = "Wikiloc (optional field)",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
+            if (jobOffer.companyName != null) {
+                Text(
+                    text = jobOffer.companyName,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }

@@ -3,7 +3,8 @@ package cat.dam.grup2.swipe4job_app.shared.retrofit
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
-import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferData
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferDataRequestDTO
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferDataResponseDTO
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LoginResponseData
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.LogoutResponseData
@@ -12,9 +13,7 @@ import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserDat
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserLogin
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserLogout
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.model.UserPost
-import com.google.firebase.components.BuildConfig
 import okhttp3.OkHttpClient
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -42,13 +41,7 @@ interface RetrofitService {
     @GET("/offer")
     suspend fun listOffers(
         @Query("criteria") param1: String
-    ): RemoteResult<List<OfferData>>
-
-    @GET("/candidate")
-    suspend fun listCandidate(
-        @Query("criteria") param1: String
-    ): RemoteResult<List<CandidateData>>
-
+    ): RemoteResult<List<OfferDataResponseDTO>>
     @POST("/users/register")
     suspend fun addUser(
         @Body post: UserPost

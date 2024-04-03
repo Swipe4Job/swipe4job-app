@@ -9,7 +9,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterNotificationsView
@@ -17,7 +16,6 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationsViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.NotificationEvent
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 
 fun generateFakeRecruiterNotifications(): List<Notification> {
     val notifications = mutableListOf<Notification>()
@@ -29,12 +27,21 @@ fun generateFakeRecruiterNotifications(): List<Notification> {
 
     val eventTypes = NotificationEvent.values().filter { it in filteredEventTypes }
 
+    val jobTitles = listOf(
+        "Programador Java",
+        "Programador/a .NET junior",
+        "Programador Web",
+        "Progranador/Programadora .NET/Java",
+        "Desarrollador/a Front"
+    )
+
     repeat(5) {
         val eventType = eventTypes.random()
-//        val message = getMessageForEventType(eventType)
         val date = generateRandomDate()
+        val jobTitle = jobTitles[it]
 
-        notifications.add(Notification(eventType, null, date))
+        notifications.add(Notification(
+            eventType, null, date, jobTitle))
     }
 
     return notifications
@@ -43,7 +50,6 @@ fun generateFakeRecruiterNotifications(): List<Notification> {
 @Composable
 fun RecruiterNotifications(navController: NavController) {
     val recruiterNotificationsList = RecruiterNotificationsViewModel.obtainInstance().notifications
-    val recruiterNotificationsViewModel = RecruiterNotificationsViewModel.obtainInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.NOTIFICATIONS) }
 
     Scaffold(

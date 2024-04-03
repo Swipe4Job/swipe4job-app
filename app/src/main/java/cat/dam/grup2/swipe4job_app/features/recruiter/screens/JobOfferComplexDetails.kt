@@ -51,9 +51,8 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
-import com.alexstyl.swipeablecard.rememberSwipeableCardState
-import com.alexstyl.swipeablecard.swipableCard
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 
@@ -128,7 +127,6 @@ fun JobOfferComplexDetails(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalSwipeableCardApi::class)
 @Composable
 fun JobOfferInformationDisplay(navController: NavController, information: JobOfferInformation) {
     val state = rememberSwipeableCardState()

@@ -10,7 +10,8 @@ data class Notification(
     val notificationEvent: NotificationEvent,
     val notificationData: Any?,
 //    val notificationMessage: String,
-    val notificationDate: Date
+    val notificationDate: Date,
+    val data: Any?,
 )
 
 enum class NotificationEvent {

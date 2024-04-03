@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateConnection
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterConnectionsView
@@ -51,10 +50,10 @@ fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
     )
 
     val jobOfferTitles = listOf(
-        "Software Engineer",
-        "Data Analyst",
-        "UX/UI Designer",
-        "Product Manager",
+        "Programador Java",
+        "Programador/a .NET junior",
+        "Programador Web",
+        "Progranador/Programadora .NET/Java",
     )
 
     val recruiterConnectionsList = mutableListOf<RecruiterConnection>()
@@ -63,7 +62,7 @@ fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
         val candidateLastname = candidateLastnames.random()
         val candidatePhone = candidatePhones.random()
         val candidateEmail = candidateEmails.random()
-        val jobOfferTitle = jobOfferTitles.random()
+        val jobOfferTitle = jobOfferTitles[it]
         val connectionDate = generateRandomDate()
 
         recruiterConnectionsList.add(
