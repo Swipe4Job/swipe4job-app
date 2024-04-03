@@ -35,6 +35,8 @@ fun RecruiterNotificationsView(
         items(notificationsList.size) { index ->
             val notificationItem = viewModel.notifications[index]
             val notification = notificationItem.notification
+            val jobTitle = notification.data as String
+            val message = "$jobTitle ${getMessageForEventType(LocalContext.current, notification.notificationEvent)}"
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -46,7 +48,7 @@ fun RecruiterNotificationsView(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = getMessageForEventType(LocalContext.current, notification.notificationEvent),
+                        text = message,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )
