@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,6 +38,7 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SoftSkillsList
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import java.text.SimpleDateFormat
@@ -212,7 +214,13 @@ fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
                 )
             ) {
                 information.skills.forEach {
-                    SuggestionChip(onClick = { /*TODO*/ }, label = { Text(it) })
+                    SuggestionChip(onClick = { /*TODO*/ }, label = {
+                        Text(
+                            SoftSkillsList.toResourceString(
+                                LocalContext.current, it
+                            )
+                        )
+                    })
                 }
             }
 
