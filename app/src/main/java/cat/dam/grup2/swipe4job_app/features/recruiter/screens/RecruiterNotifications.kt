@@ -9,8 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterNotificationsView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationsViewModel
@@ -18,7 +19,6 @@ import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.NotificationEvent
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 
-@Composable
 fun generateFakeRecruiterNotifications(): List<Notification> {
     val notifications = mutableListOf<Notification>()
 
@@ -31,10 +31,10 @@ fun generateFakeRecruiterNotifications(): List<Notification> {
 
     repeat(5) {
         val eventType = eventTypes.random()
-        val message = getMessageForEventType(eventType)
+//        val message = getMessageForEventType(eventType)
         val date = generateRandomDate()
 
-        notifications.add(Notification(eventType, null, message, date))
+        notifications.add(Notification(eventType, null, date))
     }
 
     return notifications
@@ -48,10 +48,10 @@ fun RecruiterNotifications(navController: NavController) {
 
     Scaffold(
         bottomBar = {
-            CandidateBottomNavigationBar(
+            RecruiterBottomNavigationBar(
                 searchClick = { selected = BottomNavigationItem.SEARCH },
                 connectionsClick = { selected = BottomNavigationItem.CONNECTIONS },
-                cvClick = { selected = BottomNavigationItem.CV },
+                offersClick = { selected = BottomNavigationItem.OFFERS },
                 notificationsClick = { selected = BottomNavigationItem.NOTIFICATIONS },
                 selected = selected,
                 navController = navController
@@ -65,9 +65,10 @@ fun RecruiterNotifications(navController: NavController) {
         ) {
             RecruiterNotificationsView(
                 notificationsList = recruiterNotificationsList,
-                viewModel = recruiterNotificationsViewModel,
-                onClick = {
-
+                onClick = { notificationItem, index ->
+                    notificationItem.seen = true
+                    recruiterNotificationsList[index] = notificationItem
+                    navController.navigate("recruiterNotifications")
                 }
             )
         }

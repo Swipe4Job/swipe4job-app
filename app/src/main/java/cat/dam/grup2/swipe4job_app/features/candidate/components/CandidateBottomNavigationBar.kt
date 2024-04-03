@@ -41,7 +41,7 @@ fun CandidateBottomNavigationBar(
     modifier: Modifier = Modifier
 ) {
     val connectionsBadgeCount = CandidateConnectionsViewModel.obtainInstance().notifications.filter { !it.seen }.size
-    var notificationBadgeCount = CandidateNotificationsViewModel.obtainInstance().notifications.filter { !it.seen }.size
+    val notificationBadgeCount = CandidateNotificationsViewModel.obtainInstance().notifications.filter { !it.seen }.size
 
     BottomAppBar {
         Row(

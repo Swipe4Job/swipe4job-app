@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -21,17 +23,18 @@ import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationNotification
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
 fun CandidateNotificationsView(
     notificationsList: List<CandidateNotificationNotification>,
-    viewModel: CandidateNotificationsViewModel,
-    onClick: (notification: Notification) -> Unit
+    onClick: (notification: CandidateNotificationNotification, index: Int) -> Unit
 ) {
     LazyColumn {
         items(notificationsList.size) { index ->
+            val notificationItem = notificationsList[index]
             val notification = notificationsList[index].notification
             var seen = notificationsList[index].seen
             Card(
@@ -45,7 +48,7 @@ fun CandidateNotificationsView(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = "${notification.notificationMessage}",
+                        text = getMessageForEventType(LocalContext.current, notification.notificationEvent),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
@@ -65,8 +68,7 @@ fun CandidateNotificationsView(
                     ) {
                         TextButton(
                             onClick = { seen = true
-                                viewModel.notifications[index]
-                                onClick(notification)
+                                onClick(notificationItem, index)
                             }
                         ) {
                             Text(

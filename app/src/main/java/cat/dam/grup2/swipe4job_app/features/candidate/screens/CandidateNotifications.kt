@@ -33,10 +33,10 @@ fun generateFakeCandidateNotifications(): List<Notification> {
 
     repeat(5) {
         val eventType = eventTypes.random()
-        val message = getMessageForEventType(eventType)
+//        val message = getMessageForEventType(eventType)
         val date = generateRandomDate()
 
-        notifications.add(Notification(eventType, null, message, date))
+        notifications.add(Notification(eventType, null, date))
     }
 
     return notifications
@@ -67,9 +67,10 @@ fun CandidateNotifications(navController: NavController) {
         ) {
             CandidateNotificationsView(
                 notificationsList = candidateNotificationsList,
-                viewModel = candidateNotificationsViewModel,
-                onClick = {
-
+                onClick = { notificationItem, index ->
+                    notificationItem.seen = true
+                    candidateNotificationsList[index] = notificationItem
+                    navController.navigate("candidateNotifications")
                 }
             )
         }

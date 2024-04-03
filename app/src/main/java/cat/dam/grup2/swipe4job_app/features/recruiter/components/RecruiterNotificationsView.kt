@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -20,20 +21,20 @@ import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationNotification
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationsViewModel
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
 fun RecruiterNotificationsView(
     notificationsList: List<RecruiterNotificationNotification>,
-    viewModel: RecruiterNotificationsViewModel,
-    onClick: (notification: Notification) -> Unit
+    onClick: (notification: RecruiterNotificationNotification, index: Int) -> Unit
 ) {
+    val viewModel = RecruiterNotificationsViewModel.obtainInstance()
     LazyColumn {
         items(notificationsList.size) { index ->
-            val notification = notificationsList[index].notification
-            var seen = notificationsList[index].seen
+            val notificationItem = viewModel.notifications[index]
+            val notification = notificationItem.notification
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -45,9 +46,9 @@ fun RecruiterNotificationsView(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = "${notification.notificationMessage}",
+                        text = getMessageForEventType(LocalContext.current, notification.notificationEvent),
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
+                        fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     val formattedConnectionDate =
@@ -56,7 +57,7 @@ fun RecruiterNotificationsView(
                         modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.notificationDate_text)}: $formattedConnectionDate",
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
+                        fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Row(
                         modifier = Modifier
@@ -66,9 +67,7 @@ fun RecruiterNotificationsView(
                     ) {
                         TextButton(
                             onClick = {
-                                seen = true
-                                viewModel.notifications[index]
-                                onClick(notification)
+                                onClick(notificationItem, index)
                             }
                         ) {
                             Text(
