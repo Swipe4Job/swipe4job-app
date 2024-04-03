@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.candidate.components
+package cat.dam.grup2.swipe4job_app.features.recruiter.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -20,23 +19,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationNotification
-import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationNotification
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationsViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun CandidateNotificationsView(
-    notificationsList: List<CandidateNotificationNotification>,
-    onClick: (notification: CandidateNotificationNotification, index: Int) -> Unit
+fun RecruiterNotificationsView(
+    notificationsList: List<RecruiterNotificationNotification>,
+    onClick: (notification: RecruiterNotificationNotification, index: Int) -> Unit
 ) {
+    val viewModel = RecruiterNotificationsViewModel.obtainInstance()
     LazyColumn {
         items(notificationsList.size) { index ->
-            val notificationItem = notificationsList[index]
-            val notification = notificationsList[index].notification
-            var seen = notificationsList[index].seen
+            val notificationItem = viewModel.notifications[index]
+            val notification = notificationItem.notification
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -50,15 +48,16 @@ fun CandidateNotificationsView(
                     Text(
                         text = getMessageForEventType(LocalContext.current, notification.notificationEvent),
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
+                        fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    val formattedConnectionDate = dateFormatter.format(notification.notificationDate)
+                    val formattedConnectionDate =
+                        dateFormatter.format(notification.notificationDate)
                     Text(
                         modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.notificationDate_text)}: $formattedConnectionDate",
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
+                        fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )
                     Row(
                         modifier = Modifier
@@ -67,7 +66,7 @@ fun CandidateNotificationsView(
                         horizontalArrangement = Arrangement.End
                     ) {
                         TextButton(
-                            onClick = { seen = true
+                            onClick = {
                                 onClick(notificationItem, index)
                             }
                         ) {

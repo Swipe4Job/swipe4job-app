@@ -333,4 +333,9 @@
     <string name="edit_text">Editar</string>
     <string name="editSoftskills_text">Editar habilidades blandas</string>
     <string name="softSkillsTip_text">Empieza a teclear y te aparecerán las opciones disponibles</string>
+    <string name="jobOfferLikeReceived_text">Tu oferta de empleo ha recibido un me gusta</string>
+    <string name="profileLikeReceived_text">Tu perfil ha recibido un me gusta</string>
+    <string name="jobOfferConnection_text">Tu perfil tiene una nueva conexión con una oferta de empleo</string>
+    <string name="candidateConnection_text">Tu oferta de empleo tiene una nueva conexión con un /a candidato/a</string>
+    <string name="markAsRead_text">Marcar como leída</string>
 </resources>

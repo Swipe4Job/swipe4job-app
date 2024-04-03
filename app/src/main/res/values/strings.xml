@@ -333,4 +333,9 @@
     <string name="edit_text">Edit</string>
     <string name="editSoftskills_text">Edit soft skills</string>
     <string name="softSkillsTip_text">Start typing and the available options will appear</string>
+    <string name="jobOfferLikeReceived_text">Your job offer has received a like</string>
+    <string name="profileLikeReceived_text">Your profile has received a like</string>
+    <string name="jobOfferConnection_text">Your profile has a new connection with a job offer</string>
+    <string name="candidateConnection_text">Your job offer has a new connection with a candidate</string>
+    <string name="markAsRead_text">Mark as read</string>
 </resources>
