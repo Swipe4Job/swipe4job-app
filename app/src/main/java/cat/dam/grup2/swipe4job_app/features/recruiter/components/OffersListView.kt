@@ -2,7 +2,6 @@ package cat.dam.grup2.swipe4job_app.features.recruiter.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
@@ -84,17 +83,29 @@ fun OffersListView(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "${stringResource(R.string.jobType_text)}: ${offer.jobType.toStringResource(LocalContext.current)}",
+                        text = "${stringResource(R.string.jobType_text)}: ${
+                            offer.jobType.toStringResource(
+                                LocalContext.current
+                            )
+                        }",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "${stringResource(R.string.contractType_text)}: ${offer.contractType.toStringResource(LocalContext.current)}",
+                        text = "${stringResource(R.string.contractType_text)}: ${
+                            offer.contractType.toStringResource(
+                                LocalContext.current
+                            )
+                        }",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "${stringResource(R.string.workingDayType_text)}: ${offer.workingDayType.toStringResource(LocalContext.current)}",
+                        text = "${stringResource(R.string.workingDayType_text)}: ${
+                            offer.workingDayType.toStringResource(
+                                LocalContext.current
+                            )
+                        }",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
@@ -106,95 +117,93 @@ fun OffersListView(
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp)
                     )
-
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp),
-                        horizontalArrangement = Arrangement.End,
+                        horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box(modifier = Modifier.weight(1f)) {
-                            TextButton(
-                                onClick = {
-                                    navController.navigate("candidateSimpleDetails")
-                                }
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.searchCandidates_text),
-                                    color = MaterialTheme.colorScheme.primary,
-                                    fontWeight = FontWeight.Bold,
-                                    textDecoration = TextDecoration.Underline
+                        IconButton(
+                            onClick = {
+                                navController.navigate("candidateSimpleDetails")
+                            },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50)
                                 )
-                            }
+                                .size(36.dp)
+                        )
+                        {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = stringResource(id = R.string.search_icon_description)
+                            )
                         }
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            IconButton(
-                                onClick = {
-                                    itemToView = offer
-                                    navController.navigate("jobOfferRecruiterView")
-                                },
-                                modifier = Modifier
-                                    .background(
-                                        color = Color.Transparent,
-                                        shape = RoundedCornerShape(50)
-                                    )
-                                    .size(36.dp)
-                            )
-                            {
-                                Icon(
-                                    imageVector = Icons.Default.Visibility,
-                                    contentDescription = stringResource(id = R.string.visibility_icon_description)
+                        IconButton(
+                            onClick = {
+                                itemToView = offer
+                                navController.navigate("jobOfferRecruiterView")
+                            },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50)
                                 )
-                            }
-                            IconButton(
-                                onClick = {
-                                          itemToEdit = offer
-                                },
-                                modifier = Modifier
-                                    .background(
-                                        color = Color.Transparent,
-                                        shape = RoundedCornerShape(50)
-                                    )
-                                    .size(36.dp)
-                                    .padding(start = 8.dp)
+                                .size(36.dp)
+                        )
+                        {
+                            Icon(
+                                imageVector = Icons.Default.Visibility,
+                                contentDescription = stringResource(id = R.string.visibility_icon_description)
                             )
-                            {
-                                Icon(
-                                    imageVector = Icons.Default.Edit,
-                                    contentDescription = stringResource(id = R.string.edit_icon_description)
-                                )
-                            }
-                            IconButton(
-                                onClick = {
-                                    offerIndexToRemove = offerIndex
-                                    openDeleteDialog.value = true
-                                },
-                                modifier = Modifier
-                                    .background(
-                                        color = Color.Transparent,
-                                        shape = RoundedCornerShape(50)
-                                    )
-                                    .size(36.dp)
-                                    .padding(start = 8.dp)
-                            )
-                            {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = stringResource(id = R.string.delete_icon_description)
-                                )
-                            }
                         }
-
+                        IconButton(
+                            onClick = {
+                                itemToEdit = offer
+                            },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50)
+                                )
+                                .size(36.dp)
+                                .padding(start = 8.dp)
+                        )
+                        {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = stringResource(id = R.string.edit_icon_description)
+                            )
+                        }
+                        IconButton(
+                            onClick = {
+                                offerIndexToRemove = offerIndex
+                                openDeleteDialog.value = true
+                            },
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50)
+                                )
+                                .size(36.dp)
+                                .padding(start = 8.dp)
+                        )
+                        {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = stringResource(id = R.string.delete_icon_description)
+                            )
+                        }
                     }
+
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun CustomAlertDialog(
@@ -236,4 +245,3 @@ fun CustomAlertDialog(
         )
     }
 }
-
