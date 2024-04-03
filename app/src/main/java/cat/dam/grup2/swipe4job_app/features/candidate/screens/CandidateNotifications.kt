@@ -18,7 +18,6 @@ import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottom
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateNotificationsView
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 
 @Composable
 fun generateFakeCandidateNotifications(): List<Notification> {
@@ -33,7 +32,6 @@ fun generateFakeCandidateNotifications(): List<Notification> {
 
     repeat(5) {
         val eventType = eventTypes.random()
-//        val message = getMessageForEventType(eventType)
         val date = generateRandomDate()
 
         notifications.add(Notification(eventType, null, date, null))
@@ -45,7 +43,6 @@ fun generateFakeCandidateNotifications(): List<Notification> {
 @Composable
 fun CandidateNotifications(navController: NavController) {
     val candidateNotificationsList = CandidateNotificationsViewModel.obtainInstance().notifications
-    val candidateNotificationsViewModel = CandidateNotificationsViewModel.obtainInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.NOTIFICATIONS) }
 
     Scaffold(

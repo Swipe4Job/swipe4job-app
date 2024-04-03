@@ -338,4 +338,6 @@
     <string name="jobOfferConnection_text">Your profile has a new connection with a job offer</string>
     <string name="candidateConnection_text">has a new connection with a candidate</string>
     <string name="markAsRead_text">Mark as read</string>
+    <string name="noMoreCandidatesToShow_text">There are no more candidates to show</string>
+    <string name="noMoreJobOffersToShow_text">There are no more job offers to show</string>
 </resources>
