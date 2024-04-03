@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.shared.retrofit
 
+import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferDataRequestDTO
