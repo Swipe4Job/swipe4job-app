@@ -37,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,11 +51,17 @@ import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateDetailsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.LanguageList
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SoftSkillsList
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
-import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
 import kotlinx.coroutines.delay
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 
 
 enum class LanguageLevel {
@@ -231,16 +238,11 @@ fun CandidateComplexDetails(navController: NavController) {
 
 @Composable
 fun UserInformationDisplay(navController: NavController, information: CandidateInformation) {
-    val state = rememberSwipeableCardState()
+    val currentCandidate = CandidateDetailsViewModel.getInstance().currentCandidate
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .swipableCard(
-                state = state,
-                onSwiped = {},
-                onSwipeCancel = {}
-            )
     )
     {
         Row(
@@ -261,7 +263,7 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
                 )
             }
             Text(
-                text = "Paco Garcia",
+                text = "${currentCandidate!!.name} ${currentCandidate!!.lastname}",
                 modifier = Modifier.padding(start = 4.dp),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -297,9 +299,9 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold)
                         )
                         val dateRange = if (it.endDate != null) {
-                            "${it.startDate} - ${it.endDate}"
+                            "${formatDate(it.startDate)} - ${formatDate(it.endDate)}"
                         } else {
-                            "${it.startDate} - {${stringResource(id = R.string.present_text)}"
+                            "${formatDate(it.startDate)} - ${stringResource(id = R.string.present_text)}"
                         }
                         Text(
                             dateRange,
@@ -329,9 +331,9 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold)
                         )
                         val dateRange = if (it.endDate != null) {
-                            "${it.startDate} - ${it.endDate}"
+                            "${formatDate(it.startDate)} - ${formatDate(it.endDate)}"
                         } else {
-                            "${it.startDate} - Present"
+                            "${formatDate(it.startDate)} - ${stringResource(id = R.string.present_text)}"
                         }
                         Text(
                             dateRange,
@@ -346,7 +348,8 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
                     icon = IconVector.ImageVectorIcon(Icons.Default.HistoryEdu)
                 ) {
                     information.softskills.forEach {
-                        SuggestionChip(onClick = { /*TODO*/ }, label = { Text(it) })
+                        val softSkill = SoftSkillsList.toResourceString(LocalContext.current, it)
+                        SuggestionChip(onClick = { /*TODO*/ }, label = { Text(softSkill) })
                     }
                 }
 
@@ -356,10 +359,10 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
                 ) {
                     information.languages.forEach {
                         Text(
-                            it.language,
+                            LanguageList.toResourceString(LocalContext.current, it.language),
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                         )
-                        Text(it.level.name)
+                        Text(it.level.toResourceString(LocalContext.current))
                         if (it.academicTitle != null) {
                             Text(
                                 it.academicTitle,
@@ -374,6 +377,13 @@ fun UserInformationDisplay(navController: NavController, information: CandidateI
             }
         }
     }
+}
+
+fun formatDate(date: String): String {
+    val format = DateTimeFormatter.ISO_INSTANT
+    val date = Date.from(Instant.from(format.parse(date)))
+    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    return dateFormatter.format(date)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

@@ -53,6 +53,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateDetailsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SoftSkillsList
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
@@ -142,7 +143,7 @@ fun ColumnScope.SimpleDetails(
         return
     }
 
-    val skills = candidate.softskills
+    val skills = candidate.softskills.map { SoftSkillsList.toResourceString(LocalContext.current, it) }
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
     val scope = rememberCoroutineScope()

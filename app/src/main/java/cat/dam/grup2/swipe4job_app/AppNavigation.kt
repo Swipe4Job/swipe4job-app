@@ -48,7 +48,7 @@ val userApiService = UserApiService(RetrofitServiceFactory.makeRetrofitService()
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "userLoginForm") {
+    NavHost(navController = navController, startDestination = "candidateSimpleDetails") {
 
         composable("splashScreen") {
             SplashScreen(navController = navController)

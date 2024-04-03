@@ -125,17 +125,9 @@ fun JobOfferComplexDetails(navController: NavController) {
 
 @Composable
 fun JobOfferInformationDisplay(navController: NavController, information: JobOfferInformation) {
-    val state = rememberSwipeableCardState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .swipableCard(
-                state = state,
-                onSwiped = {
-                },
-                onSwipeCancel = {
-                }
-            )
     )
     {
         Row(
