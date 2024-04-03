@@ -43,10 +43,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateDetailsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
@@ -168,6 +170,7 @@ fun Section(title: String, icon: IconVector? = null, content: @Composable () -> 
 
 @Composable
 fun CandidateComplexDetails(navController: NavController) {
+    val candidateViewModel = CandidateDetailsViewModel.getInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) }
 
@@ -195,51 +198,7 @@ fun CandidateComplexDetails(navController: NavController) {
             ) {
                 UserInformationDisplay(
                     navController,
-                    information =
-                    CandidateInformation(
-                        description = "Hello how are you",
-                        jobExperience = listOf(
-                            JobExperience(
-                                position = "Full Stack developer",
-                                company = "Telefonica",
-                                description = "Hello how are you",
-                                startDate = "2022-07",
-                                endDate = "2023-06"
-                            ),
-                            JobExperience(
-                                position = "Full Stack developer",
-                                company = "Telefonica",
-                                description = "Hello how are you",
-                                startDate = "2022-07",
-                                endDate = "2023-06"
-                            )
-                        ),
-                        studies = listOf(
-                            Study(
-                                school = "INS Pla de l'Estany",
-                                name = "DAM",
-                                startDate = "2022-07",
-                                endDate = "2023-06",
-                            ),
-                            Study(
-                                school = "INS Pla de l'Estany",
-                                name = "DAM",
-                                startDate = "2022-07",
-                                endDate = "2023-06",
-                            )
-                        ),
-                        name = "Paco",
-                        lastname = "Garcia",
-                        location = "Barcelona",
-                        softskills = listOf("Leadership", "Adaptability", "Negotiation"),
-                        languages = listOf(
-                            LanguageSkill(
-                                language = "English",
-                                level = LanguageLevel.Advanced,
-                                academicTitle = "Oxford"
-                            )
-                        ),
-                    )
+                    information = candidateViewModel.currentCandidate ?: throw CustomError("Candidate is null")
                 )
             }
             Box(
