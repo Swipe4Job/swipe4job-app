@@ -156,9 +156,9 @@ fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
                 )
             ) {
                 val jobType = when (information.jobType) {
-                    JobTypeOptions.Onsite -> stringResource(id = R.string.jobTypeOption_onSite_text)
-                    JobTypeOptions.Remotely -> stringResource(id = R.string.jobTypeOption_remotely_text)
-                    JobTypeOptions.Hybrid -> stringResource(id = R.string.jobTypeOption_hybrid_text)
+                    JobTypeOptions.ONSITE -> stringResource(id = R.string.jobTypeOption_onSite_text)
+                    JobTypeOptions.REMOTELY -> stringResource(id = R.string.jobTypeOption_remotely_text)
+                    JobTypeOptions.HYBRID -> stringResource(id = R.string.jobTypeOption_hybrid_text)
                 }
 
                 Text(
@@ -174,11 +174,11 @@ fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
                 )
             ) {
                 val contractType = when (information.contractType) {
-                    ContractTypeOptions.Freelance -> stringResource(id = R.string.contractTypeOptions_freelance_text)
-                    ContractTypeOptions.Internship -> stringResource(id = R.string.contractTypeOptions_internship_text)
-                    ContractTypeOptions.Temporary -> stringResource(id = R.string.contractTypeOptions_temporary_text)
-                    ContractTypeOptions.Indefinite -> stringResource(id = R.string.contractTypeOptions_indefinite_text)
-                    ContractTypeOptions.Other -> stringResource(id = R.string.contractTypeOptions_other_text)
+                    ContractTypeOptions.FREELANCE -> stringResource(id = R.string.contractTypeOptions_freelance_text)
+                    ContractTypeOptions.INTERNSHIP -> stringResource(id = R.string.contractTypeOptions_internship_text)
+                    ContractTypeOptions.TEMPORARY -> stringResource(id = R.string.contractTypeOptions_temporary_text)
+                    ContractTypeOptions.INDEFINITE -> stringResource(id = R.string.contractTypeOptions_indefinite_text)
+                    ContractTypeOptions.OTHER -> stringResource(id = R.string.contractTypeOptions_other_text)
                 }
 
                 Text(
@@ -194,9 +194,9 @@ fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
                 )
             ) {
                 val workingDayType = when (information.workingDayType) {
-                    WorkingDayTypeOptions.FullTime -> stringResource(id = R.string.workingDayType_fullTime_text)
-                    WorkingDayTypeOptions.PartTime -> stringResource(id = R.string.workingDayType_partTime_text)
-                    WorkingDayTypeOptions.Flexible -> stringResource(id = R.string.workingDayType_flexible_text)
+                    WorkingDayTypeOptions.FULL_TIME -> stringResource(id = R.string.workingDayType_fullTime_text)
+                    WorkingDayTypeOptions.PART_TIME -> stringResource(id = R.string.workingDayType_partTime_text)
+                    WorkingDayTypeOptions.FLEXIBLE -> stringResource(id = R.string.workingDayType_flexible_text)
                 }
 
                 Text(
@@ -254,7 +254,7 @@ fun JobOfferInformationDisplayRecruiterView(information: JobOfferInformation) {
                 )
             ) {
                 Text(
-                    text = information.departmentOrganisation,
+                    text = information.departmentOrganization,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
@@ -34,6 +34,7 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferListViewModel
+import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
@@ -117,7 +118,7 @@ fun generateFakeData(): MutableList<JobOfferInformation> {
                     "Skill3"
                 ), // Aquí puedes agregar habilidades ficticias
                 salaryRange = salaryRange,
-                departmentOrganisation = "Department",
+                departmentOrganization = "Department",
                 publicationDate = publicationDate
             )
         )
@@ -133,8 +134,18 @@ fun generateRandomDate(): Date {
 }
 
 @Composable
-fun OffersList(navController: NavController) {
+fun OffersList(navController: NavController, userApiService: UserApiService) {
     var selected by remember { mutableStateOf(BottomNavigationItem.OFFERS) }
+    val offerListViewModel = OfferListViewModel.instance
+
+    LaunchedEffect(key1 = true) {
+        try {
+            println(offerListViewModel.offerList)
+        } catch (error: CustomError) {
+            // Maneixar l'error, per exemple, mostrant un missatge d'error a l'usuari
+        }
+    }
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -161,7 +172,7 @@ fun OffersList(navController: NavController) {
             )
         }
     ) { innerPadding ->
-        if (OfferListViewModel.instance.offerList.isEmpty()) {
+        if (offerListViewModel.offerList.isEmpty()) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -181,7 +192,7 @@ fun OffersList(navController: NavController) {
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                OffersListView(navController)
+                OffersListView(navController, offerListViewModel.offerList)
             }
         }
     }

@@ -94,13 +94,13 @@ fun JobOfferComplexDetails(navController: NavController) {
                         description = "Hello how are you",
                         responsabilities = "Hello how are you",
                         requirements = "Hello how are you",
-                        jobType = JobTypeOptions.Hybrid,
-                        contractType = ContractTypeOptions.Temporary,
-                        workingDayType = WorkingDayTypeOptions.FullTime,
+                        jobType = JobTypeOptions.HYBRID,
+                        contractType = ContractTypeOptions.TEMPORARY,
+                        workingDayType = WorkingDayTypeOptions.FULL_TIME,
                         skills = listOf("Kotlin", "Android Development", "Web Development"),
                         salaryRange = SalaryRange.Between(45_000.0, 55_000.0),
                         workingHours = "Monday to Thursday from 9am to 17pm. Fridays from 8am to 14pm.",
-                        departmentOrganisation = "Hello how are you",
+                        departmentOrganization = "Hello how are you",
                         publicationDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-01-15 12:30:00")
                     )
                 )
@@ -210,9 +210,9 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
                     icon = IconVector.PainterIcon(painterResource(id = R.drawable.explore_nearby_icon))
                 ) {
                     val jobType = when (information.jobType) {
-                        JobTypeOptions.Onsite -> stringResource(id = R.string.jobTypeOption_onSite_text)
-                        JobTypeOptions.Remotely -> stringResource(id = R.string.jobTypeOption_remotely_text)
-                        JobTypeOptions.Hybrid -> stringResource(id = R.string.jobTypeOption_hybrid_text)
+                        JobTypeOptions.ONSITE -> stringResource(id = R.string.jobTypeOption_onSite_text)
+                        JobTypeOptions.REMOTELY -> stringResource(id = R.string.jobTypeOption_remotely_text)
+                        JobTypeOptions.HYBRID -> stringResource(id = R.string.jobTypeOption_hybrid_text)
                     }
 
                     Text(
@@ -226,11 +226,11 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
                     icon = IconVector.PainterIcon(painterResource(id = R.drawable.contract_icon))
                 ) {
                     val contractType = when (information.contractType) {
-                        ContractTypeOptions.Freelance -> stringResource(id = R.string.contractTypeOptions_freelance_text)
-                        ContractTypeOptions.Internship -> stringResource(id = R.string.contractTypeOptions_internship_text)
-                        ContractTypeOptions.Temporary -> stringResource(id = R.string.contractTypeOptions_temporary_text)
-                        ContractTypeOptions.Indefinite -> stringResource(id = R.string.contractTypeOptions_indefinite_text)
-                        ContractTypeOptions.Other -> stringResource(id = R.string.contractTypeOptions_other_text)
+                        ContractTypeOptions.FREELANCE -> stringResource(id = R.string.contractTypeOptions_freelance_text)
+                        ContractTypeOptions.INTERNSHIP -> stringResource(id = R.string.contractTypeOptions_internship_text)
+                        ContractTypeOptions.TEMPORARY -> stringResource(id = R.string.contractTypeOptions_temporary_text)
+                        ContractTypeOptions.INDEFINITE -> stringResource(id = R.string.contractTypeOptions_indefinite_text)
+                        ContractTypeOptions.OTHER -> stringResource(id = R.string.contractTypeOptions_other_text)
                     }
 
                     Text(
@@ -244,9 +244,9 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
                     icon = IconVector.PainterIcon(painterResource(id = R.drawable.calendar_clock_icon))
                 ) {
                     val workingDayType = when (information.workingDayType) {
-                        WorkingDayTypeOptions.FullTime -> stringResource(id = R.string.workingDayType_fullTime_text)
-                        WorkingDayTypeOptions.PartTime -> stringResource(id = R.string.workingDayType_partTime_text)
-                        WorkingDayTypeOptions.Flexible -> stringResource(id = R.string.workingDayType_flexible_text)
+                        WorkingDayTypeOptions.FULL_TIME -> stringResource(id = R.string.workingDayType_fullTime_text)
+                        WorkingDayTypeOptions.PART_TIME -> stringResource(id = R.string.workingDayType_partTime_text)
+                        WorkingDayTypeOptions.FLEXIBLE -> stringResource(id = R.string.workingDayType_flexible_text)
                     }
 
                     Text(
@@ -296,7 +296,7 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
                     icon = IconVector.ImageVectorIcon(Icons.Default.Hub)
                 ) {
                     Text(
-                        text = information.departmentOrganisation,
+                        text = information.departmentOrganization,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
