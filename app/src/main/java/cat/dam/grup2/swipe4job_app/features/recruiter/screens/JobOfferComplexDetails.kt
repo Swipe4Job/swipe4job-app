@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,9 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.models.ContractTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobOfferInformation
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.JobTypeOptions
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRange
+import cat.dam.grup2.swipe4job_app.features.recruiter.models.SoftSkillsList
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.WorkingDayTypeOptions
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.JobOfferDetailsViewModel
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
 import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
@@ -59,8 +62,13 @@ import java.text.SimpleDateFormat
 
 @Composable
 fun JobOfferComplexDetails(navController: NavController) {
+    val jobOfferDetailsViewModel = JobOfferDetailsViewModel.getInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
-    var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
+    var connectionAnimation by remember { mutableStateOf(false) }
+    val currentJobOffer = jobOfferDetailsViewModel.currentJobOffer
+    if (currentJobOffer == null) {
+        return
+    }
 
     Scaffold(
         bottomBar = {
@@ -87,21 +95,7 @@ fun JobOfferComplexDetails(navController: NavController) {
                 JobOfferInformationDisplay(
                     navController,
                     information =
-                    JobOfferInformation(
-                        location = "Somewhere",
-                        jobTitle = "asñodfg",
-                        description = "Hello how are you",
-                        responsabilities = "Hello how are you",
-                        requirements = "Hello how are you",
-                        jobType = JobTypeOptions.HYBRID,
-                        contractType = ContractTypeOptions.TEMPORARY,
-                        workingDayType = WorkingDayTypeOptions.FULL_TIME,
-                        skills = listOf("Kotlin", "Android Development", "Web Development"),
-                        salaryRange = SalaryRange.Between(45_000.0, 55_000.0),
-                        workingHours = "Monday to Thursday from 9am to 17pm. Fridays from 8am to 14pm.",
-                        departmentOrganization = "Hello how are you",
-                        publicationDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-01-15 12:30:00")
-                    )
+                    currentJobOffer
                 )
             }
             Box(
@@ -109,20 +103,22 @@ fun JobOfferComplexDetails(navController: NavController) {
                     .height(IntrinsicSize.Min)
             ) {
                 MatchButtons(
-                    onDislikeClick = {},
+                    onDislikeClick = {
+                        jobOfferDetailsViewModel.goToNextJobOffer()
+                    },
                     onLikeClick = {
                         connectionAnimation = true
                     }
                 )
             }
-        }
-    }
-
-    if (connectionAnimation) {
-        NewConnectionDialog(onDismiss = { connectionAnimation = false }) {
-            delay(3000)
-            connectionAnimation = false
-            navController.navigate("jobOfferSimpleDetails")
+            if (connectionAnimation) {
+                NewConnectionDialog(onDismiss = { connectionAnimation = false }) {
+                    delay(3000)
+                    connectionAnimation = false
+                    navController.navigate("jobOfferSimpleDetails")
+                    jobOfferDetailsViewModel.goToNextJobOffer()
+                }
+            }
         }
     }
 }
@@ -130,7 +126,6 @@ fun JobOfferComplexDetails(navController: NavController) {
 @Composable
 fun JobOfferInformationDisplay(navController: NavController, information: JobOfferInformation) {
     val state = rememberSwipeableCardState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -161,7 +156,7 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
                 )
             }
             Text(
-                text = "Backend developer",
+                text = JobOfferDetailsViewModel.getInstance().currentJobOffer!!.jobTitle,
                 modifier = Modifier.padding(start = 4.dp),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -258,7 +253,8 @@ fun JobOfferInformationDisplay(navController: NavController, information: JobOff
                     icon = IconVector.ImageVectorIcon(Icons.Default.HistoryEdu)
                 ) {
                     information.skills.forEach {
-                        SuggestionChip(onClick = { /*TODO*/ }, label = { Text(it) })
+                        var softSkill = SoftSkillsList.toResourceString(LocalContext.current, it)
+                        SuggestionChip(onClick = { /*TODO*/ }, label = { Text(softSkill) })
                     }
                 }
 
