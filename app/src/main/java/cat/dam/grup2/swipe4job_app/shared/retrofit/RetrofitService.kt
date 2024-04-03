@@ -66,6 +66,11 @@ interface RetrofitService {
     suspend fun userLogout(
         @Body post: UserLogout
     ): RemoteResult<LogoutResponseData>
+
+    @GET("/candidate")
+    suspend fun listCandidate(
+        @Query("criteria") param1: String
+    ): RemoteResult<List<CandidateData>>
 }
 
 object RetrofitServiceFactory {
