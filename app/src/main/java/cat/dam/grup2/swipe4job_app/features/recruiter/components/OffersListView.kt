@@ -78,7 +78,6 @@ fun OffersListView(
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text("$offerIndex")
                     Text(
                         text = "${stringResource(R.string.jobTitle_text)}: ${offer.jobTitle}",
                         style = MaterialTheme.typography.titleMedium,

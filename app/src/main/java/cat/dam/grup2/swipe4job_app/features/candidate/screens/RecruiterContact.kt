@@ -28,7 +28,7 @@ import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun RecruiterContact(navController: NavController, selectedItem: Notification) {
+fun RecruiterContact(navController: NavController, selectedItem: CandidateConnection) {
     Scaffold(
         topBar = {
             TopAppBar(

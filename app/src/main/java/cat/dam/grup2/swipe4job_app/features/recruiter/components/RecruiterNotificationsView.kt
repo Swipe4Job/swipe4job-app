@@ -1,4 +1,4 @@
-package cat.dam.grup2.swipe4job_app.features.candidate.components
+package cat.dam.grup2.swipe4job_app.features.recruiter.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,16 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import cat.dam.grup2.swipe4job_app.R
-import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationNotification
-import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationNotification
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationsViewModel
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun CandidateNotificationsView(
-    notificationsList: List<CandidateNotificationNotification>,
-    viewModel: CandidateNotificationsViewModel,
+fun RecruiterNotificationsView(
+    notificationsList: List<RecruiterNotificationNotification>,
+    viewModel: RecruiterNotificationsViewModel,
     onClick: (notification: Notification) -> Unit
 ) {
     LazyColumn {
@@ -50,7 +50,8 @@ fun CandidateNotificationsView(
                         fontWeight = if (seen) FontWeight.Normal else FontWeight.Bold
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    val formattedConnectionDate = dateFormatter.format(notification.notificationDate)
+                    val formattedConnectionDate =
+                        dateFormatter.format(notification.notificationDate)
                     Text(
                         modifier = Modifier.padding(top = 4.dp),
                         text = "${stringResource(R.string.notificationDate_text)}: $formattedConnectionDate",
@@ -64,7 +65,8 @@ fun CandidateNotificationsView(
                         horizontalArrangement = Arrangement.End
                     ) {
                         TextButton(
-                            onClick = { seen = true
+                            onClick = {
+                                seen = true
                                 viewModel.notifications[index]
                                 onClick(notification)
                             }

@@ -1,5 +1,3 @@
-package cat.dam.grup2.swipe4job_app.features.candidate.screens
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,22 +9,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
-import cat.dam.grup2.swipe4job_app.shared.retrofit.model.NotificationEvent
 import cat.dam.grup2.swipe4job_app.features.candidate.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateBottomNavigationBar
-import cat.dam.grup2.swipe4job_app.features.candidate.components.CandidateNotificationsView
-import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateNotificationsViewModel
+import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterNotificationsView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.RecruiterNotificationsViewModel
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.Notification
+import cat.dam.grup2.swipe4job_app.shared.retrofit.model.NotificationEvent
 import cat.dam.grup2.swipe4job_app.shared.retrofit.model.getMessageForEventType
 
 @Composable
-fun generateFakeCandidateNotifications(): List<Notification> {
+fun generateFakeRecruiterNotifications(): List<Notification> {
     val notifications = mutableListOf<Notification>()
 
     val filteredEventTypes = listOf(
-        NotificationEvent.PROFILE_LIKE_RECEIVED,
-        NotificationEvent.JOB_OFFER_CONNECTION
+        NotificationEvent.JOB_OFFER_LIKE_RECEIVED,
+        NotificationEvent.CANDIDATE_CONNECTION
     )
 
     val eventTypes = NotificationEvent.values().filter { it in filteredEventTypes }
@@ -43,9 +41,9 @@ fun generateFakeCandidateNotifications(): List<Notification> {
 }
 
 @Composable
-fun CandidateNotifications(navController: NavController) {
-    val candidateNotificationsList = CandidateNotificationsViewModel.obtainInstance().notifications
-    val candidateNotificationsViewModel = CandidateNotificationsViewModel.obtainInstance()
+fun RecruiterNotifications(navController: NavController) {
+    val recruiterNotificationsList = RecruiterNotificationsViewModel.obtainInstance().notifications
+    val recruiterNotificationsViewModel = RecruiterNotificationsViewModel.obtainInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.NOTIFICATIONS) }
 
     Scaffold(
@@ -65,9 +63,9 @@ fun CandidateNotifications(navController: NavController) {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            CandidateNotificationsView(
-                notificationsList = candidateNotificationsList,
-                viewModel = candidateNotificationsViewModel,
+            RecruiterNotificationsView(
+                notificationsList = recruiterNotificationsList,
+                viewModel = recruiterNotificationsViewModel,
                 onClick = {
 
                 }

@@ -106,7 +106,7 @@ fun CandidateConnections(navController: NavController) {
             CandidateConnectionsView(
                 candidateConnectionsList = candidateConnectionsList,
                 onContactClick = { recruiter ->
-                    recruiterContact = recruiter
+                    recruiterToView = recruiter
                     navController.navigate("recruiterContact")
                 }
             )

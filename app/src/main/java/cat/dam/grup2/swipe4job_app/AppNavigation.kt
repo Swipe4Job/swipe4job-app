@@ -1,6 +1,7 @@
 package cat.dam.grup2.swipe4job_app
 
 
+import RecruiterNotifications
 import android.os.Build
 import androidx.annotation.RequiresExtension
 import androidx.compose.runtime.Composable
@@ -22,7 +23,6 @@ import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPag
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSignUpPage3
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.CandidateSimpleDetails
 import cat.dam.grup2.swipe4job_app.features.candidate.screens.RecruiterContact
-import cat.dam.grup2.swipe4job_app.features.candidate.screens.recruiterContact
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CandidateContact
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage1
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.CompanyPostOfferPage2
@@ -36,6 +36,7 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPag
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.RecruiterSignUpPage2
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.candidateToView
 import cat.dam.grup2.swipe4job_app.features.recruiter.screens.itemToView
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.recruiterToView
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.RolSelection
 import cat.dam.grup2.swipe4job_app.features.users.screens.login.UserLoginForm
@@ -133,6 +134,10 @@ fun AppNavigation(navController: NavHostController) {
             CandidateContact(navController, candidateToView!!)
         }
 
+        composable("recruiterNotifications") {
+            RecruiterNotifications(navController)
+        }
+
         composable("addLanguage") {
             AddLanguage(navController)
         }
@@ -158,10 +163,10 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("recruiterContact") { navBackStackEntry ->
-            if (recruiterContact == null) {
+            if (recruiterToView == null) {
                 throw Exception("recruiter to view is null")
             }
-            RecruiterContact(navController, recruiterContact!!)
+            RecruiterContact(navController, recruiterToView!!)
         }
 
         composable("candidateNotifications") {
