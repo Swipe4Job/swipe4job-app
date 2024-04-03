@@ -79,6 +79,7 @@ enum class LanguageLevel {
             }
         }
     }
+
     fun toResourceString(context: Context): String {
         val languageLevelResourceList =
             context.resources.getStringArray(R.array.languages_level_array).toList()
@@ -173,6 +174,10 @@ fun CandidateComplexDetails(navController: NavController) {
     val candidateViewModel = CandidateDetailsViewModel.getInstance()
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) }
+    val currentCandidate = candidateViewModel.currentCandidate
+    if (currentCandidate == null) {
+        return
+    }
 
     Scaffold(
         bottomBar = {
@@ -198,7 +203,7 @@ fun CandidateComplexDetails(navController: NavController) {
             ) {
                 UserInformationDisplay(
                     navController,
-                    information = candidateViewModel.currentCandidate ?: throw CustomError("Candidate is null")
+                    information = currentCandidate
                 )
             }
             Box(
@@ -206,7 +211,9 @@ fun CandidateComplexDetails(navController: NavController) {
                     .height(IntrinsicSize.Min)
             ) {
                 MatchButtons(
-                    onDislikeClick = {},
+                    onDislikeClick = {
+                        candidateViewModel.goToNextCandidate()
+                    },
                     onLikeClick = {
                         connectionAnimation = true
                     }
@@ -217,6 +224,7 @@ fun CandidateComplexDetails(navController: NavController) {
                     delay(3000)
                     connectionAnimation = false
                     navController.navigate("candidateSimpleDetails")
+                    candidateViewModel.goToNextCandidate()
                 }
             }
         }
