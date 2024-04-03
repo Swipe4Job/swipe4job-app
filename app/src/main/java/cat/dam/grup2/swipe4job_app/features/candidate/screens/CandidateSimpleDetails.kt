@@ -130,10 +130,12 @@ fun ColumnScope.SimpleDetails(
     val candidate = candidateViewModel.currentCandidate
 
     if (candidate == null) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(align = Alignment.Center)) {
-            Text("There are no more candidates")
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(align = Alignment.Center)
+        ) {
+            Text(stringResource(id = R.string.noMoreCandidatesToShow_text))
         }
         return
     }
@@ -141,7 +143,6 @@ fun ColumnScope.SimpleDetails(
     val skills = candidate.softskills
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
-    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier

@@ -338,4 +338,6 @@
     <string name="jobOfferConnection_text">Tu perfil tiene una nueva conexión con una oferta de empleo</string>
     <string name="candidateConnection_text">tiene una nueva conexión con un /a candidato/a</string>
     <string name="markAsRead_text">Marcar como leída</string>
+    <string name="noMoreCandidatesToShow_text">No hay más candidatos a mostrar</string>
+    <string name="noMoreJobOffersToShow_text">No hay más ofertas de empleo a mostrar</string>
 </resources>
