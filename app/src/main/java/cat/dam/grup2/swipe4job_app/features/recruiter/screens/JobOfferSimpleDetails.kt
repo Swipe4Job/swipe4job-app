@@ -1,5 +1,6 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,9 +31,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,11 +51,11 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.state.JobOfferDetailsViewM
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import com.alexstyl.swipeablecard.Direction
-import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
-import com.alexstyl.swipeablecard.rememberSwipeableCardState
-import com.alexstyl.swipeablecard.swipableCard
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.Direction
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun JobOfferSimpleDetails(navController: NavController) {
@@ -60,14 +63,24 @@ fun JobOfferSimpleDetails(navController: NavController) {
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
     val jobOfferDetailsViewModel = JobOfferDetailsViewModel.getInstance()
+    val context = LocalContext.current
+
 
     val likeHandler = { _: JobOfferInformation ->
+        Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show()
         jobOfferDetailsViewModel.goToNextJobOffer()
+        if (jobOfferDetailsViewModel.currentJobOffer != null) {
+            Toast.makeText(context, "Is not null", Toast.LENGTH_SHORT).show()
+        }
         connectionAnimation = true
     }
 
     val dislikeHandler = { _: JobOfferInformation ->
+        Toast.makeText(context, "Dislike", Toast.LENGTH_SHORT).show()
         jobOfferDetailsViewModel.goToNextJobOffer()
+        if (jobOfferDetailsViewModel.currentJobOffer != null) {
+            Toast.makeText(context, "Is not null", Toast.LENGTH_SHORT).show()
+        }
     }
 
     Scaffold(
@@ -87,7 +100,7 @@ fun JobOfferSimpleDetails(navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxWidth(),
         ) {
-            JobOfferSimpleDetailsView(navController, likeHandler, dislikeHandler)
+            JobOfferSimpleDetailsView(navController, onLike = likeHandler, onDislike = dislikeHandler)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -112,7 +125,7 @@ fun JobOfferSimpleDetails(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalSwipeableCardApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ColumnScope.JobOfferSimpleDetailsView(
     navController: NavController,
@@ -136,6 +149,10 @@ fun ColumnScope.JobOfferSimpleDetailsView(
     val skills = jobOffer.skills
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
+    val scope = rememberCoroutineScope()
+    scope.launch {
+        state.reset()
+    }
 
     LazyColumn(
         modifier = Modifier
