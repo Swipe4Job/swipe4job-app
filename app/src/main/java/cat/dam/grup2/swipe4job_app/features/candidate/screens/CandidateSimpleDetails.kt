@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
@@ -37,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
@@ -44,12 +46,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.R
+import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
+import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateDetailsViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottomNavigationBar
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
+import com.alexstyl.swipeablecard.Direction
 import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
 import com.alexstyl.swipeablecard.rememberSwipeableCardState
 import com.alexstyl.swipeablecard.swipableCard
@@ -60,6 +66,16 @@ fun CandidateSimpleDetails(navController: NavController) {
 
     var selected by remember { mutableStateOf(BottomNavigationItem.SEARCH) }
     var connectionAnimation by remember { mutableStateOf(false) } // Flag per indicar si hi ha hagut connexió entre la oferta i el candidat
+    val candidateDetailsViewModel = CandidateDetailsViewModel.getInstance()
+
+    val likeHandler = { _: CandidateInformation ->
+        candidateDetailsViewModel.goToNextCandidate()
+        connectionAnimation = true
+    }
+
+    val dislikeHandler = { _: CandidateInformation ->
+        candidateDetailsViewModel.goToNextCandidate()
+    }
 
     Scaffold(
         bottomBar = {
@@ -78,16 +94,18 @@ fun CandidateSimpleDetails(navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxWidth(),
         ) {
-            SimpleDetails(navController)
+            SimpleDetails(navController, onLike = likeHandler, onDislike = dislikeHandler)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(IntrinsicSize.Min)
             ) {
                 MatchButtons(
-                    onDislikeClick = {},
+                    onDislikeClick = {
+                        dislikeHandler(candidateDetailsViewModel.currentCandidate!!)
+                    },
                     onLikeClick = {
-                        connectionAnimation = true
+                        likeHandler(candidateDetailsViewModel.currentCandidate!!)
                     }
                 )
             }
@@ -103,10 +121,27 @@ fun CandidateSimpleDetails(navController: NavController) {
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalSwipeableCardApi::class)
 @Composable
-fun ColumnScope.SimpleDetails(navController: NavController) {
-    val skills = listOf("Kotlin", "Android Development", "Web Development")
+fun ColumnScope.SimpleDetails(
+    navController: NavController,
+    onLike: (candidate: CandidateInformation) -> Unit,
+    onDislike: (candidate: CandidateInformation) -> Unit
+) {
+    val candidateViewModel = CandidateDetailsViewModel.getInstance()
+    val candidate = candidateViewModel.currentCandidate
+
+    if (candidate == null) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize(align = Alignment.Center)) {
+            Text("There are no more candidates")
+        }
+        return
+    }
+
+    val skills = candidate.softskills
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier
@@ -116,10 +151,16 @@ fun ColumnScope.SimpleDetails(navController: NavController) {
             .swipableCard(
                 state = state,
                 onSwiped = {
+                    val liked = it == Direction.Right
+                    if (liked) {
+                        onLike(candidate)
+                    } else {
+                        onDislike(candidate)
+                    }
                 },
                 onSwipeCancel = {
-
-                }
+                },
+                blockedDirections = listOf(Direction.Up, Direction.Down)
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -150,7 +191,7 @@ fun ColumnScope.SimpleDetails(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Paco Garcia",
+                text = "${candidate.name} ${candidate.lastname}",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -165,7 +206,7 @@ fun ColumnScope.SimpleDetails(navController: NavController) {
                     tint = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
-                    text = "Barcelona",
+                    text = candidate.location,
                     color = MaterialTheme.colorScheme.secondary
                 )
             }
