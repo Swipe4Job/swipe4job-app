@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 val navbarController = rememberNavController()
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

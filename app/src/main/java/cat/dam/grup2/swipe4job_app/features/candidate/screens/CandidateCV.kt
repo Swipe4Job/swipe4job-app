@@ -103,9 +103,9 @@ fun CandidateCV(navController: NavController) {
 
     val requestPermissionsLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
         val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
-        val storageGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: false
 
-        if (!cameraGranted || !storageGranted) {
+
+        if (!cameraGranted) {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             val uri: Uri = Uri.fromParts("package", context.packageName, null)
             intent.data = uri
@@ -706,31 +706,3 @@ fun Preview() {
     )
     CandidateCV(rememberNavController())
 }
-/*
-val requestPermissionsLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-        val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
-        val storageGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: false
-
-        if (!cameraGranted || !storageGranted) {
-            Toast.makeText(LocalContext.current, "Los permisos de cámara y almacenamiento son necesarios para esta funcionalidad.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    var permissionRequested by remember { mutableStateOf(false) }
-
-    LaunchedEffect(key1 = permissionRequested) {
-        if (!permissionRequested) {
-            val cameraPermission = ContextCompat.checkSelfPermission(LocalContext.current, Manifest.permission.CAMERA)
-            val storagePermission = ContextCompat.checkSelfPermission(LocalContext.current, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            if (cameraPermission != PackageManager.PERMISSION_GRANTED || storagePermission != PackageManager.PERMISSION_GRANTED) {
-                requestPermissionsLauncher.launch(
-                    arrayOf(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                )
-            }
-            permissionRequested = true
-        }
-    }
- */
