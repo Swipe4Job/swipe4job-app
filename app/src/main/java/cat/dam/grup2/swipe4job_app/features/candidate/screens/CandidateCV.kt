@@ -1,14 +1,17 @@
 package cat.dam.grup2.swipe4job_app.features.candidate.screens
 
+import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -67,6 +70,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.dam.grup2.swipe4job_app.R
@@ -82,6 +86,7 @@ import cat.dam.grup2.swipe4job_app.features.candidate.state.AddStudyViewModel
 import cat.dam.grup2.swipe4job_app.features.candidate.state.CandidateProfileViewModel
 import coil.compose.rememberImagePainter
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CandidateCV(navController: NavController) {
@@ -90,9 +95,42 @@ fun CandidateCV(navController: NavController) {
     val languagesList = candidateProfileViewModel.languages
     val studiesList = candidateProfileViewModel.studies
     val experiencesList = candidateProfileViewModel.experiences
+    val context = LocalContext.current
     val candidatePreferences = candidateProfileViewModel.preferences
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
+
+
+    val requestPermissionsLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
+
+
+        if (!cameraGranted) {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri: Uri = Uri.fromParts("package", context.packageName, null)
+            intent.data = uri
+            context.startActivity(intent)
+        }
+    }
+
+
+    var permissionRequested by remember { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = permissionRequested) {
+        if (!permissionRequested) {
+            val cameraPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+            val storagePermission = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (cameraPermission != PackageManager.PERMISSION_GRANTED || storagePermission != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionsLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                )
+            }
+            permissionRequested = true
+        }
+    }
 
     val candidate = CandidateInformation(
         description = "",
@@ -133,10 +171,10 @@ fun CandidateCV(navController: NavController) {
                 SoftSkills(navController, candidateProfileViewModel.softSkills)
                 Languages(navController, languagesList)
                 Preferences(navController, candidatePreferences)
-
             }
         }
     }
+
     if (openEditBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = { openEditBottomSheet = false },
@@ -152,7 +190,7 @@ fun CandidateCV(navController: NavController) {
             }
         )
     }
-    }
+}
 
 
 @Composable
