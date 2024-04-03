@@ -7,7 +7,12 @@ import androidx.annotation.RequiresExtension
 import cat.dam.aria.retrofit.shared.criteria.CriteriaEncoder
 import cat.dam.grup2.swipe4job_app.CustomError
 import cat.dam.grup2.swipe4job_app.features.auth.state.AuthViewModel
+import cat.dam.grup2.swipe4job_app.features.candidate.CandidateInformation
 import cat.dam.grup2.swipe4job_app.features.candidate.model.CandidateData
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.JobExperience
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.LanguageLevel
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.LanguageSkill
+import cat.dam.grup2.swipe4job_app.features.candidate.screens.Study
 import cat.dam.grup2.swipe4job_app.shared.retrofit.RetrofitService
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyData
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.CompanyPost
@@ -29,35 +34,68 @@ class UserApiService(val retrofit: RetrofitService) {
         val results = retrofit.listUsers(encodedCriteria)
         return results.data
     }
+
     suspend fun listCompanies(criteria: Criteria): List<CompanyData> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
         println(encodedCriteria)
         val results = retrofit.listCompanies(encodedCriteria)
         return results.data
     }
+
     suspend fun listOffers(criteria: Criteria): List<OfferData> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
         println(encodedCriteria)
         val results = retrofit.listOffers(encodedCriteria)
         return results.data
     }
-    suspend fun listCandidates(criteria: Criteria): List<CandidateData> {
+
+    suspend fun listCandidates(criteria: Criteria): List<CandidateInformation> {
         val encodedCriteria = CriteriaEncoder.encodeCriteria(criteria)
         println(encodedCriteria)
         val results = retrofit.listCandidate(encodedCriteria)
-        return results.data
+        return results.data.map { candidateData ->
+            CandidateInformation(
+                description = candidateData.description,
+                location = candidateData.location,
+                jobExperience = candidateData.jobExperiences.map {
+                    JobExperience(
+                        it.position,
+                        it.company,
+                        it.description.ifEmpty { null },
+                        it.startDate,
+                        it.endDate
+                    )
+                },
+                lastname = candidateData.lastname,
+                name = candidateData.name,
+                softskills = candidateData.softSkills,
+                languages = candidateData.languages.map {
+                    LanguageSkill(
+                        it.language,
+                        LanguageLevel.valueOf(it.level),
+                        it.academicTitle.ifEmpty { null }
+                    )
+                },
+                studies = candidateData.studies.map {
+                    Study(it.name, it.school, it.startDate, it.endDate)
+                }
+            )
+        }
     }
+
     suspend fun addUser(userPost: UserPost): Unit {
         val results = retrofit.addUser(userPost)
-        return(results.data)
+        return (results.data)
     }
+
     suspend fun addCompany(companyPost: CompanyPost): Unit {
         val results = retrofit.addCompany(companyPost)
-        return(results.data)
+        return (results.data)
     }
+
     suspend fun addOffer(offerPost: OfferPost): Unit {
         val results = retrofit.addOffer(offerPost)
-        return(results.data)
+        return (results.data)
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
