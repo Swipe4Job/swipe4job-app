@@ -52,9 +52,8 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.components.RecruiterBottom
 import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigationItem
 import cat.dam.grup2.swipe4job_app.shared.composables.IconVector
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
-import com.alexstyl.swipeablecard.rememberSwipeableCardState
-import com.alexstyl.swipeablecard.swipableCard
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
 import kotlinx.coroutines.delay
 
 
@@ -230,7 +229,6 @@ fun CandidateComplexDetails(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalSwipeableCardApi::class)
 @Composable
 fun UserInformationDisplay(navController: NavController, information: CandidateInformation) {
     val state = rememberSwipeableCardState()

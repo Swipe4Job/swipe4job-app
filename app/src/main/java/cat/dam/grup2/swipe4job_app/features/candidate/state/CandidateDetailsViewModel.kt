@@ -17,9 +17,9 @@ class CandidateDetailsViewModel : ViewModel() {
     var currentCandidate by mutableStateOf<CandidateInformation?>(null)
 
     fun goToNextCandidate() {
+        currentCandidate = null
         currentCandidateIndex++
         if (currentCandidateIndex >= candidates.size) {
-            currentCandidate = null
             return
         }
         currentCandidate = candidates[currentCandidateIndex]
@@ -33,50 +33,52 @@ class CandidateDetailsViewModel : ViewModel() {
                 val candidateViewModel = CandidateDetailsViewModel()
                 instance = candidateViewModel
 
-                instance!!.candidates.add(CandidateInformation(
-                    description = "Hello how are you",
-                    jobExperience = listOf(
-                        JobExperience(
-                            position = "Full Stack developer",
-                            company = "Telefonica",
-                            description = "Hello how are you",
-                            startDate = "2022-07",
-                            endDate = "2023-06"
+                repeat(3) {
+                    instance!!.candidates.add(CandidateInformation(
+                        description = "Hello how are you",
+                        jobExperience = listOf(
+                            JobExperience(
+                                position = "Full Stack developer",
+                                company = "Telefonica",
+                                description = "Hello how are you",
+                                startDate = "2022-07",
+                                endDate = "2023-06"
+                            ),
+                            JobExperience(
+                                position = "Full Stack developer",
+                                company = "Telefonica",
+                                description = "Hello how are you",
+                                startDate = "2022-07",
+                                endDate = "2023-06"
+                            )
                         ),
-                        JobExperience(
-                            position = "Full Stack developer",
-                            company = "Telefonica",
-                            description = "Hello how are you",
-                            startDate = "2022-07",
-                            endDate = "2023-06"
-                        )
-                    ),
-                    studies = listOf(
-                        Study(
-                            school = "INS Pla de l'Estany",
-                            name = "DAM",
-                            startDate = "2022-07",
-                            endDate = "2023-06",
+                        studies = listOf(
+                            Study(
+                                school = "INS Pla de l'Estany",
+                                name = "DAM",
+                                startDate = "2022-07",
+                                endDate = "2023-06",
+                            ),
+                            Study(
+                                school = "INS Pla de l'Estany",
+                                name = "DAM",
+                                startDate = "2022-07",
+                                endDate = "2023-06",
+                            )
                         ),
-                        Study(
-                            school = "INS Pla de l'Estany",
-                            name = "DAM",
-                            startDate = "2022-07",
-                            endDate = "2023-06",
-                        )
-                    ),
-                    name = "Paco",
-                    lastname = "Garcia",
-                    location = "Barcelona",
-                    softskills = listOf("Leadership", "Adaptability", "Negotiation"),
-                    languages = listOf(
-                        LanguageSkill(
-                            language = "English",
-                            level = LanguageLevel.Advanced,
-                            academicTitle = "Oxford"
-                        )
-                    ),
-                ))
+                        name = "Paco",
+                        lastname = "Garcia",
+                        location = "Barcelona",
+                        softskills = listOf("Leadership", "Adaptability", "Negotiation"),
+                        languages = listOf(
+                            LanguageSkill(
+                                language = "English",
+                                level = LanguageLevel.Advanced,
+                                academicTitle = "Oxford"
+                            )
+                        ),
+                    ))
+                }
                 instance!!.currentCandidate = instance!!.candidates[0]
             }
 

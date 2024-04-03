@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,11 +56,12 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.components.BottomNavigatio
 import cat.dam.grup2.swipe4job_app.shared.composables.MatchButtons
 import cat.dam.grup2.swipe4job_app.ui.theme.AppTheme
 import cat.dam.grup2.swipe4job_app.shared.composables.NewConnectionDialog
-import com.alexstyl.swipeablecard.Direction
-import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
-import com.alexstyl.swipeablecard.rememberSwipeableCardState
-import com.alexstyl.swipeablecard.swipableCard
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.Direction
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.rememberSwipeableCardState
+import cat.dam.grup2.swipe4job_app.shared.utils.swipe.swipableCard
+
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun CandidateSimpleDetails(navController: NavController) {
@@ -119,7 +121,7 @@ fun CandidateSimpleDetails(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalSwipeableCardApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ColumnScope.SimpleDetails(
     navController: NavController,
@@ -143,6 +145,10 @@ fun ColumnScope.SimpleDetails(
     val skills = candidate.softskills
     val chipItems = skills.map { ChipItem(label = it, icon = Icons.Default.Done) }
     val state = rememberSwipeableCardState()
+    val scope = rememberCoroutineScope()
+    scope.launch {
+        state.reset()
+    }
 
     LazyColumn(
         modifier = Modifier
