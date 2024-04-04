@@ -22,36 +22,12 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 var recruiterToView by mutableStateOf<CandidateConnection?>(null)
 
 fun generateCandidateConnectionsFakeData(): List<CandidateConnection> {
-//    val recruiterNames = listOf(
-//        "Marc",
-//        "Joan",
-//        "David",
-//        "Úrsula"
-//    )
     val recruiterName = "Janira"
 
-//    val recruiterLastnames = listOf(
-//        "Pararols",
-//        "Coll",
-//        "Lozano",
-//        "Heredia"
-//    )
     val recruiterLastname = "Huesca"
 
-//    val recruiterPhones = listOf(
-//        "611111111",
-//        "622222222",
-//        "633333333",
-//        "644444444"
-//    )
-    val recruiterPhone = "611111111"
+    val recruiterPhone = "644444444"
 
-//    val recruiterEmails = listOf(
-//        "recruiter1@gmail.com",
-//        "recruiter2@gmail.com",
-//        "recruiter3@gmail.com",
-//        "recruiter4@gmail.com"
-//    )
     val recruiterEmail = "janira@example.com"
 
     val jobOfferTitles = listOf(

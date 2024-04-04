@@ -55,8 +55,8 @@ fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
     repeat(3) {
         val candidateName = candidateNames[it]
         val candidateLastname = candidateLastnames[it]
-        val candidatePhone = candidatePhones.random()
-        val candidateEmail = candidateEmails.random()
+        val candidatePhone = candidatePhones[it]
+        val candidateEmail = candidateEmails[it]
         val jobOfferTitle = jobOfferTitles[it]
         val connectionDate = generateRandomDate()
 
