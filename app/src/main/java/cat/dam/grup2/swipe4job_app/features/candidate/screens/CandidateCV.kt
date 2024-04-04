@@ -104,7 +104,7 @@ fun CandidateCV(navController: NavController) {
     val candidatePreferences = candidateProfileViewModel.preferences
     var openEditBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomEditSheetState = rememberModalBottomSheetState()
-    val fullName = candidateProfileViewModel.fullName.value
+    val fullName = candidateProfileViewModel.fullName
 
 //    candidateProfileViewModel.fetchRemoteCVData()
 
@@ -175,7 +175,7 @@ fun CandidateCV(navController: NavController) {
         ) {
             item {
                 Header(
-                    fullName = fullName!!,
+                    fullName = fullName.value,
                     editClick = { openEditBottomSheet = !openEditBottomSheet },
                     profileImageUri = CandidateProfileViewModel.getInstance().imageURI.value
                 )
