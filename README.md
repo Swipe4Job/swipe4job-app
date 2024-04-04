@@ -54,6 +54,30 @@ A més, connecta directament els candidats amb les ofertes de feina que s'ajusti
   </tr>
 </table>
 
+* Connections screen
+<table>
+  <tr>
+    <td><img src="./.github/images/recruiter_connections_dark_theme.jpg" alt="recruiter connections dark theme" width="400"></td>
+    <td><img src="./.github/images/candidate_connections_light_theme.jpg" alt="candidate connections light theme" width="400"></td>
+  </tr>
+</table>
+
+* Job Offers / Candidate CV screen
+<table>
+  <tr>
+    <td><img src="./.github/images/job_offers_dark_theme.jpg" alt="job offers dark theme" width="400"></td>
+    <td><img src="./.github/images/candidate_cv_light_theme.jpg" alt="candidate cv light theme" width="400"></td>
+  </tr>
+</table>
+
+* Notifications screen
+<table>
+  <tr>
+    <td><img src="./.github/images/recruiter_notifications_dark_theme.jpg" alt="recruiter notifications dark theme" width="400"></td>
+    <td><img src="./.github/images/candidate_notifications_light_theme.jpg" alt="candidate notifications light theme" width="400"></td>
+  </tr>
+</table>
+
 
 
 
