@@ -106,10 +106,10 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("candidateCV") {
-            val userViewModel = UserViewModel.getInstance()
-            if (userViewModel.userData == null) {
-                navController.navigate("userLoginForm")
-            }
+//            val userViewModel = UserViewModel.getInstance()
+//            if (userViewModel.userData == null) {
+//                navController.navigate("userLoginForm")
+//            }
             CandidateCV(navController)
         }
 
