@@ -44,7 +44,15 @@ A més, connecta directament els candidats amb les ofertes de feina que s'ajusti
 * CV: Els reclutadors publiquen i gestionen les seves ofertes de feina, que seran les dades que els candidats podran visualitzar.
 * Notifications: Pantalla en la qual els reclutadors poden visualitzar aquells esdeveniments rellevants relacionats amb les seves ofertes (connexions que ha tingut, “likes” obtinguts...).
 
-## Imatges:
+## Captures de pantalla:
+
+* Search screen
+<table>
+  <tr>
+    <td><img src="./.github/images/candidates_search_dark_theme.jpg" alt="candidates search dark theme" width="400"></td>
+    <td><img src="./.github/images/job_offers_search_light_theme.jpg" alt="job offers search light theme" width="400"></td>
+  </tr>
+</table>
 
 
 
