@@ -53,11 +53,11 @@ fun RecruiterNotificationsView(
                         fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )
                     val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    val formattedConnectionDate =
+                    val formattedNotificationDate =
                         dateFormatter.format(notification.notificationDate)
                     Text(
                         modifier = Modifier.padding(top = 4.dp),
-                        text = "${stringResource(R.string.notificationDate_text)}: $formattedConnectionDate",
+                        text = "${stringResource(R.string.notificationDate_text)}: $formattedNotificationDate",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = if (notificationItem.seen) FontWeight.Normal else FontWeight.Bold
                     )

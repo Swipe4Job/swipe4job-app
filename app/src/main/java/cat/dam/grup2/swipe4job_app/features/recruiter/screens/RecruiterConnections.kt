@@ -22,14 +22,12 @@ var candidateToView by mutableStateOf<RecruiterConnection?>(null)
 
 fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
     val candidateNames = listOf(
-        "Janira",
         "Arià",
         "Alejandro",
         "Edgar"
     )
 
     val candidateLastnames = listOf(
-        "Huesca",
         "Casellas",
         "Marin",
         "Medina"
@@ -38,28 +36,25 @@ fun generateRecruiterConnectionsFakeData(): List<RecruiterConnection> {
     val candidatePhones = listOf(
         "611111111",
         "622222222",
-        "633333333",
-        "644444444"
+        "633333333"
     )
 
     val candidateEmails = listOf(
         "candidate1@gmail.com",
         "candidate2@gmail.com",
-        "candidate3@gmail.com",
-        "candidate4@gmail.com"
+        "candidate3@gmail.com"
     )
 
     val jobOfferTitles = listOf(
         "Programador Java",
         "Programador/a .NET junior",
-        "Programador Web",
-        "Progranador/Programadora .NET/Java",
+        "Desarrollador/a Front"
     )
 
     val recruiterConnectionsList = mutableListOf<RecruiterConnection>()
-    repeat(4) {
-        val candidateName = candidateNames.random()
-        val candidateLastname = candidateLastnames.random()
+    repeat(3) {
+        val candidateName = candidateNames[it]
+        val candidateLastname = candidateLastnames[it]
         val candidatePhone = candidatePhones.random()
         val candidateEmail = candidateEmails.random()
         val jobOfferTitle = jobOfferTitles[it]
