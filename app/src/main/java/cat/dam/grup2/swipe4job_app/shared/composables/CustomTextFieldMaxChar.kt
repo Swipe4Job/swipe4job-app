@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -28,7 +32,7 @@ fun CustomTextFieldMaxChar(
                 descriptionState.value = newText
             }
         },
-        textStyle = MaterialTheme.typography.bodyMedium,
+        textStyle = MaterialTheme.typography.bodyMedium + LocalTextStyle.current.copy(color = MaterialTheme.colorScheme.onBackground),
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
@@ -39,7 +43,7 @@ fun CustomTextFieldMaxChar(
             )
             .padding(6.dp)
             .height(120.dp),
-        keyboardOptions = keyboardOptions
+        keyboardOptions = keyboardOptions,
     )
 
     // Character counter
