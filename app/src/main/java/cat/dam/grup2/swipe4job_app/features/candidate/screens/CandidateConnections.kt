@@ -22,48 +22,53 @@ import cat.dam.grup2.swipe4job_app.features.recruiter.screens.generateRandomDate
 var recruiterToView by mutableStateOf<CandidateConnection?>(null)
 
 fun generateCandidateConnectionsFakeData(): List<CandidateConnection> {
-    val recruiterNames = listOf(
-        "Marc",
-        "Joan",
-        "David",
-        "Úrsula"
-    )
+//    val recruiterNames = listOf(
+//        "Marc",
+//        "Joan",
+//        "David",
+//        "Úrsula"
+//    )
+    val recruiterName = "Janira"
 
-    val recruiterLastnames = listOf(
-        "Pararols",
-        "Coll",
-        "Lozano",
-        "Heredia"
-    )
+//    val recruiterLastnames = listOf(
+//        "Pararols",
+//        "Coll",
+//        "Lozano",
+//        "Heredia"
+//    )
+    val recruiterLastname = "Huesca"
 
-    val recruiterPhones = listOf(
-        "611111111",
-        "622222222",
-        "633333333",
-        "644444444"
-    )
+//    val recruiterPhones = listOf(
+//        "611111111",
+//        "622222222",
+//        "633333333",
+//        "644444444"
+//    )
+    val recruiterPhone = "611111111"
 
-    val recruiterEmails = listOf(
-        "recruiter1@gmail.com",
-        "recruiter2@gmail.com",
-        "recruiter3@gmail.com",
-        "recruiter4@gmail.com"
-    )
+//    val recruiterEmails = listOf(
+//        "recruiter1@gmail.com",
+//        "recruiter2@gmail.com",
+//        "recruiter3@gmail.com",
+//        "recruiter4@gmail.com"
+//    )
+    val recruiterEmail = "janira@example.com"
 
     val jobOfferTitles = listOf(
-        "Software Engineer",
-        "Data Analyst",
-        "UX/UI Designer",
-        "Product Manager",
+        "Programador Java",
+        "Programador/a .NET junior",
+        "Programador Web",
+        "Programador/Programadora .NET/Java",
+        "Desarrollador/a Front",
     )
 
     val candidateConnectionsList = mutableListOf<CandidateConnection>()
-    repeat(4) {
-        val recruiterName = recruiterNames.random()
-        val recruiterLastname = recruiterLastnames.random()
-        val recruiterPhone = recruiterPhones.random()
-        val recruiterEmail = recruiterEmails.random()
-        val jobOfferTitle = jobOfferTitles.random()
+    repeat(5) {
+        val recruiterName = recruiterName
+        val recruiterLastname = recruiterLastname
+        val recruiterPhone = recruiterPhone
+        val recruiterEmail = recruiterEmail
+        val jobOfferTitle = jobOfferTitles[it]
         val connectionDate = generateRandomDate()
 
         candidateConnectionsList.add(

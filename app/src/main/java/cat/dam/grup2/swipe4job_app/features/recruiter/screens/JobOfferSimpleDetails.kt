@@ -1,6 +1,5 @@
 package cat.dam.grup2.swipe4job_app.features.recruiter.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -68,20 +67,12 @@ fun JobOfferSimpleDetails(navController: NavController) {
 
 
     val likeHandler = { _: JobOfferInformation ->
-        Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show()
         jobOfferDetailsViewModel.goToNextJobOffer()
-        if (jobOfferDetailsViewModel.currentJobOffer != null) {
-            Toast.makeText(context, "Is not null", Toast.LENGTH_SHORT).show()
-        }
         connectionAnimation = true
     }
 
     val dislikeHandler = { _: JobOfferInformation ->
-        Toast.makeText(context, "Dislike", Toast.LENGTH_SHORT).show()
         jobOfferDetailsViewModel.goToNextJobOffer()
-        if (jobOfferDetailsViewModel.currentJobOffer != null) {
-            Toast.makeText(context, "Is not null", Toast.LENGTH_SHORT).show()
-        }
     }
 
     Scaffold(

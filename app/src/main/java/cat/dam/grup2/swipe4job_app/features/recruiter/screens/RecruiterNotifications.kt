@@ -30,12 +30,10 @@ fun generateFakeRecruiterNotifications(): List<Notification> {
     val jobTitles = listOf(
         "Programador Java",
         "Programador/a .NET junior",
-        "Programador Web",
-        "Progranador/Programadora .NET/Java",
-        "Desarrollador/a Front"
+        "Programador Web"
     )
 
-    repeat(5) {
+    repeat(3) {
         val eventType = eventTypes.random()
         val date = generateRandomDate()
         val jobTitle = jobTitles[it]
