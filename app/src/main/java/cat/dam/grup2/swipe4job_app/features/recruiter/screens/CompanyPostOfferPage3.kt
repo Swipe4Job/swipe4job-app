@@ -35,6 +35,7 @@ import androidx.navigation.NavController
 import cat.dam.grup2.swipe4job_app.R
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.OfferPost
 import cat.dam.grup2.swipe4job_app.features.recruiter.models.SalaryRangeList
+import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferListViewModel
 import cat.dam.grup2.swipe4job_app.features.recruiter.state.OfferViewModel
 import cat.dam.grup2.swipe4job_app.features.users.user_api_service.UserApiService
 import cat.dam.grup2.swipe4job_app.shared.composables.CustomButton
@@ -219,6 +220,7 @@ fun CompanyPostOfferPage3(navController: NavController, userApiService: UserApiS
                                         )
 
                                         userApiService.addOffer(offerPost)
+                                        OfferListViewModel.instance.refreshOffers()
                                         navController.navigate("offersList")
                                     }
                                 },
