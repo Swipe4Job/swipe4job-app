@@ -38,7 +38,7 @@ class CandidateProfileViewModel : ViewModel() {
     var studies = mutableListOf<Study>()
     var experiences = mutableListOf<JobExperience>()
     var preferences = mutableStateOf<CandidatePreferences?>(null)
-    var fullName = mutableStateOf("")
+    var fullName = mutableStateOf("Alejandro Marin")
     private var remoteJob: Job? = null
 
     fun fetchRemoteCVData() {
