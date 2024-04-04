@@ -26,4 +26,10 @@ class OfferListViewModel : ViewModel() {
             offerList.addAll(offers)
         }
     }
+
+    suspend fun refreshOffers() {
+        val offers = userApiService.listOffers(Criteria.NONE())
+        offerList.clear()
+        offerList.addAll(offers)
+    }
 }
